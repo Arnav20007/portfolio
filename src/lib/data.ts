@@ -1,12 +1,12 @@
 // ============================================================
 // ARNAV.OS — Personal Data
-// Update this file to customize all portfolio content
+// Honest student portfolio content
 // ============================================================
 
 export const personal = {
   name: "Arnav Singh",
-  title: "Software Engineer",
-  taglines: ["Builder", "Creator", "Problem Solver", "AI Developer", "Full-Stack Engineer"],
+  title: "B.Tech CSE Student",
+  taglines: ["CSE Student", "C++ / DSA", "React & Next.js", "Python", "Project Builder"],
   email: "arnav@example.com",
   phone: "+91 98765 43210",
   github: "arnavsingh",
@@ -15,74 +15,65 @@ export const personal = {
   available: true,
   avatar: "/images/avatar.jpg",
   resume: "/resume.pdf",
-  bio: "I'm a CS engineer who lives at the intersection of code and creativity. I build things that matter — from AI tools that help people process emotions, to finance apps that make money management effortless. I believe the best software feels invisible, so users can focus on what actually matters.",
-  shortBio: "CS Engineer. AI Developer. Builder of things that matter.",
+  bio: "B.Tech Computer Science Engineering student focused on DSA, software engineering, and building practical projects with modern technologies.",
+  shortBio: "5th-semester B.Tech CSE student. Focused on C++, DSA, and building practical web and AI projects.",
 };
 
 export const funFacts = [
-  "I drink too much chai ☕",
-  "I overthink everything, including this fact 🤔",
-  "I love solving impossible problems 💡",
-  "I debug code at 2 AM... and enjoy it 🌙",
-  "Chess is my meditation ♟️",
-  "I have 47 unread tabs open right now 📑",
-  "I once wrote 1000 lines in one sitting 💻",
-  "Gym + code = my daily ritual 🏋️",
-  "I believe every bug is just a feature in disguise 🐛",
-  "My search history is 90% Stack Overflow 🔍",
+  "I drink chai while debugging code ☕",
+  "Chess is my favorite way to practice strategic thinking ♟️",
+  "Late-night coding sessions are when I learn the fastest 🌙",
+  "I enjoy breaking down complex DSA problems into simple patterns 💡",
+  "Gym + code = my daily balance ritual 🏋️",
+  "Always curious to learn how systems work under the hood 🔍",
 ];
 
 export const bucketList = [
-  { item: "Build a startup", done: true, emoji: "🚀" },
-  { item: "Travel Japan", done: false, emoji: "🇯🇵" },
-  { item: "Go skydiving", done: false, emoji: "🪂" },
-  { item: "Complete an Ironman triathlon", done: false, emoji: "🏊" },
-  { item: "Build a billion-dollar company", done: false, emoji: "💰" },
-  { item: "Publish a research paper", done: false, emoji: "📄" },
-  { item: "Learn to play guitar", done: false, emoji: "🎸" },
-  { item: "Build an app with 1M+ users", done: false, emoji: "📱" },
+  { item: "Crack a Software Engineering Internship", done: false, emoji: "💼" },
+  { item: "Solve 500+ DSA problems", done: false, emoji: "💻" },
+  { item: "Build an open-source project used by developers", done: false, emoji: "🚀" },
+  { item: "Travel across Japan", done: false, emoji: "🇯🇵" },
   { item: "Summit a Himalayan peak", done: false, emoji: "🏔️" },
-  { item: "Give a TEDx talk", done: false, emoji: "🎤" },
+  { item: "Give a technical talk or workshop", done: false, emoji: "🎤" },
 ];
 
 export const hobbies = [
-  { name: "Chess", icon: "♟️", description: "Strategic thinking is my superpower" },
-  { name: "Gym", icon: "🏋️", description: "Discipline builds character" },
-  { name: "Music", icon: "🎵", description: "Lo-fi while coding, metal while debugging" },
-  { name: "Late-night Coding", icon: "🌙", description: "Best ideas come at 2 AM" },
-  { name: "Reading", icon: "📚", description: "Sci-fi and tech blogs mostly" },
-  { name: "Travel", icon: "✈️", description: "Every city teaches something new" },
+  { name: "Chess", icon: "♟️", description: "Strategic thinking & pattern recognition" },
+  { name: "Gym", icon: "🏋️", description: "Discipline & daily consistency" },
+  { name: "Music", icon: "🎵", description: "Lo-fi beats while programming" },
+  { name: "Reading", icon: "📚", description: "Tech blogs & computer science concepts" },
+  { name: "Coding Projects", icon: "💻", description: "Experimenting with new tools" },
 ];
 
 export const skills = [
   {
-    category: "Languages",
+    category: "Core & Languages",
     items: [
-      { name: "Python", level: 92 },
-      { name: "JavaScript / TypeScript", level: 88 },
-      { name: "Java", level: 80 },
-      { name: "C++", level: 75 },
-      { name: "SQL", level: 85 },
+      { name: "C++", level: 85 },
+      { name: "Data Structures & Algorithms", level: 80 },
+      { name: "Python", level: 78 },
+      { name: "JavaScript / TypeScript", level: 75 },
+      { name: "SQL", level: 75 },
     ],
   },
   {
-    category: "Frontend",
+    category: "Web & Frontend",
     items: [
-      { name: "React", level: 90 },
-      { name: "Next.js", level: 87 },
-      { name: "Tailwind CSS", level: 92 },
-      { name: "Framer Motion", level: 78 },
-      { name: "Three.js", level: 65 },
+      { name: "React", level: 82 },
+      { name: "Next.js", level: 80 },
+      { name: "HTML & CSS", level: 88 },
+      { name: "Tailwind CSS", level: 85 },
+      { name: "Framer Motion", level: 70 },
     ],
   },
   {
-    category: "Backend & Cloud",
+    category: "Backend & Databases",
     items: [
-      { name: "Node.js", level: 85 },
-      { name: "Flask", level: 80 },
-      { name: "Firebase", level: 82 },
-      { name: "PostgreSQL", level: 78 },
-      { name: "Docker", level: 70 },
+      { name: "Python / Flask", level: 75 },
+      { name: "Node.js / Express", level: 72 },
+      { name: "PostgreSQL / SQLite", level: 74 },
+      { name: "REST APIs", level: 80 },
+      { name: "Git & GitHub", level: 85 },
     ],
   },
 ];
@@ -91,166 +82,170 @@ export const projects = [
   {
     id: "moodmate",
     name: "MoodMate",
-    description: "An AI-powered emotional intelligence companion that helps users understand their mental patterns through journaling, sentiment analysis, and personalized insights.",
-    longDescription: "MoodMate uses NLP to analyze journal entries and detect emotional trends over time. It provides personalized coping strategies and progress tracking.",
-    tech: ["Python", "React", "Flask", "OpenAI API", "Firebase"],
+    description: "An AI-assisted mental wellness project built for a hackathon, combining journaling, sentiment analysis, mood tracking, and conversational experiences with an India-focused approach.",
+    longDescription: "MoodMate was built for a hackathon to explore how sentiment analysis and structured conversational prompts can help users reflect on their thoughts through daily journaling.",
+    tech: ["Next.js", "Python", "Flask", "OpenAI API"],
     github: "https://github.com/arnavsingh/moodmate",
     demo: "https://moodmate.vercel.app",
     image: "/images/projects/moodmate.png",
     category: "AI",
     featured: true,
-    achievement: "1000+ beta users in first month",
+    achievement: "Hackathon Project",
   },
   {
     id: "financecalc",
     name: "FinanceCalc",
-    description: "A comprehensive financial planning tool with SIP calculator, loan EMI estimator, retirement planner, and investment tracker.",
-    longDescription: "Built for the Indian market, FinanceCalc simplifies complex financial math into clean, intuitive interfaces.",
+    description: "A web-based financial calculator covering common calculations such as SIP, EMI, and other personal-finance planning utilities.",
+    longDescription: "A clean, client-side financial calculator suite built to simplify personal finance planning including SIP compounding, EMI estimates, and savings projections.",
     tech: ["Next.js", "TypeScript", "Tailwind CSS", "Chart.js"],
     github: "https://github.com/arnavsingh/financecalc",
     demo: "https://financecalc.vercel.app",
     image: "/images/projects/financecalc.png",
     category: "FinTech",
     featured: true,
-    achievement: "Featured on Product Hunt",
+    achievement: "Financial Planning",
   },
   {
     id: "pdflex",
     name: "PDFlex",
-    description: "A powerful PDF manipulation tool — merge, split, compress, convert, and annotate PDFs right in the browser with zero uploads.",
-    longDescription: "PDFlex runs entirely client-side using PDF.js and pdf-lib, ensuring complete privacy.",
+    description: "A browser-based PDF utility focused on common operations such as merging, splitting, compression, conversion, and other PDF workflows while keeping file processing on the client where supported.",
+    longDescription: "An in-browser PDF manipulation tool utilizing PDF.js and pdf-lib in client Web Workers to perform document splitting and merging locally without uploading files.",
     tech: ["React", "PDF.js", "pdf-lib", "Web Workers"],
     github: "https://github.com/arnavsingh/pdflex",
     demo: "https://pdflex.vercel.app",
     image: "/images/projects/pdflex.png",
     category: "Productivity",
     featured: true,
-    achievement: "10K+ documents processed",
+    achievement: "Client-Side Processing",
   },
   {
     id: "ascend",
     name: "ASCEND",
-    description: "A gamified productivity OS — task management meets RPG. Complete tasks to level up your character and unlock achievements.",
-    longDescription: "ASCEND transforms boring todo lists into an epic quest. Every task completed earns XP, unlocks skills, and builds your character.",
-    tech: ["Next.js", "Prisma", "PostgreSQL", "Framer Motion"],
+    description: "A gamified productivity system that combines task management with RPG-style progression, helping users turn daily tasks into a structured progression system.",
+    longDescription: "A task management web app designed to make productivity engaging by structuring daily routines into quest-like progression mechanics.",
+    tech: ["Next.js", "Prisma", "PostgreSQL", "Tailwind CSS"],
     github: "https://github.com/arnavsingh/ascend",
     demo: "https://ascend-os.vercel.app",
     image: "/images/projects/ascend.png",
     category: "Productivity",
     featured: false,
-    achievement: "500+ active users",
+    achievement: "Gamified Productivity",
   },
 ];
 
 export const experience = [
   {
-    role: "Software Engineering Intern",
-    company: "TechCorp Solutions",
-    period: "May 2024 – Aug 2024",
-    description: "Built REST APIs serving 50K+ daily requests, optimized database queries reducing load time by 40%, and shipped 3 production features.",
-    tech: ["Python", "Django", "PostgreSQL", "AWS"],
+    role: "B.Tech CSE — Student",
+    company: "University Coursework & DSA",
+    period: "2023 - Present",
+    description: "Building software projects alongside coursework while developing problem-solving skills through C++ and DSA practice.",
+    tech: ["C++", "DSA", "CSE", "Software Engineering"],
   },
   {
-    role: "Full-Stack Developer",
-    company: "Freelance",
-    period: "Jan 2023 – Present",
-    description: "Delivered 10+ web applications for clients across EdTech, FinTech, and SaaS domains. Maintained 5-star rating with on-time delivery.",
-    tech: ["React", "Node.js", "Firebase", "Next.js"],
+    role: "Independent Projects",
+    company: "Self-Directed",
+    period: "2025 - Present",
+    description: "Designing and building independent software projects to practice frontend development, backend systems, AI integrations, and product development.",
+    tech: ["React", "Next.js", "Python", "TypeScript"],
   },
   {
-    role: "Open Source Contributor",
-    company: "Various Projects",
-    period: "2022 – Present",
-    description: "Contributed to 15+ open source repositories. PRs merged into projects with 10K+ GitHub stars.",
-    tech: ["Python", "JavaScript", "TypeScript"],
+    role: "Personal Development",
+    company: "Continuous Learning",
+    period: "Ongoing",
+    description: "Actively improving programming fundamentals, DSA, software engineering, and project-building skills through consistent hands-on practice.",
+    tech: ["C++", "DSA", "Git", "GitHub"],
   },
 ];
 
 export const education = [
   {
-    degree: "B.Tech in Computer Science",
+    degree: "B.Tech in Computer Science and Engineering",
     institution: "XYZ Institute of Technology",
-    period: "2021 – 2025",
-    grade: "8.7 CGPA",
-    description: "Specialization in AI/ML. Core subjects: Data Structures, OS, DBMS, Computer Networks, Machine Learning.",
+    period: "2023 - Present (5th Semester)",
+    grade: "8.0 / 10 CGPA",
+    description: "Core coursework: Data Structures & Algorithms, Object-Oriented Programming, Operating Systems, Database Management Systems, Computer Networks.",
   },
 ];
 
 export const certificates = [
-  { name: "AWS Solutions Architect", issuer: "Amazon Web Services", year: "2024", icon: "☁️" },
-  { name: "Google Cloud Professional", issuer: "Google", year: "2024", icon: "🌐" },
-  { name: "Deep Learning Specialization", issuer: "Coursera / DeepLearning.AI", year: "2023", icon: "🧠" },
-  { name: "React Developer Certification", issuer: "Meta", year: "2023", icon: "⚛️" },
-  { name: "Python for Data Science", issuer: "IBM", year: "2022", icon: "🐍" },
+  { name: "Data Structures & Algorithms in C++", issuer: "Coursework / Online", year: "2024", icon: "💻" },
+  { name: "Full-Stack Web Development", issuer: "Project-Based Learning", year: "2024", icon: "🌐" },
+  { name: "Python Programming", issuer: "Coursework", year: "2023", icon: "🐍" },
 ];
+
+export const techStack = [
+  "C++", "DSA", "React", "Next.js", "TypeScript",
+  "Python", "Flask", "Node.js", "PostgreSQL", "SQLite",
+  "Tailwind CSS", "Git", "GitHub"
+];
+
+export const terminalCommands: Record<string, string> = {
+  help: `Available commands:\n  about     — Who is Arnav?\n  skills    — Tech skills & focus\n  projects  — Built projects\n  contact   — Get in touch\n  clear     — Clear terminal\n  exit      — Exit terminal mode`,
+  about: `Name: Arnav Singh\nRole: 5th-Semester B.Tech CSE Student\nFocus: C++, DSA, Web & AI Projects\nLocation: India 🇮🇳\nStatus: Open to Software Engineering Internships`,
+  skills: `Core Languages : C++, Python, JavaScript/TypeScript, SQL\nFrontend       : React, Next.js, Tailwind CSS\nBackend        : Python (Flask), Node.js\nDatabases      : PostgreSQL, SQLite\nTools          : Git, GitHub`,
+  projects: `🚀 MoodMate    — AI mental wellness hackathon project\n💰 FinanceCalc  — Personal finance planning utility\n📄 PDFlex       — Client-side PDF manipulation utility\n⚔️  ASCEND       — Gamified task progression system`,
+  contact: `📧 Email    : arnav@example.com\n💼 LinkedIn : linkedin.com/in/arnav-singh\n🐙 GitHub   : github.com/arnavsingh`,
+};
 
 export const services = [
-  { name: "AI Applications", icon: "🤖", desc: "Custom AI tools, chatbots, NLP pipelines, computer vision apps" },
-  { name: "Web Development", icon: "🌐", desc: "Full-stack web apps from MVP to production-ready systems" },
-  { name: "Automation", icon: "⚡", desc: "Workflow automation, bots, scraping, and process optimization" },
-  { name: "Frontend Engineering", icon: "🎨", desc: "Pixel-perfect UIs with smooth animations and micro-interactions" },
-  { name: "Backend & APIs", icon: "🔧", desc: "Scalable REST/GraphQL APIs, databases, and microservices" },
-  { name: "UI/UX Design", icon: "✨", desc: "Design systems, prototypes, and user research-driven interfaces" },
-  { name: "Mobile Apps", icon: "📱", desc: "React Native apps for iOS and Android" },
-  { name: "Consulting", icon: "💡", desc: "Tech strategy, architecture review, and growth consulting" },
-];
-
-export const testimonials = [
   {
-    name: "Priya Sharma",
-    role: "Founder, EdStart",
-    text: "Arnav delivered our platform 2 weeks ahead of schedule with exceptional code quality. He thinks like a product owner, not just a developer.",
-    avatar: "PS",
-    rating: 5,
+    name: "Web Application Development",
+    desc: "Building responsive, modern web applications using React, Next.js, and TypeScript with a focus on clean UI and performance.",
+    icon: "💻",
   },
   {
-    name: "Rahul Mehta",
-    role: "CTO, FinWave",
-    text: "The AI features Arnav built increased our user engagement by 3x. His technical depth and communication made the collaboration seamless.",
-    avatar: "RM",
-    rating: 5,
+    name: "AI / LLM Integration",
+    desc: "Integrating AI APIs (OpenAI, etc.) into web projects for practical use-cases like chat interfaces, sentiment analysis, and automation.",
+    icon: "🤖",
   },
   {
-    name: "Sarah Chen",
-    role: "Product Manager, TechCorp",
-    text: "Working with Arnav was a game-changer. He proactively identified issues we hadn't thought of and solved them before they became problems.",
-    avatar: "SC",
-    rating: 5,
+    name: "Backend & REST APIs",
+    desc: "Designing and implementing REST APIs using Python (Flask) or Node.js (Express), connected to PostgreSQL or SQLite databases.",
+    icon: "⚙️",
+  },
+  {
+    name: "Project Collaboration",
+    desc: "Open to collaborating on student or open-source projects, helping with frontend, backend, or AI integration tasks.",
+    icon: "🤝",
   },
 ];
 
 export const workflow = [
-  { step: "Idea", icon: "💡", desc: "Understanding your vision and goals" },
-  { step: "Planning", icon: "📋", desc: "Architecture, timeline, and tech stack decisions" },
-  { step: "Design", icon: "🎨", desc: "Wireframes, prototypes, and design system" },
-  { step: "Development", icon: "💻", desc: "Clean, documented, and tested code" },
-  { step: "Testing", icon: "🧪", desc: "QA, performance, and security checks" },
-  { step: "Deployment", icon: "🚀", desc: "CI/CD pipeline and production launch" },
-  { step: "Support", icon: "🛡️", desc: "Post-launch monitoring and iterations" },
+  {
+    step: "Discussion",
+    desc: "Understanding project requirements, goals, and scope through clear communication before writing any code.",
+    icon: "💬",
+  },
+  {
+    step: "Planning",
+    desc: "Breaking the project into milestones, choosing the right tech stack, and sketching out the architecture.",
+    icon: "📋",
+  },
+  {
+    step: "Development",
+    desc: "Writing clean, well-structured code iteratively, with regular check-ins and progress updates.",
+    icon: "🛠️",
+  },
+  {
+    step: "Testing & Review",
+    desc: "Testing across devices, fixing bugs, and reviewing code quality before final handoff.",
+    icon: "✅",
+  },
+  {
+    step: "Delivery",
+    desc: "Delivering the finished project with documentation, deployment guidance, and any follow-up support needed.",
+    icon: "🚀",
+  },
 ];
 
-export const techStack = [
-  "React", "Next.js", "TypeScript", "Python", "Node.js",
-  "Flask", "PostgreSQL", "Firebase", "Docker", "AWS",
-  "Tailwind", "Three.js", "OpenAI", "Prisma", "Redis"
-];
-
-export const terminalCommands: Record<string, string> = {
-  help: `Available commands:\n  about     — Who is Arnav?\n  skills    — Tech stack\n  projects  — Current projects\n  contact   — Get in touch\n  joke      — Random dev joke\n  clear     — Clear terminal\n  exit      — Exit terminal mode`,
-  about: `Name: Arnav Singh\nRole: Software Engineer & Builder\nLocation: India 🇮🇳\nStatus: Open to opportunities\nBio: I build things that matter. Code is my canvas.`,
-  skills: `Languages : Python, JS/TS, Java, C++, SQL\nFrontend  : React, Next.js, Tailwind, Three.js\nBackend   : Node.js, Flask, Django\nCloud     : AWS, Firebase, Vercel\nTools     : Git, Docker, Figma`,
-  projects: `🚀 MoodMate    — AI emotional intelligence companion\n💰 FinanceCalc  — Financial planning toolkit\n📄 PDFlex       — Browser-based PDF processor\n⚔️  ASCEND       — Gamified productivity OS`,
-  contact: `📧 Email    : arnav@example.com\n💼 LinkedIn : linkedin.com/in/arnav-singh\n🐙 GitHub   : github.com/arnavsingh\n📞 Phone    : +91 98765 43210`,
-  joke: `Why do programmers prefer dark mode?\n\nBecause light attracts bugs! 🐛`,
-};
+export const testimonials: { name: string; role: string; text: string }[] = [];
 
 export const chatFAQ = [
-  { q: ["hello", "hi", "hey"], a: "Hey! 👋 I'm Arnav's AI assistant. Ask me anything about him!" },
-  { q: ["skills", "tech", "stack", "languages"], a: "Arnav works with Python, React, Next.js, TypeScript, Node.js, Flask, PostgreSQL, Firebase, AWS, and more!" },
-  { q: ["projects", "work", "built"], a: "His flagship projects are MoodMate (AI emotional companion), FinanceCalc (financial planner), PDFlex (PDF tools), and ASCEND (gamified productivity)." },
-  { q: ["hire", "available", "open"], a: "Yes! Arnav is open to internships, full-time roles, and freelance projects. Check the HR section or drop an email." },
-  { q: ["contact", "email", "reach"], a: "Reach Arnav at arnav@example.com or on LinkedIn at linkedin.com/in/arnav-singh" },
-  { q: ["experience", "intern", "worked"], a: "Arnav has interned at TechCorp Solutions and freelanced for 10+ clients across EdTech, FinTech, and SaaS." },
-  { q: ["education", "college", "degree"], a: "B.Tech in Computer Science from XYZ Institute of Technology (2021–2025), with 8.7 CGPA." },
-  { q: ["hobby", "hobbies", "interest"], a: "Chess ♟️, gym 🏋️, late-night coding 🌙, lo-fi music 🎵, and solving impossible problems!" },
+  { q: ["hello", "hi", "hey"], a: "Hey! 👋 I'm Arnav's portfolio AI assistant. Ask me about his projects, skills, or education!" },
+  { q: ["skills", "tech", "stack", "languages"], a: "Arnav focuses on C++ and DSA for problem solving, alongside React, Next.js, Python, Flask, TypeScript, and SQL for building web applications." },
+  { q: ["projects", "work", "built"], a: "His projects include MoodMate (hackathon AI wellness tool), FinanceCalc (SIP & EMI calculator), PDFlex (client-side PDF utility), and ASCEND (gamified productivity app)." },
+  { q: ["internship", "hire", "available", "open"], a: "Yes! Arnav is a 5th-semester B.Tech CSE student actively seeking software engineering internships." },
+  { q: ["contact", "email", "reach"], a: "Reach Arnav at arnav@example.com or via LinkedIn at linkedin.com/in/arnav-singh" },
+  { q: ["education", "college", "degree", "semester", "cgpa"], a: "Arnav is in his 5th semester of B.Tech CSE at XYZ Institute of Technology with an 8.0 / 10 CGPA." },
+  { q: ["hobby", "hobbies", "interest"], a: "Chess ♟️, gym 🏋️, lo-fi music 🎵, reading tech blogs, and practicing C++ coding!" },
 ];

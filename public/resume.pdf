@@ -1,0 +1,134 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 5 0 R /F2 6 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 3321 >>
+stream
+BT
+/F1 19 Tf
+1 0 0 1 50 790 Tm
+(ARNAV SINGH) Tj
+/F2 10 Tf
+1 0 0 1 50 772 Tm
+(B.Tech CSE Student \(5th Semester\) | arnav@example.com | India) Tj
+/F2 9 Tf
+1 0 0 1 50 758 Tm
+(LinkedIn: linkedin.com/in/arnav-singh | GitHub: github.com/arnavsingh | Focus: C++, DSA & Web) Tj
+/F1 11 Tf
+1 0 0 1 50 730 Tm
+(EDUCATION) Tj
+/F1 9.5 Tf
+1 0 0 1 50 714 Tm
+(B.Tech in Computer Science and Engineering - XYZ Institute of Technology \(2023 - Present\)) Tj
+/F2 8.5 Tf
+1 0 0 1 50 702 Tm
+(Current Status: 5th Semester | CGPA: 8.0 / 10 | Core Coursework: DSA, OOP, OS, DBMS, Computer Networks) Tj
+/F1 11 Tf
+1 0 0 1 50 678 Tm
+(LEARNING & TECHNICAL GROWTH) Tj
+/F1 9.5 Tf
+1 0 0 1 50 662 Tm
+(B.Tech CSE - Student \(2023 - Present\)) Tj
+/F2 8.5 Tf
+1 0 0 1 60 650 Tm
+(- Building software projects alongside university coursework to strengthen programming fundamentals.) Tj
+/F2 8.5 Tf
+1 0 0 1 60 638 Tm
+(- Actively practicing problem solving and algorithmic thinking through C++ and Data Structures.) Tj
+/F1 9.5 Tf
+1 0 0 1 50 618 Tm
+(Independent Projects \(2025 - Present\)) Tj
+/F2 8.5 Tf
+1 0 0 1 60 606 Tm
+(- Designing and developing independent web applications practicing React, Next.js, and Python.) Tj
+/F2 8.5 Tf
+1 0 0 1 60 594 Tm
+(- Experimenting with client-side utilities and AI API integrations.) Tj
+/F1 9.5 Tf
+1 0 0 1 50 574 Tm
+(Personal Development \(Ongoing\)) Tj
+/F2 8.5 Tf
+1 0 0 1 60 562 Tm
+(- Consistently working on problem solving, version control with Git & GitHub, and modular coding.) Tj
+/F1 11 Tf
+1 0 0 1 50 536 Tm
+(PROJECTS) Tj
+/F1 9.5 Tf
+1 0 0 1 50 520 Tm
+(MoodMate - Hackathon AI Mental Wellness Companion \(Next.js, Python, Flask, OpenAI API\)) Tj
+/F2 8.5 Tf
+1 0 0 1 60 508 Tm
+(- Built for a hackathon: integrates journaling, sentiment analysis, and conversational reflections.) Tj
+/F2 8.5 Tf
+1 0 0 1 60 496 Tm
+(- Implemented lightweight Flask proxy to securely manage AI prompt requests.) Tj
+/F1 9.5 Tf
+1 0 0 1 50 476 Tm
+(PDFlex - Client-Side In-Browser PDF Utility \(React, PDF.js, pdf-lib, Web Workers\)) Tj
+/F2 8.5 Tf
+1 0 0 1 60 464 Tm
+(- Client-side tool for merging, splitting, and converting PDFs in the browser without server uploads.) Tj
+/F2 8.5 Tf
+1 0 0 1 60 452 Tm
+(- Offloaded PDF operations to Web Workers to keep browser UI responsive.) Tj
+/F1 9.5 Tf
+1 0 0 1 50 432 Tm
+(FinanceCalc - Personal Finance Planning Utility \(Next.js, TypeScript, Tailwind, Chart.js\)) Tj
+/F2 8.5 Tf
+1 0 0 1 60 420 Tm
+(- Interactive calculators for SIP compounding, loan EMI estimation, and savings projections.) Tj
+/F2 8.5 Tf
+1 0 0 1 60 408 Tm
+(- Pure TypeScript client-side mathematical calculations with immediate chart updates.) Tj
+/F1 9.5 Tf
+1 0 0 1 50 388 Tm
+(ASCEND - Gamified Task Progression System \(Next.js, Prisma, PostgreSQL, Tailwind CSS\)) Tj
+/F2 8.5 Tf
+1 0 0 1 60 376 Tm
+(- Productivity web application combining task management with RPG-style quest progression loops.) Tj
+/F1 11 Tf
+1 0 0 1 50 350 Tm
+(TECHNICAL SKILLS) Tj
+/F2 8.5 Tf
+1 0 0 1 50 336 Tm
+(Core: C++, Data Structures & Algorithms, Problem Solving, Object-Oriented Programming) Tj
+/F2 8.5 Tf
+1 0 0 1 50 324 Tm
+(Web Development: HTML, CSS, JavaScript, React, Next.js, Tailwind CSS) Tj
+/F2 8.5 Tf
+1 0 0 1 50 312 Tm
+(Backend: Python, Flask, Node.js, REST APIs) Tj
+/F2 8.5 Tf
+1 0 0 1 50 300 Tm
+(Databases & Tools: SQL, SQLite, PostgreSQL, Git, GitHub) Tj
+ET
+
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000251 00000 n 
+0000003624 00000 n 
+0000003699 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R >>
+startxref
+3769
+%%EOF
