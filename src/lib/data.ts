@@ -7,7 +7,7 @@ export const personal = {
   name: "Arnav Singh",
   title: "B.Tech CSE Student",
   taglines: ["CSE Student", "C++ / DSA", "React & Next.js", "Python", "Project Builder"],
-  email: "",
+  email: "arnavsinghas1221@gmail.com",
   phone: "",
   github: "Arnav20007",
   linkedin: "",

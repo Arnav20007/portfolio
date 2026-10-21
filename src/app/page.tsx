@@ -117,7 +117,7 @@ const projectsList: SelectedProject[] = [
     badge: "Problem Solving",
     tagline: "Data Structures & Algorithms Repository",
     description:
-      "Where I practice coding every day in C++. Covers trees, graphs, dynamic programming, and common interview problem patterns.",
+      "I practise C++ by working through trees, graphs, and DP problems.",
     stack: ["C++17", "STL", "Algorithms", "Data Structures"],
     source: "https://github.com/Arnav20007/cpp-practice",
     color: "#4F46E5",
@@ -355,7 +355,7 @@ export default function Home() {
               Comfortable With
             </h3>
             <p className="text-sm text-[#5A6275] leading-relaxed mb-6">
-              Core technologies and languages I work with regularly for coursework and problem-solving.
+              I practise C++ by working through trees, graphs, and DP problems.
             </p>
 
             <h4 className="font-bold text-xs text-[#6E07F3] uppercase tracking-wider mb-3">
@@ -388,7 +388,7 @@ export default function Home() {
               Used In Projects
             </h3>
             <p className="text-sm text-[#5A6275] leading-relaxed mb-6">
-              Tools and libraries I’ve applied while building real working web utilities and side projects.
+              Tools I’ve used in my projects.
             </p>
 
             <h4 className="font-bold text-xs text-[#6E07F3] uppercase tracking-wider mb-3">
@@ -537,28 +537,25 @@ export default function Home() {
               Looking for a software engineering internship.
             </h2>
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-              I’m available for software engineering internship opportunities. If you have an opening, or want to review my code and problem-solving, I’d love to connect.
+              If you have an opening or want to discuss my projects and problem-solving, I’d love to connect.
             </p>
           </div>
 
           <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
-            {email ? (
-              <a
-                href={`mailto:${email}?subject=Software Engineering Internship`}
-                className="px-8 py-3.5 rounded-full bg-[#5BE9B9] hover:bg-[#48d8a7] text-[#141C3A] font-bold text-sm shadow-lg hover:scale-105 transition-all"
-              >
-                Contact Me
-              </a>
-            ) : (
-              <a
-                href={resumeHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-8 py-3.5 rounded-full bg-[#5BE9B9] hover:bg-[#48d8a7] text-[#141C3A] font-bold text-sm shadow-lg hover:scale-105 transition-all"
-              >
-                Download Resume
-              </a>
-            )}
+            <a
+              href={`mailto:${email}?subject=Software Engineering Internship`}
+              className="px-8 py-3.5 rounded-full bg-[#5BE9B9] hover:bg-[#48d8a7] text-[#141C3A] font-bold text-sm shadow-lg hover:scale-105 transition-all"
+            >
+              Contact Me
+            </a>
+            <a
+              href={resumeHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-3.5 rounded-full border border-slate-700 bg-white/5 hover:bg-white/10 text-white font-bold text-sm transition-all"
+            >
+              Download Resume
+            </a>
           </div>
         </div>
       </section>
