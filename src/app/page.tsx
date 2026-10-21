@@ -6,8 +6,10 @@ import {
   Mail,
   Layers,
   Cpu,
-  Database,
+  BookOpen,
   Check,
+  Download,
+  ArrowRight,
 } from "lucide-react";
 import { personal } from "@/lib/data";
 
@@ -37,7 +39,7 @@ function LinkedinIcon({ className = "h-5 w-5" }: { className?: string }) {
   );
 }
 
-/* ── Selected Projects Data (Honest, accurate student work) ──────── */
+/* ── Selected Projects Data (Explained in Arnav's real student voice) ── */
 interface SelectedProject {
   id: string;
   name: string;
@@ -57,7 +59,7 @@ const projectsList: SelectedProject[] = [
     badge: "Web Project",
     tagline: "Resume Keyword Matcher & Scanner",
     description:
-      "A client-side tool to check resume text against job description keywords. Everything runs directly in the browser without uploading files to a server.",
+      "Built this so friends could check how well their resumes match job descriptions without paying for subscriptions or uploading personal documents to third-party servers. Everything runs client-side in React.",
     stack: ["React", "TypeScript", "Tailwind CSS", "PDF.js"],
     demo: "https://toolforge-ats.vercel.app",
     source: "https://github.com/Arnav20007/ats",
@@ -69,7 +71,7 @@ const projectsList: SelectedProject[] = [
     badge: "Browser Utility",
     tagline: "Client-Side PDF Merge & Split",
     description:
-      "A lightweight browser utility for combining or separating PDF files. Uses client-side Web Workers so documents stay on your machine.",
+      "I wanted a simple way to merge and split PDFs without uploading them. PDFlex handles that work directly in the browser using PDF.js, pdf-lib, and Web Workers.",
     stack: ["React", "Web Workers", "pdf-lib", "PDF.js"],
     demo: "https://pd-flex.vercel.app",
     source: "https://github.com/Arnav20007/pdflex",
@@ -81,7 +83,7 @@ const projectsList: SelectedProject[] = [
     badge: "Web App",
     tagline: "SIP & Loan EMI Calculator",
     description:
-      "A practical calculator for estimating monthly SIP returns and loan EMIs, with clear visual charts to see how compound interest adds up over time.",
+      "Built to bring common money calculations together. Uses Chart.js and Next.js to visualize SIP compounding returns and loan EMI payments clearly.",
     stack: ["Next.js", "TypeScript", "Tailwind CSS", "Chart.js"],
     demo: "https://financecalc0.vercel.app",
     source: "https://github.com/Arnav20007/financecalc",
@@ -93,7 +95,7 @@ const projectsList: SelectedProject[] = [
     badge: "Hackathon Project",
     tagline: "Journaling App with API Reflections",
     description:
-      "A hackathon project exploring Python and Flask. Users can log daily thoughts and receive brief automated reflections to track their mood.",
+      "A hackathon project exploring Python and Flask. Users can jot down daily journal entries and get brief reflective prompts via an API.",
     stack: ["Next.js", "Python", "Flask", "OpenAI API"],
     source: "https://github.com/Arnav20007/moodmate",
     color: "#E11D48",
@@ -104,7 +106,7 @@ const projectsList: SelectedProject[] = [
     badge: "Side Project",
     tagline: "Task Tracker with XP Progression",
     description:
-      "A personal productivity experiment that applies small XP increments and levels to daily coding habits and study tasks.",
+      "A habit and task tracker that adds small RPG-style XP and levels to daily developer routines to make daily progress more motivating.",
     stack: ["Next.js", "TypeScript", "Prisma", "PostgreSQL"],
     source: "https://github.com/Arnav20007/ascend",
     color: "#D97706",
@@ -115,14 +117,14 @@ const projectsList: SelectedProject[] = [
     badge: "Problem Solving",
     tagline: "Data Structures & Algorithms Repository",
     description:
-      "My regular practice repository implementing trees, graphs, heaps, dynamic programming, and common interview questions in C++.",
+      "Where I practice coding every day in C++. Covers trees, graphs, dynamic programming, and common interview problem patterns.",
     stack: ["C++17", "STL", "Algorithms", "Data Structures"],
     source: "https://github.com/Arnav20007/cpp-practice",
     color: "#4F46E5",
   },
 ];
 
-/* ── Hero Desk Illustration (Clean, honest student workspace) ───── */
+/* ── Hero Desk Illustration ─────────────────────────────────────── */
 function HeroIllustration() {
   return (
     <div className="w-full max-w-4xl mx-auto mt-10 mb-0 select-none">
@@ -212,7 +214,7 @@ function HeroIllustration() {
               <Check className="w-3.5 h-3.5 text-[#6E07F3]" /> React &amp; Next.js
             </span>
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-[#E6ECF8] text-xs font-mono font-medium text-[#141C3A] shadow-xs">
-              <Check className="w-3.5 h-3.5 text-[#6E07F3]" /> Python &amp; Flask
+              <Check className="w-3.5 h-3.5 text-[#6E07F3]" /> Looking for Internships
             </span>
           </div>
         </div>
@@ -273,21 +275,46 @@ export default function Home() {
     <div className="min-h-screen bg-white text-[#141C3A] font-sans selection:bg-[#EBD8FF] selection:text-[#5600C7]">
       <Navbar />
 
-      {/* ── 1. HERO SECTION ── */}
-      <section className="pt-16 pb-20 px-6 text-center max-w-5xl mx-auto">
-        <h1 className="font-display font-black text-4xl sm:text-6xl lg:text-7xl text-[#141C3A] tracking-tight leading-[1.1] mb-5">
-          Computer Science Student &amp; <br />
-          <span className="text-[#6E07F3]">Aspiring Software Engineer</span>
+      {/* ── 1. HERO SECTION (Simple, Personal & Grounded) ── */}
+      <section className="pt-16 pb-20 px-6 text-center max-w-4xl mx-auto">
+        <h1 className="font-display font-black text-4xl sm:text-6xl lg:text-7xl text-[#141C3A] tracking-tight leading-[1.15] mb-6">
+          I’m Arnav, a CSE student who likes <span className="text-[#6E07F3]">building useful things.</span>
         </h1>
 
         <p className="text-lg sm:text-2xl text-[#5A6275] max-w-2xl mx-auto font-normal leading-relaxed mb-8">
-          I practice problem-solving in C++ and build useful web tools with React, Next.js, and Python.
+          5th-semester B.Tech student at BBDU, Lucknow. I practise DSA in C++ and build web projects with React, Next.js, and Python.
         </p>
+
+        {/* Action Buttons right in Hero */}
+        <div className="flex flex-wrap items-center justify-center gap-3.5 mb-10">
+          <a
+            href="#projects"
+            className="px-7 py-3 rounded-full bg-[#6E07F3] text-white font-bold text-sm hover:bg-[#5600c7] transition-all shadow-md shadow-purple-500/20"
+          >
+            View Projects
+          </a>
+          <a
+            href={resumeHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-7 py-3 rounded-full border-2 border-[#E6ECF8] bg-white text-[#141C3A] font-bold text-sm hover:border-[#6E07F3] hover:text-[#6E07F3] transition-all"
+          >
+            Download Resume
+          </a>
+          {email && (
+            <a
+              href={`mailto:${email}`}
+              className="px-7 py-3 rounded-full bg-slate-100 text-[#141C3A] font-bold text-sm hover:bg-slate-200 transition-all"
+            >
+              Contact Me
+            </a>
+          )}
+        </div>
 
         {/* Friendly Student Avatar with Academic Pill */}
         <div className="flex flex-col items-center justify-center gap-3 mb-4">
-          <div className="w-28 h-28 rounded-full bg-gradient-to-tr from-[#6E07F3] to-[#8B5CF6] p-1 shadow-xl">
-            <div className="w-full h-full rounded-full bg-white flex items-center justify-center text-5xl">
+          <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-[#6E07F3] to-[#8B5CF6] p-1 shadow-lg">
+            <div className="w-full h-full rounded-full bg-white flex items-center justify-center text-4xl">
               👨‍💻
             </div>
           </div>
@@ -303,109 +330,118 @@ export default function Home() {
         <HeroIllustration />
       </section>
 
-      {/* ── 2. INTRO SECTION (Honest, warm student voice) ── */}
+      {/* ── 2. INTRO SECTION (Honest student story) ── */}
       <section className="bg-[#6E07F3] text-white pt-24 pb-44 px-6 text-center">
         <div className="max-w-3xl mx-auto">
           <h2 className="font-display font-extrabold text-3xl sm:text-4xl mb-5">
             Hi, I’m Arnav. Nice to meet you.
           </h2>
           <p className="text-base sm:text-lg text-purple-100 font-normal leading-relaxed">
-            I’m a 5th-semester Computer Science student at Babu Banarasi Das University, Lucknow (8.0 CGPA). I enjoy writing code that actually does something useful—whether that’s practicing core data structures in C++ or building browser utilities like ToolForge ATS and PDFlex. When I’m not coding, you’ll usually find me playing chess, listening to music, or having a cup of tea. I’m currently preparing for software engineering internship opportunities.
+            I’m a 5th-semester Computer Science student at Babu Banarasi Das University, Lucknow (8.0 CGPA). I spend most of my time practicing problem-solving in C++ and building tools I actually use—like ToolForge ATS for resume keyword checking and PDFlex for client-side PDF handling. I’m actively looking for a software engineering internship where I can learn from experienced engineers and contribute real code.
           </p>
         </div>
       </section>
 
-      {/* ── 3. OVERLAPPING 3-COLUMN SKILLS BOX (Grounded student reality) ── */}
+      {/* ── 3. OVERLAPPING 3-COLUMN SKILLS BOX (Honest Categories: No Percent Bars!) ── */}
       <section className="px-6 -mt-32 relative z-10 max-w-6xl mx-auto">
         <div className="bg-white rounded-3xl border border-[#E6ECF8] shadow-2xl grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[#E6ECF8] text-center">
           
-          {/* Column 1: C++ & Problem Solving */}
+          {/* Column 1: Comfortable with */}
           <div className="p-8 sm:p-10 flex flex-col items-center">
             <div className="w-14 h-14 rounded-2xl bg-purple-50 text-[#6E07F3] flex items-center justify-center mb-5">
               <Cpu className="w-7 h-7" />
             </div>
             <h3 className="font-display font-extrabold text-xl text-[#141C3A] mb-2">
-              C++ &amp; Problem Solving
+              Comfortable With
             </h3>
             <p className="text-sm text-[#5A6275] leading-relaxed mb-6">
-              Where I spend most of my practice time—working through common interview patterns and optimizing time complexity.
+              Core technologies and languages I work with regularly for coursework and problem-solving.
             </p>
 
-            <h4 className="font-bold text-xs text-[#6E07F3] uppercase tracking-wider mb-2">
-              What I Practice:
+            <h4 className="font-bold text-xs text-[#6E07F3] uppercase tracking-wider mb-3">
+              Languages &amp; Core:
             </h4>
-            <p className="text-sm text-[#141C3A] mb-6 font-medium">
-              Trees, Graphs, Recursion, Dynamic Programming, STL
-            </p>
+            <div className="flex flex-wrap justify-center gap-1.5 mb-6">
+              {["C++", "DSA", "React", "JavaScript", "HTML & CSS", "Git"].map((t) => (
+                <span key={t} className="px-2.5 py-1 rounded-md bg-purple-50 text-[#6E07F3] font-mono text-xs font-semibold border border-purple-100">
+                  {t}
+                </span>
+              ))}
+            </div>
 
             <h4 className="font-bold text-xs text-[#6E07F3] uppercase tracking-wider mb-2">
-              Coursework Foundations:
+              Foundations:
             </h4>
             <ul className="text-sm text-[#5A6275] space-y-1 font-medium">
               <li>Object-Oriented Programming (OOP)</li>
-              <li>Operating Systems (OS)</li>
-              <li>Database Management (DBMS)</li>
-              <li>Computer Networks</li>
+              <li>Data Structures &amp; Algorithms</li>
+              <li>Operating Systems concepts</li>
             </ul>
           </div>
 
-          {/* Column 2: Frontend & Web */}
+          {/* Column 2: Used in projects */}
           <div className="p-8 sm:p-10 flex flex-col items-center">
             <div className="w-14 h-14 rounded-2xl bg-purple-50 text-[#6E07F3] flex items-center justify-center mb-5">
               <Layers className="w-7 h-7" />
             </div>
             <h3 className="font-display font-extrabold text-xl text-[#141C3A] mb-2">
-              Frontend Development
+              Used In Projects
             </h3>
             <p className="text-sm text-[#5A6275] leading-relaxed mb-6">
-              I like building web interfaces that are fast, clean, and actually simple to use without unnecessary fluff.
+              Tools and libraries I’ve applied while building real working web utilities and side projects.
             </p>
 
-            <h4 className="font-bold text-xs text-[#6E07F3] uppercase tracking-wider mb-2">
-              Languages &amp; Frameworks:
+            <h4 className="font-bold text-xs text-[#6E07F3] uppercase tracking-wider mb-3">
+              Frameworks &amp; Tools:
             </h4>
-            <p className="text-sm text-[#141C3A] mb-6 font-medium">
-              React, Next.js, TypeScript, JavaScript, Tailwind CSS
-            </p>
-
-            <h4 className="font-bold text-xs text-[#6E07F3] uppercase tracking-wider mb-2">
-              Things I&apos;ve Built With:
-            </h4>
-            <ul className="text-sm text-[#5A6275] space-y-1 font-medium">
-              <li>In-browser Web Workers</li>
-              <li>PDF manipulation (PDF.js, pdf-lib)</li>
-              <li>Interactive charts (Chart.js)</li>
-              <li>Responsive mobile layouts</li>
-            </ul>
-          </div>
-
-          {/* Column 3: Backend & Tools */}
-          <div className="p-8 sm:p-10 flex flex-col items-center">
-            <div className="w-14 h-14 rounded-2xl bg-purple-50 text-[#6E07F3] flex items-center justify-center mb-5">
-              <Database className="w-7 h-7" />
+            <div className="flex flex-wrap justify-center gap-1.5 mb-6">
+              {["Next.js", "TypeScript", "Python (Flask)", "Tailwind CSS", "PDF.js", "Web Workers", "Chart.js"].map((t) => (
+                <span key={t} className="px-2.5 py-1 rounded-md bg-slate-50 text-slate-800 font-mono text-xs font-semibold border border-slate-200">
+                  {t}
+                </span>
+              ))}
             </div>
-            <h3 className="font-display font-extrabold text-xl text-[#141C3A] mb-2">
-              Backend &amp; Databases
-            </h3>
-            <p className="text-sm text-[#5A6275] leading-relaxed mb-6">
-              Writing simple REST APIs and connecting web applications to structured databases.
-            </p>
 
             <h4 className="font-bold text-xs text-[#6E07F3] uppercase tracking-wider mb-2">
-              Backend &amp; APIs:
-            </h4>
-            <p className="text-sm text-[#141C3A] mb-6 font-medium">
-              Python (Flask), Node.js, RESTful APIs
-            </p>
-
-            <h4 className="font-bold text-xs text-[#6E07F3] uppercase tracking-wider mb-2">
-              Databases &amp; Workflow:
+              Databases &amp; Deploy:
             </h4>
             <ul className="text-sm text-[#5A6275] space-y-1 font-medium">
               <li>PostgreSQL &amp; SQLite</li>
-              <li>Git &amp; GitHub workflows</li>
               <li>Prisma ORM</li>
               <li>Vercel deployments</li>
+            </ul>
+          </div>
+
+          {/* Column 3: Currently learning */}
+          <div className="p-8 sm:p-10 flex flex-col items-center">
+            <div className="w-14 h-14 rounded-2xl bg-purple-50 text-[#6E07F3] flex items-center justify-center mb-5">
+              <BookOpen className="w-7 h-7" />
+            </div>
+            <h3 className="font-display font-extrabold text-xl text-[#141C3A] mb-2">
+              Currently Learning
+            </h3>
+            <p className="text-sm text-[#5A6275] leading-relaxed mb-6">
+              Topics and skills I am actively studying and practicing right now.
+            </p>
+
+            <h4 className="font-bold text-xs text-[#6E07F3] uppercase tracking-wider mb-3">
+              DSA Focus:
+            </h4>
+            <div className="flex flex-wrap justify-center gap-1.5 mb-6">
+              {["Graph Algorithms", "Dynamic Programming", "Tree Traversals", "Binary Search"].map((t) => (
+                <span key={t} className="px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-800 font-mono text-xs font-semibold border border-emerald-100">
+                  {t}
+                </span>
+              ))}
+            </div>
+
+            <h4 className="font-bold text-xs text-[#6E07F3] uppercase tracking-wider mb-2">
+              Systems &amp; Architecture:
+            </h4>
+            <ul className="text-sm text-[#5A6275] space-y-1 font-medium">
+              <li>System design basics</li>
+              <li>DBMS indexing &amp; normalization</li>
+              <li>Clean REST API patterns</li>
             </ul>
           </div>
 
@@ -490,33 +526,38 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 5. BOTTOM CALLOUT BOX ── */}
+      {/* ── 5. GOAL-ALIGNED CALLOUT BOX (Looking for Internship) ── */}
       <section className="px-6 pb-20 max-w-5xl mx-auto">
         <div className="bg-[#141C3A] text-white rounded-3xl p-8 sm:p-12 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
           <div className="max-w-xl">
+            <span className="inline-block px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 font-mono text-xs font-bold uppercase tracking-wider mb-3">
+              ● AVAILABLE FOR INTERNSHIPS
+            </span>
             <h2 className="font-display font-extrabold text-2xl sm:text-3xl text-white mb-2">
-              Interested in working together?
+              Looking for a software engineering internship.
             </h2>
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-              I’m currently seeking software engineering internships and junior developer opportunities. If you have an opening or a project idea, I’d love to connect.
+              I’m available for software engineering internship opportunities. If you have an opening, or want to review my code and problem-solving, I’d love to connect.
             </p>
           </div>
 
           <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
             {email ? (
               <a
-                href={`mailto:${email}?subject=Internship or Project Opportunity`}
+                href={`mailto:${email}?subject=Software Engineering Internship`}
                 className="px-8 py-3.5 rounded-full bg-[#5BE9B9] hover:bg-[#48d8a7] text-[#141C3A] font-bold text-sm shadow-lg hover:scale-105 transition-all"
               >
-                Send an email
+                Contact Me
               </a>
             ) : (
-              <Link
-                href="/collaborate"
+              <a
+                href={resumeHref}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="px-8 py-3.5 rounded-full bg-[#5BE9B9] hover:bg-[#48d8a7] text-[#141C3A] font-bold text-sm shadow-lg hover:scale-105 transition-all"
               >
-                Get in touch
-              </Link>
+                Download Resume
+              </a>
             )}
           </div>
         </div>
