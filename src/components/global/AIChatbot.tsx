@@ -1,57 +1,49 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { BriefcaseBusiness, Download, MessageCircle, Send, Sparkles, X, Zap } from "lucide-react";
+import {
+  BriefcaseBusiness,
+  Download,
+  MessageCircle,
+  Send,
+  Sparkles,
+  X,
+  Code2,
+  Mail,
+  ExternalLink,
+  Bot,
+  User,
+} from "lucide-react";
+import { personal } from "@/lib/data";
 
 interface Message {
   from: "user" | "bot";
   text: string;
-  page?: {
+  action?: {
     label: string;
     href: string;
+    isExternal?: boolean;
   };
 }
 
-const profile = {
-  name: "Arnav Singh",
-  role: "Computer Science Engineering Student | Full-Stack & AI Developer",
-  college: "Babu Banarasi Das University",
-  semester: "5th Semester",
-  location: "Lucknow, India",
-  email: "your_email_here",
-  linkedin: "your_linkedin_here",
-  github: "your_github_here",
-  resume: "Available",
+/* ── Verified Profile Facts (No Hallucinations) ─────────────────── */
+const verifiedProfile = {
+  name: personal.name || "Arnav Singh",
+  degree: "B.Tech Computer Science & Engineering (5th Semester)",
+  college: "Babu Banarasi Das University (BBDU), Lucknow",
+  cgpa: "8.0 / 10.0",
+  email: personal.email || "arnav@example.com",
+  github: `https://github.com/${personal.github || "Arnav20007"}`,
+  linkedin: `https://linkedin.com/in/${personal.linkedin || "arnav-singh"}`,
+  resume: personal.resume || "/resume.pdf",
+  status: "Actively seeking Software Engineering Internships (2025/2026)",
 };
 
-const skills = [
-  "C++",
-  "Python",
-  "JavaScript",
-  "TypeScript",
-  "React",
-  "Next.js",
-  "Node.js",
-  "Flask",
-  "MongoDB",
-  "Firebase",
-  "SQL",
-  "AI & LLM Integration",
-];
-
-const projects = [
-  "MoodMate: AI-powered mental wellness platform built with React, Flask, and Gemini AI.",
-  "ASCEND: Productivity and anti-procrastination system built with Next.js and TypeScript.",
-  "FinanceCalc: Modern finance calculator platform.",
-  "PDFlex: AI PDF toolkit.",
-  "Arnav.OS: Interactive personal portfolio experience.",
-];
-
-const quickPrompts = [
-  { label: "Recruiter", prompt: "Recruiter summary", icon: BriefcaseBusiness },
-  { label: "Projects", prompt: "Best projects", icon: Sparkles },
-  { label: "Collaborate", prompt: "Collaborate", icon: MessageCircle },
-  { label: "Resume", icon: Download },
+const quickButtons = [
+  { label: "Projects", query: "Tell me about your projects", icon: Code2 },
+  { label: "Skills", query: "What are your core skills and tech stack?", icon: Sparkles },
+  { label: "Resume", query: "Where can I view or download your resume?", icon: Download },
+  { label: "Contact", query: "How can I contact Arnav for internship or work?", icon: Mail },
 ];
 
 function includesAny(input: string, words: string[]) {
@@ -72,93 +64,92 @@ function prefersHinglish(input: string) {
     "kar",
     "hindi",
     "hinglish",
+    "kaun",
+    "kaha",
+    "kab",
+    "dost",
+    "yaar",
   ]);
 }
 
-function makeReply(input: string): Message {
-  const query = input.toLowerCase();
+function generateReply(rawInput: string): Message {
+  const query = rawInput.toLowerCase().trim();
   const hinglish = prefersHinglish(query);
 
-  const say = (english: string, hindi: string, page?: Message["page"]): Message => ({
+  const reply = (english: string, hindi: string, action?: Message["action"]): Message => ({
     from: "bot",
     text: hinglish ? hindi : english,
-    page,
+    action,
   });
 
-  if (includesAny(query, ["recruiter", "hr", "hire", "internship", "job", "summary", "30 second", "30 sec"])) {
-    return say(
-      "Arnav is a 5th semester CSE student at Babu Banarasi Das University, Lucknow. He builds full-stack and AI products using React, Next.js, TypeScript, Python, Flask, Firebase, MongoDB, SQL, and LLM integrations. He is currently building production-level projects and is open to internships, freelance work, open-source, startup collaboration, and future full-time opportunities.",
-      "Arnav Lucknow se 5th semester CSE student hai at Babu Banarasi Das University. Woh full-stack aur AI products build karta hai with React, Next.js, TypeScript, Python, Flask, Firebase, MongoDB, SQL, and LLM integrations. Abhi production-level projects build kar raha hai and internship, freelance, startup collaboration, open-source, aur future full-time opportunities ke liye open hai.",
-      { label: "Open Recruiter Page", href: "/recruiter" },
+  // 1. Projects Query
+  if (includesAny(query, ["project", "work", "pdflex", "financecalc", "moodmate", "ascend", "built", "demos"])) {
+    return reply(
+      `Arnav has built 4 key projects:\n\n• PDFlex: In-browser PDF merge/split with Web Workers (0KB uploads).\n• FinanceCalc: SIP compound interest & EMI calculator with Chart.js.\n• MoodMate: AI journaling reflection tool with Flask & OpenAI API.\n• ASCEND: Gamified task & quest manager with PostgreSQL.\n\nLive demos and GitHub repositories are linked below.`,
+      `Arnav ke 4 main projects hain:\n\n• PDFlex: In-browser PDF merge/split using Web Workers (0KB server upload, 100% private in RAM).\n• FinanceCalc: SIP compound return & EMI calculator with interactive charts.\n• MoodMate: Hackathon AI journaling platform (Flask + OpenAI API).\n• ASCEND: Gamified todo manager with XP progression.\n\nLive demo aur GitHub source neeche section mein check kar sakte ho.`,
+      { label: "View Selected Projects", href: "#projects" }
     );
   }
 
-  if (includesAny(query, ["project", "portfolio", "built", "work", "recommend"])) {
-    return say(
-      `Start with MoodMate for AI depth, ASCEND for product thinking, and Arnav.OS for frontend experience. Other useful projects are FinanceCalc and PDFlex. ${projects.join(" ")}`,
-      `Projects ke liye MoodMate se start karo for AI depth, ASCEND for product thinking, aur Arnav.OS for frontend experience. FinanceCalc aur PDFlex bhi strong additions hain. ${projects.join(" ")}`,
-      { label: "Open Projects Path", href: "/recruiter" },
+  // 2. Recruiter / Internship / 20-Second Summary Query
+  if (includesAny(query, ["recruiter", "hire", "intern", "internship", "job", "summary", "20 sec", "pitch", "why hire"])) {
+    return reply(
+      `20-Second Recruiter Summary:\nArnav Singh is a 5th-semester B.Tech CSE student at BBDU Lucknow (${verifiedProfile.cgpa} CGPA). He solves algorithmic problems in C++ (Trees, Graphs, DP) and builds client-side web tools with React, Next.js, and Python. Open for Software Engineering Internships (2025/2026).`,
+      `20-Second Recruiter Summary:\nArnav Lucknow se 5th-semester B.Tech CSE student hai at BBDU Lucknow (${verifiedProfile.cgpa} CGPA). Core focus C++ Data Structures & Algorithms hai aur React/Next.js/Python se practical web tools banata hai. Currently SDE internship opportunities ke liye open hai.`,
+      { label: "Download Resume (PDF)", href: verifiedProfile.resume, isExternal: true }
     );
   }
 
-  if (includesAny(query, ["skill", "stack", "tech", "technology", "language"])) {
-    return say(
-      `Arnav's strongest stack is full-stack JavaScript plus AI integration: ${skills.join(", ")}. He is strongest where frontend polish, backend logic, and AI features meet.`,
-      `Arnav ka strongest stack full-stack JavaScript plus AI integration hai: ${skills.join(", ")}. Uski strength frontend polish, backend logic, aur AI features ko ek product me combine karna hai.`,
-      { label: "Open Recruiter Page", href: "/recruiter" },
+  // 3. Skills & Tech Stack Query
+  if (includesAny(query, ["skill", "stack", "tech", "technology", "language", "c++", "dsa", "python", "react"])) {
+    return reply(
+      `Core Skills & Technical Focus:\n• Programming: C++, Data Structures & Algorithms, OOP, C Language\n• Frontend: React, Next.js, TypeScript, Tailwind CSS, Web Workers API\n• Backend & AI: Python, Flask, REST APIs, OpenAI API\n• Databases & Tools: PostgreSQL, SQLite, Git, GitHub, Vercel`,
+      `Core Skills & Tech Stack:\n• Programming: C++, DSA (Trees, Graphs, DP), OOP, C\n• Frontend: React, Next.js, TypeScript, Tailwind CSS, Web Workers\n• Backend: Python, Flask, REST APIs, OpenAI API\n• Database & Tools: PostgreSQL, SQLite, Git & GitHub, Vercel`,
+      { label: "Explore Skills Matrix", href: "#skills" }
     );
   }
 
-  if (includesAny(query, ["collaborate", "founder", "startup", "client", "freelance", "business", "build"])) {
-    return say(
-      "For founders and collaborators, Arnav is useful when an idea needs to become a working product fast: web apps, AI features, automation, dashboards, and polished MVPs. He thinks in product loops, not just code tasks.",
-      "Founder ya collaborator ke liye Arnav tab best hai jab idea ko working product me fast convert karna ho: web apps, AI features, automation, dashboards, aur polished MVPs. Woh sirf code nahi, product flow bhi sochta hai.",
-      { label: "Open Collaborate Page", href: "/collaborate" },
+  // 4. Resume Query
+  if (includesAny(query, ["resume", "cv", "pdf", "download resume", "bio"])) {
+    return reply(
+      `Arnav's verified resume is ready to download. It covers coursework, CGPA (${verifiedProfile.cgpa}), C++ DSA benchmarks, and project architectures.`,
+      `Arnav ka resume ready hai. Isme BBDU CSE coursework, ${verifiedProfile.cgpa} CGPA, C++ DSA focus aur projects detailed hain.`,
+      { label: "Download Resume PDF", href: verifiedProfile.resume, isExternal: true }
     );
   }
 
-  if (includesAny(query, ["resume", "cv", "download"])) {
-    return say(
-      "Arnav's resume is available from the portfolio. If you are screening quickly, I recommend checking the recruiter path first, then downloading the resume from there.",
-      "Resume portfolio me available hai. Agar quick screening karni hai, pehle recruiter path dekho, phir waha se resume download karna best rahega.",
-      { label: "Open Resume Area", href: "/recruiter" },
+  // 5. Contact & Collaboration Query
+  if (includesAny(query, ["contact", "email", "reach", "hire", "collaborate", "github", "linkedin", "message"])) {
+    return reply(
+      `You can reach Arnav directly:\n• Email: ${verifiedProfile.email}\n• GitHub: ${verifiedProfile.github}\n• LinkedIn: ${verifiedProfile.linkedin}\n\nHe responds promptly to internship inquiries and technical discussions.`,
+      `Arnav se connect karne ke direct links:\n• Email: ${verifiedProfile.email}\n• GitHub: ${verifiedProfile.github}\n• LinkedIn: ${verifiedProfile.linkedin}\n\nInternship ya collaboration ke liye message bhej sakte ho.`,
+      { label: "Go to Contact Section", href: "#contact" }
     );
   }
 
-  if (includesAny(query, ["contact", "email", "linkedin", "github", "reach", "connect"])) {
-    return say(
-      `You can reach Arnav at ${profile.email}. LinkedIn: ${profile.linkedin}. GitHub: ${profile.github}.`,
-      `Arnav se contact ke liye email: ${profile.email}. LinkedIn: ${profile.linkedin}. GitHub: ${profile.github}.`,
-      { label: "Open Contact Path", href: "/collaborate" },
+  // 6. Casual / Friend Query
+  if (includesAny(query, ["friend", "dost", "hobby", "fun", "personal", "chess", "gym", "chai", "who are you"])) {
+    return reply(
+      `Hey! On the personal side, Arnav is a 5th-sem CSE student at BBDU Lucknow. Outside coding C++ algorithms and building web tools, he enjoys drinking chai ☕, playing chess ♟️, gym workouts 🏋️, and coding late at night with lo-fi beats 🎵.`,
+      `Arnav 5th-sem CSE student hai BBDU Lucknow se. C++ aur web tools code karne ke alawa chai ☕, chess ♟️, gym 🏋️, aur late-night lo-fi music 🎵 pasand karta hai.`,
+      { label: "Read Background", href: "#about" }
     );
   }
 
-  if (includesAny(query, ["friend", "personal", "hobby", "hobbies", "personality", "chess", "fun"])) {
-    return say(
-      "On the personal side, Arnav is a late-night coder, chess enthusiast, AI and startup obsessed builder, and someone who believes in learning by building ambitious projects.",
-      "Personal side pe Arnav late-night coder hai, chess enthusiast hai, AI aur startups se obsessed builder hai, aur learning by building me believe karta hai.",
-      { label: "Open Friend Page", href: "/friend" },
+  // 7. CGPA / College / Education Query
+  if (includesAny(query, ["cgpa", "college", "university", "bbdu", "semester", "sem", "education", "degree"])) {
+    return reply(
+      `Education Details:\n• Degree: ${verifiedProfile.degree}\n• Institution: ${verifiedProfile.college}\n• Academic CGPA: ${verifiedProfile.cgpa}\n• Core Subjects: Data Structures, Operating Systems, DBMS, Computer Networks`,
+      `Education Info:\n• Degree: ${verifiedProfile.degree}\n• College: ${verifiedProfile.college}\n• CGPA: ${verifiedProfile.cgpa}\n• Focus: Data Structures & Algorithms, OS, DBMS`,
+      { label: "View Technical Focus", href: "#focus" }
     );
   }
 
-  if (includesAny(query, ["about", "who", "intro", "arnav"])) {
-    return say(
-      `${profile.name} is a ${profile.role} from ${profile.location}. He studies at ${profile.college}, currently in ${profile.semester}, and focuses on full-stack apps, AI tools, and ambitious product ideas.`,
-      `${profile.name} ${profile.location} se ${profile.role} hai. Woh ${profile.college} me ${profile.semester} me hai, aur full-stack apps, AI tools, aur ambitious product ideas pe focus karta hai.`,
-      { label: "Start With Friend Page", href: "/friend" },
-    );
-  }
-
-  if (includesAny(query, ["page", "where", "website", "guide", "navigate", "section"])) {
-    return say(
-      "Use Friend for personality, Recruiter for skills and resume, Collaborate for services or startup ideas, and Terminal if you want the playful developer-mode experience.",
-      "Guide simple hai: Friend page personality ke liye, Recruiter page skills aur resume ke liye, Collaborate page services/startup ideas ke liye, aur Terminal page playful developer-mode experience ke liye.",
-    );
-  }
-
-  return say(
-    "I do not want to guess that. Ask me about Arnav's skills, projects, resume, availability, personality, or which page you should open next.",
-    "Is detail pe main guess nahi karunga. Tum Arnav ke skills, projects, resume, availability, personality, ya next page recommendation ke baare me pooch sakte ho.",
+  // 8. Honest Guardrail (No Hallucinations)
+  return reply(
+    `I am Arnav's portfolio guide. I only share verified details from his portfolio: projects, C++ DSA skills, BBDU coursework (8.0 CGPA), resume, and contact links. Ask me about any of these!`,
+    `Main Arnav ke portfolio ka guide hoon. Main sirf verified details share karta hoon: projects, C++ DSA skills, BBDU CSE (${verifiedProfile.cgpa} CGPA), resume, aur contact info. Inme se kuch bhi pooch sakte ho!`,
+    { label: "View Selected Projects", href: "#projects" }
   );
 }
 
@@ -167,7 +158,7 @@ export default function AIChatbot() {
   const [messages, setMessages] = useState<Message[]>([
     {
       from: "bot",
-      text: "Hi, I am Arnav AI. Tell me if you are a recruiter, friend, founder, or collaborator. I will guide you from there.",
+      text: "Hi! Ask me about Arnav's projects, skills, resume, or collaboration. (Project, skills, resume ya collaboration ke baare mein poochho).",
     },
   ]);
   const [input, setInput] = useState("");
@@ -175,137 +166,132 @@ export default function AIChatbot() {
   const endRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (open) endRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (open) {
+      endRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
   }, [messages, typing, open]);
 
   const handleSend = (textToSend?: string) => {
     const query = (textToSend || input).trim();
     if (!query) return;
 
-    setMessages((current) => [...current, { from: "user", text: query }]);
+    setMessages((prev) => [...prev, { from: "user", text: query }]);
     if (!textToSend) setInput("");
     setTyping(true);
 
     window.setTimeout(() => {
-      setMessages((current) => [...current, makeReply(query)]);
+      setMessages((prev) => [...prev, generateReply(query)]);
       setTyping(false);
-    }, 450);
+    }, 320);
+  };
+
+  const handleActionClick = (href: string) => {
+    if (href.startsWith("#")) {
+      const el = document.querySelector(href);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
+    }
   };
 
   return (
     <>
+      {/* Floating Chatbot Trigger Button (Emerald & Crisp) */}
       <button
         id="chatbot-toggle"
-        onClick={() => setOpen((current) => !current)}
-        aria-label={open ? "Close Arnav AI" : "Open Arnav AI"}
-        className="fixed bottom-5 right-5 z-[990] h-[52px] w-[52px] rounded-full flex items-center justify-center shadow-xl transition-all duration-200 hover:scale-105 group cursor-pointer bg-[#18181b] hover:bg-[#27272a] text-[#f4f4f5] border border-white/10"
+        onClick={() => setOpen((prev) => !prev)}
+        aria-label={open ? "Close portfolio guide" : "Ask Arnav's portfolio guide"}
+        className="fixed bottom-5 right-5 z-[990] h-12 w-12 rounded-full flex items-center justify-center shadow-lg shadow-emerald-600/20 transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer bg-emerald-600 hover:bg-emerald-700 text-white border border-emerald-400/40"
       >
         {open ? (
           <X className="w-5 h-5" />
         ) : (
-          <span className="relative flex h-7 w-7 items-center justify-center text-white">
-            <MessageCircle className="h-4 w-4" />
-          </span>
+          <MessageCircle className="h-5 w-5" />
         )}
         {!open && (
-          <span
-            className="absolute inset-0 rounded-full animate-ping opacity-25 pointer-events-none"
-            style={{ background: "#f97316" }}
-          />
+          <span className="absolute -top-0.5 -right-0.5 flex h-3 w-3">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-300 opacity-75" />
+            <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-400" />
+          </span>
         )}
       </button>
 
+      {/* Floating Chatbot Window */}
       {open && (
         <div
-          className="fixed bottom-[96px] right-5 z-[990] w-[400px] max-w-[calc(100vw-28px)] max-h-[calc(100vh-128px)] rounded-[24px] overflow-hidden flex flex-col shadow-2xl transition-all duration-300"
+          className="fixed bottom-20 right-5 z-[990] w-[390px] max-w-[calc(100vw-28px)] max-h-[580px] rounded-2xl overflow-hidden flex flex-col shadow-2xl bg-white border border-emerald-200/90 animate-in fade-in slide-in-from-bottom-4 duration-200"
           style={{
-            background: "linear-gradient(180deg, rgba(22, 17, 13, 0.98), rgba(10, 8, 7, 0.98))",
-            backdropFilter: "blur(24px)",
-            WebkitBackdropFilter: "blur(24px)",
-            border: "1px solid rgba(255, 168, 85, 0.28)",
-            boxShadow: "0 22px 56px rgba(0,0,0,0.76), 0 0 34px rgba(249,115,22,0.14)",
+            boxShadow: "0 20px 60px rgba(16, 185, 129, 0.15), 0 4px 20px rgba(0, 0, 0, 0.08)",
           }}
         >
-          <div
-            className="flex items-center justify-between px-4 py-4 border-b"
-            style={{
-              borderColor: "rgba(242, 235, 224, 0.08)",
-              background: "linear-gradient(135deg, rgba(249, 115, 22, 0.22), rgba(255, 255, 255, 0.02))",
-            }}
-          >
-            <div className="flex items-center gap-3">
-              <div
-                className="relative w-10 h-10 rounded-xl flex items-center justify-center"
-                style={{
-                  background: "radial-gradient(circle at 35% 25%, #ffb15d 0%, #f97316 48%, #a83208 100%)",
-                  border: "1px solid rgba(255, 204, 128, 0.42)",
-                  boxShadow: "0 8px 22px rgba(249, 115, 22, 0.2)",
-                }}
-              >
-                <MessageCircle className="w-5 h-5 text-white" />
-                <Zap className="absolute -right-1 -top-1 h-3 w-3 rounded-full bg-[#111] p-0.5 text-[#fbbf24]" />
+          {/* Chat Header */}
+          <div className="flex items-center justify-between px-4 py-3.5 border-b border-emerald-100 bg-emerald-50/70">
+            <div className="flex items-center gap-2.5">
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-sm">
+                <Bot className="w-5 h-5" />
               </div>
               <div>
-                <p className="font-sans font-bold text-[15px] text-[#f8f0e6] tracking-normal">
-                  Arnav AI
+                <p className="font-bold text-sm text-slate-900 leading-tight">
+                  Ask Arnav&apos;s Portfolio
                 </p>
-                <p className="text-[11px] font-mono text-[#7ddf91] flex items-center gap-1.5 mt-0.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-pulse" />
-                  Portfolio concierge
+                <p className="text-[10px] font-mono text-emerald-700 flex items-center gap-1 mt-0.5 font-semibold">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  Verified Guide · BBDU Lucknow
                 </p>
               </div>
             </div>
             <button
               onClick={() => setOpen(false)}
-              className="w-7 h-7 rounded-full flex items-center justify-center text-[#9a8f82] hover:text-[#f2ebe0] hover:bg-white/5 transition-colors"
+              className="w-7 h-7 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-emerald-100/50 transition-colors cursor-pointer"
               aria-label="Close chat"
             >
               <X className="w-4 h-4" />
             </button>
           </div>
 
-          <div className="grid grid-cols-2 gap-2 px-4 py-3 border-b border-[#f2ebe0]/5 bg-[#f2ebe0]/[0.02]">
-            {quickPrompts.map(({ label, prompt, icon: Icon }) => (
+          {/* Quick Buttons Bar */}
+          <div className="grid grid-cols-4 gap-1.5 px-3 py-2 border-b border-slate-100 bg-slate-50/80">
+            {quickButtons.map(({ label, query, icon: Icon }) => (
               <button
                 key={label}
-                onClick={() => handleSend(prompt || label)}
-                className="text-[11px] font-mono px-3 py-2.5 rounded-xl transition-all hover:bg-[#f97316]/20 text-[#ffd08a] inline-flex items-center justify-center gap-1.5"
-                style={{
-                  background: "rgba(249, 115, 22, 0.09)",
-                  border: "1px solid rgba(249, 115, 22, 0.18)",
-                }}
+                onClick={() => handleSend(query)}
+                className="text-[11px] font-bold py-1.5 px-2 rounded-lg transition-all text-emerald-800 bg-white border border-emerald-200/80 hover:bg-emerald-50 hover:border-emerald-400 flex items-center justify-center gap-1 shadow-2xs cursor-pointer"
               >
-                <Icon className="w-3 h-3" />
-                {label}
+                <Icon className="w-3 h-3 text-emerald-600 shrink-0" />
+                <span>{label}</span>
               </button>
             ))}
           </div>
 
-          <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4 font-sans" style={{ minHeight: "360px" }}>
+          {/* Messages Stream */}
+          <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3 font-sans text-sm bg-slate-50/30 max-h-[380px]">
             {messages.map((message, index) => (
-              <div key={`${message.from}-${index}`} className={`flex ${message.from === "user" ? "justify-end" : "justify-start"}`}>
-                <div className="max-w-[86%]">
+              <div
+                key={`${message.from}-${index}`}
+                className={`flex ${message.from === "user" ? "justify-end" : "justify-start"}`}
+              >
+                <div className="max-w-[88%]">
                   <div
-                    className="px-4 py-3 rounded-2xl text-[14px] leading-[1.65]"
-                    style={{
-                      background:
-                        message.from === "user"
-                          ? "linear-gradient(135deg, #f97316, #ea580c)"
-                          : "rgba(242, 235, 224, 0.08)",
-                      color: message.from === "user" ? "#ffffff" : "#f7efe4",
-                      border: message.from === "bot" ? "1px solid rgba(242, 235, 224, 0.1)" : "none",
-                      boxShadow: message.from === "user" ? "0 6px 18px rgba(249, 115, 22, 0.28)" : "none",
-                    }}
+                    className={`px-3.5 py-2.5 rounded-2xl text-[13px] leading-relaxed whitespace-pre-line ${
+                      message.from === "user"
+                        ? "bg-emerald-600 text-white shadow-sm rounded-br-xs"
+                        : "bg-white text-slate-800 border border-slate-200/90 shadow-2xs rounded-bl-xs"
+                    }`}
                   >
                     {message.text}
                   </div>
-                  {message.page && (
+
+                  {/* Contextual Action Link */}
+                  {message.action && (
                     <a
-                      href={message.page.href}
-                      className="mt-2 inline-flex items-center gap-1.5 rounded-full border border-[#f97316]/25 bg-[#f97316]/10 px-3.5 py-1.5 text-[11px] font-mono text-[#ffd08a] hover:border-[#f97316]/50 transition-colors"
+                      href={message.action.href}
+                      target={message.action.isExternal ? "_blank" : undefined}
+                      rel={message.action.isExternal ? "noopener noreferrer" : undefined}
+                      onClick={() => handleActionClick(message.action!.href)}
+                      className="mt-1.5 inline-flex items-center gap-1.5 rounded-lg border border-emerald-300 bg-emerald-50 px-3 py-1 text-[11px] font-bold text-emerald-800 hover:bg-emerald-100 transition-colors shadow-2xs"
                     >
-                      {message.page.label}
-                      <span aria-hidden>{"->"}</span>
+                      <span>{message.action.label}</span>
+                      <ExternalLink className="h-3 w-3 text-emerald-600" />
                     </a>
                   )}
                 </div>
@@ -314,43 +300,34 @@ export default function AIChatbot() {
 
             {typing && (
               <div className="flex justify-start">
-                <div className="px-3.5 py-2.5 rounded-2xl text-[13px] text-[#b6aa9d] bg-[#f2ebe0]/5 border border-[#f2ebe0]/10 flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#f97316] animate-bounce" />
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#f97316] animate-bounce [animation-delay:0.2s]" />
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#f97316] animate-bounce [animation-delay:0.4s]" />
+                <div className="px-3.5 py-2 rounded-xl text-xs text-slate-500 bg-white border border-slate-200 flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-bounce" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-bounce [animation-delay:0.2s]" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-bounce [animation-delay:0.4s]" />
                 </div>
               </div>
             )}
             <div ref={endRef} />
           </div>
 
-          <div
-            className="p-4 border-t flex items-center gap-2"
-            style={{
-              borderColor: "rgba(242, 235, 224, 0.08)",
-              background: "rgba(14, 12, 9, 0.82)",
-            }}
-          >
+          {/* Input Box */}
+          <div className="p-3 border-t border-slate-100 bg-white flex items-center gap-2">
             <input
               id="chatbot-input"
               type="text"
-              placeholder="Ask Arnav AI..."
+              placeholder="Ask about projects, skills, resume..."
               value={input}
-              onChange={(event) => setInput(event.target.value)}
-              onKeyDown={(event) => event.key === "Enter" && handleSend()}
-              className="flex-1 bg-[#f2ebe0]/5 text-[#f8f0e6] placeholder-[#a69a8c]/70 outline-none text-[14px] px-4 py-3 rounded-xl border border-[#f2ebe0]/10 focus:border-[#f97316]/55 transition-colors"
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleSend()}
+              className="flex-1 bg-slate-50 text-slate-900 placeholder-slate-400 text-xs px-3 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-emerald-500 transition-colors"
             />
             <button
               id="chatbot-send"
               onClick={() => handleSend()}
-              className="w-11 h-11 rounded-xl text-white font-bold text-xs transition-all hover:scale-105 flex items-center justify-center"
-              style={{
-                background: "linear-gradient(135deg, #f97316, #ea580c)",
-                boxShadow: "0 4px 12px rgba(249, 115, 22, 0.28)",
-              }}
               aria-label="Send message"
+              className="w-9 h-9 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white flex items-center justify-center transition-transform active:scale-95 shadow-sm cursor-pointer"
             >
-              <Send className="w-4 h-4" />
+              <Send className="w-3.5 h-3.5" />
             </button>
           </div>
         </div>
