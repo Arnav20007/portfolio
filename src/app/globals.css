@@ -48,11 +48,11 @@
 
 html {
   scroll-behavior: smooth;
-  background: #ffffff;
+  background: #fafcfb;
 }
 
 body {
-  background: #ffffff;
+  background: #fafcfb;
   color: #0f172a;
   font-family: 'Inter', sans-serif;
   min-height: 100vh;
@@ -61,45 +61,31 @@ body {
 }
 
 html.light {
-  background: #ffffff;
+  background: #fafcfb;
 }
 
 html.light body {
-  background: #ffffff;
+  background: #fafcfb;
   color: #0f172a;
 }
 
-html.dark {
-  background: #060608;
-}
-
-html.dark body {
-  background: #060608;
-  color: #f4efea;
-}
-
 ::selection {
-  background: rgba(15, 118, 110, 0.25);
-  color: #0f766e;
-}
-
-html.dark ::selection {
-  background: rgba(91, 140, 255, 0.4);
-  color: #ffffff;
+  background: rgba(16, 185, 129, 0.25);
+  color: #065f46;
 }
 
 ::-webkit-scrollbar {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #ffffff;
+  background: #fafcfb;
 }
 ::-webkit-scrollbar-thumb {
   background: rgba(0, 0, 0, 0.12);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 150, 70, 0.4);
+  background: rgba(16, 185, 129, 0.5);
 }
 
 /* ═══════════════════════════════════════════════════════════════
