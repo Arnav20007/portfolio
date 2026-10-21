@@ -34,7 +34,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="font-sans antialiased bg-[#060606] text-[#f4efea]">
+      <body className="font-sans antialiased bg-[#f7f4ef] text-zinc-950 dark:bg-[#060608] dark:text-[#f4efea] transition-colors duration-150">
         <ThemeProvider>
           <KonamiEasterEgg />
           {children}

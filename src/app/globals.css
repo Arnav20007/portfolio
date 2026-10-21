@@ -48,19 +48,42 @@
 
 html {
   scroll-behavior: smooth;
-  background: #060608;
+  background: #f7f4ef;
 }
 
 body {
-  background: #060608;
-  color: #f4efea;
+  background: #f7f4ef;
+  color: #18181b;
   font-family: 'Inter', sans-serif;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+html.light {
+  background: #f7f4ef;
+}
+
+html.light body {
+  background: #f7f4ef;
+  color: #18181b;
+}
+
+html.dark {
+  background: #060608;
+}
+
+html.dark body {
+  background: #060608;
+  color: #f4efea;
+}
+
 ::selection {
+  background: rgba(15, 118, 110, 0.25);
+  color: #0f766e;
+}
+
+html.dark ::selection {
   background: rgba(91, 140, 255, 0.4);
   color: #ffffff;
 }
@@ -69,13 +92,22 @@ body {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
+  background: #f7f4ef;
+}
+html.dark ::-webkit-scrollbar-track {
   background: #060608;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(0, 0, 0, 0.15);
   border-radius: 3px;
 }
+html.dark ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+}
 ::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+html.dark ::-webkit-scrollbar-thumb:hover {
   background: rgba(91, 140, 255, 0.4);
 }
 
@@ -299,9 +331,10 @@ body {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #18181b;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+  background: #ffffff;
+  color: #18181b;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -311,6 +344,17 @@ body {
   transition: all 0.2s ease;
 }
 .music-btn:hover {
+  background: #f4f4f5;
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+html.dark .music-btn {
+  background: #18181b;
+  color: #f4efea;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+html.dark .music-btn:hover {
   background: #27272a;
   border-color: rgba(255, 255, 255, 0.2);
 }
@@ -325,4 +369,3 @@ body {
   align-items: center;
   justify-content: center;
 }
-
