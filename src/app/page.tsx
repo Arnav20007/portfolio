@@ -9,20 +9,22 @@ import {
   Download,
   ExternalLink,
   Mail,
+  Code2,
+  Layers,
+  Cpu,
+  Database,
+  Zap,
 } from "lucide-react";
 import { personal } from "@/lib/data";
 
 const resumeHref = personal.resume || "/resume.pdf";
 const email = personal.email || "your_email_here";
 
+/* ── Icons ─────────────────────────────────────────────────────── */
 function GithubIcon({ className = "h-4 w-4" }: { className?: string }) {
   return (
     <svg className={className} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-      <path
-        fillRule="evenodd"
-        d="M12 2C6.48 2 2 6.58 2 12.26c0 4.52 2.87 8.35 6.84 9.7.5.1.68-.22.68-.49v-1.74c-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.63.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.36-2.22-.26-4.55-1.14-4.55-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.28 2.75 1.05A9.35 9.35 0 0 1 12 6.99c.85 0 1.7.12 2.5.35 1.91-1.33 2.75-1.05 2.75-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9v2.77c0 .27.18.59.69.49A10.15 10.15 0 0 0 22 12.26C22 6.58 17.52 2 12 2Z"
-        clipRule="evenodd"
-      />
+      <path fillRule="evenodd" d="M12 2C6.48 2 2 6.58 2 12.26c0 4.52 2.87 8.35 6.84 9.7.5.1.68-.22.68-.49v-1.74c-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.63.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.36-2.22-.26-4.55-1.14-4.55-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.28 2.75 1.05A9.35 9.35 0 0 1 12 6.99c.85 0 1.7.12 2.5.35 1.91-1.33 2.75-1.05 2.75-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9v2.77c0 .27.18.59.69.49A10.15 10.15 0 0 0 22 12.26C22 6.58 17.52 2 12 2Z" clipRule="evenodd" />
     </svg>
   );
 }
@@ -35,14 +37,15 @@ function LinkedinIcon({ className = "h-4 w-4" }: { className?: string }) {
   );
 }
 
-const techBadges = ["C++", "DSA", "React", "Next.js", "Python", "TypeScript"];
-
+/* ── Data ───────────────────────────────────────────────────────── */
 const metrics = [
-  { value: "5th Semester", label: "B.Tech CSE · BBDU Lucknow" },
-  { value: "8.0 / 10", label: "CGPA" },
-  { value: "C++ & DSA", label: "Trees, Graphs & Dynamic Programming" },
-  { value: "4 Projects", label: "Web, AI & Browser Utilities" },
+  { icon: Code2, value: "5th Semester", label: "B.Tech CSE · BBDU Lucknow" },
+  { icon: Zap,   value: "8.0 / 10",    label: "CGPA" },
+  { icon: Cpu,   value: "C++ & DSA",   label: "Trees · Graphs · DP" },
+  { icon: Layers,value: "4 Projects",  label: "Web, AI & Browser Tools" },
 ];
+
+const techBadges = ["C++", "DSA", "React", "Next.js", "TypeScript", "Python", "Flask"];
 
 const pdflex = {
   title: "PDFlex",
@@ -50,11 +53,11 @@ const pdflex = {
   demo: "https://pd-flex.vercel.app",
   source: "https://github.com/arnavsingh/pdflex",
   summary:
-    "Built an in-browser PDF manipulation tool using PDF.js and pdf-lib running inside Web Workers. PDFlex processes document merging and splitting entirely on the client side, keeping user files 100% private with zero server uploads.",
+    "Built an in-browser PDF manipulation tool using PDF.js and pdf-lib running inside Web Workers. All processing is client-side — zero server uploads, 100% private.",
   highlights: [
-    "Client-Side Processing: Leverages Web Workers to offload heavy PDF rendering and manipulation off the main thread.",
-    "Privacy-First: Zero network payloads for document operations; all data remains in browser memory.",
-    "Tech Stack: React, PDF.js, pdf-lib, Web Workers, Tailwind CSS.",
+    "Web Workers: Heavy PDF rendering offloaded off main thread.",
+    "Privacy-First: All data stays in browser memory — no uploads.",
+    "Stack: React · PDF.js · pdf-lib · Web Workers · Tailwind CSS",
   ],
 };
 
@@ -62,7 +65,7 @@ const selectedProjects = [
   {
     name: "PDFlex",
     badge: "Browser Tool",
-    description: "In-browser PDF utility for merging and splitting documents locally via Web Workers and PDF.js.",
+    description: "In-browser PDF utility — merge and split documents locally via Web Workers and PDF.js. Zero server uploads.",
     stack: ["React", "PDF.js", "pdf-lib", "Web Workers"],
     demo: "https://pd-flex.vercel.app",
     source: "https://github.com/arnavsingh/pdflex",
@@ -70,8 +73,7 @@ const selectedProjects = [
   {
     name: "FinanceCalc",
     badge: "Fintech",
-    description:
-      "Web-based financial calculator with interactive data visualizations for SIP returns, EMI schedules, and personal investment planning.",
+    description: "Financial calculator with interactive charts for SIP returns, EMI schedules, and personal investment planning.",
     stack: ["Next.js", "TypeScript", "Tailwind CSS", "Chart.js"],
     demo: "https://financecalc0.vercel.app",
     source: "https://github.com/arnavsingh/financecalc",
@@ -79,8 +81,7 @@ const selectedProjects = [
   {
     name: "MoodMate",
     badge: "AI / Web",
-    description:
-      "Journaling platform integrating Flask endpoints with OpenAI API to provide reflection feedback and track emotional trends.",
+    description: "Journaling platform using Flask + OpenAI API to provide emotional reflection feedback and trend tracking.",
     stack: ["Next.js", "Python", "Flask", "OpenAI API"],
     source: "https://github.com/arnavsingh/moodmate",
     comingSoon: true,
@@ -88,8 +89,7 @@ const selectedProjects = [
   {
     name: "ASCEND",
     badge: "Productivity",
-    description:
-      "Task management web app incorporating XP gain, level progression, and quest mechanics over a structured todo workflow.",
+    description: "Gamified task manager — XP gain, level progression, and quest mechanics layered over a clean todo workflow.",
     stack: ["Next.js", "Prisma", "PostgreSQL", "Tailwind CSS"],
     source: "https://github.com/arnavsingh/ascend",
     comingSoon: true,
@@ -97,155 +97,176 @@ const selectedProjects = [
 ];
 
 const skillGroups = [
-  {
-    title: "Core Programming",
-    skills: ["C++", "Data Structures & Algorithms", "OOP", "C"],
-  },
-  {
-    title: "Frontend Development",
-    skills: ["React", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS", "HTML/CSS"],
-  },
-  {
-    title: "Backend & APIs",
-    skills: ["Python", "Flask", "Node.js", "REST APIs"],
-  },
-  {
-    title: "Databases & Tools",
-    skills: ["PostgreSQL", "SQLite", "SQL", "Git", "GitHub", "Web Workers"],
-  },
+  { title: "Core CS",     icon: Cpu,      skills: ["C++", "DSA", "OOP", "C"] },
+  { title: "Frontend",    icon: Layers,   skills: ["React", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS"] },
+  { title: "Backend",     icon: Code2,    skills: ["Python", "Flask", "Node.js", "REST APIs"] },
+  { title: "Data & Tools",icon: Database, skills: ["PostgreSQL", "SQLite", "Git", "GitHub", "Web Workers"] },
 ];
 
-/** Minimal SVG system diagram — pure design artifact, no neon */
-function SystemDiagram() {
+/* ── Background blobs — exactly like ToolForge ─────────────────── */
+function BgBlobs() {
   return (
-    <div className="relative select-none" aria-hidden="true">
-      <svg
-        viewBox="0 0 340 320"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="w-full max-w-sm mx-auto lg:max-w-none opacity-90"
-      >
-        {/* Grid background dots */}
-        {Array.from({ length: 6 }).map((_, row) =>
-          Array.from({ length: 7 }).map((_, col) => (
-            <circle
-              key={`dot-${row}-${col}`}
-              cx={24 + col * 46}
-              cy={20 + row * 50}
-              r={1.5}
-              fill="#c8c2b8"
-              opacity={0.45}
-            />
-          ))
-        )}
-
-        {/* Connector lines */}
-        <line x1="170" y1="72" x2="170" y2="104" stroke="#b5b0a8" strokeWidth="1" strokeDasharray="3 3" />
-        <line x1="170" y1="136" x2="100" y2="170" stroke="#b5b0a8" strokeWidth="1" strokeDasharray="3 3" />
-        <line x1="170" y1="136" x2="240" y2="170" stroke="#b5b0a8" strokeWidth="1" strokeDasharray="3 3" />
-        <line x1="100" y1="200" x2="100" y2="230" stroke="#b5b0a8" strokeWidth="1" strokeDasharray="3 3" />
-        <line x1="240" y1="200" x2="240" y2="230" stroke="#b5b0a8" strokeWidth="1" strokeDasharray="3 3" />
-        <line x1="100" y1="262" x2="170" y2="280" stroke="#b5b0a8" strokeWidth="1" strokeDasharray="3 3" />
-        <line x1="240" y1="262" x2="170" y2="280" stroke="#b5b0a8" strokeWidth="1" strokeDasharray="3 3" />
-
-        {/* Top block — "Interface / Product" */}
-        <rect x="112" y="36" width="116" height="36" rx="6" fill="#f0ece5" stroke="#c5bfb6" strokeWidth="1" />
-        <text x="170" y="55" textAnchor="middle" fontSize="9" fontWeight="600" fill="#6b6560" letterSpacing="0.08em" fontFamily="Inter, sans-serif">PRODUCT LAYER</text>
-        <text x="170" y="66" textAnchor="middle" fontSize="7" fill="#9c958e" fontFamily="Inter, sans-serif">React · Next.js · TypeScript</text>
-
-        {/* Middle block — "Logic" */}
-        <rect x="124" y="104" width="92" height="32" rx="6" fill="#e8e3da" stroke="#c5bfb6" strokeWidth="1" />
-        <text x="170" y="122" textAnchor="middle" fontSize="9" fontWeight="600" fill="#6b6560" letterSpacing="0.08em" fontFamily="Inter, sans-serif">LOGIC LAYER</text>
-        <text x="170" y="131" textAnchor="middle" fontSize="7" fill="#9c958e" fontFamily="Inter, sans-serif">Python · Flask · REST</text>
-
-        {/* Left block — "Data" */}
-        <rect x="52" y="170" width="96" height="30" rx="6" fill="#f0ece5" stroke="#c5bfb6" strokeWidth="1" />
-        <text x="100" y="187" textAnchor="middle" fontSize="9" fontWeight="600" fill="#6b6560" letterSpacing="0.08em" fontFamily="Inter, sans-serif">DATA STORE</text>
-        <text x="100" y="196" textAnchor="middle" fontSize="7" fill="#9c958e" fontFamily="Inter, sans-serif">PostgreSQL · SQLite</text>
-
-        {/* Right block — "Algorithms" */}
-        <rect x="192" y="170" width="96" height="30" rx="6" fill="#f0ece5" stroke="#c5bfb6" strokeWidth="1" />
-        <text x="240" y="187" textAnchor="middle" fontSize="9" fontWeight="600" fill="#6b6560" letterSpacing="0.08em" fontFamily="Inter, sans-serif">ALGORITHMS</text>
-        <text x="240" y="196" textAnchor="middle" fontSize="7" fill="#9c958e" fontFamily="Inter, sans-serif">C++ · DSA · Trees · DP</text>
-
-        {/* Left leaf — "Browser Util" */}
-        <rect x="46" y="230" width="108" height="26" rx="5" fill="#eae5dc" stroke="#c5bfb6" strokeWidth="1" />
-        <text x="100" y="246" textAnchor="middle" fontSize="8" fontWeight="600" fill="#6b6560" letterSpacing="0.06em" fontFamily="Inter, sans-serif">BROWSER UTILITIES</text>
-        <text x="100" y="254" textAnchor="middle" fontSize="7" fill="#9c958e" fontFamily="Inter, sans-serif">Web Workers · PDF.js</text>
-
-        {/* Right leaf — "AI Integration" */}
-        <rect x="186" y="230" width="108" height="26" rx="5" fill="#eae5dc" stroke="#c5bfb6" strokeWidth="1" />
-        <text x="240" y="246" textAnchor="middle" fontSize="8" fontWeight="600" fill="#6b6560" letterSpacing="0.06em" fontFamily="Inter, sans-serif">AI INTEGRATION</text>
-        <text x="240" y="254" textAnchor="middle" fontSize="7" fill="#9c958e" fontFamily="Inter, sans-serif">OpenAI API · Flask</text>
-
-        {/* Bottom convergence node */}
-        <circle cx="170" cy="290" r="10" fill="#e0dbd2" stroke="#b8b2a8" strokeWidth="1" />
-        <text x="170" y="294" textAnchor="middle" fontSize="8" fontWeight="700" fill="#6b6560" fontFamily="Inter, sans-serif">∞</text>
-
-        {/* Small decorative label bottom */}
-        <text x="170" y="315" textAnchor="middle" fontSize="7" fill="#b0a9a0" fontFamily="Inter, sans-serif" letterSpacing="0.1em">FULL-STACK ENGINEER</text>
-      </svg>
+    <div className="pointer-events-none fixed inset-0 overflow-hidden" aria-hidden="true">
+      {/* Top-right large blob */}
+      <div
+        style={{
+          position: "absolute",
+          top: "-80px",
+          right: "-80px",
+          width: "420px",
+          height: "420px",
+          borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(0,200,100,0.18) 0%, rgba(0,180,90,0.08) 50%, transparent 75%)",
+        }}
+      />
+      {/* Bottom-right medium blob */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: "-60px",
+          right: "-40px",
+          width: "300px",
+          height: "300px",
+          borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(0,180,90,0.22) 0%, rgba(0,160,80,0.06) 60%, transparent 80%)",
+        }}
+      />
+      {/* Top-left subtle blob */}
+      <div
+        style={{
+          position: "absolute",
+          top: "200px",
+          left: "-100px",
+          width: "260px",
+          height: "260px",
+          borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(0,200,100,0.10) 0%, transparent 70%)",
+        }}
+      />
     </div>
   );
 }
 
-function SectionHeading({
-  eyebrow,
-  index,
-  title,
-  text,
-}: {
-  eyebrow: string;
-  index?: string;
-  title: string;
-  text?: string;
-}) {
+/* ── Hero visual — project card stack ──────────────────────────── */
+function HeroVisual() {
   return (
-    <div className="mb-10 max-w-3xl">
-      <div className="mb-3 flex items-center gap-3">
-        {index && (
-          <span className="text-xs font-mono text-zinc-400 tabular-nums">{index}</span>
-        )}
-        <p className="text-xs font-bold uppercase tracking-[0.18em] text-teal-700">
-          {eyebrow}
-        </p>
+    <div className="relative flex items-center justify-center select-none" aria-hidden="true">
+      {/* Outer glow circle */}
+      <div
+        style={{
+          position: "absolute",
+          inset: "-20px",
+          borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(0,200,100,0.12) 0%, transparent 70%)",
+        }}
+      />
+
+      {/* Stacked card visual */}
+      <div className="relative w-full max-w-[340px]">
+        {/* Back card */}
+        <div
+          className="absolute inset-0 rounded-2xl border border-emerald-200 bg-white/80"
+          style={{ transform: "rotate(3deg) translate(8px, 8px)" }}
+        />
+        {/* Middle card */}
+        <div
+          className="absolute inset-0 rounded-2xl border border-emerald-200 bg-white/90"
+          style={{ transform: "rotate(1deg) translate(4px, 4px)" }}
+        />
+
+        {/* Front card — the real one */}
+        <div className="relative rounded-2xl border border-emerald-200 bg-white p-6 shadow-[0_20px_60px_rgba(0,180,80,0.15)]">
+          {/* Card header */}
+          <div className="mb-4 flex items-center justify-between">
+            <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-bold text-emerald-700">
+              Featured
+            </span>
+            <span className="text-xs font-mono text-slate-400">pd-flex.vercel.app</span>
+          </div>
+
+          <h3 className="text-xl font-black text-slate-900">PDFlex</h3>
+          <p className="mt-1 text-sm text-slate-500">In-browser PDF utility</p>
+
+          {/* Mini stat row */}
+          <div className="mt-4 grid grid-cols-3 gap-2">
+            {[
+              { val: "100%", lbl: "Private" },
+              { val: "0KB",  lbl: "Upload" },
+              { val: "2 ops", lbl: "Merge/Split" },
+            ].map((s) => (
+              <div key={s.lbl} className="rounded-xl border border-slate-100 bg-slate-50 p-2.5 text-center">
+                <div className="text-sm font-black text-emerald-600">{s.val}</div>
+                <div className="text-[10px] text-slate-400">{s.lbl}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Tech row */}
+          <div className="mt-4 flex flex-wrap gap-1.5">
+            {["React", "PDF.js", "pdf-lib", "Web Workers"].map((t) => (
+              <span key={t} className="rounded-md border border-emerald-100 bg-emerald-50 px-2 py-0.5 text-[11px] font-semibold text-emerald-700">
+                {t}
+              </span>
+            ))}
+          </div>
+
+          {/* Progress bar */}
+          <div className="mt-5">
+            <div className="mb-1 flex justify-between text-[11px] text-slate-400">
+              <span>Build progress</span><span>100%</span>
+            </div>
+            <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-100">
+              <div className="h-full w-full rounded-full bg-gradient-to-r from-emerald-400 to-emerald-600" />
+            </div>
+          </div>
+
+          {/* Demo link */}
+          <a
+            href="https://pd-flex.vercel.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 py-2.5 text-sm font-black text-white transition hover:bg-emerald-700"
+          >
+            Live Demo
+            <ExternalLink className="h-3.5 w-3.5" />
+          </a>
+        </div>
       </div>
-      <h2 className="text-3xl font-black tracking-tight text-zinc-950 sm:text-4xl">
-        {title}
-      </h2>
-      {text && <p className="mt-4 text-base leading-7 text-zinc-600">{text}</p>}
     </div>
   );
 }
 
+/* ── Header ─────────────────────────────────────────────────────── */
 function Header() {
   return (
-    <header className="sticky top-0 z-40 border-b border-zinc-200/80 bg-[#f7f4ef]/90 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-white/90 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
-        <Link href="/" className="text-sm font-black tracking-tight text-zinc-950">
-          Arnav Singh
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-2">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-600">
+            <Code2 className="h-4 w-4 text-white" />
+          </div>
+          <span className="text-sm font-black tracking-tight text-slate-900">Arnav Singh</span>
         </Link>
 
-        <nav className="hidden items-center gap-6 text-sm font-semibold text-zinc-500 md:flex">
-          <a href="#about" className="transition hover:text-zinc-950">
-            About
-          </a>
-          <a href="#projects" className="transition hover:text-zinc-950">
-            Projects
-          </a>
-          <a href="#skills" className="transition hover:text-zinc-950">
-            Skills
-          </a>
-          <a href="#contact" className="transition hover:text-zinc-950">
-            Contact
-          </a>
+        {/* Nav */}
+        <nav className="hidden items-center gap-6 text-sm font-semibold text-slate-500 md:flex">
+          <a href="#about"    className="transition hover:text-slate-900">About</a>
+          <a href="#projects" className="transition hover:text-slate-900">Projects</a>
+          <a href="#skills"   className="transition hover:text-slate-900">Skills</a>
+          <a href="#contact"  className="transition hover:text-slate-900">Contact</a>
+          <span className="flex items-center gap-1.5 text-xs font-bold text-emerald-600">
+            <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+            Open to Internships
+          </span>
         </nav>
 
+        {/* Resume CTA */}
         <a
           href={resumeHref}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 rounded-full bg-zinc-950 px-4 py-2 text-xs font-bold text-white transition hover:bg-zinc-700"
+          className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-4 py-2 text-xs font-bold text-white transition hover:bg-emerald-700"
         >
           <Download className="h-3.5 w-3.5" />
           Resume
@@ -255,149 +276,97 @@ function Header() {
   );
 }
 
+/* ── Hero ───────────────────────────────────────────────────────── */
 function Hero() {
   return (
-    <section className="grid gap-12 py-14 sm:py-18 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16 lg:py-20">
-      {/* LEFT — Identity */}
+    <section className="grid gap-10 py-14 sm:py-18 lg:grid-cols-2 lg:items-center lg:gap-16 lg:py-20">
+      {/* LEFT */}
       <div>
-        {/* Location chip */}
-        <p className="mb-5 inline-flex items-center gap-1.5 rounded-full border border-zinc-300 px-3 py-1 text-xs font-semibold text-zinc-500">
-          <span className="h-1.5 w-1.5 rounded-full bg-teal-600 inline-block" />
-          Lucknow, India
-        </p>
+        {/* Top badge — like ToolForge's "⚡ FREE ATS RESUME SCORE CHECKER" */}
+        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-1.5">
+          <span className="text-base">⚡</span>
+          <span className="text-xs font-bold uppercase tracking-wider text-emerald-700">
+            B.Tech CSE · 5th Semester · BBDU Lucknow
+          </span>
+        </div>
 
-        {/* Name — primary identifier */}
-        <h1 className="text-5xl font-black leading-[1.02] tracking-tight text-zinc-950 sm:text-6xl">
-          Arnav Singh
+        {/* Headline — dark line + green accent line (exactly like ToolForge) */}
+        <h1 className="text-5xl font-black leading-[1.05] tracking-tight text-slate-900 sm:text-6xl">
+          Full-Stack & AI
+          <br />
+          <span className="text-emerald-600">Engineer in the</span>
+          <br />
+          <span className="text-emerald-600">Making.</span>
         </h1>
 
-        {/* Role line */}
-        <p className="mt-3 text-lg font-semibold text-zinc-500">
-          Full-Stack & AI Engineer
-        </p>
-
-        {/* Divider */}
-        <div className="my-5 h-px w-12 bg-zinc-300" />
-
-        {/* Positioning statement */}
-        <p className="max-w-lg text-base leading-7 text-zinc-600">
-          5th-semester B.Tech CSE student at BBDU Lucknow. I build practical web applications
-          and AI-powered tools — focusing on client-side performance, clean architecture, and
-          real user value.
+        <p className="mt-5 max-w-lg text-base leading-7 text-slate-500">
+          Building practical web applications and AI-powered tools —
+          client-side performance, clean architecture, real user value.
+          Currently mastering C++ DSA while shipping production projects.
         </p>
 
         {/* Tech tags */}
-        <div className="mt-6 flex flex-wrap gap-2">
+        <div className="mt-5 flex flex-wrap gap-2">
           {techBadges.map((badge) => (
             <span
               key={badge}
-              className="rounded-full border border-zinc-300 bg-white px-3 py-1 text-xs font-semibold text-zinc-600"
+              className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold text-slate-600 shadow-sm"
             >
               {badge}
             </span>
           ))}
         </div>
 
-        {/* CTA row */}
-        <div className="mt-8 flex flex-wrap items-center gap-4">
+        {/* CTAs — like ToolForge's Upload / Create buttons */}
+        <div className="mt-8 flex flex-wrap gap-3">
           <a
             href="#projects"
-            className="group inline-flex items-center gap-2 border-b border-zinc-950 pb-0.5 text-sm font-black tracking-wide text-zinc-950 transition hover:gap-3"
+            className="group inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-6 py-3 text-sm font-black text-white transition hover:bg-emerald-700"
           >
-            VIEW SELECTED WORK
+            View My Projects
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </a>
           <a
             href={resumeHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-zinc-300 bg-white px-5 py-2.5 text-sm font-semibold text-zinc-700 transition hover:border-zinc-500"
+            className="inline-flex items-center gap-2 rounded-xl border-2 border-emerald-200 bg-white px-6 py-3 text-sm font-black text-emerald-700 transition hover:border-emerald-400"
           >
-            <Download className="h-3.5 w-3.5" />
-            Resume
+            <Download className="h-4 w-4" />
+            Download Resume
           </a>
         </div>
+
+        {/* Subtle social proof line */}
+        <p className="mt-5 text-xs text-slate-400">
+          Or reach me at{" "}
+          <a href={`mailto:${email}`} className="font-semibold text-emerald-600 hover:underline">
+            {email}
+          </a>{" "}
+          · <a href={`https://github.com/${personal.github}`} className="font-semibold text-slate-600 hover:text-emerald-600" target="_blank" rel="noopener noreferrer">GitHub</a>{" "}
+          · <a href={`https://linkedin.com/in/${personal.linkedin}`} className="font-semibold text-slate-600 hover:text-emerald-600" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </p>
       </div>
 
-      {/* RIGHT — System diagram visual anchor */}
-      <div className="hidden lg:block">
-        <div className="rounded-2xl border border-zinc-200 bg-white/70 p-6 shadow-[0_8px_40px_rgba(20,20,20,0.06)]">
-          <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.16em] text-zinc-400">
-            System Architecture
-          </p>
-          <SystemDiagram />
-        </div>
-      </div>
+      {/* RIGHT — visual */}
+      <HeroVisual />
     </section>
   );
 }
 
-function FeaturedProject() {
-  return (
-    <aside className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-[0_24px_80px_rgba(20,20,20,0.07)]">
-      <div className="flex flex-col gap-4 border-b border-zinc-200 pb-5 sm:flex-row sm:items-start sm:justify-between">
-        <div>
-          <p className="text-xs font-bold uppercase tracking-[0.16em] text-teal-700">
-            Featured Project
-          </p>
-          <h2 className="mt-2 text-3xl font-black tracking-tight text-zinc-950">
-            {pdflex.title}
-          </h2>
-          <p className="mt-1 text-sm font-semibold text-zinc-500">
-            {pdflex.subtitle}
-          </p>
-        </div>
-        <a
-          href={pdflex.source}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 rounded-full border border-zinc-300 px-3 py-2 text-xs font-bold text-zinc-600 transition hover:border-zinc-500"
-        >
-          <GithubIcon className="h-4 w-4" />
-          Source
-        </a>
-      </div>
-
-      <p className="mt-5 text-sm leading-7 text-zinc-600">{pdflex.summary}</p>
-
-      <div className="mt-6 space-y-3">
-        {pdflex.highlights.map((highlight) => (
-          <div
-            key={highlight}
-            className="rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-3 text-sm leading-6 text-zinc-600"
-          >
-            {highlight}
-          </div>
-        ))}
-      </div>
-
-      <a
-        href={pdflex.demo}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-teal-700 px-5 py-3 text-sm font-black text-white transition hover:bg-teal-800"
-      >
-        Try Live Demo (pd-flex.vercel.app)
-        <ExternalLink className="h-4 w-4" />
-      </a>
-    </aside>
-  );
-}
-
+/* ── Metrics bar ────────────────────────────────────────────────── */
 function MetricsBar() {
   return (
-    <section className="border-y border-zinc-200 py-8">
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-        {metrics.map((metric, i) => (
-          <div key={metric.value} className="flex flex-col gap-1">
-            <span className="mb-1 text-[10px] font-mono text-zinc-400 tabular-nums">
-              {String(i + 1).padStart(2, "0")}
-            </span>
-            <div className="text-xl font-black tracking-tight text-zinc-950">
-              {metric.value}
+    <section className="border-y border-slate-200 py-8">
+      <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
+        {metrics.map(({ icon: Icon, value, label }) => (
+          <div key={value} className="flex items-center gap-3">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-50 border border-emerald-100">
+              <Icon className="h-5 w-5 text-emerald-600" />
             </div>
-            <div className="text-xs font-medium leading-5 text-zinc-500">
-              {metric.label}
+            <div>
+              <div className="text-sm font-black text-slate-900">{value}</div>
+              <div className="text-xs text-slate-500">{label}</div>
             </div>
           </div>
         ))}
@@ -406,70 +375,76 @@ function MetricsBar() {
   );
 }
 
+/* ── Section heading ────────────────────────────────────────────── */
+function SectionHeading({ eyebrow, title, text }: { eyebrow: string; title: string; text?: string }) {
+  return (
+    <div className="mb-10 max-w-3xl">
+      <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1">
+        <span className="text-xs font-bold uppercase tracking-wider text-emerald-700">{eyebrow}</span>
+      </div>
+      <h2 className="text-3xl font-black tracking-tight text-slate-900 sm:text-4xl">{title}</h2>
+      {text && <p className="mt-4 text-base leading-7 text-slate-500">{text}</p>}
+    </div>
+  );
+}
+
+/* ── About ──────────────────────────────────────────────────────── */
 function About() {
   return (
     <section id="about" className="py-16 sm:py-20">
-      <SectionHeading
-        eyebrow="About"
-        index="01"
-        title="Background & Technical Focus"
-      />
-      <div className="grid gap-6 md:grid-cols-2 max-w-4xl">
-        <p className="text-base leading-8 text-zinc-600">
-          I&apos;m currently in my 5th semester of B.Tech Computer Science Engineering at Babu Banarasi
-          Das University. My primary focus is mastering core C++ data structures and algorithms —
-          specifically tree traversals, graph algorithms, recursion, and dynamic programming.
+      <SectionHeading eyebrow="About Me" title="Background & Technical Focus" />
+      <div className="grid max-w-4xl gap-6 text-base leading-8 text-slate-600 md:grid-cols-2">
+        <p>
+          I&apos;m in my 5th semester of B.Tech Computer Science Engineering at Babu Banarasi Das
+          University, Lucknow. My core focus is mastering C++ data structures and algorithms —
+          tree traversals, graph algorithms, recursion, and dynamic programming.
         </p>
-        <p className="text-base leading-8 text-zinc-600">
-          Rather than relying on tutorial projects, I focus on building practical utilities
-          that solve real constraints — like processing heavy PDFs locally in the browser, or
-          structuring modular Flask APIs with clean separation of concerns.
+        <p>
+          Rather than tutorial clones, I build practical utilities that solve real constraints —
+          like heavy PDF processing entirely in the browser, or structuring clean Flask APIs with
+          modular architecture. Every project I ship teaches me something production-relevant.
         </p>
       </div>
     </section>
   );
 }
 
+/* ── Projects ───────────────────────────────────────────────────── */
 function Projects() {
   return (
     <section id="projects" className="py-16 sm:py-20">
       <SectionHeading
         eyebrow="Selected Work"
-        index="02"
-        title="Four projects with clear implementation details"
-        text="A concise view of what each project does, the stack behind it, and whether a live demo is available."
+        title="Projects with clear implementation details"
+        text="A concise view of what each project does, the stack, and whether a live demo is available."
       />
 
       <div className="grid gap-5 md:grid-cols-2">
         {selectedProjects.map((project) => (
           <article
             key={project.name}
-            className="flex min-h-[320px] flex-col justify-between rounded-2xl border border-zinc-200 bg-white p-6 transition hover:border-teal-700/40 hover:shadow-[0_12px_40px_rgba(15,118,110,0.08)]"
+            className="flex min-h-[300px] flex-col justify-between rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:border-emerald-300 hover:shadow-[0_12px_40px_rgba(0,180,80,0.10)]"
           >
             <div>
-              <div className="mb-5 flex items-start justify-between gap-3">
-                <span className="rounded-full border border-teal-700/20 bg-teal-700/8 px-3 py-1 text-xs font-bold text-teal-800">
+              <div className="mb-4 flex items-start justify-between gap-3">
+                <span className="rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-700">
                   {project.badge}
                 </span>
                 {project.comingSoon && (
-                  <span className="rounded-full border border-zinc-300 px-3 py-1 text-xs font-semibold text-zinc-400">
-                    Demo Coming Soon
+                  <span className="rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-400">
+                    Demo Soon
                   </span>
                 )}
               </div>
 
-              <h3 className="text-2xl font-black tracking-tight text-zinc-950">
-                {project.name}
-              </h3>
-              <p className="mt-3 text-sm leading-7 text-zinc-600">
-                {project.description}
-              </p>
+              <h3 className="text-2xl font-black tracking-tight text-slate-900">{project.name}</h3>
+              <p className="mt-2 text-sm leading-7 text-slate-500">{project.description}</p>
 
-              <div className="mt-5 flex flex-wrap gap-2">
+              <div className="mt-4 flex flex-wrap gap-1.5">
                 {project.stack.map((tech) => (
                   <span
                     key={tech}
-                    className="rounded-md border border-zinc-200 bg-zinc-50 px-2.5 py-1 text-xs font-semibold text-zinc-500"
+                    className="rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs font-semibold text-slate-500"
                   >
                     {tech}
                   </span>
@@ -477,13 +452,13 @@ function Projects() {
               </div>
             </div>
 
-            <div className="mt-7 flex flex-wrap items-center gap-3 border-t border-zinc-200 pt-5">
+            <div className="mt-6 flex flex-wrap items-center gap-3 border-t border-slate-100 pt-5">
               {project.demo ? (
                 <a
                   href={project.demo}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full bg-teal-700 px-4 py-2 text-xs font-black text-white transition hover:bg-teal-800"
+                  className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-4 py-2 text-xs font-black text-white transition hover:bg-emerald-700"
                 >
                   Live Demo
                   <ExternalLink className="h-3.5 w-3.5" />
@@ -495,12 +470,12 @@ function Projects() {
                 rel="noopener noreferrer"
                 className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-black transition ${
                   project.demo
-                    ? "border border-zinc-300 text-zinc-600 hover:border-zinc-500"
-                    : "bg-zinc-950 text-white hover:bg-zinc-700"
+                    ? "border border-slate-200 text-slate-600 hover:border-slate-400"
+                    : "bg-slate-900 text-white hover:bg-slate-700"
                 }`}
               >
                 <GithubIcon className="h-3.5 w-3.5" />
-                GitHub Source
+                GitHub
               </a>
             </div>
           </article>
@@ -510,27 +485,32 @@ function Projects() {
   );
 }
 
+/* ── Skills ─────────────────────────────────────────────────────── */
 function Skills() {
   return (
     <section id="skills" className="py-16 sm:py-20">
       <SectionHeading
         eyebrow="Skills"
-        index="03"
-        title="Technical stack"
-        text="Grouped by the areas I use most across coursework, problem-solving, and project builds."
+        title="Technical Stack"
+        text="Grouped by area — coursework, DSA problem-solving, and project builds."
       />
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-        {skillGroups.map((group) => (
+        {skillGroups.map(({ title, icon: Icon, skills }) => (
           <div
-            key={group.title}
-            className="rounded-2xl border border-zinc-200 bg-white p-6"
+            key={title}
+            className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:border-emerald-200 hover:shadow-[0_8px_30px_rgba(0,180,80,0.08)]"
           >
-            <h3 className="text-sm font-black uppercase tracking-[0.1em] text-zinc-950">{group.title}</h3>
-            <div className="mt-5 flex flex-wrap gap-2">
-              {group.skills.map((skill) => (
+            <div className="mb-4 flex items-center gap-2">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-50 border border-emerald-100">
+                <Icon className="h-4 w-4 text-emerald-600" />
+              </div>
+              <h3 className="text-sm font-black text-slate-900">{title}</h3>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {skills.map((skill) => (
                 <span
                   key={skill}
-                  className="rounded-md border border-zinc-200 bg-zinc-50 px-2.5 py-1 text-xs font-semibold text-zinc-500"
+                  className="rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs font-semibold text-slate-500"
                 >
                   {skill}
                 </span>
@@ -543,10 +523,11 @@ function Skills() {
   );
 }
 
+/* ── Contact ────────────────────────────────────────────────────── */
 function Contact() {
   const [copied, setCopied] = useState(false);
 
-  const handleCopyEmail = async () => {
+  const handleCopy = async () => {
     await navigator.clipboard.writeText(email);
     setCopied(true);
     window.setTimeout(() => setCopied(false), 1800);
@@ -554,44 +535,46 @@ function Contact() {
 
   return (
     <section id="contact" className="py-16 sm:py-20">
-      <SectionHeading
-        eyebrow="Contact"
-        index="04"
-        title="Let's Connect"
-      />
-      <div className="rounded-3xl border border-zinc-200 bg-white p-8 shadow-[0_24px_80px_rgba(20,20,20,0.05)] sm:p-10">
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-          <div className="max-w-2xl">
-            <p className="text-lg leading-8 text-zinc-600">
-              Open for Software Engineering Internship opportunities for 2025/2026. I respond to every message.
+      <SectionHeading eyebrow="Contact" title="Let's Connect" />
+
+      {/* CTA card — dashed border like ToolForge's upload card */}
+      <div className="rounded-3xl border-2 border-dashed border-emerald-200 bg-emerald-50/40 p-8 sm:p-10">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <h3 className="text-2xl font-black text-slate-900">
+              Open for{" "}
+              <span className="text-emerald-600">Internship Opportunities</span>
+            </h3>
+            <p className="mt-2 text-base text-slate-500">
+              Software Engineering internships for 2025 / 2026. I respond to every message.
             </p>
           </div>
 
           <div className="flex flex-wrap gap-3">
             <a
               href={`mailto:${email}`}
-              className="inline-flex items-center gap-2 rounded-full bg-teal-700 px-6 py-3 text-sm font-black text-white transition hover:bg-teal-800"
+              className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-6 py-3 text-sm font-black text-white transition hover:bg-emerald-700"
             >
               <Mail className="h-4 w-4" />
               Email Me
             </a>
             <button
               type="button"
-              onClick={handleCopyEmail}
-              className="inline-flex items-center gap-2 rounded-full border border-zinc-300 bg-white px-6 py-3 text-sm font-black text-zinc-950 transition hover:border-zinc-500"
+              onClick={handleCopy}
+              className="inline-flex items-center gap-2 rounded-xl border-2 border-emerald-200 bg-white px-6 py-3 text-sm font-black text-slate-900 transition hover:border-emerald-400"
             >
-              {copied ? <CheckCircle2 className="h-4 w-4 text-teal-600" /> : <Copy className="h-4 w-4" />}
+              {copied ? <CheckCircle2 className="h-4 w-4 text-emerald-600" /> : <Copy className="h-4 w-4" />}
               {copied ? "Copied!" : "Copy Email"}
             </button>
           </div>
         </div>
 
-        <div className="mt-9 flex flex-wrap gap-3 border-t border-zinc-200 pt-6">
+        <div className="mt-8 flex flex-wrap gap-3 border-t border-emerald-200 pt-6">
           <a
             href={`https://github.com/${personal.github}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-zinc-300 px-4 py-2 text-sm font-bold text-zinc-600 transition hover:border-zinc-500"
+            className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-slate-600 transition hover:border-emerald-300"
           >
             <GithubIcon className="h-4 w-4" />
             GitHub
@@ -600,7 +583,7 @@ function Contact() {
             href={`https://linkedin.com/in/${personal.linkedin}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-zinc-300 px-4 py-2 text-sm font-bold text-zinc-600 transition hover:border-zinc-500"
+            className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-slate-600 transition hover:border-emerald-300"
           >
             <LinkedinIcon className="h-4 w-4" />
             LinkedIn
@@ -609,7 +592,7 @@ function Contact() {
             href={resumeHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-zinc-300 px-4 py-2 text-sm font-bold text-zinc-600 transition hover:border-zinc-500"
+            className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-slate-600 transition hover:border-emerald-300"
           >
             <Download className="h-4 w-4" />
             Resume PDF
@@ -620,28 +603,35 @@ function Contact() {
   );
 }
 
+/* ── Page ───────────────────────────────────────────────────────── */
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#f7f4ef] text-zinc-950 selection:bg-teal-700/20 selection:text-teal-900">
-      <Header />
-      <main className="mx-auto max-w-6xl px-5 sm:px-8">
-        <Hero />
-        <MetricsBar />
-        <About />
-        <Projects />
-        <Skills />
-        <Contact />
-      </main>
-      <footer className="border-t border-zinc-200 py-8">
-        <div className="mx-auto max-w-6xl px-5 sm:px-8">
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-xs font-semibold text-zinc-950">Arnav Singh</p>
-            <p className="text-xs text-zinc-400">
-              B.Tech CSE · BBDU Lucknow · Built with Next.js
-            </p>
+    <div className="relative min-h-screen bg-white text-slate-900 selection:bg-emerald-100 selection:text-emerald-900">
+      <BgBlobs />
+      <div className="relative z-10">
+        <Header />
+        <main className="mx-auto max-w-6xl px-5 sm:px-8">
+          <Hero />
+          <MetricsBar />
+          <About />
+          <Projects />
+          <Skills />
+          <Contact />
+        </main>
+        <footer className="border-t border-slate-200 py-8">
+          <div className="mx-auto max-w-6xl px-5 sm:px-8">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex items-center gap-2">
+                <div className="flex h-6 w-6 items-center justify-center rounded-md bg-emerald-600">
+                  <Code2 className="h-3 w-3 text-white" />
+                </div>
+                <span className="text-xs font-bold text-slate-900">Arnav Singh</span>
+              </div>
+              <p className="text-xs text-slate-400">B.Tech CSE · BBDU Lucknow · Built with Next.js</p>
+            </div>
           </div>
-        </div>
-      </footer>
+        </footer>
+      </div>
     </div>
   );
 }

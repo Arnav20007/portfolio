@@ -48,12 +48,12 @@
 
 html {
   scroll-behavior: smooth;
-  background: #f7f4ef;
+  background: #ffffff;
 }
 
 body {
-  background: #f7f4ef;
-  color: #18181b;
+  background: #ffffff;
+  color: #0f172a;
   font-family: 'Inter', sans-serif;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
@@ -61,12 +61,12 @@ body {
 }
 
 html.light {
-  background: #f7f4ef;
+  background: #ffffff;
 }
 
 html.light body {
-  background: #f7f4ef;
-  color: #18181b;
+  background: #ffffff;
+  color: #0f172a;
 }
 
 html.dark {
@@ -92,23 +92,14 @@ html.dark ::selection {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #f7f4ef;
-}
-html.dark ::-webkit-scrollbar-track {
-  background: #060608;
+  background: #ffffff;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.15);
+  background: rgba(0, 0, 0, 0.12);
   border-radius: 3px;
 }
-html.dark ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
-}
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.3);
-}
-html.dark ::-webkit-scrollbar-thumb:hover {
-  background: rgba(91, 140, 255, 0.4);
+  background: rgba(0, 150, 70, 0.4);
 }
 
 /* ═══════════════════════════════════════════════════════════════
