@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
-import { usePathname } from "next/navigation";
 import {
   Play,
   Pause,
@@ -19,7 +18,6 @@ interface Track {
   artist: string;
   genre: string;
   url: string;
-  pageRecommendation?: string;
 }
 
 const playlist: Track[] = [
@@ -28,28 +26,24 @@ const playlist: Track[] = [
     artist: "Pirates of the Caribbean · Piano & Epic",
     genre: "Epic / Theme",
     url: "/music/hes-a-pirate.mp3",
-    pageRecommendation: "/",
   },
   {
     title: "Fairytale",
     artist: "Alexander Rybak · Folk & Melody",
     genre: "Folk / Melody",
     url: "/music/fairytale.mp3",
-    pageRecommendation: "/friend",
   },
   {
     title: "Professional Deep Work",
     artist: "Technical Focus & Ambient Flow",
     genre: "Deep Work Focus",
     url: "/music/professional-focus.mp3",
-    pageRecommendation: "/recruiter",
   },
   {
     title: "Chill Lo-Fi Coding & Study",
     artist: "Late Night B.Tech Focus Beats",
     genre: "Lo-Fi Beats",
     url: "/music/lofi-study.mp3",
-    pageRecommendation: "/",
   },
   {
     title: "Peaceful Piano Reverie",
@@ -60,7 +54,6 @@ const playlist: Track[] = [
 ];
 
 export default function MusicToggle() {
-  const pathname = usePathname();
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const [isPanelOpen, setIsPanelOpen] = useState(false);
@@ -72,204 +65,57 @@ export default function MusicToggle() {
   const [isLoading, setIsLoading] = useState(false);
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const webAudioCtxRef = useRef<AudioContext | null>(null);
-  const webAudioOscInterval = useRef<number | null>(null);
 
-  // Fallback procedural ambient synthesizer in case MP3 playback is restricted
-  const startWebAudioFallback = useCallback(() => {
-    try {
-      if (!webAudioCtxRef.current) {
-        const AudioContextClass =
-          window.AudioContext ||
-          (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
-        webAudioCtxRef.current = new AudioContextClass();
-      }
-      const ctx = webAudioCtxRef.current;
-      if (ctx.state === "suspended") {
-        ctx.resume();
-      }
-
-      const chords = [
-        [261.63, 329.63, 392.0, 493.88], // Cmaj7
-        [220.0, 261.63, 329.63, 392.0],  // Am7
-        [174.61, 220.0, 261.63, 329.63], // Fmaj7
-        [196.0, 246.94, 293.66, 349.23], // G7
-      ];
-      let chordIndex = 0;
-
-      const playChord = () => {
-        if (!ctx || ctx.state === "closed") return;
-        const currentChord = chords[chordIndex % chords.length];
-        chordIndex++;
-
-        currentChord.forEach((freq, i) => {
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
-
-          osc.type = i % 2 === 0 ? "sine" : "triangle";
-          osc.frequency.setValueAtTime(freq, ctx.currentTime);
-
-          gain.gain.setValueAtTime(0.0001, ctx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.02 * (isMuted ? 0 : volume), ctx.currentTime + 1.2);
-          gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 4.5);
-
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-
-          osc.start(ctx.currentTime + i * 0.08);
-          osc.stop(ctx.currentTime + 4.6);
-        });
-      };
-
-      playChord();
-      if (webAudioOscInterval.current) clearInterval(webAudioOscInterval.current);
-      webAudioOscInterval.current = window.setInterval(playChord, 4600);
-    } catch {
-      // AudioContext not available
-    }
-  }, [volume, isMuted]);
-
-  const stopWebAudioFallback = useCallback(() => {
-    if (webAudioOscInterval.current) {
-      clearInterval(webAudioOscInterval.current);
-      webAudioOscInterval.current = null;
-    }
-    if (webAudioCtxRef.current && webAudioCtxRef.current.state !== "closed") {
-      webAudioCtxRef.current.suspend().catch(() => {});
-    }
-  }, []);
-
-  // Synchronize audio volume
+  // Sync volume with audio element
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.volume = isMuted ? 0 : volume;
     }
   }, [volume, isMuted]);
 
-  // Handle track changing & playback deterministically
-  useEffect(() => {
+  const playAudio = useCallback((index: number) => {
     const audio = audioRef.current;
     if (!audio) return;
-
-    const track = playlist[currentTrackIndex];
+    const track = playlist[index];
     if (!track) return;
 
-    // Set source if different
-    const currentSrc = audio.getAttribute("src");
-    if (currentSrc !== track.url) {
+    if (audio.getAttribute("src") !== track.url) {
       audio.src = track.url;
-      audio.load();
     }
-
-    if (isPlaying) {
-      setIsLoading(true);
-      const playPromise = audio.play();
-      if (playPromise !== undefined) {
-        playPromise
-          .then(() => {
-            setIsLoading(false);
-            stopWebAudioFallback();
-          })
-          .catch((err) => {
-            console.warn("Audio playback error, falling back:", err);
-            setIsLoading(false);
-            // Fallback to procedural synth so sound plays
-            startWebAudioFallback();
-          });
-      }
-    } else {
-      audio.pause();
-      stopWebAudioFallback();
+    const promise = audio.play();
+    if (promise !== undefined) {
+      promise.catch((err) => {
+        console.warn("Audio playback interrupted:", err);
+      });
     }
-  }, [currentTrackIndex, isPlaying, startWebAudioFallback, stopWebAudioFallback]);
+  }, []);
 
-  // Wire native audio events safely
-  useEffect(() => {
+  const togglePlay = () => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    const onPlay = () => setIsPlaying(true);
-    const onPause = () => setIsPlaying(false);
-    const onWaiting = () => setIsLoading(true);
-    const onPlaying = () => setIsLoading(false);
-    const onTimeUpdate = () => {
-      setCurrentTime(audio.currentTime);
-      if (audio.duration && !isNaN(audio.duration)) {
-        setDuration(audio.duration);
-      }
-    };
-    const onLoadedMetadata = () => {
-      if (audio.duration && !isNaN(audio.duration)) {
-        setDuration(audio.duration);
-      }
-    };
-    const onEnded = () => {
-      if (isLooping) {
-        // Continuous auto-next loop
-        setCurrentTrackIndex((prev) => (prev + 1) % playlist.length);
-        setIsPlaying(true);
-      } else {
-        setIsPlaying(false);
-      }
-    };
-    const onError = () => {
-      console.warn("Audio failed to load track, trying fallback...");
-      setIsLoading(false);
-      startWebAudioFallback();
-    };
-
-    audio.addEventListener("play", onPlay);
-    audio.addEventListener("pause", onPause);
-    audio.addEventListener("waiting", onWaiting);
-    audio.addEventListener("playing", onPlaying);
-    audio.addEventListener("timeupdate", onTimeUpdate);
-    audio.addEventListener("loadedmetadata", onLoadedMetadata);
-    audio.addEventListener("ended", onEnded);
-    audio.addEventListener("error", onError);
-
-    return () => {
-      audio.removeEventListener("play", onPlay);
-      audio.removeEventListener("pause", onPause);
-      audio.removeEventListener("waiting", onWaiting);
-      audio.removeEventListener("playing", onPlaying);
-      audio.removeEventListener("timeupdate", onTimeUpdate);
-      audio.removeEventListener("loadedmetadata", onLoadedMetadata);
-      audio.removeEventListener("ended", onEnded);
-      audio.removeEventListener("error", onError);
-    };
-  }, [isLooping, startWebAudioFallback]);
-
-  // Contextual recommendation when navigating pages (does not interrupt if already playing)
-  useEffect(() => {
-    if (!pathname) return;
-    const match = playlist.findIndex((t) => t.pageRecommendation === pathname);
-    if (match !== -1 && match !== currentTrackIndex && !isPlaying) {
-      setCurrentTrackIndex(match);
-    }
-  }, [pathname, currentTrackIndex, isPlaying]);
-
-  // Playback control actions
-  const togglePlay = () => {
     if (isPlaying) {
-      setIsPlaying(false);
+      audio.pause();
     } else {
-      setIsPlaying(true);
+      playAudio(currentTrackIndex);
     }
   };
 
   const playTrack = (index: number) => {
     setCurrentTrackIndex(index);
-    setIsPlaying(true);
+    playAudio(index);
   };
 
   const nextTrack = () => {
-    setCurrentTrackIndex((prev) => (prev + 1) % playlist.length);
-    setIsPlaying(true);
+    const nextIdx = (currentTrackIndex + 1) % playlist.length;
+    setCurrentTrackIndex(nextIdx);
+    playAudio(nextIdx);
   };
 
   const prevTrack = () => {
-    setCurrentTrackIndex((prev) => (prev - 1 + playlist.length) % playlist.length);
-    setIsPlaying(true);
+    const prevIdx = (currentTrackIndex - 1 + playlist.length) % playlist.length;
+    setCurrentTrackIndex(prevIdx);
+    playAudio(prevIdx);
   };
 
   const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -292,7 +138,38 @@ export default function MusicToggle() {
   return (
     <>
       {/* Hidden Native Audio Element */}
-      <audio ref={audioRef} preload="auto" playsInline />
+      <audio
+        ref={audioRef}
+        src={playlist[0].url}
+        preload="metadata"
+        playsInline
+        onPlay={() => {
+          setIsPlaying(true);
+          setIsLoading(false);
+        }}
+        onPause={() => setIsPlaying(false)}
+        onWaiting={() => setIsLoading(true)}
+        onPlaying={() => setIsLoading(false)}
+        onTimeUpdate={() => {
+          if (audioRef.current) {
+            setCurrentTime(audioRef.current.currentTime);
+          }
+        }}
+        onLoadedMetadata={() => {
+          if (audioRef.current && !isNaN(audioRef.current.duration)) {
+            setDuration(audioRef.current.duration);
+          }
+        }}
+        onEnded={() => {
+          if (isLooping) {
+            const nextIdx = (currentTrackIndex + 1) % playlist.length;
+            setCurrentTrackIndex(nextIdx);
+            playAudio(nextIdx);
+          } else {
+            setIsPlaying(false);
+          }
+        }}
+      />
 
       {/* Floating Playlist Drawer Popup */}
       {isPanelOpen && (
@@ -471,7 +348,7 @@ export default function MusicToggle() {
         id="music-toggle"
         onClick={() => {
           if (!isPlaying) {
-            setIsPlaying(true);
+            playAudio(currentTrackIndex);
             setIsPanelOpen(true);
           } else {
             setIsPanelOpen(!isPanelOpen);

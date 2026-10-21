@@ -8,8 +8,6 @@ import {
   Cpu,
   BookOpen,
   Check,
-  Download,
-  ArrowRight,
 } from "lucide-react";
 import { personal } from "@/lib/data";
 
@@ -160,13 +158,13 @@ function HeroIllustration() {
             <div className="grid grid-cols-1 md:grid-cols-2 text-left bg-slate-950 min-h-[200px]">
               {/* Left: Clean C++ snippet */}
               <div className="p-4 border-r border-slate-800/80 font-mono text-[11px] leading-relaxed text-slate-300">
-                <div className="text-slate-500 mb-2">// TreeNode.cpp · Practice</div>
+                <div className="text-slate-500 mb-2">{"// TreeNode.cpp · Practice"}</div>
                 <div><span className="text-blue-400">struct</span> <span className="text-yellow-300">TreeNode</span> &#123;</div>
                 <div className="pl-3 text-slate-400">int val;</div>
                 <div className="pl-3 text-slate-400">TreeNode *left, *right;</div>
                 <div className="pl-3 text-slate-400">TreeNode(int x) : val(x), left(nullptr), right(nullptr) &#123;&#125;</div>
                 <div>&#125;;</div>
-                <div className="mt-3 text-slate-500">// Status</div>
+                <div className="mt-3 text-slate-500">{"// Status"}</div>
                 <div className="text-purple-300">B.Tech CSE · BBDU Lucknow</div>
               </div>
 

@@ -1,10 +1,22 @@
 import type { Metadata } from "next";
+import { Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/global/ThemeProvider";
 
 import KonamiEasterEgg from "@/components/global/KonamiEasterEgg";
 import AIChatbot from "@/components/global/AIChatbot";
 import MusicToggle from "@/components/global/MusicToggle";
+
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-jakarta",
+  display: "swap",
+});
+
+const jetbrains = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Arnav Singh | CS Student, Full-Stack Developer & Builder",
@@ -25,22 +37,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      data-scroll-behavior="smooth"
+      className={`${jakarta.variable} ${jetbrains.variable}`}
+    >
       <body className="font-sans antialiased bg-white text-[#141C3A]">
-        <ThemeProvider>
-          <KonamiEasterEgg />
-          {children}
-          <AIChatbot />
-          <MusicToggle />
-        </ThemeProvider>
+        <KonamiEasterEgg />
+        {children}
+        <AIChatbot />
+        <MusicToggle />
       </body>
     </html>
   );

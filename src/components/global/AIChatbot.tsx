@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import {
-  BriefcaseBusiness,
   Download,
   MessageCircle,
   Send,
@@ -12,7 +11,6 @@ import {
   Mail,
   ExternalLink,
   Bot,
-  User,
 } from "lucide-react";
 import { personal } from "@/lib/data";
 

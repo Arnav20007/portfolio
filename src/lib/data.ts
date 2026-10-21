@@ -19,32 +19,6 @@ export const personal = {
   shortBio: "A 5th-semester B.Tech CSE student learning through C++, DSA, and hands-on web projects.",
 };
 
-export const funFacts = [
-  "I drink chai while debugging code ☕",
-  "Chess is my favorite way to practice strategic thinking ♟️",
-  "Late-night coding sessions are when I learn the fastest 🌙",
-  "I enjoy breaking down complex DSA problems into simple patterns 💡",
-  "Gym + code = my daily balance ritual 🏋️",
-  "Always curious to learn how systems work under the hood 🔍",
-];
-
-export const bucketList = [
-  { item: "Find a software engineering internship", done: false, emoji: "💼" },
-  { item: "Solve 500+ DSA problems", done: false, emoji: "💻" },
-  { item: "Build an open-source project used by developers", done: false, emoji: "🚀" },
-  { item: "Travel across Japan", done: false, emoji: "🇯🇵" },
-  { item: "Summit a Himalayan peak", done: false, emoji: "🏔️" },
-  { item: "Give a technical talk or workshop", done: false, emoji: "🎤" },
-];
-
-export const hobbies = [
-  { name: "Chess", icon: "♟️", description: "A good way to unwind and think ahead" },
-  { name: "Gym", icon: "🏋️", description: "A regular break from the screen" },
-  { name: "Music", icon: "🎵", description: "Usually playing while I code" },
-  { name: "Reading", icon: "📚", description: "Tech articles and computer science topics" },
-  { name: "Coding Projects", icon: "💻", description: "Trying ideas and learning as I go" },
-];
-
 export const skills = [
   {
     category: "Core & Languages",
@@ -184,12 +158,6 @@ export const certificates = [
   { name: "Python and Flask", issuer: "Used in project work", year: "Ongoing", icon: "🐍" },
 ];
 
-export const techStack = [
-  "C++", "DSA", "React", "Next.js", "TypeScript",
-  "Python", "Flask", "Node.js", "PostgreSQL", "SQLite",
-  "Tailwind CSS", "Git", "GitHub"
-];
-
 export const terminalCommands: Record<string, string> = {
   help: `Available commands:\n  about     — Who is Arnav?\n  skills    — Tech skills & focus\n  projects  — Built projects\n  contact   — Get in touch\n  clear     — Clear terminal\n  exit      — Exit terminal mode`,
   about: `Name: Arnav Singh\nRole: 5th-semester B.Tech CSE student\nCollege: BBDU, Lucknow\nFocus: C++, DSA, and web development\nStatus: Looking for software engineering internships`,
@@ -247,16 +215,4 @@ export const workflow = [
     desc: "I share the finished work, along with notes on how to run or deploy it.",
     icon: "🚀",
   },
-];
-
-export const testimonials: { name: string; role: string; text: string }[] = [];
-
-export const chatFAQ = [
-  { q: ["hello", "hi", "hey"], a: "Hi! You can ask me about Arnav's projects, skills, education, or resume." },
-  { q: ["skills", "tech", "stack", "languages"], a: "Arnav focuses on C++ and DSA for problem solving, alongside React, Next.js, Python, Flask, TypeScript, and SQL for building web applications." },
-  { q: ["projects", "work", "built"], a: "His projects include MoodMate (hackathon AI wellness tool), FinanceCalc (SIP & EMI calculator), PDFlex (client-side PDF utility), and ASCEND (gamified productivity app)." },
-  { q: ["internship", "hire", "available", "open"], a: "Arnav is a fifth-semester B.Tech CSE student at BBDU, Lucknow, and is looking for a software engineering internship." },
-  { q: ["contact", "email", "reach"], a: "You can find Arnav on GitHub at github.com/Arnav20007. Email and LinkedIn details will be added soon." },
-  { q: ["education", "college", "degree", "semester", "cgpa"], a: "Arnav is a 5th-semester B.Tech CSE student at Babu Banarasi Das University (BBDU), Lucknow, with an 8.0 / 10 CGPA." },
-  { q: ["hobby", "hobbies", "interest"], a: "Chess ♟️, gym 🏋️, lo-fi music 🎵, reading tech blogs, and practicing C++ coding!" },
 ];
