@@ -22,10 +22,10 @@ export default function FriendPage() {
   const [isPlaying, setIsPlaying] = useState(true);
 
   const [bucketList, setBucketList] = useState([
-    { title: "Find a software engineering internship", done: false },
-    { title: "Solve 500+ DSA problems in C++", done: false },
+    { title: "Earn a Software Engineering Internship", done: false },
+    { title: "Master Tree, Graph & Dynamic Programming patterns in C++", done: false },
+    { title: "Contribute to a popular open-source project", done: false },
     { title: "Travel across Japan during cherry blossom season", done: false },
-    { title: "Build an impactful open-source tool for developers", done: false },
   ]);
 
   const toggleBucket = (index: number) => {
@@ -91,20 +91,21 @@ export default function FriendPage() {
               className="text-left max-w-[540px] mx-auto md:mx-0 w-full"
             >
               <span className="inline-block px-4 py-1.5 rounded-full border border-purple-200 bg-purple-50 text-[#6E07F3] font-mono text-xs font-bold uppercase tracking-[0.2em] mb-6">
-                ARNAV / PERSONAL
+                ARNAV / BEHIND THE CODE
               </span>
 
               <h1 className="font-display font-black text-5xl sm:text-6xl md:text-7xl leading-tight text-[#141C3A] mb-6 tracking-tight">
-                Welcome to <span className="text-[#6E07F3]">my world.</span>
+                Beyond the <br />
+                <span className="text-[#6E07F3]">resume lines.</span>
               </h1>
 
               <p className="font-sans text-xl sm:text-2xl text-[#5A6275] leading-relaxed max-w-lg mb-8 font-light">
-                Not everything important belongs on a resume.
+                A bit more about what I build, how I spend my time, and what keeps me curious.
               </p>
 
               <div className="flex items-center gap-3 font-mono text-xs text-[#6E07F3] font-bold">
                 <span className="w-2.5 h-2.5 rounded-full bg-[#6E07F3] animate-pulse" />
-                <span>HUMAN &amp; BUILDER PERSPECTIVE</span>
+                <span>STUDENT &amp; BUILDER</span>
               </div>
             </motion.div>
 
@@ -120,7 +121,7 @@ export default function FriendPage() {
                   <span className="font-mono text-xs text-[#6E07F3] uppercase tracking-widest font-bold">
                     ARNAV SINGH
                   </span>
-                  <span className="font-mono text-xs text-[#5A6275]">EST. 2006</span>
+                  <span className="font-mono text-xs text-[#5A6275]">B.Tech CSE</span>
                 </div>
 
                 <div className="my-auto text-center py-8 z-10">
@@ -128,16 +129,16 @@ export default function FriendPage() {
                     ⚡
                   </div>
                   <h3 className="font-display text-2xl sm:text-3xl font-extrabold text-[#141C3A] mb-2">
-                    Human &amp; Builder
+                    Student &amp; Builder
                   </h3>
                   <p className="font-mono text-xs text-[#5A6275] leading-relaxed max-w-[280px] mx-auto">
-                    Late-Night Coder • Chess Enthusiast • Masala Chai Devotee
+                    Late-Night Coding • Chess Matches • Masala Chai Devotee
                   </p>
                 </div>
 
                 <div className="pt-5 border-t border-[#E6ECF8] flex items-center justify-between text-xs font-mono text-[#5A6275] z-10">
-                  <span>LOCATION: INDIA</span>
-                  <span className="text-[#6E07F3] font-bold">VIBE: ACTIVE ⚡</span>
+                  <span>LOCATION: LUCKNOW</span>
+                  <span className="text-[#6E07F3] font-bold">STATUS: PRACTICING ⚡</span>
                 </div>
               </div>
             </motion.div>
@@ -155,13 +156,13 @@ export default function FriendPage() {
             className="px-4"
           >
             <span className="font-mono text-xs font-bold text-[#6E07F3] uppercase tracking-[0.3em] block mb-6">
-              THE PHILOSOPHY
+              PERSONAL APPROACH
             </span>
 
-            <h2 className="font-display font-black text-4xl sm:text-6xl md:text-7xl leading-[1.15] text-[#141C3A] tracking-tight">
-              I don&apos;t just write lines of code. <br />
+            <h2 className="font-display font-black text-4xl sm:text-5xl md:text-6xl leading-[1.2] text-[#141C3A] tracking-tight">
+              I learn best by building practical things <br />
               <span className="text-[#6E07F3]">
-                I build experiences that solve real problems.
+                and understanding why they work.
               </span>
             </h2>
           </motion.div>
@@ -179,16 +180,16 @@ export default function FriendPage() {
               className="text-left max-w-[540px] px-2"
             >
               <span className="font-mono text-xs font-bold text-[#6E07F3] uppercase tracking-[0.25em] block mb-4">
-                01 / CRAFT &amp; CURIOSITY
+                01 / BUILDING WHAT&apos;S USEFUL
               </span>
               <h3 className="font-display text-4xl sm:text-5xl font-extrabold text-[#141C3A] mb-6 leading-tight">
-                Crafting with intention.
+                Solving problems I run into.
               </h3>
               <p className="font-sans text-lg text-[#5A6275] leading-relaxed mb-6 font-light">
-                From late-night algorithm puzzles to building full-stack platforms like ToolForge ATS and MoodMate, every project starts with a simple question: <em>How can this be faster and genuinely helpful?</em>
+                ToolForge ATS started when friends were trying to check how their resumes matched specific job descriptions without paying for subscriptions or uploading resumes to random third-party servers.
               </p>
               <p className="font-sans text-base text-slate-500 leading-relaxed">
-                Code is the vehicle, but human utility is the ultimate destination.
+                Running everything in the browser via JavaScript and Web Workers proved to be a practical and fast approach.
               </p>
             </motion.div>
 
@@ -209,12 +210,19 @@ export default function FriendPage() {
                     </h4>
                   </div>
                   <p className="font-sans text-sm text-[#5A6275] leading-relaxed font-light mb-6">
-                    In-browser ATS resume scoring, LaTeX audit, and keyword matching with zero server telemetry.
+                    A web utility for scanning resume keywords against job requirements directly on the client machine.
                   </p>
                 </div>
                 <div className="pt-4 border-t border-[#E6ECF8] flex items-center justify-between text-xs font-mono text-[#6E07F3] font-bold">
-                  <span>IN-BROWSER PRIVACY</span>
-                  <span>LIVE PRODUCT ⚡</span>
+                  <span>RUNS IN BROWSER</span>
+                  <a
+                    href="https://toolforge-ats.vercel.app"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline"
+                  >
+                    LIVE APP ↗
+                  </a>
                 </div>
               </div>
             </motion.div>
@@ -238,16 +246,16 @@ export default function FriendPage() {
                   <div className="flex items-center gap-3 mb-4">
                     <span className="text-2xl shrink-0">☕ ♟ 🎧</span>
                     <h4 className="font-display text-2xl font-bold text-[#141C3A] tracking-tight">
-                      Daily Rituals
+                      Daily Routine
                     </h4>
                   </div>
                   <p className="font-sans text-sm text-[#5A6275] leading-relaxed font-light mb-6">
-                    Fresh cups of masala chai, blitz chess matches, and continuous soundtrack loops playing while solving C++ problems.
+                    Cups of chai, quick blitz chess games to clear the mind, and soundtrack loops while grinding C++ problems late in the evening.
                   </p>
                 </div>
                 <div className="pt-4 border-t border-[#E6ECF8] flex items-center justify-between text-xs font-mono text-[#6E07F3] font-bold">
-                  <span>DAILY HABITS</span>
-                  <span>ALWAYS ACTIVE ☕</span>
+                  <span>STUDENT LIFE</span>
+                  <span>CONSISTENT HABITS ☕</span>
                 </div>
               </div>
             </motion.div>
@@ -263,10 +271,10 @@ export default function FriendPage() {
                 02 / DAILY RHYTHM
               </span>
               <h3 className="font-display text-4xl sm:text-5xl font-extrabold text-[#141C3A] mb-6 leading-tight">
-                The rituals that fuel the drive.
+                Consistent habits that build momentum.
               </h3>
               <p className="font-sans text-lg text-[#5A6275] leading-relaxed font-light">
-                Deep work isn&apos;t just about screen time. It&apos;s about creating an atmosphere where focus flows naturally — late at night when the world is quiet.
+                Progress doesn&apos;t come from sporadic all-nighters. It comes from showing up every day, writing a few clean functions, and learning one new pattern at a time.
               </p>
             </motion.div>
 
@@ -283,19 +291,19 @@ export default function FriendPage() {
             className="px-4"
           >
             <span className="font-mono text-xs font-bold text-[#6E07F3] uppercase tracking-[0.3em] block mb-8">
-              CORE BELIEFS
+              WHAT DRIVES ME
             </span>
 
-            <div className="space-y-6 font-display font-black text-4xl sm:text-6xl md:text-7xl tracking-tight leading-none text-slate-300">
+            <div className="space-y-6 font-display font-black text-4xl sm:text-5xl md:text-6xl tracking-tight leading-none text-slate-300">
               {[
-                "I build.",
-                "I learn.",
-                "I stay curious.",
-                "I finish what I start.",
+                "Practice consistently.",
+                "Keep interfaces clean.",
+                "Stay curious.",
+                "Finish what I start.",
               ].map((val, idx) => (
                 <motion.div
                   key={idx}
-                  whileHover={{ scale: 1.03 }}
+                  whileHover={{ scale: 1.02 }}
                   className="hover:text-[#6E07F3] transition-colors cursor-pointer"
                 >
                   {val}
@@ -315,10 +323,10 @@ export default function FriendPage() {
             className="px-4"
           >
             <span className="font-mono text-xs font-bold text-[#6E07F3] uppercase tracking-[0.3em] block mb-4">
-              AMBITIONS &amp; GOALS
+              GOALS &amp; MILESTONES
             </span>
             <h2 className="font-display text-4xl sm:text-5xl font-extrabold text-[#141C3A] mb-12">
-              The Bucket List
+              Current Goals
             </h2>
 
             <div className="space-y-4 text-left">
@@ -373,10 +381,10 @@ export default function FriendPage() {
               </div>
               <div>
                 <h4 className="font-display font-bold text-2xl text-[#141C3A]">
-                  Fairytale &amp; Focus Beats
+                  Fairytale &amp; Study Beats
                 </h4>
                 <p className="font-mono text-xs text-[#5A6275] mt-1">
-                  Alexander Rybak • Lo-Fi Coding • Ambient Piano
+                  Alexander Rybak • Lo-Fi Coding • Acoustic Flow
                 </p>
               </div>
             </div>
@@ -420,7 +428,7 @@ export default function FriendPage() {
             </h2>
 
             <p className="font-sans text-xl sm:text-2xl text-[#6E07F3] font-medium">
-              Now let&apos;s build something great.
+              Always open to connecting with fellow builders.
             </p>
 
             <div className="pt-8 flex justify-center">

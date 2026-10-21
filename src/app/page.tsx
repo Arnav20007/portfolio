@@ -6,7 +6,7 @@ import {
   Mail,
   Layers,
   Cpu,
-  ShieldCheck,
+  Database,
   Check,
 } from "lucide-react";
 import { personal } from "@/lib/data";
@@ -37,7 +37,7 @@ function LinkedinIcon({ className = "h-5 w-5" }: { className?: string }) {
   );
 }
 
-/* ── Selected Projects Data ─────────────────────────────────────── */
+/* ── Selected Projects Data (Honest, accurate student work) ──────── */
 interface SelectedProject {
   id: string;
   name: string;
@@ -54,11 +54,11 @@ const projectsList: SelectedProject[] = [
   {
     id: "toolforge",
     name: "ToolForge ATS",
-    badge: "Flagship Web Utility",
-    tagline: "In-Browser ATS Resume Score Checker & Keyword Matcher",
+    badge: "Web Project",
+    tagline: "Resume Keyword Matcher & Scanner",
     description:
-      "A 100% private in-browser ATS resume evaluator, Overleaf/LaTeX audit, and job keyword matcher with zero server uploads.",
-    stack: ["React", "TypeScript", "Tailwind CSS", "PDF.js", "Web Workers"],
+      "A client-side tool to check resume text against job description keywords. Everything runs directly in the browser without uploading files to a server.",
+    stack: ["React", "TypeScript", "Tailwind CSS", "PDF.js"],
     demo: "https://toolforge-ats.vercel.app",
     source: "https://github.com/Arnav20007/ats",
     color: "#6E07F3",
@@ -66,11 +66,11 @@ const projectsList: SelectedProject[] = [
   {
     id: "pdflex",
     name: "PDFlex",
-    badge: "Client-Side Utility",
-    tagline: "Browser PDF Tool Powered by Web Workers",
+    badge: "Browser Utility",
+    tagline: "Client-Side PDF Merge & Split",
     description:
-      "An in-browser PDF manipulation utility that lets users merge, split, and convert documents locally without sending files to external servers.",
-    stack: ["Next.js", "Web Workers", "pdf-lib", "PDF.js"],
+      "A lightweight browser utility for combining or separating PDF files. Uses client-side Web Workers so documents stay on your machine.",
+    stack: ["React", "Web Workers", "pdf-lib", "PDF.js"],
     demo: "https://pd-flex.vercel.app",
     source: "https://github.com/Arnav20007/pdflex",
     color: "#2563EB",
@@ -78,10 +78,10 @@ const projectsList: SelectedProject[] = [
   {
     id: "financecalc",
     name: "FinanceCalc",
-    badge: "Fintech Web App",
-    tagline: "Investment & Loan Amortization Calculator",
+    badge: "Web App",
+    tagline: "SIP & Loan EMI Calculator",
     description:
-      "A personal finance calculator for estimating SIP returns, EMI payments, and savings growth, with interactive charts to visualize compound growth.",
+      "A practical calculator for estimating monthly SIP returns and loan EMIs, with clear visual charts to see how compound interest adds up over time.",
     stack: ["Next.js", "TypeScript", "Tailwind CSS", "Chart.js"],
     demo: "https://financecalc0.vercel.app",
     source: "https://github.com/Arnav20007/financecalc",
@@ -89,11 +89,11 @@ const projectsList: SelectedProject[] = [
   },
   {
     id: "moodmate",
-    name: "MoodMate AI",
-    badge: "AI Reflection Tool",
-    tagline: "Journaling Platform with AI Mood Feedback",
+    name: "MoodMate",
+    badge: "Hackathon Project",
+    tagline: "Journaling App with API Reflections",
     description:
-      "A journaling app built during a hackathon. It uses a Flask API and OpenAI to offer reflections and sentiment tracking on journal entries.",
+      "A hackathon project exploring Python and Flask. Users can log daily thoughts and receive brief automated reflections to track their mood.",
     stack: ["Next.js", "Python", "Flask", "OpenAI API"],
     source: "https://github.com/Arnav20007/moodmate",
     color: "#E11D48",
@@ -101,44 +101,43 @@ const projectsList: SelectedProject[] = [
   {
     id: "ascend",
     name: "ASCEND",
-    badge: "Gamified Productivity",
-    tagline: "Quest & XP Progression Task System",
+    badge: "Side Project",
+    tagline: "Task Tracker with XP Progression",
     description:
-      "A task management system that brings RPG-style experience points, leveling, and streak progression to daily developer habits.",
+      "A personal productivity experiment that applies small XP increments and levels to daily coding habits and study tasks.",
     stack: ["Next.js", "TypeScript", "Prisma", "PostgreSQL"],
     source: "https://github.com/Arnav20007/ascend",
     color: "#D97706",
   },
   {
     id: "dsa",
-    name: "C++ DSA Repository",
-    badge: "Algorithms & Systems",
-    tagline: "500+ Solved Data Structures & Algorithms",
+    name: "C++ DSA Practice",
+    badge: "Problem Solving",
+    tagline: "Data Structures & Algorithms Repository",
     description:
-      "Comprehensive C++ implementations of self-balancing trees, graphs, dynamic programming, and greedy algorithms practiced for software engineering interviews.",
+      "My regular practice repository implementing trees, graphs, heaps, dynamic programming, and common interview questions in C++.",
     stack: ["C++17", "STL", "Algorithms", "Data Structures"],
     source: "https://github.com/Arnav20007/cpp-practice",
     color: "#4F46E5",
   },
 ];
 
-/* ── Hero Desk Illustration (Matt Farley Signature Vector Style) ── */
+/* ── Hero Desk Illustration (Clean, honest student workspace) ───── */
 function HeroIllustration() {
   return (
     <div className="w-full max-w-4xl mx-auto mt-10 mb-0 select-none">
       <div className="relative rounded-3xl border border-[#E6ECF8] bg-gradient-to-b from-[#F9FAFC] to-white p-6 sm:p-10 shadow-xl overflow-hidden">
         {/* Subtle grid background */}
         <div
-          className="absolute inset-0 opacity-[0.4] pointer-events-none"
+          className="absolute inset-0 opacity-[0.35] pointer-events-none"
           style={{
             backgroundImage: "radial-gradient(#CBD5E1 1px, transparent 1px)",
             backgroundSize: "24px 24px",
           }}
         />
 
-        {/* Clean Monitor / Workspace Mockup */}
+        {/* Clean Monitor Mockup */}
         <div className="relative z-10 max-w-2xl mx-auto">
-          {/* Monitor Frame */}
           <div className="rounded-2xl border-2 border-slate-800 bg-slate-900 shadow-2xl overflow-hidden">
             {/* Window header */}
             <div className="flex items-center justify-between px-4 py-2.5 bg-slate-950 border-b border-slate-800">
@@ -147,75 +146,73 @@ function HeroIllustration() {
                 <span className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E]" />
                 <span className="w-2.5 h-2.5 rounded-full bg-[#27C93F]" />
                 <span className="ml-2 font-mono text-[11px] text-slate-400">
-                  arnav-singh.dev · ~/projects/toolforge-ats
+                  arnav-singh · ~/projects
                 </span>
               </div>
-              <span className="font-mono text-[10px] text-[#5BE9B9] font-bold">
-                ● LIVE
+              <span className="font-mono text-[10px] text-purple-300 font-semibold">
+                VS Code + Browser
               </span>
             </div>
 
-            {/* Split Screen: Code Editor & Web App Preview */}
-            <div className="grid grid-cols-1 md:grid-cols-2 text-left bg-slate-950 min-h-[220px]">
-              {/* Left: Clean C++ / TypeScript Code */}
+            {/* Split Screen: Code Editor & Web Tool */}
+            <div className="grid grid-cols-1 md:grid-cols-2 text-left bg-slate-950 min-h-[200px]">
+              {/* Left: Clean C++ snippet */}
               <div className="p-4 border-r border-slate-800/80 font-mono text-[11px] leading-relaxed text-slate-300">
-                <div className="text-slate-500 mb-2">// AVLTree.cpp · O(log n) Balanced</div>
-                <div className="text-purple-400">template &lt;typename T&gt;</div>
-                <div><span className="text-blue-400">class</span> <span className="text-yellow-300">AVLTree</span> &#123;</div>
-                <div className="pl-3 text-slate-400">Node* root;</div>
-                <div className="pl-3"><span className="text-purple-400">int</span> <span className="text-blue-300">getBalance</span>(Node* n);</div>
-                <div className="pl-3"><span className="text-blue-400">void</span> <span className="text-emerald-400">insert</span>(T value);</div>
+                <div className="text-slate-500 mb-2">// TreeNode.cpp · Practice</div>
+                <div><span className="text-blue-400">struct</span> <span className="text-yellow-300">TreeNode</span> &#123;</div>
+                <div className="pl-3 text-slate-400">int val;</div>
+                <div className="pl-3 text-slate-400">TreeNode *left, *right;</div>
+                <div className="pl-3 text-slate-400">TreeNode(int x) : val(x), left(nullptr), right(nullptr) &#123;&#125;</div>
                 <div>&#125;;</div>
-                <div className="mt-3 text-slate-500">// In-Browser Privacy</div>
-                <div className="text-emerald-400 font-bold">✓ 100% Zero-Server Upload</div>
+                <div className="mt-3 text-slate-500">// Status</div>
+                <div className="text-purple-300">B.Tech CSE · BBDU Lucknow</div>
               </div>
 
-              {/* Right: ToolForge ATS Preview Card */}
+              {/* Right: ToolForge ATS Project Card */}
               <div className="p-4 bg-slate-900/60 flex flex-col justify-between">
                 <div>
-                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#6E07F3]/20 text-[#A78BFA] font-mono text-[10px] font-bold mb-2">
-                    FLAGSHIP UTILITY
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-[#6E07F3]/20 text-[#C4B5FD] font-mono text-[10px] font-bold mb-2">
+                    FEATURED PROJECT
                   </div>
                   <h4 className="font-display font-bold text-white text-sm mb-1">
                     ToolForge ATS
                   </h4>
                   <p className="text-slate-400 text-[11px] leading-relaxed">
-                    Client-side PDF parsing & keyword score evaluator powered by Web Workers.
+                    Resume keyword matcher that runs locally in your browser.
                   </p>
                 </div>
 
                 <div className="pt-3 border-t border-slate-800/80 flex items-center justify-between">
-                  <div className="flex items-center gap-1.5 text-[10px] font-mono text-emerald-400">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                    <span>ATS Score: 92/100</span>
-                  </div>
+                  <span className="text-[10px] font-mono text-emerald-400">
+                    ● Deployed on Vercel
+                  </span>
                   <a
                     href="https://toolforge-ats.vercel.app"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-[11px] font-bold text-[#6E07F3] hover:text-[#A78BFA] transition-colors"
+                    className="inline-flex items-center gap-1 text-[11px] font-bold text-[#A78BFA] hover:text-white transition-colors"
                   >
-                    Open App <ExternalLink className="w-3 h-3" />
+                    Open Tool <ExternalLink className="w-3 h-3" />
                   </a>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Monitor Stand */}
-          <div className="w-16 h-4 bg-slate-400 mx-auto rounded-b-md shadow-sm" />
-          <div className="w-32 h-2 bg-slate-300 mx-auto rounded-full shadow-md" />
+          {/* Stand */}
+          <div className="w-16 h-3 bg-slate-400 mx-auto rounded-b-md shadow-sm" />
+          <div className="w-32 h-1.5 bg-slate-300 mx-auto rounded-full shadow-md" />
 
-          {/* Desk Badges */}
+          {/* Simple badges */}
           <div className="flex flex-wrap items-center justify-center gap-2 mt-6">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-[#E6ECF8] text-xs font-mono font-bold text-[#141C3A] shadow-xs">
-              <Check className="w-3.5 h-3.5 text-[#6E07F3]" /> C++ & DSA Practicing
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-[#E6ECF8] text-xs font-mono font-medium text-[#141C3A] shadow-xs">
+              <Check className="w-3.5 h-3.5 text-[#6E07F3]" /> C++ (Trees, Graphs, DP)
             </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-[#E6ECF8] text-xs font-mono font-bold text-[#141C3A] shadow-xs">
-              <Check className="w-3.5 h-3.5 text-[#6E07F3]" /> React 19 / Next.js
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-[#E6ECF8] text-xs font-mono font-medium text-[#141C3A] shadow-xs">
+              <Check className="w-3.5 h-3.5 text-[#6E07F3]" /> React &amp; Next.js
             </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-[#E6ECF8] text-xs font-mono font-bold text-[#141C3A] shadow-xs">
-              <Check className="w-3.5 h-3.5 text-[#6E07F3]" /> 100% In-Browser Privacy
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-[#E6ECF8] text-xs font-mono font-medium text-[#141C3A] shadow-xs">
+              <Check className="w-3.5 h-3.5 text-[#6E07F3]" /> Python &amp; Flask
             </span>
           </div>
         </div>
@@ -276,15 +273,15 @@ export default function Home() {
     <div className="min-h-screen bg-white text-[#141C3A] font-sans selection:bg-[#EBD8FF] selection:text-[#5600C7]">
       <Navbar />
 
-      {/* ── 1. HERO SECTION (Matt Farley Centered Style) ── */}
+      {/* ── 1. HERO SECTION ── */}
       <section className="pt-16 pb-20 px-6 text-center max-w-5xl mx-auto">
         <h1 className="font-display font-black text-4xl sm:text-6xl lg:text-7xl text-[#141C3A] tracking-tight leading-[1.1] mb-5">
-          Computer Science Student & <br />
-          <span className="text-[#6E07F3]">Full-Stack Developer</span>
+          Computer Science Student &amp; <br />
+          <span className="text-[#6E07F3]">Aspiring Software Engineer</span>
         </h1>
 
         <p className="text-lg sm:text-2xl text-[#5A6275] max-w-2xl mx-auto font-normal leading-relaxed mb-8">
-          I solve DSA problems in C++ and build clean, privacy-first web utilities.
+          I practice problem-solving in C++ and build useful web tools with React, Next.js, and Python.
         </p>
 
         {/* Friendly Student Avatar with Academic Pill */}
@@ -306,129 +303,129 @@ export default function Home() {
         <HeroIllustration />
       </section>
 
-      {/* ── 2. INTRO SECTION (Matt Farley's Iconic Purple Band) ── */}
-      <section className="bg-[#6E07F3] text-white pt-28 pb-48 px-6 text-center">
+      {/* ── 2. INTRO SECTION (Honest, warm student voice) ── */}
+      <section className="bg-[#6E07F3] text-white pt-24 pb-44 px-6 text-center">
         <div className="max-w-3xl mx-auto">
-          <h2 className="font-display font-extrabold text-3xl sm:text-4xl mb-6">
+          <h2 className="font-display font-extrabold text-3xl sm:text-4xl mb-5">
             Hi, I’m Arnav. Nice to meet you.
           </h2>
-          <p className="text-lg sm:text-xl text-purple-100 font-normal leading-relaxed">
-            I’m a 5th-semester B.Tech Computer Science Engineering student at Babu Banarasi Das University, Lucknow (8.0 CGPA). I’m passionate about building real, functional tools — from client-side Web Worker utilities like <span className="font-bold text-white underline decoration-white/40">ToolForge ATS</span> and <span className="font-bold text-white underline decoration-white/40">PDFlex</span> to full-stack React and Python web applications. I’m quietly confident, naturally curious, and actively seeking software engineering internships.
+          <p className="text-base sm:text-lg text-purple-100 font-normal leading-relaxed">
+            I’m a 5th-semester Computer Science student at Babu Banarasi Das University, Lucknow (8.0 CGPA). I enjoy writing code that actually does something useful—whether that’s practicing core data structures in C++ or building browser utilities like ToolForge ATS and PDFlex. When I’m not coding, you’ll usually find me playing chess, listening to music, or having a cup of tea. I’m currently preparing for software engineering internship opportunities.
           </p>
         </div>
       </section>
 
-      {/* ── 3. OVERLAPPING 3-COLUMN SKILLS BOX (Matt Farley Signature Box) ── */}
-      <section className="px-6 -mt-36 relative z-10 max-w-6xl mx-auto">
+      {/* ── 3. OVERLAPPING 3-COLUMN SKILLS BOX (Grounded student reality) ── */}
+      <section className="px-6 -mt-32 relative z-10 max-w-6xl mx-auto">
         <div className="bg-white rounded-3xl border border-[#E6ECF8] shadow-2xl grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[#E6ECF8] text-center">
           
-          {/* Column 1: C++ & DSA Problem Solving */}
-          <div className="p-8 sm:p-12 flex flex-col items-center">
-            <div className="w-16 h-16 rounded-2xl bg-[#5BE9B9]/20 text-emerald-800 flex items-center justify-center mb-6">
-              <Cpu className="w-8 h-8 text-[#059669]" />
+          {/* Column 1: C++ & Problem Solving */}
+          <div className="p-8 sm:p-10 flex flex-col items-center">
+            <div className="w-14 h-14 rounded-2xl bg-purple-50 text-[#6E07F3] flex items-center justify-center mb-5">
+              <Cpu className="w-7 h-7" />
             </div>
-            <h3 className="font-display font-extrabold text-2xl text-[#141C3A] mb-3">
-              C++ & Problem Solving
+            <h3 className="font-display font-extrabold text-xl text-[#141C3A] mb-2">
+              C++ &amp; Problem Solving
             </h3>
-            <p className="text-sm text-[#5A6275] leading-relaxed mb-8">
-              I love breaking down complex algorithmic logic, optimizing time complexity, and working with memory-safe data structures.
+            <p className="text-sm text-[#5A6275] leading-relaxed mb-6">
+              Where I spend most of my practice time—working through common interview patterns and optimizing time complexity.
             </p>
 
-            <h4 className="font-bold text-sm text-[#6E07F3] uppercase tracking-wider mb-2">
-              Topics I Practice:
+            <h4 className="font-bold text-xs text-[#6E07F3] uppercase tracking-wider mb-2">
+              What I Practice:
             </h4>
-            <p className="text-sm text-[#141C3A] mb-8 font-medium">
-              Trees, Graphs, Recursion, Dynamic Programming, AVL Trees, STL
+            <p className="text-sm text-[#141C3A] mb-6 font-medium">
+              Trees, Graphs, Recursion, Dynamic Programming, STL
             </p>
 
-            <h4 className="font-bold text-sm text-[#6E07F3] uppercase tracking-wider mb-2">
-              Core Foundations:
+            <h4 className="font-bold text-xs text-[#6E07F3] uppercase tracking-wider mb-2">
+              Coursework Foundations:
             </h4>
-            <ul className="text-sm text-[#5A6275] space-y-1.5 font-medium">
+            <ul className="text-sm text-[#5A6275] space-y-1 font-medium">
               <li>Object-Oriented Programming (OOP)</li>
               <li>Operating Systems (OS)</li>
               <li>Database Management (DBMS)</li>
-              <li>Computer Networks (CN)</li>
+              <li>Computer Networks</li>
             </ul>
           </div>
 
-          {/* Column 2: Frontend & Modern Web */}
-          <div className="p-8 sm:p-12 flex flex-col items-center">
-            <div className="w-16 h-16 rounded-2xl bg-purple-100 text-[#6E07F3] flex items-center justify-center mb-6">
-              <Layers className="w-8 h-8" />
+          {/* Column 2: Frontend & Web */}
+          <div className="p-8 sm:p-10 flex flex-col items-center">
+            <div className="w-14 h-14 rounded-2xl bg-purple-50 text-[#6E07F3] flex items-center justify-center mb-5">
+              <Layers className="w-7 h-7" />
             </div>
-            <h3 className="font-display font-extrabold text-2xl text-[#141C3A] mb-3">
-              Frontend Engineering
+            <h3 className="font-display font-extrabold text-xl text-[#141C3A] mb-2">
+              Frontend Development
             </h3>
-            <p className="text-sm text-[#5A6275] leading-relaxed mb-8">
-              I enjoy building clean, responsive user interfaces from scratch that solve real problems without unnecessary bloat.
+            <p className="text-sm text-[#5A6275] leading-relaxed mb-6">
+              I like building web interfaces that are fast, clean, and actually simple to use without unnecessary fluff.
             </p>
 
-            <h4 className="font-bold text-sm text-[#6E07F3] uppercase tracking-wider mb-2">
-              Languages & Frameworks:
+            <h4 className="font-bold text-xs text-[#6E07F3] uppercase tracking-wider mb-2">
+              Languages &amp; Frameworks:
             </h4>
-            <p className="text-sm text-[#141C3A] mb-8 font-medium">
-              React 19, Next.js App Router, TypeScript, JavaScript, Tailwind CSS
+            <p className="text-sm text-[#141C3A] mb-6 font-medium">
+              React, Next.js, TypeScript, JavaScript, Tailwind CSS
             </p>
 
-            <h4 className="font-bold text-sm text-[#6E07F3] uppercase tracking-wider mb-2">
-              Client-Side Power:
+            <h4 className="font-bold text-xs text-[#6E07F3] uppercase tracking-wider mb-2">
+              Things I&apos;ve Built With:
             </h4>
-            <ul className="text-sm text-[#5A6275] space-y-1.5 font-medium">
-              <li>In-Browser Web Workers</li>
-              <li>PDF.js & pdf-lib Manipulation</li>
-              <li>Interactive Chart.js Visuals</li>
-              <li>HTML5 Canvas & Responsive Layouts</li>
+            <ul className="text-sm text-[#5A6275] space-y-1 font-medium">
+              <li>In-browser Web Workers</li>
+              <li>PDF manipulation (PDF.js, pdf-lib)</li>
+              <li>Interactive charts (Chart.js)</li>
+              <li>Responsive mobile layouts</li>
             </ul>
           </div>
 
-          {/* Column 3: Backend & Systems Architecture */}
-          <div className="p-8 sm:p-12 flex flex-col items-center">
-            <div className="w-16 h-16 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center mb-6">
-              <ShieldCheck className="w-8 h-8 text-[#2563EB]" />
+          {/* Column 3: Backend & Tools */}
+          <div className="p-8 sm:p-10 flex flex-col items-center">
+            <div className="w-14 h-14 rounded-2xl bg-purple-50 text-[#6E07F3] flex items-center justify-center mb-5">
+              <Database className="w-7 h-7" />
             </div>
-            <h3 className="font-display font-extrabold text-2xl text-[#141C3A] mb-3">
-              Backend & Architecture
+            <h3 className="font-display font-extrabold text-xl text-[#141C3A] mb-2">
+              Backend &amp; Databases
             </h3>
-            <p className="text-sm text-[#5A6275] leading-relaxed mb-8">
-              Designing secure RESTful endpoints, relational schemas, and client-side zero-server privacy models.
+            <p className="text-sm text-[#5A6275] leading-relaxed mb-6">
+              Writing simple REST APIs and connecting web applications to structured databases.
             </p>
 
-            <h4 className="font-bold text-sm text-[#6E07F3] uppercase tracking-wider mb-2">
-              Backend & APIs:
+            <h4 className="font-bold text-xs text-[#6E07F3] uppercase tracking-wider mb-2">
+              Backend &amp; APIs:
             </h4>
-            <p className="text-sm text-[#141C3A] mb-8 font-medium">
-              Python (Flask), RESTful APIs, Node.js, OpenAI API
+            <p className="text-sm text-[#141C3A] mb-6 font-medium">
+              Python (Flask), Node.js, RESTful APIs
             </p>
 
-            <h4 className="font-bold text-sm text-[#6E07F3] uppercase tracking-wider mb-2">
-              Databases & DevOps:
+            <h4 className="font-bold text-xs text-[#6E07F3] uppercase tracking-wider mb-2">
+              Databases &amp; Workflow:
             </h4>
-            <ul className="text-sm text-[#5A6275] space-y-1.5 font-medium">
-              <li>PostgreSQL & SQLite</li>
-              <li>Git & GitHub CI/CD</li>
-              <li>Vercel Deployment Workflows</li>
-              <li>100% In-Memory Local Privacy</li>
+            <ul className="text-sm text-[#5A6275] space-y-1 font-medium">
+              <li>PostgreSQL &amp; SQLite</li>
+              <li>Git &amp; GitHub workflows</li>
+              <li>Prisma ORM</li>
+              <li>Vercel deployments</li>
             </ul>
           </div>
 
         </div>
       </section>
 
-      {/* ── 4. MY RECENT WORK (Matt Farley Projects Grid) ── */}
+      {/* ── 4. MY RECENT WORK ── */}
       <section id="projects" className="py-24 px-6 max-w-6xl mx-auto text-center">
-        <h2 className="font-display font-black text-3xl sm:text-5xl text-[#141C3A] tracking-tight mb-4">
-          My Recent Work
+        <h2 className="font-display font-black text-3xl sm:text-5xl text-[#141C3A] tracking-tight mb-3">
+          Projects I&apos;ve Built
         </h2>
-        <p className="text-base sm:text-lg text-[#5A6275] max-w-xl mx-auto mb-16">
-          Here are a few technical projects I’ve built. Want to see code or live demos? Check below.
+        <p className="text-base text-[#5A6275] max-w-xl mx-auto mb-14">
+          A few tools and apps I’ve put together to learn new concepts and solve everyday problems.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projectsList.map((project) => (
             <div
               key={project.id}
-              className="group relative rounded-2xl border border-[#E6ECF8] bg-white p-7 text-left shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between hover:-translate-y-1.5"
+              className="group relative rounded-2xl border border-[#E6ECF8] bg-white p-7 text-left shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between hover:-translate-y-1"
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
@@ -439,17 +436,17 @@ export default function Home() {
                     {project.badge}
                   </span>
                   {project.demo && (
-                    <span className="flex items-center gap-1.5 text-xs font-mono font-bold text-emerald-600">
-                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                    <span className="flex items-center gap-1.5 text-xs font-mono font-semibold text-emerald-600">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                       Live Demo
                     </span>
                   )}
                 </div>
 
-                <h3 className="font-display font-black text-2xl text-[#141C3A] mb-2 group-hover:text-[#6E07F3] transition-colors">
+                <h3 className="font-display font-black text-2xl text-[#141C3A] mb-1 group-hover:text-[#6E07F3] transition-colors">
                   {project.name}
                 </h3>
-                <p className="text-xs font-mono font-bold text-slate-500 mb-3">
+                <p className="text-xs font-mono font-semibold text-slate-500 mb-3">
                   {project.tagline}
                 </p>
                 <p className="text-sm text-[#5A6275] leading-relaxed mb-6">
@@ -460,7 +457,7 @@ export default function Home() {
                   {project.stack.map((t) => (
                     <span
                       key={t}
-                      className="px-2.5 py-1 rounded-md bg-slate-50 border border-slate-200 text-slate-700 font-mono text-xs font-semibold"
+                      className="px-2.5 py-1 rounded-md bg-slate-50 border border-slate-200 text-slate-700 font-mono text-xs font-medium"
                     >
                       {t}
                     </span>
@@ -476,7 +473,7 @@ export default function Home() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#6E07F3] text-white text-xs font-bold hover:bg-[#5600c7] transition-all shadow-xs"
                   >
-                    Visit Website <ExternalLink className="w-3.5 h-3.5" />
+                    Visit App <ExternalLink className="w-3.5 h-3.5" />
                   </a>
                 )}
                 <a
@@ -485,7 +482,7 @@ export default function Home() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-slate-200 text-slate-700 text-xs font-bold hover:bg-slate-50 transition-all"
                 >
-                  <GithubIcon className="w-3.5 h-3.5" /> Source Code
+                  <GithubIcon className="w-3.5 h-3.5" /> Source
                 </a>
               </div>
             </div>
@@ -493,47 +490,47 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 5. BOTTOM CALLOUT BOX (Matt Farley's Call to Action) ── */}
+      {/* ── 5. BOTTOM CALLOUT BOX ── */}
       <section className="px-6 pb-20 max-w-5xl mx-auto">
-        <div className="bg-[#141C3A] text-white rounded-3xl p-8 sm:p-14 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
+        <div className="bg-[#141C3A] text-white rounded-3xl p-8 sm:p-12 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
           <div className="max-w-xl">
-            <h2 className="font-display font-extrabold text-2xl sm:text-4xl text-white mb-2">
-              Interested in hiring me or collaborating?
+            <h2 className="font-display font-extrabold text-2xl sm:text-3xl text-white mb-2">
+              Interested in working together?
             </h2>
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-              I&apos;m actively preparing for software engineering internships and technical roles. Let&apos;s queue up a time to chat. I&apos;ll buy the coffee.
+              I’m currently seeking software engineering internships and junior developer opportunities. If you have an opening or a project idea, I’d love to connect.
             </p>
           </div>
 
           <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
             {email ? (
               <a
-                href={`mailto:${email}?subject=Software Engineering Opportunity`}
+                href={`mailto:${email}?subject=Internship or Project Opportunity`}
                 className="px-8 py-3.5 rounded-full bg-[#5BE9B9] hover:bg-[#48d8a7] text-[#141C3A] font-bold text-sm shadow-lg hover:scale-105 transition-all"
               >
-                Let&apos;s do this
+                Send an email
               </a>
             ) : (
               <Link
                 href="/collaborate"
                 className="px-8 py-3.5 rounded-full bg-[#5BE9B9] hover:bg-[#48d8a7] text-[#141C3A] font-bold text-sm shadow-lg hover:scale-105 transition-all"
               >
-                Let&apos;s do this
+                Get in touch
               </Link>
             )}
           </div>
         </div>
       </section>
 
-      {/* ── 6. FOOTER (Matt Farley Iconic Purple/Navy Footer) ── */}
+      {/* ── 6. FOOTER ── */}
       <footer className="bg-[#6E07F3] text-white py-16 px-6 text-center">
-        <div className="max-w-4xl mx-auto flex flex-col items-center gap-8">
+        <div className="max-w-4xl mx-auto flex flex-col items-center gap-6">
           <Link href="/" className="w-12 h-12 rounded-2xl bg-white text-[#6E07F3] flex items-center justify-center font-black text-xl shadow-lg hover:scale-105 transition-transform">
             AS
           </Link>
 
-          <p className="text-xl sm:text-2xl font-light text-purple-100 max-w-md">
-            Living, learning, & leveling up one day at a time.
+          <p className="text-lg sm:text-xl font-light text-purple-100 max-w-md">
+            Learning, building, and practicing every day.
           </p>
 
           <div className="flex items-center gap-4">
@@ -541,7 +538,7 @@ export default function Home() {
               href={githubProfile}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-12 h-12 rounded-full border-2 border-white/30 hover:border-white hover:bg-white/10 flex items-center justify-center text-white transition-all"
+              className="w-11 h-11 rounded-full border-2 border-white/30 hover:border-white hover:bg-white/10 flex items-center justify-center text-white transition-all"
               aria-label="GitHub Profile"
             >
               <GithubIcon className="w-5 h-5" />
@@ -551,7 +548,7 @@ export default function Home() {
                 href={linkedinProfile}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-12 h-12 rounded-full border-2 border-white/30 hover:border-white hover:bg-white/10 flex items-center justify-center text-white transition-all"
+                className="w-11 h-11 rounded-full border-2 border-white/30 hover:border-white hover:bg-white/10 flex items-center justify-center text-white transition-all"
                 aria-label="LinkedIn Profile"
               >
                 <LinkedinIcon className="w-5 h-5" />
@@ -560,7 +557,7 @@ export default function Home() {
             {email && (
               <a
                 href={`mailto:${email}`}
-                className="w-12 h-12 rounded-full border-2 border-white/30 hover:border-white hover:bg-white/10 flex items-center justify-center text-white transition-all"
+                className="w-11 h-11 rounded-full border-2 border-white/30 hover:border-white hover:bg-white/10 flex items-center justify-center text-white transition-all"
                 aria-label="Email Me"
               >
                 <Mail className="w-5 h-5" />
@@ -569,7 +566,7 @@ export default function Home() {
           </div>
 
           <div className="text-xs text-purple-200 pt-6 border-t border-purple-400/30 w-full flex flex-col sm:flex-row items-center justify-between gap-2">
-            <span>Handcrafted by Arnav Singh © 2026</span>
+            <span>Arnav Singh © 2026</span>
             <span>B.Tech CSE · BBDU Lucknow (8.0 CGPA)</span>
           </div>
         </div>

@@ -83,10 +83,10 @@ function generateReply(rawInput: string): Message {
   });
 
   // 1. Projects Query
-  if (includesAny(query, ["project", "work", "pdflex", "financecalc", "moodmate", "ascend", "built", "demos"])) {
+  if (includesAny(query, ["project", "work", "toolforge", "ats", "pdflex", "financecalc", "moodmate", "ascend", "built", "demos"])) {
     return reply(
-      `Arnav has worked on four projects:\n\n• PDFlex: A browser-based tool for merging and splitting PDFs.\n• FinanceCalc: SIP and EMI calculators with charts.\n• MoodMate: A hackathon journaling app using Flask and OpenAI.\n• ASCEND: A task manager with levels and rewards.\n\nYou can find the demos and source links in the Projects section.`,
-      `Arnav ne chaar projects par kaam kiya hai:\n\n• PDFlex: Browser mein PDF merge aur split karne ka tool.\n• FinanceCalc: Charts ke saath SIP aur EMI calculator.\n• MoodMate: Flask aur OpenAI use karne wala hackathon journaling app.\n• ASCEND: Levels aur rewards wala task manager.\n\nDemos aur source links Projects section mein mil jayenge.`,
+      `Arnav has built several technical projects:\n\n• ToolForge ATS: An in-browser resume keyword matcher and scanner.\n• PDFlex: Client-side PDF merger and splitter using Web Workers.\n• FinanceCalc: SIP and EMI calculators with compound charts.\n• MoodMate: A hackathon journaling app with Flask and API reflections.\n• ASCEND: A gamified task manager with XP progression.\n\nYou can view all demos and GitHub source links in the Projects section.`,
+      `Arnav ke technical projects ye rahe:\n\n• ToolForge ATS: Browser mein resume keyword matcher tool.\n• PDFlex: Web Workers se client-side PDF merge aur split tool.\n• FinanceCalc: SIP aur EMI compound calculators with charts.\n• MoodMate: Flask backend wala hackathon journaling app.\n• ASCEND: XP progression wala task tracker.\n\nSaare live demos aur code links Projects section mein mil jayenge.`,
       { label: "View Selected Projects", href: "#projects" }
     );
   }

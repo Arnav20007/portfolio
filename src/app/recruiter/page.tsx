@@ -26,15 +26,15 @@ const categories = ["All", "AI", "FinTech", "Productivity"];
 const highlights = [
   { value: "5th", label: "Semester B.Tech CSE" },
   { value: "8.0", label: "CGPA in CSE" },
-  { value: "DSA", label: "C++ Problem Solving" },
-  { value: "Projects", label: "Web & AI Tools Built" },
+  { value: "C++", label: "Trees, Graphs & DP" },
+  { value: "Projects", label: "Web & Python Tools Built" },
 ];
 
 const roleFit = [
-  "5th-semester B.Tech CSE student actively practicing C++ and Data Structures & Algorithms.",
-  "Hands-on experience building practical projects with React, Next.js, Python, and REST APIs.",
-  "Dedicated learner seeking Software Engineering Internship opportunities to grow.",
-  "Clear communicator eager to contribute positively to collaborative engineering teams.",
+  "5th-semester B.Tech CSE student actively practicing C++ problem-solving and algorithms.",
+  "Hands-on experience building practical web applications with React, Next.js, and Python Flask.",
+  "Eager to learn and contribute in a software engineering internship role.",
+  "Comfortable with Git workflows, clear written communication, and open to mentorship.",
 ];
 
 export default function RecruiterPage() {
@@ -108,10 +108,10 @@ export default function RecruiterPage() {
               RECRUITER OVERVIEW
             </span>
             <h1 className="text-4xl font-black leading-[1.1] tracking-tight text-[#141C3A] sm:text-5xl lg:text-6xl font-display">
-              Arnav Singh — CSE Student &amp; Full-Stack Developer
+              Arnav Singh — CSE Student &amp; Aspiring Developer
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[#5A6275]">
-              5th-semester B.Tech Computer Science Engineering student (8.0 CGPA) at BBDU Lucknow focused on DSA in C++, modern web development (React / Next.js), and building practical software tools.
+              5th-semester B.Tech Computer Science Engineering student (8.0 CGPA) at BBDU Lucknow practicing C++ problem-solving, modern frontend development (React / Next.js), and building practical web tools.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
@@ -174,9 +174,9 @@ export default function RecruiterPage() {
           >
             <div className="border-b border-[#E6ECF8] pb-5">
               <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#6E07F3]">
-                Candidate Signal
+                Candidate Overview
               </p>
-              <h2 className="mt-2 text-2xl font-black text-[#141C3A] font-display">Key Signals at a Glance</h2>
+              <h2 className="mt-2 text-2xl font-black text-[#141C3A] font-display">Key Highlights</h2>
             </div>
 
             <div className="grid grid-cols-2 gap-3 py-6">
@@ -204,8 +204,8 @@ export default function RecruiterPage() {
       <section id="projects" className="relative z-10 mx-auto max-w-7xl px-6 py-20 md:px-8">
         <SectionHeader
           eyebrow="Selected Projects"
-          title="Practical Engineering & Live Demos"
-          text="A focused view of shipped projects, technical decisions, and code repos ready for hiring evaluation."
+          title="Practical Work & Open Source Code"
+          text="A clear summary of software projects built to test concepts, learn new frameworks, and solve real user needs."
         />
 
         <div className="mb-8 flex flex-wrap gap-2">
@@ -234,7 +234,7 @@ export default function RecruiterPage() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 10 }}
                 transition={{ duration: 0.25 }}
-                className="flex min-h-[320px] flex-col justify-between rounded-3xl border border-[#E6ECF8] bg-white p-8 shadow-sm transition-all duration-300 hover:border-[#6E07F3]/40 hover:shadow-xl hover:-translate-y-1"
+                className="flex min-h-[300px] flex-col justify-between rounded-3xl border border-[#E6ECF8] bg-white p-8 shadow-sm transition-all duration-300 hover:border-[#6E07F3]/40 hover:shadow-xl hover:-translate-y-1"
               >
                 <div>
                   <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
@@ -331,8 +331,8 @@ export default function RecruiterPage() {
       <section id="experience" className="relative z-10 mx-auto max-w-7xl px-6 py-20 md:px-8">
         <SectionHeader
           eyebrow="Experience"
-          title="Practical Work & Open Collaboration"
-          text="Hands-on roles and open-source contributions demonstrating engineering consistency and team readiness."
+          title="Practical Work &amp; Open Collaboration"
+          text="Independent project work, academic training, and collaborative development."
         />
 
         <div className="grid gap-6 lg:grid-cols-3">
@@ -365,7 +365,7 @@ export default function RecruiterPage() {
         <div className="mx-auto max-w-7xl px-6 py-20 md:px-8">
           <SectionHeader
             eyebrow="Academic Background"
-            title="Education & Credentials"
+            title="Education &amp; Coursework"
             text="Formal undergraduate education in Computer Science and verified technical credentials."
           />
 
@@ -408,7 +408,7 @@ export default function RecruiterPage() {
       <section id="contact" className="relative z-10 mx-auto max-w-5xl px-6 py-24 text-center md:px-8">
         <Sparkles className="mx-auto mb-5 h-7 w-7 text-[#6E07F3]" />
         <h2 className="text-4xl font-black tracking-tight text-[#141C3A] sm:text-5xl font-display">
-          Interested in a conversation?
+          Let&apos;s Connect
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-[#5A6275]">
           I am actively preparing for software engineering roles, internship opportunities, and technical interviews.
