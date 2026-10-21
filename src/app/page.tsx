@@ -499,19 +499,16 @@ function Hero() {
           </a>
         </div>
 
-        {/* Stats Row */}
-        <div className="mt-8 border-t border-emerald-200/80 pt-5 grid grid-cols-2 sm:grid-cols-4 gap-4">
-          {[
-            { val: "8.0 / 10.0", label: "Academic CGPA", sub: "BBDU Lucknow" },
-            { val: "5th Sem", label: "B.Tech CSE", sub: "2023 - Present" },
-            { val: "C++ & DSA", label: "Problem Solving", sub: "Trees & Graphs" },
-            { val: "4 Projects", label: "Web Utilities", sub: "React & Next.js" },
-          ].map((stat) => (
-            <div key={stat.label} className="border-l-2 border-emerald-500 pl-3">
-              <div className="text-base font-black text-slate-900">{stat.val}</div>
-              <div className="text-[11px] font-bold text-slate-700">{stat.label}</div>
-              <div className="text-[10px] text-slate-400">{stat.sub}</div>
-            </div>
+        {/* Clean, Understated Focus Tags (No chunky boxes) */}
+        <div className="mt-8 flex flex-wrap items-center gap-2 pt-4 border-t border-slate-200/80">
+          <span className="text-xs font-semibold text-slate-400 mr-1">Focus:</span>
+          {["8.0 CGPA · BBDU", "C++ & DSA", "React & Next.js", "Python & Flask", "In-Browser Privacy"].map((item) => (
+            <span
+              key={item}
+              className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-medium text-slate-700 shadow-2xs"
+            >
+              {item}
+            </span>
           ))}
         </div>
       </div>
@@ -855,7 +852,7 @@ function ContactSection() {
         </p>
       </div>
 
-      <div className="rounded-3xl border-2 border-dashed border-emerald-300 bg-emerald-50/50 p-7 sm:p-10 backdrop-blur-sm shadow-sm">
+      <div className="rounded-2xl border border-slate-200/90 bg-white p-7 sm:p-10 shadow-sm">
         <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
           <div className="max-w-xl">
             <h3 className="text-xl font-black text-slate-900 sm:text-2xl">
