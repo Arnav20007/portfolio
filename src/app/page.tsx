@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import { useTheme } from "next-themes";
 import {
   ArrowRight,
   CheckCircle2,
@@ -10,8 +9,6 @@ import {
   Download,
   ExternalLink,
   Mail,
-  Moon,
-  Sun,
 } from "lucide-react";
 import { personal } from "@/lib/data";
 
@@ -41,9 +38,9 @@ function LinkedinIcon({ className = "h-4 w-4" }: { className?: string }) {
 const techBadges = ["C++", "DSA", "React", "Next.js", "Python", "TypeScript"];
 
 const metrics = [
-  { value: "5th Semester", label: "B.Tech CSE at BBDU" },
+  { value: "5th Semester", label: "B.Tech CSE · BBDU Lucknow" },
   { value: "8.0 / 10", label: "CGPA" },
-  { value: "C++ & DSA", label: "Focus on Trees, Graphs & DP" },
+  { value: "C++ & DSA", label: "Trees, Graphs & Dynamic Programming" },
   { value: "4 Projects", label: "Web, AI & Browser Utilities" },
 ];
 
@@ -118,83 +115,141 @@ const skillGroups = [
   },
 ];
 
-function ThemeToggle() {
-  const { resolvedTheme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => setMounted(true), []);
-
-  const isDark = mounted ? resolvedTheme === "dark" : false;
-
+/** Minimal SVG system diagram — pure design artifact, no neon */
+function SystemDiagram() {
   return (
-    <button
-      type="button"
-      onClick={() => setTheme(isDark ? "light" : "dark")}
-      className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-zinc-300 bg-white text-zinc-900 transition hover:border-zinc-500 dark:border-white/10 dark:bg-white/[0.04] dark:text-zinc-100 dark:hover:border-white/25"
-      aria-label="Toggle theme"
-    >
-      {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-    </button>
+    <div className="relative select-none" aria-hidden="true">
+      <svg
+        viewBox="0 0 340 320"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className="w-full max-w-sm mx-auto lg:max-w-none opacity-90"
+      >
+        {/* Grid background dots */}
+        {Array.from({ length: 6 }).map((_, row) =>
+          Array.from({ length: 7 }).map((_, col) => (
+            <circle
+              key={`dot-${row}-${col}`}
+              cx={24 + col * 46}
+              cy={20 + row * 50}
+              r={1.5}
+              fill="#c8c2b8"
+              opacity={0.45}
+            />
+          ))
+        )}
+
+        {/* Connector lines */}
+        <line x1="170" y1="72" x2="170" y2="104" stroke="#b5b0a8" strokeWidth="1" strokeDasharray="3 3" />
+        <line x1="170" y1="136" x2="100" y2="170" stroke="#b5b0a8" strokeWidth="1" strokeDasharray="3 3" />
+        <line x1="170" y1="136" x2="240" y2="170" stroke="#b5b0a8" strokeWidth="1" strokeDasharray="3 3" />
+        <line x1="100" y1="200" x2="100" y2="230" stroke="#b5b0a8" strokeWidth="1" strokeDasharray="3 3" />
+        <line x1="240" y1="200" x2="240" y2="230" stroke="#b5b0a8" strokeWidth="1" strokeDasharray="3 3" />
+        <line x1="100" y1="262" x2="170" y2="280" stroke="#b5b0a8" strokeWidth="1" strokeDasharray="3 3" />
+        <line x1="240" y1="262" x2="170" y2="280" stroke="#b5b0a8" strokeWidth="1" strokeDasharray="3 3" />
+
+        {/* Top block — "Interface / Product" */}
+        <rect x="112" y="36" width="116" height="36" rx="6" fill="#f0ece5" stroke="#c5bfb6" strokeWidth="1" />
+        <text x="170" y="55" textAnchor="middle" fontSize="9" fontWeight="600" fill="#6b6560" letterSpacing="0.08em" fontFamily="Inter, sans-serif">PRODUCT LAYER</text>
+        <text x="170" y="66" textAnchor="middle" fontSize="7" fill="#9c958e" fontFamily="Inter, sans-serif">React · Next.js · TypeScript</text>
+
+        {/* Middle block — "Logic" */}
+        <rect x="124" y="104" width="92" height="32" rx="6" fill="#e8e3da" stroke="#c5bfb6" strokeWidth="1" />
+        <text x="170" y="122" textAnchor="middle" fontSize="9" fontWeight="600" fill="#6b6560" letterSpacing="0.08em" fontFamily="Inter, sans-serif">LOGIC LAYER</text>
+        <text x="170" y="131" textAnchor="middle" fontSize="7" fill="#9c958e" fontFamily="Inter, sans-serif">Python · Flask · REST</text>
+
+        {/* Left block — "Data" */}
+        <rect x="52" y="170" width="96" height="30" rx="6" fill="#f0ece5" stroke="#c5bfb6" strokeWidth="1" />
+        <text x="100" y="187" textAnchor="middle" fontSize="9" fontWeight="600" fill="#6b6560" letterSpacing="0.08em" fontFamily="Inter, sans-serif">DATA STORE</text>
+        <text x="100" y="196" textAnchor="middle" fontSize="7" fill="#9c958e" fontFamily="Inter, sans-serif">PostgreSQL · SQLite</text>
+
+        {/* Right block — "Algorithms" */}
+        <rect x="192" y="170" width="96" height="30" rx="6" fill="#f0ece5" stroke="#c5bfb6" strokeWidth="1" />
+        <text x="240" y="187" textAnchor="middle" fontSize="9" fontWeight="600" fill="#6b6560" letterSpacing="0.08em" fontFamily="Inter, sans-serif">ALGORITHMS</text>
+        <text x="240" y="196" textAnchor="middle" fontSize="7" fill="#9c958e" fontFamily="Inter, sans-serif">C++ · DSA · Trees · DP</text>
+
+        {/* Left leaf — "Browser Util" */}
+        <rect x="46" y="230" width="108" height="26" rx="5" fill="#eae5dc" stroke="#c5bfb6" strokeWidth="1" />
+        <text x="100" y="246" textAnchor="middle" fontSize="8" fontWeight="600" fill="#6b6560" letterSpacing="0.06em" fontFamily="Inter, sans-serif">BROWSER UTILITIES</text>
+        <text x="100" y="254" textAnchor="middle" fontSize="7" fill="#9c958e" fontFamily="Inter, sans-serif">Web Workers · PDF.js</text>
+
+        {/* Right leaf — "AI Integration" */}
+        <rect x="186" y="230" width="108" height="26" rx="5" fill="#eae5dc" stroke="#c5bfb6" strokeWidth="1" />
+        <text x="240" y="246" textAnchor="middle" fontSize="8" fontWeight="600" fill="#6b6560" letterSpacing="0.06em" fontFamily="Inter, sans-serif">AI INTEGRATION</text>
+        <text x="240" y="254" textAnchor="middle" fontSize="7" fill="#9c958e" fontFamily="Inter, sans-serif">OpenAI API · Flask</text>
+
+        {/* Bottom convergence node */}
+        <circle cx="170" cy="290" r="10" fill="#e0dbd2" stroke="#b8b2a8" strokeWidth="1" />
+        <text x="170" y="294" textAnchor="middle" fontSize="8" fontWeight="700" fill="#6b6560" fontFamily="Inter, sans-serif">∞</text>
+
+        {/* Small decorative label bottom */}
+        <text x="170" y="315" textAnchor="middle" fontSize="7" fill="#b0a9a0" fontFamily="Inter, sans-serif" letterSpacing="0.1em">FULL-STACK ENGINEER</text>
+      </svg>
+    </div>
   );
 }
 
 function SectionHeading({
   eyebrow,
+  index,
   title,
   text,
 }: {
   eyebrow: string;
+  index?: string;
   title: string;
   text?: string;
 }) {
   return (
     <div className="mb-10 max-w-3xl">
-      <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-teal-700 dark:text-teal-300">
-        {eyebrow}
-      </p>
-      <h2 className="text-3xl font-black tracking-tight text-zinc-950 dark:text-white sm:text-4xl">
+      <div className="mb-3 flex items-center gap-3">
+        {index && (
+          <span className="text-xs font-mono text-zinc-400 tabular-nums">{index}</span>
+        )}
+        <p className="text-xs font-bold uppercase tracking-[0.18em] text-teal-700">
+          {eyebrow}
+        </p>
+      </div>
+      <h2 className="text-3xl font-black tracking-tight text-zinc-950 sm:text-4xl">
         {title}
       </h2>
-      {text && <p className="mt-4 text-base leading-7 text-zinc-600 dark:text-zinc-400">{text}</p>}
+      {text && <p className="mt-4 text-base leading-7 text-zinc-600">{text}</p>}
     </div>
   );
 }
 
 function Header() {
   return (
-    <header className="sticky top-0 z-40 border-b border-zinc-200/80 bg-[#f7f4ef]/90 backdrop-blur dark:border-white/10 dark:bg-[#0c0c0e]/86">
+    <header className="sticky top-0 z-40 border-b border-zinc-200/80 bg-[#f7f4ef]/90 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
-        <Link href="/" className="text-sm font-black tracking-tight text-zinc-950 dark:text-white">
+        <Link href="/" className="text-sm font-black tracking-tight text-zinc-950">
           Arnav Singh
         </Link>
 
-        <nav className="hidden items-center gap-6 text-sm font-semibold text-zinc-600 dark:text-zinc-400 md:flex">
-          <a href="#about" className="transition hover:text-zinc-950 dark:hover:text-white">
+        <nav className="hidden items-center gap-6 text-sm font-semibold text-zinc-500 md:flex">
+          <a href="#about" className="transition hover:text-zinc-950">
             About
           </a>
-          <a href="#projects" className="transition hover:text-zinc-950 dark:hover:text-white">
+          <a href="#projects" className="transition hover:text-zinc-950">
             Projects
           </a>
-          <a href="#skills" className="transition hover:text-zinc-950 dark:hover:text-white">
+          <a href="#skills" className="transition hover:text-zinc-950">
             Skills
           </a>
-          <a href="#contact" className="transition hover:text-zinc-950 dark:hover:text-white">
+          <a href="#contact" className="transition hover:text-zinc-950">
             Contact
           </a>
         </nav>
 
-        <div className="flex items-center gap-2">
-          <a
-            href={resumeHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-zinc-950 px-4 py-2 text-xs font-bold text-white transition hover:bg-zinc-800 dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-200"
-          >
-            <Download className="h-3.5 w-3.5" />
-            Resume
-          </a>
-          <ThemeToggle />
-        </div>
+        <a
+          href={resumeHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 rounded-full bg-zinc-950 px-4 py-2 text-xs font-bold text-white transition hover:bg-zinc-700"
+        >
+          <Download className="h-3.5 w-3.5" />
+          Resume
+        </a>
       </div>
     </header>
   );
@@ -202,68 +257,93 @@ function Header() {
 
 function Hero() {
   return (
-    <section className="grid gap-10 py-16 sm:py-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:py-24">
+    <section className="grid gap-12 py-14 sm:py-18 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16 lg:py-20">
+      {/* LEFT — Identity */}
       <div>
-        <p className="mb-5 inline-flex rounded-full border border-teal-700/20 bg-teal-700/10 px-3 py-1 text-xs font-bold text-teal-800 dark:border-teal-300/20 dark:bg-teal-300/10 dark:text-teal-200">
+        {/* Location chip */}
+        <p className="mb-5 inline-flex items-center gap-1.5 rounded-full border border-zinc-300 px-3 py-1 text-xs font-semibold text-zinc-500">
+          <span className="h-1.5 w-1.5 rounded-full bg-teal-600 inline-block" />
           Lucknow, India
         </p>
-        <h1 className="max-w-4xl text-5xl font-black leading-[1.02] tracking-tight text-zinc-950 dark:text-white sm:text-6xl">
-          Computer Science Student & Full-Stack Developer
+
+        {/* Name — primary identifier */}
+        <h1 className="text-5xl font-black leading-[1.02] tracking-tight text-zinc-950 sm:text-6xl">
+          Arnav Singh
         </h1>
-        <p className="mt-6 max-w-2xl text-lg leading-8 text-zinc-700 dark:text-zinc-300">
-          5th-semester B.Tech CSE student at Babu Banarasi Das University, Lucknow. I specialize in
-          C++/DSA problem-solving and building client-side web applications with React, Next.js, and
-          Flask.
+
+        {/* Role line */}
+        <p className="mt-3 text-lg font-semibold text-zinc-500">
+          Full-Stack & AI Engineer
         </p>
 
-        <div className="mt-7 flex flex-wrap gap-2">
+        {/* Divider */}
+        <div className="my-5 h-px w-12 bg-zinc-300" />
+
+        {/* Positioning statement */}
+        <p className="max-w-lg text-base leading-7 text-zinc-600">
+          5th-semester B.Tech CSE student at BBDU Lucknow. I build practical web applications
+          and AI-powered tools — focusing on client-side performance, clean architecture, and
+          real user value.
+        </p>
+
+        {/* Tech tags */}
+        <div className="mt-6 flex flex-wrap gap-2">
           {techBadges.map((badge) => (
             <span
               key={badge}
-              className="rounded-full border border-zinc-300 bg-white px-3 py-1 text-xs font-bold text-zinc-700 dark:border-white/10 dark:bg-white/[0.04] dark:text-zinc-300"
+              className="rounded-full border border-zinc-300 bg-white px-3 py-1 text-xs font-semibold text-zinc-600"
             >
               {badge}
             </span>
           ))}
         </div>
 
-        <div className="mt-9 flex flex-wrap gap-3">
+        {/* CTA row */}
+        <div className="mt-8 flex flex-wrap items-center gap-4">
           <a
             href="#projects"
-            className="inline-flex items-center gap-2 rounded-full bg-teal-700 px-5 py-3 text-sm font-black text-white transition hover:bg-teal-800 dark:bg-teal-400 dark:text-zinc-950 dark:hover:bg-teal-300"
+            className="group inline-flex items-center gap-2 border-b border-zinc-950 pb-0.5 text-sm font-black tracking-wide text-zinc-950 transition hover:gap-3"
           >
-            View Featured Projects
-            <ArrowRight className="h-4 w-4" />
+            VIEW SELECTED WORK
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </a>
           <a
             href={resumeHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-zinc-300 bg-white px-5 py-3 text-sm font-black text-zinc-950 transition hover:border-zinc-500 dark:border-white/12 dark:bg-white/[0.04] dark:text-white dark:hover:border-white/30"
+            className="inline-flex items-center gap-2 rounded-full border border-zinc-300 bg-white px-5 py-2.5 text-sm font-semibold text-zinc-700 transition hover:border-zinc-500"
           >
-            Download Resume
-            <ExternalLink className="h-4 w-4" />
+            <Download className="h-3.5 w-3.5" />
+            Resume
           </a>
         </div>
       </div>
 
-      <FeaturedProject />
+      {/* RIGHT — System diagram visual anchor */}
+      <div className="hidden lg:block">
+        <div className="rounded-2xl border border-zinc-200 bg-white/70 p-6 shadow-[0_8px_40px_rgba(20,20,20,0.06)]">
+          <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.16em] text-zinc-400">
+            System Architecture
+          </p>
+          <SystemDiagram />
+        </div>
+      </div>
     </section>
   );
 }
 
 function FeaturedProject() {
   return (
-    <aside className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-[0_24px_80px_rgba(20,20,20,0.08)] dark:border-white/10 dark:bg-[#111114] dark:shadow-black/30">
-      <div className="flex flex-col gap-4 border-b border-zinc-200 pb-5 dark:border-white/10 sm:flex-row sm:items-start sm:justify-between">
+    <aside className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-[0_24px_80px_rgba(20,20,20,0.07)]">
+      <div className="flex flex-col gap-4 border-b border-zinc-200 pb-5 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <p className="text-xs font-bold uppercase tracking-[0.16em] text-teal-700 dark:text-teal-300">
+          <p className="text-xs font-bold uppercase tracking-[0.16em] text-teal-700">
             Featured Project
           </p>
-          <h2 className="mt-2 text-3xl font-black tracking-tight text-zinc-950 dark:text-white">
+          <h2 className="mt-2 text-3xl font-black tracking-tight text-zinc-950">
             {pdflex.title}
           </h2>
-          <p className="mt-1 text-sm font-semibold text-zinc-600 dark:text-zinc-400">
+          <p className="mt-1 text-sm font-semibold text-zinc-500">
             {pdflex.subtitle}
           </p>
         </div>
@@ -271,20 +351,20 @@ function FeaturedProject() {
           href={pdflex.source}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 rounded-full border border-zinc-300 px-3 py-2 text-xs font-bold text-zinc-700 transition hover:border-zinc-500 dark:border-white/10 dark:text-zinc-300 dark:hover:border-white/25"
+          className="inline-flex items-center gap-2 rounded-full border border-zinc-300 px-3 py-2 text-xs font-bold text-zinc-600 transition hover:border-zinc-500"
         >
           <GithubIcon className="h-4 w-4" />
           Source
         </a>
       </div>
 
-      <p className="mt-5 text-sm leading-7 text-zinc-700 dark:text-zinc-300">{pdflex.summary}</p>
+      <p className="mt-5 text-sm leading-7 text-zinc-600">{pdflex.summary}</p>
 
       <div className="mt-6 space-y-3">
         {pdflex.highlights.map((highlight) => (
           <div
             key={highlight}
-            className="rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-3 text-sm leading-6 text-zinc-700 dark:border-white/10 dark:bg-white/[0.03] dark:text-zinc-300"
+            className="rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-3 text-sm leading-6 text-zinc-600"
           >
             {highlight}
           </div>
@@ -295,7 +375,7 @@ function FeaturedProject() {
         href={pdflex.demo}
         target="_blank"
         rel="noopener noreferrer"
-        className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-teal-700 px-5 py-3 text-sm font-black text-white transition hover:bg-teal-800 dark:bg-teal-400 dark:text-zinc-950 dark:hover:bg-teal-300"
+        className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-teal-700 px-5 py-3 text-sm font-black text-white transition hover:bg-teal-800"
       >
         Try Live Demo (pd-flex.vercel.app)
         <ExternalLink className="h-4 w-4" />
@@ -306,17 +386,17 @@ function FeaturedProject() {
 
 function MetricsBar() {
   return (
-    <section className="border-y border-zinc-200 py-8 dark:border-white/10">
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {metrics.map((metric) => (
-          <div
-            key={metric.value}
-            className="rounded-xl border border-zinc-200 bg-white p-5 transition hover:border-teal-700/40 hover:shadow-[0_12px_40px_rgba(15,118,110,0.12)] dark:border-white/10 dark:bg-[#111114] dark:hover:border-teal-300/30 dark:hover:shadow-[0_12px_40px_rgba(45,212,191,0.08)]"
-          >
-            <div className="text-2xl font-black tracking-tight text-zinc-950 dark:text-white">
+    <section className="border-y border-zinc-200 py-8">
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+        {metrics.map((metric, i) => (
+          <div key={metric.value} className="flex flex-col gap-1">
+            <span className="mb-1 text-[10px] font-mono text-zinc-400 tabular-nums">
+              {String(i + 1).padStart(2, "0")}
+            </span>
+            <div className="text-xl font-black tracking-tight text-zinc-950">
               {metric.value}
             </div>
-            <div className="mt-2 text-sm font-medium leading-6 text-zinc-600 dark:text-zinc-400">
+            <div className="text-xs font-medium leading-5 text-zinc-500">
               {metric.label}
             </div>
           </div>
@@ -329,17 +409,21 @@ function MetricsBar() {
 function About() {
   return (
     <section id="about" className="py-16 sm:py-20">
-      <SectionHeading eyebrow="About" title="Background & Technical Focus" />
-      <div className="max-w-4xl space-y-5 text-base leading-8 text-zinc-700 dark:text-zinc-300">
-        <p>
+      <SectionHeading
+        eyebrow="About"
+        index="01"
+        title="Background & Technical Focus"
+      />
+      <div className="grid gap-6 md:grid-cols-2 max-w-4xl">
+        <p className="text-base leading-8 text-zinc-600">
           I&apos;m currently in my 5th semester of B.Tech Computer Science Engineering at Babu Banarasi
-          Das University. My primary focus is mastering core C++ data structures and algorithms,
+          Das University. My primary focus is mastering core C++ data structures and algorithms —
           specifically tree traversals, graph algorithms, recursion, and dynamic programming.
         </p>
-        <p>
-          Rather than relying strictly on tutorial projects, I focus on building practical utilities
-          that solve real constraints like processing heavy PDFs locally in the browser or structuring
-          modular Flask APIs.
+        <p className="text-base leading-8 text-zinc-600">
+          Rather than relying on tutorial projects, I focus on building practical utilities
+          that solve real constraints — like processing heavy PDFs locally in the browser, or
+          structuring modular Flask APIs with clean separation of concerns.
         </p>
       </div>
     </section>
@@ -351,6 +435,7 @@ function Projects() {
     <section id="projects" className="py-16 sm:py-20">
       <SectionHeading
         eyebrow="Selected Work"
+        index="02"
         title="Four projects with clear implementation details"
         text="A concise view of what each project does, the stack behind it, and whether a live demo is available."
       />
@@ -359,24 +444,24 @@ function Projects() {
         {selectedProjects.map((project) => (
           <article
             key={project.name}
-            className="flex min-h-[340px] flex-col justify-between rounded-2xl border border-zinc-200 bg-white p-6 transition hover:border-teal-700/35 hover:shadow-[0_18px_60px_rgba(15,118,110,0.10)] dark:border-white/10 dark:bg-[#111114] dark:hover:border-teal-300/25 dark:hover:shadow-[0_18px_60px_rgba(45,212,191,0.06)]"
+            className="flex min-h-[320px] flex-col justify-between rounded-2xl border border-zinc-200 bg-white p-6 transition hover:border-teal-700/40 hover:shadow-[0_12px_40px_rgba(15,118,110,0.08)]"
           >
             <div>
               <div className="mb-5 flex items-start justify-between gap-3">
-                <span className="rounded-full border border-teal-700/20 bg-teal-700/10 px-3 py-1 text-xs font-bold text-teal-800 dark:border-teal-300/20 dark:bg-teal-300/10 dark:text-teal-200">
+                <span className="rounded-full border border-teal-700/20 bg-teal-700/8 px-3 py-1 text-xs font-bold text-teal-800">
                   {project.badge}
                 </span>
                 {project.comingSoon && (
-                  <span className="rounded-full border border-zinc-300 px-3 py-1 text-xs font-bold text-zinc-500 dark:border-white/10 dark:text-zinc-400">
+                  <span className="rounded-full border border-zinc-300 px-3 py-1 text-xs font-semibold text-zinc-400">
                     Demo Coming Soon
                   </span>
                 )}
               </div>
 
-              <h3 className="text-2xl font-black tracking-tight text-zinc-950 dark:text-white">
+              <h3 className="text-2xl font-black tracking-tight text-zinc-950">
                 {project.name}
               </h3>
-              <p className="mt-3 text-sm leading-7 text-zinc-700 dark:text-zinc-300">
+              <p className="mt-3 text-sm leading-7 text-zinc-600">
                 {project.description}
               </p>
 
@@ -384,7 +469,7 @@ function Projects() {
                 {project.stack.map((tech) => (
                   <span
                     key={tech}
-                    className="rounded-md border border-zinc-200 bg-zinc-50 px-2.5 py-1 text-xs font-semibold text-zinc-600 dark:border-white/10 dark:bg-white/[0.035] dark:text-zinc-400"
+                    className="rounded-md border border-zinc-200 bg-zinc-50 px-2.5 py-1 text-xs font-semibold text-zinc-500"
                   >
                     {tech}
                   </span>
@@ -392,13 +477,13 @@ function Projects() {
               </div>
             </div>
 
-            <div className="mt-7 flex flex-wrap items-center gap-3 border-t border-zinc-200 pt-5 dark:border-white/10">
+            <div className="mt-7 flex flex-wrap items-center gap-3 border-t border-zinc-200 pt-5">
               {project.demo ? (
                 <a
                   href={project.demo}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full bg-teal-700 px-4 py-2 text-xs font-black text-white transition hover:bg-teal-800 dark:bg-teal-400 dark:text-zinc-950 dark:hover:bg-teal-300"
+                  className="inline-flex items-center gap-2 rounded-full bg-teal-700 px-4 py-2 text-xs font-black text-white transition hover:bg-teal-800"
                 >
                   Live Demo
                   <ExternalLink className="h-3.5 w-3.5" />
@@ -410,8 +495,8 @@ function Projects() {
                 rel="noopener noreferrer"
                 className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-black transition ${
                   project.demo
-                    ? "border border-zinc-300 text-zinc-700 hover:border-zinc-500 dark:border-white/10 dark:text-zinc-300 dark:hover:border-white/25"
-                    : "bg-zinc-950 text-white hover:bg-zinc-800 dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-200"
+                    ? "border border-zinc-300 text-zinc-600 hover:border-zinc-500"
+                    : "bg-zinc-950 text-white hover:bg-zinc-700"
                 }`}
               >
                 <GithubIcon className="h-3.5 w-3.5" />
@@ -430,6 +515,7 @@ function Skills() {
     <section id="skills" className="py-16 sm:py-20">
       <SectionHeading
         eyebrow="Skills"
+        index="03"
         title="Technical stack"
         text="Grouped by the areas I use most across coursework, problem-solving, and project builds."
       />
@@ -437,14 +523,14 @@ function Skills() {
         {skillGroups.map((group) => (
           <div
             key={group.title}
-            className="rounded-2xl border border-zinc-200 bg-white p-6 dark:border-white/10 dark:bg-[#111114]"
+            className="rounded-2xl border border-zinc-200 bg-white p-6"
           >
-            <h3 className="text-lg font-black text-zinc-950 dark:text-white">{group.title}</h3>
+            <h3 className="text-sm font-black uppercase tracking-[0.1em] text-zinc-950">{group.title}</h3>
             <div className="mt-5 flex flex-wrap gap-2">
               {group.skills.map((skill) => (
                 <span
                   key={skill}
-                  className="rounded-md border border-zinc-200 bg-zinc-50 px-2.5 py-1 text-xs font-semibold text-zinc-600 dark:border-white/10 dark:bg-white/[0.035] dark:text-zinc-400"
+                  className="rounded-md border border-zinc-200 bg-zinc-50 px-2.5 py-1 text-xs font-semibold text-zinc-500"
                 >
                   {skill}
                 </span>
@@ -468,21 +554,23 @@ function Contact() {
 
   return (
     <section id="contact" className="py-16 sm:py-20">
-      <div className="rounded-3xl border border-zinc-200 bg-white p-8 shadow-[0_24px_80px_rgba(20,20,20,0.06)] dark:border-white/10 dark:bg-[#111114] dark:shadow-black/20 sm:p-10">
+      <SectionHeading
+        eyebrow="Contact"
+        index="04"
+        title="Let's Connect"
+      />
+      <div className="rounded-3xl border border-zinc-200 bg-white p-8 shadow-[0_24px_80px_rgba(20,20,20,0.05)] sm:p-10">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl">
-            <h2 className="text-4xl font-black tracking-tight text-zinc-950 dark:text-white">
-              Let&apos;s Connect
-            </h2>
-            <p className="mt-4 text-lg leading-8 text-zinc-700 dark:text-zinc-300">
-              Open for Software Engineering Internship opportunities for 2025/2026.
+            <p className="text-lg leading-8 text-zinc-600">
+              Open for Software Engineering Internship opportunities for 2025/2026. I respond to every message.
             </p>
           </div>
 
           <div className="flex flex-wrap gap-3">
             <a
               href={`mailto:${email}`}
-              className="inline-flex items-center gap-2 rounded-full bg-teal-700 px-6 py-3 text-sm font-black text-white transition hover:bg-teal-800 dark:bg-teal-400 dark:text-zinc-950 dark:hover:bg-teal-300"
+              className="inline-flex items-center gap-2 rounded-full bg-teal-700 px-6 py-3 text-sm font-black text-white transition hover:bg-teal-800"
             >
               <Mail className="h-4 w-4" />
               Email Me
@@ -490,7 +578,7 @@ function Contact() {
             <button
               type="button"
               onClick={handleCopyEmail}
-              className="inline-flex items-center gap-2 rounded-full border border-zinc-300 bg-white px-6 py-3 text-sm font-black text-zinc-950 transition hover:border-zinc-500 dark:border-white/10 dark:bg-white/[0.04] dark:text-white dark:hover:border-white/30"
+              className="inline-flex items-center gap-2 rounded-full border border-zinc-300 bg-white px-6 py-3 text-sm font-black text-zinc-950 transition hover:border-zinc-500"
             >
               {copied ? <CheckCircle2 className="h-4 w-4 text-teal-600" /> : <Copy className="h-4 w-4" />}
               {copied ? "Copied!" : "Copy Email"}
@@ -498,12 +586,12 @@ function Contact() {
           </div>
         </div>
 
-        <div className="mt-9 flex flex-wrap gap-3 border-t border-zinc-200 pt-6 dark:border-white/10">
+        <div className="mt-9 flex flex-wrap gap-3 border-t border-zinc-200 pt-6">
           <a
             href={`https://github.com/${personal.github}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-zinc-300 px-4 py-2 text-sm font-bold text-zinc-700 transition hover:border-zinc-500 dark:border-white/10 dark:text-zinc-300 dark:hover:border-white/25"
+            className="inline-flex items-center gap-2 rounded-full border border-zinc-300 px-4 py-2 text-sm font-bold text-zinc-600 transition hover:border-zinc-500"
           >
             <GithubIcon className="h-4 w-4" />
             GitHub
@@ -512,7 +600,7 @@ function Contact() {
             href={`https://linkedin.com/in/${personal.linkedin}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-zinc-300 px-4 py-2 text-sm font-bold text-zinc-700 transition hover:border-zinc-500 dark:border-white/10 dark:text-zinc-300 dark:hover:border-white/25"
+            className="inline-flex items-center gap-2 rounded-full border border-zinc-300 px-4 py-2 text-sm font-bold text-zinc-600 transition hover:border-zinc-500"
           >
             <LinkedinIcon className="h-4 w-4" />
             LinkedIn
@@ -521,7 +609,7 @@ function Contact() {
             href={resumeHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-zinc-300 px-4 py-2 text-sm font-bold text-zinc-700 transition hover:border-zinc-500 dark:border-white/10 dark:text-zinc-300 dark:hover:border-white/25"
+            className="inline-flex items-center gap-2 rounded-full border border-zinc-300 px-4 py-2 text-sm font-bold text-zinc-600 transition hover:border-zinc-500"
           >
             <Download className="h-4 w-4" />
             Resume PDF
@@ -534,7 +622,7 @@ function Contact() {
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#f7f4ef] text-zinc-950 selection:bg-teal-700 selection:text-white dark:bg-[#0c0c0e] dark:text-white">
+    <div className="min-h-screen bg-[#f7f4ef] text-zinc-950 selection:bg-teal-700/20 selection:text-teal-900">
       <Header />
       <main className="mx-auto max-w-6xl px-5 sm:px-8">
         <Hero />
@@ -544,6 +632,16 @@ export default function Home() {
         <Skills />
         <Contact />
       </main>
+      <footer className="border-t border-zinc-200 py-8">
+        <div className="mx-auto max-w-6xl px-5 sm:px-8">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-xs font-semibold text-zinc-950">Arnav Singh</p>
+            <p className="text-xs text-zinc-400">
+              B.Tech CSE · BBDU Lucknow · Built with Next.js
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
