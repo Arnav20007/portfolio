@@ -48,12 +48,12 @@
 
 html {
   scroll-behavior: smooth;
-  background: #fafcfb;
+  background: #050807;
 }
 
 body {
-  background: #fafcfb;
-  color: #0f172a;
+  background: #050807;
+  color: #F4EFEA;
   font-family: 'Inter', sans-serif;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
@@ -61,31 +61,31 @@ body {
 }
 
 html.light {
-  background: #fafcfb;
+  background: #050807;
 }
 
 html.light body {
-  background: #fafcfb;
-  color: #0f172a;
+  background: #050807;
+  color: #F4EFEA;
 }
 
 ::selection {
-  background: rgba(16, 185, 129, 0.25);
-  color: #065f46;
+  background: rgba(16, 185, 129, 0.35);
+  color: #34d399;
 }
 
 ::-webkit-scrollbar {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #fafcfb;
+  background: #050807;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.15);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(16, 185, 129, 0.5);
+  background: rgba(16, 185, 129, 0.6);
 }
 
 /* ═══════════════════════════════════════════════════════════════

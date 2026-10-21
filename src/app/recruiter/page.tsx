@@ -17,7 +17,6 @@ import {
   Mail,
   MapPin,
   Phone,
-  ShieldCheck,
   Sparkles,
 } from "lucide-react";
 import { skills, projects, experience, education, certificates, personal } from "@/lib/data";
@@ -25,10 +24,10 @@ import { skills, projects, experience, education, certificates, personal } from 
 const categories = ["All", "AI", "FinTech", "Productivity"];
 
 const highlights = [
-  { value: "5th", label: "semester B.Tech CSE" },
+  { value: "5th", label: "Semester B.Tech CSE" },
   { value: "8.0", label: "CGPA in CSE" },
-  { value: "DSA", label: "C++ problem solving" },
-  { value: "Projects", label: "web & AI tools built" },
+  { value: "DSA", label: "C++ Problem Solving" },
+  { value: "Projects", label: "Web & AI Tools Built" },
 ];
 
 const roleFit = [
@@ -37,8 +36,6 @@ const roleFit = [
   "Dedicated learner seeking Software Engineering Internship opportunities to grow.",
   "Clear communicator eager to contribute positively to collaborative engineering teams.",
 ];
-
-type PanelIcon = typeof GraduationCap;
 
 export default function RecruiterPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -56,13 +53,25 @@ export default function RecruiterPage() {
   };
 
   return (
-    <main data-recruiter className="min-h-screen bg-[#f7f4ef] text-[#151515] selection:bg-[#1f4e5f] selection:text-white">
-      <style>{recruiterStyles}</style>
-      <header className="sticky top-0 z-50 border-b border-[#d9d1c5] bg-[#f7f4ef]/92 backdrop-blur">
+    <main className="relative min-h-screen bg-[#050807] text-[#F4EFEA] font-sans selection:bg-[#10B981] selection:text-white overflow-x-hidden">
+      {/* ── Background Ambient Emerald & Cyan Glow Orbs ── */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div
+          className="absolute top-1/6 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1100px] h-[750px] rounded-full opacity-20 blur-[190px]"
+          style={{ background: "radial-gradient(circle, #10B981 0%, #06B6D4 40%, #047857 70%, transparent 85%)" }}
+        />
+        <div
+          className="absolute bottom-1/4 right-0 w-[700px] h-[700px] rounded-full opacity-15 blur-[180px]"
+          style={{ background: "radial-gradient(circle, #06B6D4 0%, #0891B2 50%, transparent 80%)" }}
+        />
+      </div>
+
+      {/* ── Header ── */}
+      <header className="sticky top-0 z-50 border-b border-white/10 bg-[#09120F]/90 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 md:px-8">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-[#4c463e] transition-colors hover:text-[#151515]"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-[#CBD5E1] transition-colors hover:text-white"
           >
             <ArrowLeft className="h-4 w-4" />
             Home
@@ -73,12 +82,13 @@ export default function RecruiterPage() {
               ["Work", "projects"],
               ["Skills", "skills"],
               ["Experience", "experience"],
+              ["Education", "education"],
               ["Contact", "contact"],
             ].map(([label, id]) => (
               <button
                 key={id}
                 onClick={() => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })}
-                className="rounded-md px-3 py-2 text-sm font-medium text-[#5f574d] transition-colors hover:bg-white hover:text-[#151515]"
+                className="rounded-md px-3 py-2 text-sm font-medium text-[#94A3B8] transition-colors hover:bg-white/5 hover:text-white cursor-pointer"
               >
                 {label}
               </button>
@@ -88,7 +98,7 @@ export default function RecruiterPage() {
           <a
             href={personal.resume}
             download
-            className="inline-flex items-center gap-2 rounded-md bg-[#151515] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#2b2926]"
+            className="inline-flex items-center gap-2 rounded-full bg-[#10B981] px-5 py-2 text-sm font-bold text-[#050807] transition-all hover:bg-emerald-400 shadow-[0_0_20px_rgba(16,185,129,0.25)]"
           >
             <Download className="h-4 w-4" />
             Resume
@@ -96,58 +106,62 @@ export default function RecruiterPage() {
         </div>
       </header>
 
-      <section id="summary" className="border-b border-[#ded6ca] bg-[#f7f4ef]">
-        <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 py-16 md:grid-cols-[1.1fr_0.9fr] md:px-8 md:py-24">
+      {/* ── Summary / Hero ── */}
+      <section id="summary" className="relative z-10 border-b border-white/10">
+        <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 py-16 md:grid-cols-[1.1fr_0.9fr] md:px-8 md:py-24">
           <motion.div
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45 }}
             className="max-w-3xl"
           >
-            <h1 className="max-w-3xl text-5xl font-black leading-[1.02] tracking-tight text-[#151515] sm:text-6xl lg:text-7xl">
-              Arnav Singh — CSE student building software and digital projects.
+            <span className="inline-block px-3.5 py-1.5 rounded-full border border-[#10B981]/30 bg-[#10B981]/10 text-[#10B981] font-mono text-xs font-bold uppercase tracking-[0.2em] mb-4">
+              RECRUITER OVERVIEW
+            </span>
+            <h1 className="text-4xl font-black leading-[1.08] tracking-tight text-[#F4EFEA] sm:text-5xl lg:text-6xl">
+              Arnav Singh — CSE Student & Full-Stack Developer
             </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-[#4c463e] md:text-xl">
-              5th-semester B.Tech Computer Science Engineering student focused on DSA in C++, modern web development, and building practical projects.
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-[#94A3B8]">
+              5th-semester B.Tech Computer Science Engineering student (8.0 CGPA) at BBDU Lucknow focused on DSA in C++, modern web development (React / Next.js), and building practical software tools.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
               <a
                 href={`mailto:${personal.email}`}
-                className="inline-flex items-center gap-2 rounded-md bg-[#1f4e5f] px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-[#183d4a]"
+                className="inline-flex items-center gap-2 rounded-lg bg-[#10B981] px-5 py-3 text-sm font-bold text-[#050807] transition-all hover:bg-emerald-400 shadow-[0_0_20px_rgba(16,185,129,0.3)]"
               >
                 <Mail className="h-4 w-4" />
                 Email Arnav
               </a>
               <button
                 onClick={handleCopyEmail}
-                className="inline-flex items-center gap-2 rounded-md border border-[#c9beb0] bg-white px-5 py-3 text-sm font-bold text-[#151515] transition-colors hover:border-[#151515]"
+                className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-[#09120F] px-5 py-3 text-sm font-bold text-[#F4EFEA] transition-colors hover:border-[#10B981] cursor-pointer"
               >
-                {copiedEmail ? <CheckCircle2 className="h-4 w-4 text-[#2f5f4f]" /> : <Copy className="h-4 w-4" />}
+                {copiedEmail ? <CheckCircle2 className="h-4 w-4 text-[#10B981]" /> : <Copy className="h-4 w-4" />}
                 {copiedEmail ? "Copied" : "Copy email"}
               </button>
               <a
                 href={`https://linkedin.com/in/${personal.linkedin}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-md border border-[#c9beb0] px-5 py-3 text-sm font-bold text-[#151515] transition-colors hover:border-[#151515] hover:bg-white"
+                className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-[#09120F] px-5 py-3 text-sm font-bold text-[#F4EFEA] transition-colors hover:border-[#10B981]"
               >
                 LinkedIn
                 <ExternalLink className="h-4 w-4" />
               </a>
             </div>
 
-            <div className="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-sm font-medium text-[#5f574d]">
+            <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium text-[#94A3B8]">
               <span className="inline-flex items-center gap-2">
-                <MapPin className="h-4 w-4" />
+                <MapPin className="h-4 w-4 text-[#10B981]" />
                 {personal.location}
               </span>
               <span className="inline-flex items-center gap-2">
-                <Mail className="h-4 w-4" />
+                <Mail className="h-4 w-4 text-[#10B981]" />
                 {personal.email}
               </span>
               <span className="inline-flex items-center gap-2">
-                <Phone className="h-4 w-4" />
+                <Phone className="h-4 w-4 text-[#10B981]" />
                 {personal.phone}
               </span>
             </div>
@@ -157,28 +171,28 @@ export default function RecruiterPage() {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45, delay: 0.08 }}
-            className="rounded-lg border border-[#d4cabd] bg-white p-5 shadow-[0_20px_60px_rgba(44,38,31,0.08)]"
+            className="rounded-2xl border border-white/10 bg-[#09120F]/90 p-7 shadow-2xl backdrop-blur-xl"
           >
-            <div className="border-b border-[#e7dfd4] pb-5">
-              <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#7a6f62]">
-                Why interview
+            <div className="border-b border-white/10 pb-5">
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#10B981]">
+                Candidate Signal
               </p>
-              <h2 className="mt-2 text-2xl font-black text-[#151515]">Strong signal in one page</h2>
+              <h2 className="mt-2 text-2xl font-black text-[#F4EFEA]">Key Signals at a Glance</h2>
             </div>
 
-            <div className="grid grid-cols-2 gap-3 py-5">
+            <div className="grid grid-cols-2 gap-3 py-6">
               {highlights.map((item) => (
-                <div key={item.label} className="rounded-md border border-[#ece4d9] bg-[#fbfaf7] p-4">
-                  <div className="text-2xl font-black text-[#1f4e5f]">{item.value}</div>
-                  <div className="mt-1 text-sm font-medium leading-5 text-[#5f574d]">{item.label}</div>
+                <div key={item.label} className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+                  <div className="text-2xl font-black text-[#10B981]">{item.value}</div>
+                  <div className="mt-1 text-xs font-medium leading-5 text-[#94A3B8]">{item.label}</div>
                 </div>
               ))}
             </div>
 
             <div className="space-y-3">
               {roleFit.map((item) => (
-                <div key={item} className="flex gap-3 text-sm leading-6 text-[#3e3933]">
-                  <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-[#2f5f4f]" />
+                <div key={item} className="flex gap-3 text-sm leading-relaxed text-[#CBD5E1]">
+                  <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-[#10B981]" />
                   <span>{item}</span>
                 </div>
               ))}
@@ -187,11 +201,12 @@ export default function RecruiterPage() {
         </div>
       </section>
 
-      <section id="projects" className="mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-24">
+      {/* ── Selected Projects ── */}
+      <section id="projects" className="relative z-10 mx-auto max-w-7xl px-5 py-20 md:px-8">
         <SectionHeader
-          eyebrow="Selected work"
-          title="Projects with product judgment, not just code."
-          text="A compact view of shipped systems, implementation choices, and outcomes a hiring team can evaluate quickly."
+          eyebrow="Selected Projects"
+          title="Practical Engineering & Live Demos"
+          text="A focused view of shipped projects, technical decisions, and code repos ready for hiring evaluation."
         />
 
         <div className="mb-8 flex flex-wrap gap-2">
@@ -199,10 +214,10 @@ export default function RecruiterPage() {
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`rounded-md border px-4 py-2 text-sm font-bold transition-colors ${
+              className={`rounded-lg px-4 py-2 text-sm font-bold transition-all cursor-pointer ${
                 selectedCategory === category
-                  ? "border-[#1f4e5f] bg-[#1f4e5f] text-white"
-                  : "border-[#d4cabd] bg-white text-[#4c463e] hover:border-[#151515]"
+                  ? "bg-[#10B981] text-[#050807] shadow-[0_0_15px_rgba(16,185,129,0.3)]"
+                  : "border border-white/10 bg-[#09120F] text-[#94A3B8] hover:text-white hover:border-white/20"
               }`}
             >
               {category}
@@ -210,7 +225,7 @@ export default function RecruiterPage() {
           ))}
         </div>
 
-        <div className="grid gap-5 md:grid-cols-2">
+        <div className="grid gap-6 md:grid-cols-2">
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project) => (
               <motion.article
@@ -220,33 +235,43 @@ export default function RecruiterPage() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 10 }}
                 transition={{ duration: 0.25 }}
-                className="flex min-h-[320px] flex-col justify-between rounded-lg border border-[#d4cabd] bg-white p-6 shadow-[0_16px_40px_rgba(44,38,31,0.06)]"
+                className="flex min-h-[320px] flex-col justify-between rounded-2xl border border-white/10 bg-[#09120F]/90 p-7 shadow-xl backdrop-blur-xl transition-all duration-300 hover:border-[#10B981]/40"
               >
                 <div>
-                  <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
-                    <span className="rounded-md bg-[#edf3f1] px-3 py-1 text-xs font-bold uppercase tracking-[0.12em] text-[#1f4e5f]">
+                  <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+                    <span className="rounded-md bg-[#10B981]/15 px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#10B981]">
                       {project.category}
                     </span>
-                    <span className="text-sm font-semibold text-[#7a6f62]">{project.achievement}</span>
+                    <span className="text-xs font-medium text-[#94A3B8]">{project.achievement}</span>
                   </div>
-                  <h3 className="text-2xl font-black text-[#151515]">{project.name}</h3>
-                  <p className="mt-3 text-base leading-7 text-[#4c463e]">{project.description}</p>
+                  <h3 className="text-2xl font-black text-[#F4EFEA]">{project.name}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-[#94A3B8]">{project.description}</p>
                   <div className="mt-5 flex flex-wrap gap-2">
                     {project.tech.map((tech) => (
-                      <span key={tech} className="rounded-md border border-[#e7dfd4] px-3 py-1 text-xs font-semibold text-[#5f574d]">
+                      <span key={tech} className="rounded-md border border-white/10 bg-white/[0.04] px-2.5 py-1 text-xs font-mono text-[#CBD5E1]">
                         {tech}
                       </span>
                     ))}
                   </div>
                 </div>
 
-                <div className="mt-6 flex items-center justify-between border-t border-[#ece4d9] pt-5">
-                  <a href={project.github} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-bold text-[#151515] hover:text-[#1f4e5f]">
+                <div className="mt-6 flex items-center justify-between border-t border-white/10 pt-5">
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-sm font-bold text-[#CBD5E1] hover:text-[#10B981] transition-colors"
+                  >
                     <Code2 className="h-4 w-4" />
-                    Source
+                    Source Code
                   </a>
-                  <a href={project.demo} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-bold text-[#1f4e5f] hover:text-[#183d4a]">
-                    Live demo
+                  <a
+                    href={project.demo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-sm font-bold text-[#10B981] hover:text-emerald-300 transition-colors"
+                  >
+                    Live Demo
                     <ArrowRight className="h-4 w-4" />
                   </a>
                 </div>
@@ -256,43 +281,40 @@ export default function RecruiterPage() {
         </div>
       </section>
 
-      <section id="skills" className="border-y border-[#ded6ca] bg-[#f7f4ef]">
-        <div className="mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-24">
-          <div className="mb-12 max-w-3xl">
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#7a6f62]">Competencies</p>
-            <h2 className="mt-2 text-3xl font-black tracking-tight text-[#151515] sm:text-4xl">
-              Core Technical Stack
-            </h2>
-            <p className="mt-3 text-base text-[#4c463e]">
-              Engineered with modern languages, web architectures, and scalable cloud services.
-            </p>
-          </div>
+      {/* ── Technical Skills ── */}
+      <section id="skills" className="relative z-10 border-y border-white/10 bg-[#09120F]/50 backdrop-blur-sm">
+        <div className="mx-auto max-w-7xl px-5 py-20 md:px-8">
+          <SectionHeader
+            eyebrow="Competencies"
+            title="Core Technical Stack"
+            text="Languages, frameworks, and tools used across academic coursework and software projects."
+          />
 
           <div className="grid gap-6 md:grid-cols-3">
             {skills.map((category) => (
               <div
                 key={category.category}
-                className="rounded-xl border border-[#d4cabd] bg-white p-6 shadow-sm transition-all hover:shadow-md"
+                className="rounded-2xl border border-white/10 bg-[#09120F]/90 p-6 shadow-xl backdrop-blur-xl"
               >
-                <div className="mb-6 flex items-center justify-between border-b border-[#ece4d9] pb-4">
-                  <h3 className="text-lg font-bold text-[#151515]">{category.category}</h3>
-                  <span className="text-xs font-semibold text-[#7a6f62]">{category.items.length} proficiencies</span>
+                <div className="mb-6 flex items-center justify-between border-b border-white/10 pb-4">
+                  <h3 className="text-lg font-bold text-[#F4EFEA]">{category.category}</h3>
+                  <span className="text-xs font-medium text-[#10B981]">{category.items.length} tools</span>
                 </div>
 
                 <div className="space-y-4">
                   {category.items.map((skill) => (
                     <div key={skill.name}>
                       <div className="mb-1.5 flex items-center justify-between text-xs">
-                        <span className="font-semibold text-[#151515]">{skill.name}</span>
-                        <span className="font-medium text-[#7a6f62]">{skill.level}%</span>
+                        <span className="font-semibold text-[#CBD5E1]">{skill.name}</span>
+                        <span className="font-mono text-[#94A3B8]">{skill.level}%</span>
                       </div>
-                      <div className="h-1.5 w-full overflow-hidden rounded-full bg-[#ece4d9]">
+                      <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/10">
                         <motion.div
                           initial={{ width: 0 }}
                           whileInView={{ width: `${skill.level}%` }}
                           viewport={{ once: true }}
                           transition={{ duration: 0.6, ease: "easeOut" }}
-                          className="h-full rounded-full bg-[#1f4e5f]"
+                          className="h-full rounded-full bg-[#10B981]"
                         />
                       </div>
                     </div>
@@ -304,24 +326,30 @@ export default function RecruiterPage() {
         </div>
       </section>
 
-      <section id="experience" className="mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-24">
+      {/* ── Experience ── */}
+      <section id="experience" className="relative z-10 mx-auto max-w-7xl px-5 py-20 md:px-8">
         <SectionHeader
           eyebrow="Experience"
-          title="Evidence of ownership and delivery."
-          text="Internship, freelance, and open-source work with enough breadth to adapt quickly in a team setting."
+          title="Practical Work & Open Collaboration"
+          text="Hands-on roles and open-source contributions demonstrating engineering consistency and team readiness."
         />
 
-        <div className="grid gap-5 lg:grid-cols-3">
+        <div className="grid gap-6 lg:grid-cols-3">
           {experience.map((item) => (
-            <article key={`${item.company}-${item.role}`} className="rounded-lg border border-[#d4cabd] bg-white p-6 shadow-[0_16px_40px_rgba(44,38,31,0.05)]">
-              <BriefcaseBusiness className="mb-5 h-5 w-5 text-[#1f4e5f]" />
-              <h3 className="text-xl font-black text-[#151515]">{item.role}</h3>
-              <p className="mt-1 font-bold text-[#1f4e5f]">{item.company}</p>
-              <p className="mt-2 text-sm font-semibold text-[#7a6f62]">{item.period}</p>
-              <p className="mt-5 text-sm leading-6 text-[#4c463e]">{item.description}</p>
-              <div className="mt-5 flex flex-wrap gap-2">
+            <article
+              key={`${item.company}-${item.role}`}
+              className="flex flex-col justify-between rounded-2xl border border-white/10 bg-[#09120F]/90 p-7 shadow-xl backdrop-blur-xl transition-all hover:border-[#10B981]/30"
+            >
+              <div>
+                <BriefcaseBusiness className="mb-4 h-6 w-6 text-[#10B981]" />
+                <h3 className="text-xl font-black text-[#F4EFEA]">{item.role}</h3>
+                <p className="mt-1 font-bold text-[#10B981]">{item.company}</p>
+                <p className="mt-2 text-xs font-semibold text-[#94A3B8]">{item.period}</p>
+                <p className="mt-4 text-sm leading-relaxed text-[#CBD5E1]">{item.description}</p>
+              </div>
+              <div className="mt-6 flex flex-wrap gap-2 border-t border-white/10 pt-4">
                 {item.tech.map((tech) => (
-                  <span key={tech} className="rounded-md bg-[#f7f4ef] px-2.5 py-1 text-xs font-semibold text-[#5f574d]">
+                  <span key={tech} className="rounded-md border border-white/10 bg-white/[0.04] px-2.5 py-1 text-xs font-mono text-[#CBD5E1]">
                     {tech}
                   </span>
                 ))}
@@ -331,32 +359,42 @@ export default function RecruiterPage() {
         </div>
       </section>
 
-      <section id="education" className="border-y border-[#ded6ca] bg-white">
-        <div className="mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-24">
-          <div style={{display:"grid", gridTemplateColumns:"repeat(2, minmax(0,1fr))", gap:"20px"}} className="edu-grid">
-            <article style={{background:"#f7f4ef", border:"1px solid #d4cabd", borderRadius:"8px", padding:"28px"}}>
-              <GraduationCap style={{width:"24px", height:"24px", color:"#1f4e5f", marginBottom:"16px"}} />
-              <p style={{fontSize:"12px", fontWeight:700, letterSpacing:"0.16em", textTransform:"uppercase", color:"#7a6f62"}}>Education</p>
-              <h3 style={{marginTop:"8px", fontSize:"22px", fontWeight:900, color:"#151515", lineHeight:1.2}}>{education[0].degree}</h3>
-              <div style={{marginTop:"20px"}}>
-                <p style={{fontWeight:700, color:"#1f4e5f"}}>{education[0].institution}</p>
-                <p style={{marginTop:"6px", fontSize:"14px", fontWeight:600, color:"#7a6f62"}}>{education[0].period} &nbsp;|&nbsp; {education[0].grade}</p>
-                <p style={{marginTop:"16px", fontSize:"15px", lineHeight:"1.7", color:"#4c463e"}}>{education[0].description}</p>
+      {/* ── Education & Certifications ── */}
+      <section id="education" className="relative z-10 border-y border-white/10 bg-[#09120F]/50 backdrop-blur-sm">
+        <div className="mx-auto max-w-7xl px-5 py-20 md:px-8">
+          <SectionHeader
+            eyebrow="Academic Background"
+            title="Education & Credentials"
+            text="Formal undergraduate education in Computer Science and verified technical credentials."
+          />
+
+          <div className="grid gap-6 md:grid-cols-2">
+            <article className="rounded-2xl border border-white/10 bg-[#09120F]/90 p-7 shadow-xl backdrop-blur-xl">
+              <GraduationCap className="h-6 w-6 text-[#10B981] mb-4" />
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#10B981]">Education</p>
+              <h3 className="mt-2 text-2xl font-black text-[#F4EFEA]">{education[0].degree}</h3>
+              <div className="mt-4">
+                <p className="font-bold text-[#10B981]">{education[0].institution}</p>
+                <p className="mt-1 text-xs font-semibold text-[#94A3B8]">{education[0].period} &nbsp;|&nbsp; {education[0].grade}</p>
+                <p className="mt-4 text-sm leading-relaxed text-[#CBD5E1]">{education[0].description}</p>
               </div>
             </article>
 
-            <article style={{background:"#f7f4ef", border:"1px solid #d4cabd", borderRadius:"8px", padding:"28px"}}>
-              <Award style={{width:"24px", height:"24px", color:"#1f4e5f", marginBottom:"16px"}} />
-              <p style={{fontSize:"12px", fontWeight:700, letterSpacing:"0.16em", textTransform:"uppercase", color:"#7a6f62"}}>Certifications</p>
-              <h3 style={{marginTop:"8px", fontSize:"22px", fontWeight:900, color:"#151515", lineHeight:1.2}}>Relevant credentials</h3>
-              <div style={{marginTop:"20px", display:"flex", flexDirection:"column", gap:"10px"}}>
+            <article className="rounded-2xl border border-white/10 bg-[#09120F]/90 p-7 shadow-xl backdrop-blur-xl">
+              <Award className="h-6 w-6 text-[#10B981] mb-4" />
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#10B981]">Certifications</p>
+              <h3 className="mt-2 text-2xl font-black text-[#F4EFEA]">Relevant Credentials</h3>
+              <div className="mt-4 flex flex-col gap-3">
                 {certificates.map((certificate) => (
-                  <div key={certificate.name} style={{display:"flex", alignItems:"center", justifyContent:"space-between", gap:"12px", background:"white", border:"1px solid #e7dfd4", borderRadius:"6px", padding:"12px 14px"}}>
+                  <div
+                    key={certificate.name}
+                    className="flex items-center justify-between gap-4 rounded-xl border border-white/10 bg-white/[0.03] p-3.5"
+                  >
                     <div>
-                      <p style={{fontWeight:700, fontSize:"14px", color:"#151515"}}>{certificate.name}</p>
-                      <p style={{fontSize:"13px", color:"#7a6f62", marginTop:"2px"}}>{certificate.issuer}</p>
+                      <p className="font-semibold text-sm text-[#F4EFEA]">{certificate.name}</p>
+                      <p className="text-xs text-[#94A3B8] mt-0.5">{certificate.issuer}</p>
                     </div>
-                    <span style={{fontSize:"13px", fontWeight:900, color:"#1f4e5f", flexShrink:0}}>{certificate.year}</span>
+                    <span className="text-xs font-mono font-bold text-[#10B981] shrink-0">{certificate.year}</span>
                   </div>
                 ))}
               </div>
@@ -365,71 +403,36 @@ export default function RecruiterPage() {
         </div>
       </section>
 
-
-      <section id="contact" className="mx-auto max-w-5xl px-5 py-16 text-center md:px-8 md:py-24">
-        <Sparkles className="mx-auto mb-5 h-6 w-6 text-[#1f4e5f]" />
-        <h2 className="text-4xl font-black tracking-normal text-[#151515] sm:text-5xl">
+      {/* ── Contact / Recruiter CTA ── */}
+      <section id="contact" className="relative z-10 mx-auto max-w-5xl px-5 py-24 text-center md:px-8">
+        <Sparkles className="mx-auto mb-5 h-7 w-7 text-[#10B981]" />
+        <h2 className="text-4xl font-black tracking-tight text-[#F4EFEA] sm:text-5xl">
           Interested in a conversation?
         </h2>
-        <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-[#4c463e]">
-          I am happy to discuss engineering roles, internship-to-full-time opportunities, or technical interviews.
+        <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-[#94A3B8]">
+          I am actively preparing for software engineering roles, internship opportunities, and technical interviews.
         </p>
-        <div className="mt-8 flex flex-wrap justify-center gap-3">
-          <a href={`mailto:${personal.email}`} className="inline-flex items-center gap-2 rounded-md bg-[#151515] px-5 py-3 text-sm font-bold text-white hover:bg-[#2b2926]">
+        <div className="mt-8 flex flex-wrap justify-center gap-4">
+          <a
+            href={`mailto:${personal.email}`}
+            className="inline-flex items-center gap-2 rounded-xl bg-[#10B981] px-6 py-3.5 text-sm font-bold text-[#050807] transition-all hover:bg-emerald-400 shadow-[0_0_25px_rgba(16,185,129,0.35)]"
+          >
             <Mail className="h-4 w-4" />
-            Send email
+            Send Email
           </a>
-          <a href={personal.resume} download className="inline-flex items-center gap-2 rounded-md border border-[#c9beb0] bg-white px-5 py-3 text-sm font-bold text-[#151515] hover:border-[#151515]">
+          <a
+            href={personal.resume}
+            download
+            className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-[#09120F] px-6 py-3.5 text-sm font-bold text-[#F4EFEA] transition-colors hover:border-[#10B981]"
+          >
             <Download className="h-4 w-4" />
-            Download resume
+            Download Resume
           </a>
         </div>
       </section>
     </main>
   );
 }
-
-const recruiterStyles = `
-  [data-recruiter] { background: #f7f4ef; color: #151515; font-family: Arial, Helvetica, sans-serif; overflow-x: hidden; }
-  [data-recruiter] * { box-sizing: border-box; min-width: 0; }
-  [data-recruiter] header { position: sticky; top: 0; z-index: 20; background: rgba(247,244,239,.96); border-bottom: 1px solid #d9d1c5; }
-  [data-recruiter] header > div { width: 100%; max-width: 1280px; min-height: 72px; margin: 0 auto; padding: 0 clamp(16px,4vw,32px); display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-  [data-recruiter] header a, [data-recruiter] header button { font-size: 14px; line-height: 1; font-weight: 700; }
-  [data-recruiter] header nav { display: flex; align-items: center; gap: 4px; }
-  [data-recruiter] header nav button { padding: 10px 12px; border: 0; background: transparent; color: #5f574d; cursor: pointer; }
-  [data-recruiter] header > div > a:last-child { padding: 11px 16px; background: #151515; color: white; border-radius: 4px; text-decoration: none; }
-  [data-recruiter] #summary > div { width: 100%; max-width: 1280px; margin: 0 auto; padding: 96px clamp(16px,4vw,32px); display: grid; grid-template-columns: minmax(0,1.08fr) minmax(0,.92fr); align-items: start; gap: 48px; }
-  [data-recruiter] #summary h1 { margin: 16px 0 0; font-size: clamp(32px,5.2vw,78px); line-height: 1.03; letter-spacing: 0; font-weight: 800; overflow-wrap: break-word; }
-  [data-recruiter] #summary p { max-width: 680px; }
-  [data-recruiter] #summary > div > div:first-child > div { display: flex; flex-wrap: wrap; gap: 10px; }
-  [data-recruiter] #summary > div > div:first-child > div a, [data-recruiter] #summary > div > div:first-child > div button { padding: 13px 16px; border-radius: 4px; font-size: 14px; font-weight: 700; }
-  [data-recruiter] #summary aside { padding: 28px; border: 1px solid #d4cabd; border-radius: 8px; background: white; box-shadow: 0 16px 36px rgba(44,38,31,.08); }
-  [data-recruiter] #summary aside h2 { margin: 8px 0 0; font-size: 28px; line-height: 1.15; }
-  [data-recruiter] #summary aside > div:nth-child(2) { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 22px 0; }
-  [data-recruiter] #summary aside > div:nth-child(2) > div { padding: 16px; border: 1px solid #ece4d9; border-radius: 5px; }
-  [data-recruiter] section#projects, [data-recruiter] section#experience { width: 100%; max-width: 1280px; margin: 0 auto; padding: 96px clamp(16px,4vw,32px); }
-  [data-recruiter] section#skills > div, [data-recruiter] section:not(#summary):not(#projects):not(#skills):not(#experience):not(#contact) > div { width: 100%; max-width: 1280px; margin: 0 auto; padding: 96px clamp(16px,4vw,32px); }
-  [data-recruiter] h2 { letter-spacing: 0; }
-  [data-recruiter] #projects > div:nth-child(3), [data-recruiter] #experience > div:last-child { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 20px; }
-  [data-recruiter] #projects article, [data-recruiter] #experience article { padding: 28px; border: 1px solid #d4cabd; border-radius: 8px; background: white; }
-  [data-recruiter] #projects article h3, [data-recruiter] #experience article h3 { margin-top: 18px; font-size: 24px; line-height: 1.2; }
-  [data-recruiter] #contact { width: 100%; max-width: 900px; margin: 0 auto; padding: 96px clamp(16px,4vw,32px); }
-  @media (max-width: 1024px) {
-    [data-recruiter] #summary > div { grid-template-columns: 1fr; padding-top: 64px; padding-bottom: 64px; gap: 40px; }
-    [data-recruiter] #projects > div:nth-child(3), [data-recruiter] #experience > div:last-child { grid-template-columns: 1fr; }
-    [data-recruiter] .edu-grid { grid-template-columns: 1fr !important; }
-  }
-  @media (max-width: 760px) {
-    [data-recruiter] header > div { min-height: 62px; }
-    [data-recruiter] header nav { display: none; }
-    [data-recruiter] #summary > div { display: flex; flex-direction: column; padding-top: 48px; padding-bottom: 48px; gap: 32px; }
-    [data-recruiter] #summary aside { margin-top: 0; }
-    [data-recruiter] #summary h1 { font-size: clamp(28px,8vw,42px); }
-    [data-recruiter] #skills > div { display: flex; flex-direction: column; }
-    [data-recruiter] section#projects, [data-recruiter] section#experience, [data-recruiter] section#skills > div, [data-recruiter] section:not(#summary):not(#projects):not(#skills):not(#experience):not(#contact) > div, [data-recruiter] #contact { padding-top: 56px; padding-bottom: 56px; }
-    [data-recruiter] .edu-grid { grid-template-columns: 1fr !important; }
-  }
-`;
 
 function SectionHeader({
   eyebrow,
@@ -442,32 +445,11 @@ function SectionHeader({
 }) {
   return (
     <div className="mb-10 max-w-3xl">
-      <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#7a6f62]">{eyebrow}</p>
-      <h2 className="mt-3 text-3xl font-black leading-tight tracking-normal text-[#151515] sm:text-4xl">
+      <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#10B981]">{eyebrow}</p>
+      <h2 className="mt-2 text-3xl font-black leading-tight tracking-tight text-[#F4EFEA] sm:text-4xl">
         {title}
       </h2>
-      <p className="mt-4 text-base leading-7 text-[#4c463e]">{text}</p>
+      <p className="mt-3 text-base leading-relaxed text-[#94A3B8]">{text}</p>
     </div>
-  );
-}
-
-function InfoPanel({
-  icon: Icon,
-  eyebrow,
-  title,
-  children,
-}: {
-  icon: PanelIcon;
-  eyebrow: string;
-  title: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <article className="rounded-lg border border-[#d4cabd] bg-[#f7f4ef] p-6">
-      <Icon className="mb-5 h-6 w-6 text-[#1f4e5f]" />
-      <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#7a6f62]">{eyebrow}</p>
-      <h3 className="mt-2 text-2xl font-black text-[#151515]">{title}</h3>
-      <div className="mt-5">{children}</div>
-    </article>
   );
 }
