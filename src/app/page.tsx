@@ -1,26 +1,13 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import {
-  ArrowRight,
-  CheckCircle2,
-  Copy,
-  Download,
   ExternalLink,
   Mail,
-  Code2,
   Layers,
   Cpu,
-  Database,
   ShieldCheck,
   Check,
-  Play,
-  RotateCcw,
-  Sparkles,
-  MessageSquare,
-  Compass,
-  Laptop,
 } from "lucide-react";
 import { personal } from "@/lib/data";
 
@@ -49,99 +36,6 @@ function LinkedinIcon({ className = "h-5 w-5" }: { className?: string }) {
     </svg>
   );
 }
-
-/* ── Code Workbench Data (Arnav's Custom Engineering Tweak) ─────── */
-interface CodeSnippet {
-  id: string;
-  filename: string;
-  tag: string;
-  summary: string;
-  code: string[];
-  simulationOutput: string[];
-}
-
-const workbenchSnippets: CodeSnippet[] = [
-  {
-    id: "pdflex",
-    filename: "PDFlex.worker.ts",
-    tag: "Web Workers",
-    summary: "Merge PDF files in the browser without uploading them.",
-    code: [
-      "// In-browser Web Worker PDF pipeline",
-      "import { PDFDocument } from 'pdf-lib';",
-      "",
-      "self.onmessage = async ({ data: { files } }) => {",
-      "  const merged = await PDFDocument.create();",
-      "  for (const buffer of files) {",
-      "    const src = await PDFDocument.load(buffer);",
-      "    const pages = await merged.copyPages(src, src.getPageIndices());",
-      "    pages.forEach(p => merged.addPage(p));",
-      "  }",
-      "  const bytes = await merged.save();",
-      "  self.postMessage({ bytes, status: 'DONE' });",
-      "};",
-    ],
-    simulationOutput: [
-      "[Worker] Thread initialized in browser memory.",
-      "[Worker] Loaded 2 PDF binary buffers without network upload.",
-      "[Worker] Merged 14 pages in 118ms on worker thread.",
-      "✓ Output verified: 100% private client-side execution.",
-    ],
-  },
-  {
-    id: "avltree",
-    filename: "AVLTree.cpp",
-    tag: "C++ / DSA",
-    summary: "A C++ example of keeping a search tree balanced.",
-    code: [
-      "// Self-balancing AVL Tree implementation",
-      "template <typename T>",
-      "class AVLTree {",
-      "    struct Node { T val; int height; Node *left, *right; };",
-      "    int balanceFactor(Node* n) {",
-      "        return n ? getHeight(n->left) - getHeight(n->right) : 0;",
-      "    }",
-      "    Node* rotateRight(Node* y) {",
-      "        Node* x = y->left; Node* T2 = x->right;",
-      "        x->right = y; y->left = T2;",
-      "        updateHeight(y); updateHeight(x);",
-      "        return x;",
-      "    }",
-      "};",
-    ],
-    simulationOutput: [
-      "[Compiler] g++ -O3 -Wall AVLTree.cpp -o avl_demo",
-      "[Execution] Inserted 1,000 randomized integer nodes.",
-      "[Verification] Max tree depth = 11. Balance factor in [-1, 1].",
-      "✓ All lookup and re-balancing operations completed in O(log n).",
-    ],
-  },
-  {
-    id: "finance",
-    filename: "FinanceMath.ts",
-    tag: "TypeScript / Math",
-    summary: "SIP compounding and amortized loan calculation logic.",
-    code: [
-      "// Compound interest and loan calculation functions",
-      "export function calculateSIP(P: number, r: number, n: number) {",
-      "  const i = r / 12 / 100;",
-      "  return P * ((Math.pow(1 + i, n) - 1) / i) * (1 + i);",
-      "}",
-      "",
-      "export function calculateEMI(principal: number, annualRate: number, months: number) {",
-      "  const monthlyRate = annualRate / 12 / 100;",
-      "  const factor = Math.pow(1 + monthlyRate, months);",
-      "  return (principal * monthlyRate * factor) / (factor - 1);",
-      "}",
-    ],
-    simulationOutput: [
-      "[Math Engine] Calculating: SIP ₹5,000/mo @ 12% p.a. for 10 years.",
-      "[Math Engine] Invested Amount : ₹6,00,000",
-      "[Math Engine] Estimated Returns: ₹5,61,695",
-      "✓ Total Maturity Value : ₹11,61,695 calculated accurately.",
-    ],
-  },
-];
 
 /* ── Selected Projects Data ─────────────────────────────────────── */
 interface SelectedProject {
@@ -228,131 +122,102 @@ const projectsList: SelectedProject[] = [
   },
 ];
 
-/* ── Code Workbench Component ───────────────────────────────────── */
-function CodeWorkbench() {
-  const [activeTab, setActiveTab] = useState<string>("pdflex");
-  const [isSimulating, setIsSimulating] = useState<boolean>(false);
-  const [simulationLogs, setSimulationLogs] = useState<string[]>([]);
-
-  const snippet =
-    workbenchSnippets.find((s) => s.id === activeTab) || workbenchSnippets[0];
-
-  const handleRunSimulation = () => {
-    setIsSimulating(true);
-    setSimulationLogs(["Initializing simulation..."]);
-
-    snippet.simulationOutput.forEach((log, index) => {
-      setTimeout(() => {
-        setSimulationLogs((prev) => [...prev, log]);
-        if (index === snippet.simulationOutput.length - 1) {
-          setIsSimulating(false);
-        }
-      }, (index + 1) * 300);
-    });
-  };
-
-  const handleReset = () => {
-    setSimulationLogs([]);
-    setIsSimulating(false);
-  };
-
+/* ── Hero Desk Illustration (Matt Farley Signature Vector Style) ── */
+function HeroIllustration() {
   return (
-    <div className="w-full max-w-4xl mx-auto mt-12 mb-0 select-none">
-      <div className="overflow-hidden rounded-2xl border border-[#E6ECF8] bg-white shadow-xl">
-        {/* Top Window Bar */}
-        <div className="flex items-center justify-between border-b border-[#E6ECF8] bg-slate-50/80 px-4 py-3">
-          <div className="flex items-center gap-2">
-            <span className="h-3 w-3 rounded-full bg-[#FF5F56]" />
-            <span className="h-3 w-3 rounded-full bg-[#FFBD2E]" />
-            <span className="h-3 w-3 rounded-full bg-[#27C93F]" />
-            <span className="ml-2 font-mono text-xs font-bold text-slate-700">
-              arnav-engineering-workbench
+    <div className="w-full max-w-4xl mx-auto mt-10 mb-0 select-none">
+      <div className="relative rounded-3xl border border-[#E6ECF8] bg-gradient-to-b from-[#F9FAFC] to-white p-6 sm:p-10 shadow-xl overflow-hidden">
+        {/* Subtle grid background */}
+        <div
+          className="absolute inset-0 opacity-[0.4] pointer-events-none"
+          style={{
+            backgroundImage: "radial-gradient(#CBD5E1 1px, transparent 1px)",
+            backgroundSize: "24px 24px",
+          }}
+        />
+
+        {/* Clean Monitor / Workspace Mockup */}
+        <div className="relative z-10 max-w-2xl mx-auto">
+          {/* Monitor Frame */}
+          <div className="rounded-2xl border-2 border-slate-800 bg-slate-900 shadow-2xl overflow-hidden">
+            {/* Window header */}
+            <div className="flex items-center justify-between px-4 py-2.5 bg-slate-950 border-b border-slate-800">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#FF5F56]" />
+                <span className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E]" />
+                <span className="w-2.5 h-2.5 rounded-full bg-[#27C93F]" />
+                <span className="ml-2 font-mono text-[11px] text-slate-400">
+                  arnav-singh.dev · ~/projects/toolforge-ats
+                </span>
+              </div>
+              <span className="font-mono text-[10px] text-[#5BE9B9] font-bold">
+                ● LIVE
+              </span>
+            </div>
+
+            {/* Split Screen: Code Editor & Web App Preview */}
+            <div className="grid grid-cols-1 md:grid-cols-2 text-left bg-slate-950 min-h-[220px]">
+              {/* Left: Clean C++ / TypeScript Code */}
+              <div className="p-4 border-r border-slate-800/80 font-mono text-[11px] leading-relaxed text-slate-300">
+                <div className="text-slate-500 mb-2">// AVLTree.cpp · O(log n) Balanced</div>
+                <div className="text-purple-400">template &lt;typename T&gt;</div>
+                <div><span className="text-blue-400">class</span> <span className="text-yellow-300">AVLTree</span> &#123;</div>
+                <div className="pl-3 text-slate-400">Node* root;</div>
+                <div className="pl-3"><span className="text-purple-400">int</span> <span className="text-blue-300">getBalance</span>(Node* n);</div>
+                <div className="pl-3"><span className="text-blue-400">void</span> <span className="text-emerald-400">insert</span>(T value);</div>
+                <div>&#125;;</div>
+                <div className="mt-3 text-slate-500">// In-Browser Privacy</div>
+                <div className="text-emerald-400 font-bold">✓ 100% Zero-Server Upload</div>
+              </div>
+
+              {/* Right: ToolForge ATS Preview Card */}
+              <div className="p-4 bg-slate-900/60 flex flex-col justify-between">
+                <div>
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#6E07F3]/20 text-[#A78BFA] font-mono text-[10px] font-bold mb-2">
+                    FLAGSHIP UTILITY
+                  </div>
+                  <h4 className="font-display font-bold text-white text-sm mb-1">
+                    ToolForge ATS
+                  </h4>
+                  <p className="text-slate-400 text-[11px] leading-relaxed">
+                    Client-side PDF parsing & keyword score evaluator powered by Web Workers.
+                  </p>
+                </div>
+
+                <div className="pt-3 border-t border-slate-800/80 flex items-center justify-between">
+                  <div className="flex items-center gap-1.5 text-[10px] font-mono text-emerald-400">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                    <span>ATS Score: 92/100</span>
+                  </div>
+                  <a
+                    href="https://toolforge-ats.vercel.app"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-[11px] font-bold text-[#6E07F3] hover:text-[#A78BFA] transition-colors"
+                  >
+                    Open App <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Monitor Stand */}
+          <div className="w-16 h-4 bg-slate-400 mx-auto rounded-b-md shadow-sm" />
+          <div className="w-32 h-2 bg-slate-300 mx-auto rounded-full shadow-md" />
+
+          {/* Desk Badges */}
+          <div className="flex flex-wrap items-center justify-center gap-2 mt-6">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-[#E6ECF8] text-xs font-mono font-bold text-[#141C3A] shadow-xs">
+              <Check className="w-3.5 h-3.5 text-[#6E07F3]" /> C++ & DSA Practicing
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-[#E6ECF8] text-xs font-mono font-bold text-[#141C3A] shadow-xs">
+              <Check className="w-3.5 h-3.5 text-[#6E07F3]" /> React 19 / Next.js
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-[#E6ECF8] text-xs font-mono font-bold text-[#141C3A] shadow-xs">
+              <Check className="w-3.5 h-3.5 text-[#6E07F3]" /> 100% In-Browser Privacy
             </span>
           </div>
-
-          <div className="flex items-center gap-2">
-            <button
-              onClick={handleRunSimulation}
-              disabled={isSimulating}
-              className="inline-flex items-center gap-1.5 rounded-full bg-[#6E07F3] px-3.5 py-1 font-mono text-xs font-bold text-white shadow-sm transition hover:bg-[#5600c7] disabled:opacity-50 cursor-pointer"
-            >
-              <Play className="h-3 w-3" />
-              {isSimulating ? "Running..." : "Run Simulation"}
-            </button>
-          </div>
-        </div>
-
-        {/* Tab Buttons */}
-        <div className="flex border-b border-[#E6ECF8] bg-slate-50/50">
-          {workbenchSnippets.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => {
-                setActiveTab(item.id);
-                setSimulationLogs([]);
-              }}
-              className={`flex items-center gap-2 border-r border-[#E6ECF8] px-5 py-2.5 font-mono text-xs font-bold transition cursor-pointer ${
-                activeTab === item.id
-                  ? "bg-white text-[#6E07F3] border-b-2 border-b-[#6E07F3]"
-                  : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/50"
-              }`}
-            >
-              <Code2 className="h-3.5 w-3.5" />
-              <span>{item.filename}</span>
-            </button>
-          ))}
-        </div>
-
-        {/* Code View */}
-        <div className="p-5 bg-slate-950 font-mono text-xs text-slate-200 overflow-x-auto leading-relaxed text-left">
-          <div className="space-y-1">
-            {snippet.code.map((line, index) => (
-              <div key={index} className="flex">
-                <span className="w-8 select-none text-right pr-4 text-slate-600 text-[11px]">
-                  {index + 1}
-                </span>
-                <span className="whitespace-pre">{line}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Simulation Output Area */}
-        {simulationLogs.length > 0 && (
-          <div className="border-t border-[#E6ECF8] bg-purple-50/50 p-4 text-left animate-in fade-in duration-200">
-            <div className="flex items-center justify-between pb-2 mb-2 border-b border-purple-100">
-              <span className="font-mono text-xs font-bold text-[#6E07F3]">
-                Workbench Simulation Console
-              </span>
-              <button
-                onClick={handleReset}
-                className="flex items-center gap-1 text-xs text-slate-500 hover:text-slate-900 cursor-pointer"
-              >
-                <RotateCcw className="h-3 w-3" /> Clear
-              </button>
-            </div>
-            <div className="space-y-1 font-mono text-xs">
-              {simulationLogs.map((log, index) => (
-                <div
-                  key={index}
-                  className={`flex items-start gap-2 ${
-                    log.includes("✓") ? "text-emerald-700 font-bold" : "text-slate-700"
-                  }`}
-                >
-                  <span className="text-[#6E07F3] font-bold">›</span>
-                  <span>{log}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Bottom Window Bar */}
-        <div className="flex items-center justify-between border-t border-[#E6ECF8] bg-slate-50 px-4 py-2.5 text-xs font-mono text-slate-600">
-          <span className="flex items-center gap-1.5 text-[#6E07F3] font-semibold">
-            <Check className="h-3.5 w-3.5" /> 5th Sem B.Tech CSE · C++ · React 19 · Next.js · Python
-          </span>
-          <span>8.0 CGPA · BBDU Lucknow</span>
         </div>
       </div>
     </div>
@@ -411,7 +276,7 @@ export default function Home() {
     <div className="min-h-screen bg-white text-[#141C3A] font-sans selection:bg-[#EBD8FF] selection:text-[#5600C7]">
       <Navbar />
 
-      {/* ── 1. HERO SECTION (Matt Farley Centered Style + Workbench) ── */}
+      {/* ── 1. HERO SECTION (Matt Farley Centered Style) ── */}
       <section className="pt-16 pb-20 px-6 text-center max-w-5xl mx-auto">
         <h1 className="font-display font-black text-4xl sm:text-6xl lg:text-7xl text-[#141C3A] tracking-tight leading-[1.1] mb-5">
           Computer Science Student & <br />
@@ -437,8 +302,8 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Interactive Code Workbench Tweak */}
-        <CodeWorkbench />
+        {/* Clean Hero Desk Illustration */}
+        <HeroIllustration />
       </section>
 
       {/* ── 2. INTRO SECTION (Matt Farley's Iconic Purple Band) ── */}
