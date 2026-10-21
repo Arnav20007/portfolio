@@ -7,14 +7,14 @@ import AIChatbot from "@/components/global/AIChatbot";
 import MusicToggle from "@/components/global/MusicToggle";
 
 export const metadata: Metadata = {
-  title: "Arnav Singh | Software Engineer",
+  title: "Arnav Singh | B.Tech CSE Student & Developer",
   description:
-    "Portfolio of Arnav Singh, software engineer focused on practical AI and full-stack products.",
-  keywords: ["Arnav Singh", "software engineer", "AI developer", "portfolio", "full stack"],
+    "I am Arnav Singh, a B.Tech CSE student at BBDU, Lucknow. Here are some of the projects I have built and the technologies I am learning.",
+  keywords: ["Arnav Singh", "B.Tech CSE student", "BBDU", "web development", "portfolio"],
   authors: [{ name: "Arnav Singh" }],
   openGraph: {
-    title: "Arnav Singh | Software Engineer",
-    description: "Practical AI and full-stack products.",
+    title: "Arnav Singh | B.Tech CSE Student & Developer",
+    description: "Projects, skills, and contact details for Arnav Singh, a B.Tech CSE student at BBDU, Lucknow.",
     type: "website",
   },
 };
@@ -30,11 +30,11 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Playfair+Display:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700;800;900&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap"
           rel="stylesheet"
         />
       </head>
-      <body className="font-sans antialiased" style={{ background: '#050807', color: '#F4EFEA' }}>
+      <body className="font-sans antialiased bg-[#faf8f9] text-[#0f172a]">
         <ThemeProvider>
           <KonamiEasterEgg />
           {children}
@@ -45,4 +45,3 @@ export default function RootLayout({
     </html>
   );
 }
-

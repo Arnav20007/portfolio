@@ -32,11 +32,11 @@ const verifiedProfile = {
   degree: "B.Tech Computer Science & Engineering (5th Semester)",
   college: "Babu Banarasi Das University (BBDU), Lucknow",
   cgpa: "8.0 / 10.0",
-  email: personal.email || "arnav@example.com",
+  email: personal.email,
   github: `https://github.com/${personal.github || "Arnav20007"}`,
-  linkedin: `https://linkedin.com/in/${personal.linkedin || "arnav-singh"}`,
+  linkedin: personal.linkedin ? `https://linkedin.com/in/${personal.linkedin}` : "",
   resume: personal.resume || "/resume.pdf",
-  status: "Actively seeking Software Engineering Internships (2025/2026)",
+  status: "Looking for software engineering internships",
 };
 
 const quickButtons = [
@@ -85,8 +85,8 @@ function generateReply(rawInput: string): Message {
   // 1. Projects Query
   if (includesAny(query, ["project", "work", "pdflex", "financecalc", "moodmate", "ascend", "built", "demos"])) {
     return reply(
-      `Arnav has built 4 key projects:\n\n• PDFlex: In-browser PDF merge/split with Web Workers (0KB uploads).\n• FinanceCalc: SIP compound interest & EMI calculator with Chart.js.\n• MoodMate: AI journaling reflection tool with Flask & OpenAI API.\n• ASCEND: Gamified task & quest manager with PostgreSQL.\n\nLive demos and GitHub repositories are linked below.`,
-      `Arnav ke 4 main projects hain:\n\n• PDFlex: In-browser PDF merge/split using Web Workers (0KB server upload, 100% private in RAM).\n• FinanceCalc: SIP compound return & EMI calculator with interactive charts.\n• MoodMate: Hackathon AI journaling platform (Flask + OpenAI API).\n• ASCEND: Gamified todo manager with XP progression.\n\nLive demo aur GitHub source neeche section mein check kar sakte ho.`,
+      `Arnav has worked on four projects:\n\n• PDFlex: A browser-based tool for merging and splitting PDFs.\n• FinanceCalc: SIP and EMI calculators with charts.\n• MoodMate: A hackathon journaling app using Flask and OpenAI.\n• ASCEND: A task manager with levels and rewards.\n\nYou can find the demos and source links in the Projects section.`,
+      `Arnav ne chaar projects par kaam kiya hai:\n\n• PDFlex: Browser mein PDF merge aur split karne ka tool.\n• FinanceCalc: Charts ke saath SIP aur EMI calculator.\n• MoodMate: Flask aur OpenAI use karne wala hackathon journaling app.\n• ASCEND: Levels aur rewards wala task manager.\n\nDemos aur source links Projects section mein mil jayenge.`,
       { label: "View Selected Projects", href: "#projects" }
     );
   }
@@ -94,8 +94,8 @@ function generateReply(rawInput: string): Message {
   // 2. Recruiter / Internship / 20-Second Summary Query
   if (includesAny(query, ["recruiter", "hire", "intern", "internship", "job", "summary", "20 sec", "pitch", "why hire"])) {
     return reply(
-      `20-Second Recruiter Summary:\nArnav Singh is a 5th-semester B.Tech CSE student at BBDU Lucknow (${verifiedProfile.cgpa} CGPA). He solves algorithmic problems in C++ (Trees, Graphs, DP) and builds client-side web tools with React, Next.js, and Python. Open for Software Engineering Internships (2025/2026).`,
-      `20-Second Recruiter Summary:\nArnav Lucknow se 5th-semester B.Tech CSE student hai at BBDU Lucknow (${verifiedProfile.cgpa} CGPA). Core focus C++ Data Structures & Algorithms hai aur React/Next.js/Python se practical web tools banata hai. Currently SDE internship opportunities ke liye open hai.`,
+      `Arnav Singh is a fifth-semester B.Tech CSE student at BBDU, Lucknow, with an 8.0 CGPA. He practises DSA in C++ and has built web projects using React, Next.js, Python, and Flask. He is looking for a software engineering internship.`,
+      `Arnav Singh BBDU, Lucknow mein B.Tech CSE ke fifth semester mein hai aur uska CGPA 8.0 hai. Woh C++ mein DSA practice karta hai aur React, Next.js, Python, aur Flask ke saath projects bana chuka hai. Abhi software engineering internship dhoondh raha hai.`,
       { label: "Download Resume (PDF)", href: verifiedProfile.resume, isExternal: true }
     );
   }
@@ -103,8 +103,8 @@ function generateReply(rawInput: string): Message {
   // 3. Skills & Tech Stack Query
   if (includesAny(query, ["skill", "stack", "tech", "technology", "language", "c++", "dsa", "python", "react"])) {
     return reply(
-      `Core Skills & Technical Focus:\n• Programming: C++, Data Structures & Algorithms, OOP, C Language\n• Frontend: React, Next.js, TypeScript, Tailwind CSS, Web Workers API\n• Backend & AI: Python, Flask, REST APIs, OpenAI API\n• Databases & Tools: PostgreSQL, SQLite, Git, GitHub, Vercel`,
-      `Core Skills & Tech Stack:\n• Programming: C++, DSA (Trees, Graphs, DP), OOP, C\n• Frontend: React, Next.js, TypeScript, Tailwind CSS, Web Workers\n• Backend: Python, Flask, REST APIs, OpenAI API\n• Database & Tools: PostgreSQL, SQLite, Git & GitHub, Vercel`,
+      `Arnav mainly works with C++ and DSA for problem-solving. For web projects, he has used React, Next.js, TypeScript, Python, Flask, and SQL.`,
+      `Arnav C++ aur DSA se problem-solving practice karta hai. Web projects mein usne React, Next.js, TypeScript, Python, Flask, aur SQL use kiya hai.`,
       { label: "Explore Skills Matrix", href: "#skills" }
     );
   }
@@ -112,8 +112,8 @@ function generateReply(rawInput: string): Message {
   // 4. Resume Query
   if (includesAny(query, ["resume", "cv", "pdf", "download resume", "bio"])) {
     return reply(
-      `Arnav's verified resume is ready to download. It covers coursework, CGPA (${verifiedProfile.cgpa}), C++ DSA benchmarks, and project architectures.`,
-      `Arnav ka resume ready hai. Isme BBDU CSE coursework, ${verifiedProfile.cgpa} CGPA, C++ DSA focus aur projects detailed hain.`,
+      `You can download Arnav's resume here. It has more details about his education, skills, and projects.`,
+      `Arnav ka resume yahan se download kar sakte ho. Isme uski education, skills, aur projects ke baare mein aur details hain.`,
       { label: "Download Resume PDF", href: verifiedProfile.resume, isExternal: true }
     );
   }
@@ -121,8 +121,8 @@ function generateReply(rawInput: string): Message {
   // 5. Contact & Collaboration Query
   if (includesAny(query, ["contact", "email", "reach", "hire", "collaborate", "github", "linkedin", "message"])) {
     return reply(
-      `You can reach Arnav directly:\n• Email: ${verifiedProfile.email}\n• GitHub: ${verifiedProfile.github}\n• LinkedIn: ${verifiedProfile.linkedin}\n\nHe responds promptly to internship inquiries and technical discussions.`,
-      `Arnav se connect karne ke direct links:\n• Email: ${verifiedProfile.email}\n• GitHub: ${verifiedProfile.github}\n• LinkedIn: ${verifiedProfile.linkedin}\n\nInternship ya collaboration ke liye message bhej sakte ho.`,
+      `You can find Arnav on GitHub: ${verifiedProfile.github}. His email and LinkedIn details will be added here soon.`,
+      `Arnav ka GitHub yahan hai: ${verifiedProfile.github}. Email aur LinkedIn details yahan jald add hongi.`,
       { label: "Go to Contact Section", href: "#contact" }
     );
   }
@@ -130,8 +130,8 @@ function generateReply(rawInput: string): Message {
   // 6. Casual / Friend Query
   if (includesAny(query, ["friend", "dost", "hobby", "fun", "personal", "chess", "gym", "chai", "who are you"])) {
     return reply(
-      `Hey! On the personal side, Arnav is a 5th-sem CSE student at BBDU Lucknow. Outside coding C++ algorithms and building web tools, he enjoys drinking chai ☕, playing chess ♟️, gym workouts 🏋️, and coding late at night with lo-fi beats 🎵.`,
-      `Arnav 5th-sem CSE student hai BBDU Lucknow se. C++ aur web tools code karne ke alawa chai ☕, chess ♟️, gym 🏋️, aur late-night lo-fi music 🎵 pasand karta hai.`,
+      `Arnav is a CSE student at BBDU who enjoys chess, chai, going to the gym, and listening to music while he works on projects.`,
+      `Arnav BBDU mein CSE student hai. Use chess, chai, gym, aur projects par kaam karte waqt music sunna pasand hai.`,
       { label: "Read Background", href: "#about" }
     );
   }
@@ -139,16 +139,16 @@ function generateReply(rawInput: string): Message {
   // 7. CGPA / College / Education Query
   if (includesAny(query, ["cgpa", "college", "university", "bbdu", "semester", "sem", "education", "degree"])) {
     return reply(
-      `Education Details:\n• Degree: ${verifiedProfile.degree}\n• Institution: ${verifiedProfile.college}\n• Academic CGPA: ${verifiedProfile.cgpa}\n• Core Subjects: Data Structures, Operating Systems, DBMS, Computer Networks`,
-      `Education Info:\n• Degree: ${verifiedProfile.degree}\n• College: ${verifiedProfile.college}\n• CGPA: ${verifiedProfile.cgpa}\n• Focus: Data Structures & Algorithms, OS, DBMS`,
+      `Arnav is studying B.Tech CSE at ${verifiedProfile.college}. He is currently in his fifth semester and has a CGPA of ${verifiedProfile.cgpa}.`,
+      `Arnav ${verifiedProfile.college} mein B.Tech CSE kar raha hai. Woh abhi fifth semester mein hai aur uska CGPA ${verifiedProfile.cgpa} hai.`,
       { label: "View Technical Focus", href: "#focus" }
     );
   }
 
   // 8. Honest Guardrail (No Hallucinations)
   return reply(
-    `I am Arnav's portfolio guide. I only share verified details from his portfolio: projects, C++ DSA skills, BBDU coursework (8.0 CGPA), resume, and contact links. Ask me about any of these!`,
-    `Main Arnav ke portfolio ka guide hoon. Main sirf verified details share karta hoon: projects, C++ DSA skills, BBDU CSE (${verifiedProfile.cgpa} CGPA), resume, aur contact info. Inme se kuch bhi pooch sakte ho!`,
+    `I can help you find details about Arnav's projects, skills, education, or resume. What would you like to know?`,
+    `Main Arnav ke projects, skills, education, aur resume ki details dhoondhne mein help kar sakta hoon. Kya dekhna chahoge?`,
     { label: "View Selected Projects", href: "#projects" }
   );
 }
@@ -158,7 +158,7 @@ export default function AIChatbot() {
   const [messages, setMessages] = useState<Message[]>([
     {
       from: "bot",
-      text: "Hi! Ask me about Arnav's projects, skills, resume, or collaboration. (Project, skills, resume ya collaboration ke baare mein poochho).",
+      text: "Hi, I can help you explore Arnav's projects, skills, education, and resume. What would you like to know?",
     },
   ]);
   const [input, setInput] = useState("");
@@ -201,7 +201,7 @@ export default function AIChatbot() {
         id="chatbot-toggle"
         onClick={() => setOpen((prev) => !prev)}
         aria-label={open ? "Close portfolio guide" : "Ask Arnav's portfolio guide"}
-        className="fixed bottom-5 right-5 z-[990] h-12 w-12 rounded-full flex items-center justify-center shadow-lg shadow-emerald-600/20 transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer bg-emerald-600 hover:bg-emerald-700 text-white border border-emerald-400/40"
+        className="fixed bottom-5 right-5 z-[990] h-12 w-12 rounded-full flex items-center justify-center shadow-lg shadow-rose-600/20 transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer bg-rose-600 hover:bg-rose-700 text-white border border-rose-400/40"
       >
         {open ? (
           <X className="w-5 h-5" />
@@ -210,8 +210,8 @@ export default function AIChatbot() {
         )}
         {!open && (
           <span className="absolute -top-0.5 -right-0.5 flex h-3 w-3">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-300 opacity-75" />
-            <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-400" />
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-300 opacity-75" />
+            <span className="relative inline-flex rounded-full h-3 w-3 bg-rose-400" />
           </span>
         )}
       </button>
@@ -219,30 +219,30 @@ export default function AIChatbot() {
       {/* Floating Chatbot Window */}
       {open && (
         <div
-          className="fixed bottom-20 right-5 z-[990] w-[390px] max-w-[calc(100vw-28px)] max-h-[580px] rounded-2xl overflow-hidden flex flex-col shadow-2xl bg-white border border-emerald-200/90 animate-in fade-in slide-in-from-bottom-4 duration-200"
+          className="fixed bottom-20 right-5 z-[990] w-[390px] max-w-[calc(100vw-28px)] max-h-[580px] rounded-2xl overflow-hidden flex flex-col shadow-2xl bg-white border border-rose-200/90 animate-in fade-in slide-in-from-bottom-4 duration-200"
           style={{
-            boxShadow: "0 20px 60px rgba(16, 185, 129, 0.15), 0 4px 20px rgba(0, 0, 0, 0.08)",
+            boxShadow: "0 20px 60px rgba(225, 29, 72, 0.15), 0 4px 20px rgba(0, 0, 0, 0.08)",
           }}
         >
           {/* Chat Header */}
-          <div className="flex items-center justify-between px-4 py-3.5 border-b border-emerald-100 bg-emerald-50/70">
+          <div className="flex items-center justify-between px-4 py-3.5 border-b border-rose-100 bg-rose-50/70">
             <div className="flex items-center gap-2.5">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-sm">
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-rose-600 text-white shadow-sm">
                 <Bot className="w-5 h-5" />
               </div>
               <div>
                 <p className="font-bold text-sm text-slate-900 leading-tight">
                   Ask Arnav&apos;s Portfolio
                 </p>
-                <p className="text-[10px] font-mono text-emerald-700 flex items-center gap-1 mt-0.5 font-semibold">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                  Verified Guide · BBDU Lucknow
+                <p className="text-[10px] font-mono text-rose-700 flex items-center gap-1 mt-0.5 font-semibold">
+                  <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse" />
+                  Portfolio guide · BBDU, Lucknow
                 </p>
               </div>
             </div>
             <button
               onClick={() => setOpen(false)}
-              className="w-7 h-7 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-emerald-100/50 transition-colors cursor-pointer"
+              className="w-7 h-7 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-rose-100/50 transition-colors cursor-pointer"
               aria-label="Close chat"
             >
               <X className="w-4 h-4" />
@@ -255,9 +255,9 @@ export default function AIChatbot() {
               <button
                 key={label}
                 onClick={() => handleSend(query)}
-                className="text-[11px] font-bold py-1.5 px-2 rounded-lg transition-all text-emerald-800 bg-white border border-emerald-200/80 hover:bg-emerald-50 hover:border-emerald-400 flex items-center justify-center gap-1 shadow-2xs cursor-pointer"
+                className="text-[11px] font-bold py-1.5 px-2 rounded-lg transition-all text-rose-800 bg-white border border-rose-200/80 hover:bg-rose-50 hover:border-rose-400 flex items-center justify-center gap-1 shadow-2xs cursor-pointer"
               >
-                <Icon className="w-3 h-3 text-emerald-600 shrink-0" />
+                <Icon className="w-3 h-3 text-rose-600 shrink-0" />
                 <span>{label}</span>
               </button>
             ))}
@@ -274,7 +274,7 @@ export default function AIChatbot() {
                   <div
                     className={`px-3.5 py-2.5 rounded-2xl text-[13px] leading-relaxed whitespace-pre-line ${
                       message.from === "user"
-                        ? "bg-emerald-600 text-white shadow-sm rounded-br-xs"
+                        ? "bg-rose-600 text-white shadow-sm rounded-br-xs"
                         : "bg-white text-slate-800 border border-slate-200/90 shadow-2xs rounded-bl-xs"
                     }`}
                   >
@@ -288,10 +288,10 @@ export default function AIChatbot() {
                       target={message.action.isExternal ? "_blank" : undefined}
                       rel={message.action.isExternal ? "noopener noreferrer" : undefined}
                       onClick={() => handleActionClick(message.action!.href)}
-                      className="mt-1.5 inline-flex items-center gap-1.5 rounded-lg border border-emerald-300 bg-emerald-50 px-3 py-1 text-[11px] font-bold text-emerald-800 hover:bg-emerald-100 transition-colors shadow-2xs"
+                      className="mt-1.5 inline-flex items-center gap-1.5 rounded-lg border border-rose-300 bg-rose-50 px-3 py-1 text-[11px] font-bold text-rose-800 hover:bg-rose-100 transition-colors shadow-2xs"
                     >
                       <span>{message.action.label}</span>
-                      <ExternalLink className="h-3 w-3 text-emerald-600" />
+                      <ExternalLink className="h-3 w-3 text-rose-600" />
                     </a>
                   )}
                 </div>
@@ -301,9 +301,9 @@ export default function AIChatbot() {
             {typing && (
               <div className="flex justify-start">
                 <div className="px-3.5 py-2 rounded-xl text-xs text-slate-500 bg-white border border-slate-200 flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-bounce" />
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-bounce [animation-delay:0.2s]" />
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-bounce [animation-delay:0.4s]" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-bounce" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-bounce [animation-delay:0.2s]" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-bounce [animation-delay:0.4s]" />
                 </div>
               </div>
             )}
@@ -319,13 +319,13 @@ export default function AIChatbot() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSend()}
-              className="flex-1 bg-slate-50 text-slate-900 placeholder-slate-400 text-xs px-3 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-emerald-500 transition-colors"
+              className="flex-1 bg-slate-50 text-slate-900 placeholder-slate-400 text-xs px-3 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-rose-500 transition-colors"
             />
             <button
               id="chatbot-send"
               onClick={() => handleSend()}
               aria-label="Send message"
-              className="w-9 h-9 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white flex items-center justify-center transition-transform active:scale-95 shadow-sm cursor-pointer"
+              className="w-9 h-9 rounded-xl bg-rose-600 hover:bg-rose-700 text-white flex items-center justify-center transition-transform active:scale-95 shadow-sm cursor-pointer"
             >
               <Send className="w-3.5 h-3.5" />
             </button>

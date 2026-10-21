@@ -12,9 +12,9 @@ interface Line {
 
 export default function TerminalPage() {
   const [history, setHistory] = useState<Line[]>([
-    { type: "system", text: "ARNAV.OS Neural Terminal v2.5.0 [Release: BeastMode]" },
-    { type: "system", text: "Interactive Kernel Initialized. System diagnostics: 100% HEALTHY." },
-    { type: "system", text: 'Type "help" to see available commands or click quick suggestions below.' },
+    { type: "system", text: "Arnav's portfolio terminal" },
+    { type: "system", text: "Welcome. Use a command below to explore the portfolio." },
+    { type: "system", text: 'Type "help" to see the available commands.' },
     { type: "system", text: "─────────────────────────────────────────────────────────────" },
   ]);
   const [input, setInput] = useState("");
@@ -42,7 +42,7 @@ export default function TerminalPage() {
 
     if (cmd === "clear") {
       setHistory([
-        { type: "system", text: 'ARNAV.OS Terminal cleared. Type "help" for commands.' },
+        { type: "system", text: 'Terminal cleared. Type "help" to see the commands.' },
       ]);
       return;
     }
@@ -60,8 +60,8 @@ export default function TerminalPage() {
     } else {
       setHistory((h) => [
         ...h,
-        { type: "output", text: `Error: command not recognized: "${cmd}"` },
-        { type: "output", text: 'Type "help" to list available system commands.' },
+          { type: "output", text: `I don't know the command "${cmd}".` },
+          { type: "output", text: 'Type "help" to see the available commands.' },
       ]);
     }
   };
@@ -84,14 +84,14 @@ export default function TerminalPage() {
 
   return (
     <div
-      className="relative min-h-screen bg-[#050608] text-[#F4EFEA] font-mono flex flex-col items-center justify-center p-4 sm:p-8 selection:bg-[#5B8CFF] selection:text-white"
+      className="relative min-h-screen bg-[#faf8f9] text-slate-900 font-mono flex flex-col items-center justify-center p-4 sm:p-8 selection:bg-rose-100 selection:text-rose-950"
       onClick={() => inputRef.current?.focus()}
     >
       {/* ── Top Ambient Light ── */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         <div
-          className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[600px] rounded-full opacity-15 blur-[160px]"
-          style={{ background: "radial-gradient(circle, #5B8CFF 0%, #3B82F6 50%, transparent 80%)" }}
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] rounded-full opacity-40 blur-[130px]"
+          style={{ background: "radial-gradient(circle, #ffe4e6 0%, #fecdd3 30%, transparent 70%)" }}
         />
       </div>
 
@@ -99,37 +99,37 @@ export default function TerminalPage() {
       <header className="fixed top-6 left-6 z-50">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#0E1017]/90 border border-white/10 hover:border-[#5B8CFF]/50 text-xs font-mono font-bold text-[#CBD5E1] hover:text-white backdrop-blur-xl transition-all shadow-lg"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-slate-200 hover:border-rose-300 text-xs font-mono font-bold text-slate-800 hover:text-rose-600 shadow-md transition-all"
         >
-          <ArrowLeft className="w-4 h-4 text-[#5B8CFF]" />
-          <span>Exit to Home OS</span>
+          <ArrowLeft className="w-4 h-4 text-rose-600" />
+          <span>Back to portfolio</span>
         </Link>
       </header>
 
       {/* ── Main Terminal Window ── */}
-      <div className="relative z-10 w-full max-w-4xl rounded-3xl bg-gradient-to-b from-[#0D0F17]/98 to-[#06070B]/98 border border-white/[0.08] shadow-[0_30px_80px_rgba(0,0,0,0.8),0_0_50px_rgba(91,140,255,0.08)] backdrop-blur-3xl overflow-hidden flex flex-col">
+      <div className="relative z-10 w-full max-w-4xl rounded-3xl bg-slate-950 border border-slate-800 shadow-2xl overflow-hidden flex flex-col text-slate-100">
         
         {/* Title Bar */}
-        <div className="px-6 py-4 bg-[#111420] border-b border-white/[0.06] flex items-center justify-between">
+        <div className="px-6 py-4 bg-slate-900 border-b border-slate-800 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <div className="w-3.5 h-3.5 rounded-full bg-[#EF4444]" />
             <div className="w-3.5 h-3.5 rounded-full bg-[#F59E0B]" />
             <div className="w-3.5 h-3.5 rounded-full bg-[#10B981]" />
-            <span className="ml-3 text-xs font-mono font-bold text-[#94A3B8]">
-              arnav@os-terminal:~ (zsh)
+            <span className="ml-3 text-xs font-mono font-bold text-slate-400">
+              arnav@portfolio:~ (zsh)
             </span>
           </div>
 
-          <div className="flex items-center gap-2 text-xs text-[#5B8CFF] font-bold">
+          <div className="flex items-center gap-2 text-xs text-rose-400 font-bold">
             <Terminal className="w-4 h-4" />
-            <span>SESSION: ACTIVE</span>
+            <span>TERMINAL</span>
           </div>
         </div>
 
         {/* Quick Command Suggestions Pill Bar */}
-        <div className="px-6 py-3 bg-[#0B0D14] border-b border-white/[0.04] flex items-center gap-2 overflow-x-auto">
-          <span className="text-[11px] text-[#64748B] uppercase font-bold shrink-0">
-            Quick Exec:
+        <div className="px-6 py-3 bg-slate-900/90 border-b border-slate-800 flex items-center gap-2 overflow-x-auto">
+          <span className="text-[11px] text-slate-500 uppercase font-bold shrink-0">
+            Try a command:
           </span>
           {quickCommands.map((cmd) => (
             <button
@@ -138,7 +138,7 @@ export default function TerminalPage() {
                 e.stopPropagation();
                 executeCmd(cmd);
               }}
-              className="px-3 py-1 rounded-lg text-xs font-mono font-bold bg-white/[0.03] hover:bg-[#5B8CFF]/20 text-[#CBD5E1] hover:text-[#5B8CFF] border border-white/[0.06] hover:border-[#5B8CFF]/40 transition-all cursor-pointer shrink-0"
+              className="px-3 py-1 rounded-lg text-xs font-mono font-bold bg-slate-800 hover:bg-rose-950/60 text-slate-300 hover:text-rose-400 border border-slate-700 hover:border-rose-500/40 transition-all cursor-pointer shrink-0"
             >
               ${cmd}
             </button>

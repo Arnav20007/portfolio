@@ -137,24 +137,24 @@ export default function MusicToggle() {
 
       {/* Floating Playlist Drawer Popup */}
       {isPanelOpen && (
-        <div className="fixed bottom-20 left-5 z-[910] w-80 rounded-2xl border border-white/10 bg-[#09120F]/95 p-4 text-[#F4EFEA] shadow-2xl backdrop-blur-2xl animate-in fade-in slide-in-from-bottom-3 duration-200">
-          <div className="flex items-center justify-between border-b border-white/10 pb-3 mb-3">
+        <div className="fixed bottom-20 left-5 z-[910] w-80 rounded-2xl border border-slate-200 bg-white p-4 text-slate-900 shadow-xl backdrop-blur-xl animate-in fade-in slide-in-from-bottom-3 duration-200">
+          <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-3">
             <div className="flex items-center gap-2">
-              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#10B981] text-[#050807] shadow-sm font-bold">
+              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-rose-600 text-white shadow-xs font-bold">
                 <Music className="h-4 w-4" />
               </div>
               <div>
-                <span className="font-mono text-xs font-bold uppercase tracking-wider text-white block">
+                <span className="font-mono text-xs font-bold uppercase tracking-wider text-slate-900 block">
                   Soundtrack Player
                 </span>
-                <span className="text-[10px] text-emerald-400 font-semibold">
+                <span className="text-[10px] text-rose-600 font-semibold">
                   Jack Sparrow · Fairytale · Lo-Fi
                 </span>
               </div>
             </div>
             <button
               onClick={() => setIsPanelOpen(false)}
-              className="text-slate-400 hover:text-white transition-colors cursor-pointer p-1"
+              className="text-slate-400 hover:text-slate-700 transition-colors cursor-pointer p-1"
               aria-label="Close playlist"
             >
               <X className="h-4 w-4" />
@@ -162,50 +162,50 @@ export default function MusicToggle() {
           </div>
 
           {/* Current track info */}
-          <div className="mb-3 rounded-xl border border-white/10 bg-white/[0.04] p-3">
+          <div className="mb-3 rounded-xl border border-slate-100 bg-slate-50 p-3">
             <div className="flex items-center justify-between">
               <div className="truncate max-w-[190px]">
-                <p className="text-xs font-bold text-white truncate">
+                <p className="text-xs font-bold text-slate-900 truncate">
                   {playlist[currentTrackIndex].title}
                 </p>
-                <p className="text-[10px] text-slate-400 truncate">
+                <p className="text-[10px] text-slate-500 truncate">
                   {playlist[currentTrackIndex].artist}
                 </p>
               </div>
               <div className="flex items-center gap-1.5 shrink-0">
-                <span className={`h-2 w-2 rounded-full ${isPlaying ? "bg-emerald-400 animate-pulse" : "bg-slate-500"}`} />
-                <span className="font-mono text-[9px] font-bold text-emerald-400">
+                <span className={`h-2 w-2 rounded-full ${isPlaying ? "bg-rose-600 animate-pulse" : "bg-slate-300"}`} />
+                <span className="font-mono text-[9px] font-bold text-rose-600">
                   {isPlaying ? "PLAYING" : "PAUSED"}
                 </span>
               </div>
             </div>
 
             {/* Playback Controls */}
-            <div className="flex items-center justify-center gap-4 mt-3 pt-2.5 border-t border-white/5">
+            <div className="flex items-center justify-center gap-4 mt-3 pt-2.5 border-t border-slate-200/50">
               <button
                 onClick={prevTrack}
-                className="text-slate-400 hover:text-white transition-colors cursor-pointer p-1"
+                className="text-slate-500 hover:text-slate-900 transition-colors cursor-pointer p-1"
                 aria-label="Previous track"
               >
                 <SkipBack className="h-4 w-4" />
               </button>
               <button
                 onClick={togglePlay}
-                className="flex h-9 w-9 items-center justify-center rounded-full bg-[#10B981] text-[#050807] hover:bg-emerald-400 transition-all cursor-pointer shadow-md shadow-emerald-500/20 font-bold"
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-rose-600 text-white hover:bg-rose-700 transition-all cursor-pointer shadow-xs font-bold"
                 aria-label={isPlaying ? "Pause" : "Play"}
               >
                 {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4 ml-0.5" />}
               </button>
               <button
                 onClick={nextTrack}
-                className="text-slate-400 hover:text-white transition-colors cursor-pointer p-1"
+                className="text-slate-500 hover:text-slate-900 transition-colors cursor-pointer p-1"
                 aria-label="Next track"
               >
                 <SkipForward className="h-4 w-4" />
               </button>
               <button
                 onClick={() => setIsLooping(!isLooping)}
-                className={`p-1 transition-colors cursor-pointer ${isLooping ? "text-emerald-400" : "text-slate-600"}`}
+                className={`p-1 transition-colors cursor-pointer ${isLooping ? "text-rose-600" : "text-slate-400"}`}
                 title={isLooping ? "Continuous Loop Enabled" : "Loop Disabled"}
               >
                 <Repeat className="h-3.5 w-3.5" />
@@ -215,7 +215,7 @@ export default function MusicToggle() {
 
           {/* Track List */}
           <div className="space-y-1 mb-3 max-h-[170px] overflow-y-auto">
-            <span className="font-mono text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">
+            <span className="font-mono text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
               Select Playlist Track (Loops Automatically)
             </span>
             {playlist.map((track, idx) => (
@@ -224,17 +224,17 @@ export default function MusicToggle() {
                 onClick={() => playTrack(idx)}
                 className={`w-full flex items-center justify-between rounded-xl px-3 py-2 text-left text-xs transition-colors cursor-pointer ${
                   currentTrackIndex === idx
-                    ? "bg-[#10B981] text-[#050807] font-bold shadow-sm"
-                    : "text-slate-300 hover:bg-white/[0.05]"
+                    ? "bg-rose-50 text-rose-700 font-bold border border-rose-200"
+                    : "text-slate-700 hover:bg-slate-50"
                 }`}
               >
                 <div className="truncate max-w-[190px]">
                   <span className="truncate block">{track.title}</span>
-                  <span className={`text-[10px] block ${currentTrackIndex === idx ? "text-emerald-950 font-medium" : "text-slate-500"}`}>
+                  <span className={`text-[10px] block ${currentTrackIndex === idx ? "text-rose-600 font-medium" : "text-slate-400"}`}>
                     {track.genre}
                   </span>
                 </div>
-                <span className={`font-mono text-[10px] ${currentTrackIndex === idx ? "text-emerald-950 font-bold" : "text-slate-500"}`}>
+                <span className={`font-mono text-[10px] ${currentTrackIndex === idx ? "text-rose-700 font-bold" : "text-slate-400"}`}>
                   0{idx + 1}
                 </span>
               </button>
@@ -242,13 +242,13 @@ export default function MusicToggle() {
           </div>
 
           {/* Volume Control */}
-          <div className="flex items-center gap-2 pt-2.5 border-t border-white/5 text-slate-400">
+          <div className="flex items-center gap-2 pt-2.5 border-t border-slate-100 text-slate-500">
             <button
               onClick={() => setIsMuted(!isMuted)}
-              className="hover:text-white transition-colors cursor-pointer"
+              className="hover:text-slate-900 transition-colors cursor-pointer"
               aria-label={isMuted ? "Unmute" : "Mute"}
             >
-              {isMuted || volume === 0 ? <VolumeX className="h-4 w-4 text-rose-400" /> : <Volume2 className="h-4 w-4" />}
+              {isMuted || volume === 0 ? <VolumeX className="h-4 w-4 text-rose-500" /> : <Volume2 className="h-4 w-4" />}
             </button>
             <input
               type="range"
@@ -260,7 +260,7 @@ export default function MusicToggle() {
                 setVolume(parseFloat(e.target.value));
                 setIsMuted(false);
               }}
-              className="h-1.5 flex-1 accent-emerald-400 bg-white/10 rounded-lg cursor-pointer"
+              className="h-1.5 flex-1 accent-rose-600 bg-slate-200 rounded-lg cursor-pointer"
             />
             <span className="font-mono text-[10px] text-slate-400 w-7 text-right">
               {Math.round((isMuted ? 0 : volume) * 100)}%
@@ -278,7 +278,7 @@ export default function MusicToggle() {
           }
           setIsPanelOpen(!isPanelOpen);
         }}
-        className="fixed bottom-5 left-5 z-[900] flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-[#09120F]/90 text-white shadow-lg shadow-emerald-500/10 backdrop-blur-md transition-all hover:scale-105 hover:border-emerald-500/50 active:scale-95 cursor-pointer"
+        className="fixed bottom-5 left-5 z-[900] flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-800 shadow-md transition-all hover:scale-105 hover:border-rose-400 active:scale-95 cursor-pointer"
         aria-label="Music player"
         title={isPlaying ? "Playing: " + playlist[currentTrackIndex].title : "Click to play music"}
       >
@@ -290,8 +290,8 @@ export default function MusicToggle() {
           )}
           {isPlaying && (
             <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-rose-500" />
             </span>
           )}
         </span>
