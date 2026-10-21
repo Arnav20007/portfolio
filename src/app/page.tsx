@@ -13,13 +13,14 @@ import {
   Layers,
   Cpu,
   Database,
-  Zap,
   ShieldCheck,
   Check,
   Play,
   RotateCcw,
-  GraduationCap,
   Sparkles,
+  MessageSquare,
+  Compass,
+  Laptop,
 } from "lucide-react";
 import { personal } from "@/lib/data";
 
@@ -29,7 +30,7 @@ const githubProfile = `https://github.com/${personal.github || "Arnav20007"}`;
 const linkedinProfile = personal.linkedin ? `https://linkedin.com/in/${personal.linkedin}` : "";
 
 /* ── SVG Brand Icons ────────────────────────────────────────────── */
-function GithubIcon({ className = "h-4 w-4" }: { className?: string }) {
+function GithubIcon({ className = "h-5 w-5" }: { className?: string }) {
   return (
     <svg className={className} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
       <path
@@ -41,7 +42,7 @@ function GithubIcon({ className = "h-4 w-4" }: { className?: string }) {
   );
 }
 
-function LinkedinIcon({ className = "h-4 w-4" }: { className?: string }) {
+function LinkedinIcon({ className = "h-5 w-5" }: { className?: string }) {
   return (
     <svg className={className} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
       <path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5ZM.32 8.05h4.35V23H.32V8.05ZM7.34 8.05h4.17v2.04h.06c.58-1.1 2-2.26 4.13-2.26 4.42 0 5.24 2.91 5.24 6.69V23h-4.35v-7.52c0-1.79-.03-4.1-2.5-4.1-2.5 0-2.88 1.95-2.88 3.97V23H7.34V8.05Z" />
@@ -49,7 +50,7 @@ function LinkedinIcon({ className = "h-4 w-4" }: { className?: string }) {
   );
 }
 
-/* ── Code Workbench Data ────────────────────────────────────────── */
+/* ── Code Workbench Data (Arnav's Custom Engineering Tweak) ─────── */
 interface CodeSnippet {
   id: string;
   filename: string;
@@ -81,10 +82,10 @@ const workbenchSnippets: CodeSnippet[] = [
       "};",
     ],
     simulationOutput: [
-      "[Worker] Thread ready in local browser memory.",
-      "[Worker] Loaded 2 PDF buffers without network transfer.",
-      "[Worker] Merged 14 pages in 118ms off main UI thread.",
-      "✓ Example output: files stay in the browser and are not uploaded.",
+      "[Worker] Thread initialized in browser memory.",
+      "[Worker] Loaded 2 PDF binary buffers without network upload.",
+      "[Worker] Merged 14 pages in 118ms on worker thread.",
+      "✓ Output verified: 100% private client-side execution.",
     ],
   },
   {
@@ -150,13 +151,12 @@ interface SelectedProject {
   tagline: string;
   description: string;
   stack: string[];
-  highlights: string[];
   demo?: string;
   source: string;
-  comingSoon?: boolean;
+  color: string;
 }
 
-const selectedProjects: SelectedProject[] = [
+const projectsList: SelectedProject[] = [
   {
     id: "toolforge",
     name: "ToolForge ATS",
@@ -165,9 +165,9 @@ const selectedProjects: SelectedProject[] = [
     description:
       "A 100% private in-browser ATS resume evaluator, Overleaf/LaTeX audit, and job keyword matcher with zero server uploads.",
     stack: ["React", "TypeScript", "Tailwind CSS", "PDF.js", "Web Workers"],
-    highlights: ["100% Client-Side Privacy", "Instant ATS Keyword Scoring", "Zero Telemetry Uploads"],
     demo: "https://toolforge-ats.vercel.app",
     source: "https://github.com/Arnav20007/ats",
+    color: "#6E07F3",
   },
   {
     id: "pdflex",
@@ -175,11 +175,11 @@ const selectedProjects: SelectedProject[] = [
     badge: "Client-Side Utility",
     tagline: "Browser PDF Tool Powered by Web Workers",
     description:
-      "An in-browser PDF manipulation utility that lets users merge, split, and convert documents locally without sending files to an external server.",
+      "An in-browser PDF manipulation utility that lets users merge, split, and convert documents locally without sending files to external servers.",
     stack: ["Next.js", "Web Workers", "pdf-lib", "PDF.js"],
-    highlights: ["In-browser processing", "Web Worker parallel execution", "Local document privacy"],
     demo: "https://pd-flex.vercel.app",
     source: "https://github.com/Arnav20007/pdflex",
+    color: "#2563EB",
   },
   {
     id: "financecalc",
@@ -187,51 +187,49 @@ const selectedProjects: SelectedProject[] = [
     badge: "Fintech Web App",
     tagline: "Investment & Loan Amortization Calculator",
     description:
-      "A personal finance calculator for estimating SIP returns, EMI payments, and savings growth, with interactive charts to make the results easy to understand.",
+      "A personal finance calculator for estimating SIP returns, EMI payments, and savings growth, with interactive charts to visualize compound growth.",
     stack: ["Next.js", "TypeScript", "Tailwind CSS", "Chart.js"],
-    highlights: ["Real-time SIP & EMI formulas", "Interactive visual charts", "Type-safe implementation"],
     demo: "https://financecalc0.vercel.app",
     source: "https://github.com/Arnav20007/financecalc",
+    color: "#059669",
   },
   {
     id: "moodmate",
-    name: "MoodMate",
+    name: "MoodMate AI",
     badge: "AI Reflection Tool",
     tagline: "Journaling Platform with AI Mood Feedback",
     description:
-      "A journaling app built during a hackathon. It uses a Flask API and OpenAI to offer reflections on journal entries.",
+      "A journaling app built during a hackathon. It uses a Flask API and OpenAI to offer reflections and sentiment tracking on journal entries.",
     stack: ["Next.js", "Python", "Flask", "OpenAI API"],
-    highlights: ["Flask REST API flow", "OpenAI structured responses", "Sentiment tracking"],
     source: "https://github.com/Arnav20007/moodmate",
-    comingSoon: true,
+    color: "#E11D48",
+  },
+  {
+    id: "ascend",
+    name: "ASCEND",
+    badge: "Gamified Productivity",
+    tagline: "Quest & XP Progression Task System",
+    description:
+      "A task management system that brings RPG-style experience points, leveling, and streak progression to daily developer habits.",
+    stack: ["Next.js", "TypeScript", "Prisma", "PostgreSQL"],
+    source: "https://github.com/Arnav20007/ascend",
+    color: "#D97706",
+  },
+  {
+    id: "dsa",
+    name: "C++ DSA Repository",
+    badge: "Algorithms & Systems",
+    tagline: "500+ Solved Data Structures & Algorithms",
+    description:
+      "Comprehensive C++ implementations of self-balancing trees, graphs, dynamic programming, and greedy algorithms practiced for software engineering interviews.",
+    stack: ["C++17", "STL", "Algorithms", "Data Structures"],
+    source: "https://github.com/Arnav20007/cpp-practice",
+    color: "#4F46E5",
   },
 ];
 
-/* ── Ambient ToolForge Rose Background ─────────────────────────── */
-function AmbientBackground() {
-  return (
-    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
-      {/* Top subtle blush glow */}
-      <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[1100px] h-[550px] rounded-full opacity-40 blur-[140px]"
-        style={{
-          background: "radial-gradient(circle, #ffe4e6 0%, #fecdd3 30%, rgba(255, 241, 242, 0) 70%)",
-        }}
-      />
-      {/* Subtle fine dot grid */}
-      <div
-        className="absolute inset-0 opacity-[0.25]"
-        style={{
-          backgroundImage: "radial-gradient(#cbd5e1 1px, transparent 1px)",
-          backgroundSize: "28px 28px",
-        }}
-      />
-    </div>
-  );
-}
-
-/* ── Code Workbench (ToolForge Light Card Aesthetic) ─────────────── */
-function CleanWorkbench() {
+/* ── Code Workbench Component ───────────────────────────────────── */
+function CodeWorkbench() {
   const [activeTab, setActiveTab] = useState<string>("pdflex");
   const [isSimulating, setIsSimulating] = useState<boolean>(false);
   const [simulationLogs, setSimulationLogs] = useState<string[]>([]);
@@ -259,16 +257,16 @@ function CleanWorkbench() {
   };
 
   return (
-    <div className="relative select-none">
-      <div className="overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-md">
+    <div className="w-full max-w-4xl mx-auto mt-12 mb-0 select-none">
+      <div className="overflow-hidden rounded-2xl border border-[#E6ECF8] bg-white shadow-xl">
         {/* Top Window Bar */}
-        <div className="flex items-center justify-between border-b border-slate-200/80 bg-slate-50/80 px-4 py-3">
+        <div className="flex items-center justify-between border-b border-[#E6ECF8] bg-slate-50/80 px-4 py-3">
           <div className="flex items-center gap-2">
-            <span className="h-3 w-3 rounded-full bg-slate-300" />
-            <span className="h-3 w-3 rounded-full bg-slate-300" />
-            <span className="h-3 w-3 rounded-full bg-slate-300" />
+            <span className="h-3 w-3 rounded-full bg-[#FF5F56]" />
+            <span className="h-3 w-3 rounded-full bg-[#FFBD2E]" />
+            <span className="h-3 w-3 rounded-full bg-[#27C93F]" />
             <span className="ml-2 font-mono text-xs font-bold text-slate-700">
-              engineering-workbench
+              arnav-engineering-workbench
             </span>
           </div>
 
@@ -276,7 +274,7 @@ function CleanWorkbench() {
             <button
               onClick={handleRunSimulation}
               disabled={isSimulating}
-              className="inline-flex items-center gap-1.5 rounded-lg bg-rose-600 px-3 py-1 font-mono text-xs font-bold text-white shadow-xs transition hover:bg-rose-700 disabled:opacity-50 cursor-pointer"
+              className="inline-flex items-center gap-1.5 rounded-full bg-[#6E07F3] px-3.5 py-1 font-mono text-xs font-bold text-white shadow-sm transition hover:bg-[#5600c7] disabled:opacity-50 cursor-pointer"
             >
               <Play className="h-3 w-3" />
               {isSimulating ? "Running..." : "Run Simulation"}
@@ -285,7 +283,7 @@ function CleanWorkbench() {
         </div>
 
         {/* Tab Buttons */}
-        <div className="flex border-b border-slate-200/80 bg-slate-50/50">
+        <div className="flex border-b border-[#E6ECF8] bg-slate-50/50">
           {workbenchSnippets.map((item) => (
             <button
               key={item.id}
@@ -293,9 +291,9 @@ function CleanWorkbench() {
                 setActiveTab(item.id);
                 setSimulationLogs([]);
               }}
-              className={`flex items-center gap-2 border-r border-slate-200 px-4 py-2.5 font-mono text-xs font-bold transition cursor-pointer ${
+              className={`flex items-center gap-2 border-r border-[#E6ECF8] px-5 py-2.5 font-mono text-xs font-bold transition cursor-pointer ${
                 activeTab === item.id
-                  ? "bg-white text-rose-600 border-b-2 border-b-rose-600"
+                  ? "bg-white text-[#6E07F3] border-b-2 border-b-[#6E07F3]"
                   : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/50"
               }`}
             >
@@ -305,8 +303,8 @@ function CleanWorkbench() {
           ))}
         </div>
 
-        {/* Code Content View (Dark IDE inside Clean Light Card) */}
-        <div className="p-4 bg-slate-950 font-mono text-xs text-slate-200 overflow-x-auto leading-relaxed">
+        {/* Code View */}
+        <div className="p-5 bg-slate-950 font-mono text-xs text-slate-200 overflow-x-auto leading-relaxed text-left">
           <div className="space-y-1">
             {snippet.code.map((line, index) => (
               <div key={index} className="flex">
@@ -321,10 +319,10 @@ function CleanWorkbench() {
 
         {/* Simulation Output Area */}
         {simulationLogs.length > 0 && (
-          <div className="border-t border-slate-200 bg-rose-50/50 p-4 animate-in fade-in duration-200">
-            <div className="flex items-center justify-between pb-2 mb-2 border-b border-rose-100">
-              <span className="font-mono text-xs font-bold text-rose-800">
-                Simulation Logs
+          <div className="border-t border-[#E6ECF8] bg-purple-50/50 p-4 text-left animate-in fade-in duration-200">
+            <div className="flex items-center justify-between pb-2 mb-2 border-b border-purple-100">
+              <span className="font-mono text-xs font-bold text-[#6E07F3]">
+                Workbench Simulation Console
               </span>
               <button
                 onClick={handleReset}
@@ -341,7 +339,7 @@ function CleanWorkbench() {
                     log.includes("✓") ? "text-emerald-700 font-bold" : "text-slate-700"
                   }`}
                 >
-                  <span className="text-rose-600 font-bold">›</span>
+                  <span className="text-[#6E07F3] font-bold">›</span>
                   <span>{log}</span>
                 </div>
               ))}
@@ -350,581 +348,365 @@ function CleanWorkbench() {
         )}
 
         {/* Bottom Window Bar */}
-        <div className="flex items-center justify-between border-t border-slate-200 bg-slate-50 px-4 py-2 text-xs font-mono text-slate-600">
-          <span className="flex items-center gap-1.5 text-rose-700 font-semibold">
-            <Check className="h-3.5 w-3.5" /> C++ · React · Next.js · TypeScript
+        <div className="flex items-center justify-between border-t border-[#E6ECF8] bg-slate-50 px-4 py-2.5 text-xs font-mono text-slate-600">
+          <span className="flex items-center gap-1.5 text-[#6E07F3] font-semibold">
+            <Check className="h-3.5 w-3.5" /> 5th Sem B.Tech CSE · C++ · React 19 · Next.js · Python
           </span>
-          <span>B.Tech CSE (5th Sem)</span>
+          <span>8.0 CGPA · BBDU Lucknow</span>
         </div>
       </div>
     </div>
   );
 }
 
-/* ── Top Floating Switcher Header ───────────────────────────────── */
-function Header() {
+/* ── Main Navbar ────────────────────────────────────────────────── */
+function Navbar() {
   return (
-    <header className="fixed top-6 inset-x-0 z-50 flex justify-center px-4">
-      <div className="flex items-center gap-2 p-1.5 rounded-full bg-white/95 border border-slate-200/80 backdrop-blur-xl shadow-lg shadow-slate-200/50">
+    <nav className="w-full max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+      <Link href="/" className="flex items-center gap-2.5 group">
+        <span className="w-10 h-10 rounded-xl bg-[#6E07F3] text-white flex items-center justify-center font-black text-sm shadow-md shadow-purple-500/20 group-hover:scale-105 transition-transform">
+          AS
+        </span>
+        <span className="font-display font-extrabold text-xl text-[#141C3A] tracking-tight">
+          Arnav Singh
+        </span>
+      </Link>
+
+      <div className="flex items-center gap-3 sm:gap-6">
         <Link
-          href="/"
-          className="flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold text-slate-900 hover:bg-slate-100 transition-colors"
+          href="#projects"
+          className="text-sm font-semibold text-[#5A6275] hover:text-[#6E07F3] transition-colors hidden sm:inline-block"
         >
-          <span className="w-5 h-5 rounded-md bg-rose-600 text-white flex items-center justify-center text-[10px] font-black">
-            AS
-          </span>
-          <span>Arnav Singh</span>
+          Projects
         </Link>
-        <div className="h-4 w-px bg-slate-200" />
+        <Link
+          href="/recruiter"
+          className="text-sm font-semibold text-[#5A6275] hover:text-[#6E07F3] transition-colors hidden md:inline-block"
+        >
+          Recruiter View
+        </Link>
+        <Link
+          href="/friend"
+          className="text-sm font-semibold text-[#5A6275] hover:text-[#6E07F3] transition-colors hidden md:inline-block"
+        >
+          Personal
+        </Link>
 
-        <nav className="hidden md:flex items-center gap-1">
-          {[
-            { id: "hero", label: "Home" },
-            { id: "focus", label: "About" },
-            { id: "projects", label: "Projects" },
-            { id: "skills", label: "Skills" },
-            { id: "contact", label: "Contact" },
-          ].map((item) => (
-            <button
-              key={item.id}
-              onClick={() => {
-                const el = document.getElementById(item.id);
-                if (el) el.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="px-3 py-1.5 rounded-full text-xs font-mono font-semibold text-slate-600 hover:text-rose-600 hover:bg-rose-50/50 transition-all cursor-pointer"
-            >
-              {item.label}
-            </button>
-          ))}
-        </nav>
-
-        <div className="h-4 w-px bg-slate-200 hidden md:block" />
-
-        {/* Scene Switcher Links */}
-        <div className="flex items-center gap-1">
-          <Link
-            href="/collaborate"
-            className="px-3 py-1.5 rounded-full text-xs font-mono font-bold text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-200 transition-all"
-          >
-            Collaborate
-          </Link>
-          <Link
-            href="/recruiter"
-            className="px-3 py-1.5 rounded-full text-xs font-mono font-bold text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all hidden sm:inline-block"
-          >
-            Recruiter
-          </Link>
-          <Link
-            href="/friend"
-            className="px-3 py-1.5 rounded-full text-xs font-mono font-bold text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all hidden sm:inline-block"
-          >
-            Friend
-          </Link>
-          <a
-            href={resumeHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-3.5 py-1.5 rounded-full text-xs font-mono font-bold bg-rose-600 text-white hover:bg-rose-700 shadow-xs transition-all"
-          >
-            Resume
-          </a>
-        </div>
+        <a
+          href={resumeHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="px-5 py-2.5 rounded-full border-2 border-[#6E07F3] text-[#6E07F3] font-bold text-sm hover:bg-[#6E07F3] hover:text-white transition-all shadow-xs"
+        >
+          Download Resume
+        </a>
       </div>
-    </header>
+    </nav>
   );
 }
 
-/* ── Hero Section ───────────────────────────────────────────────── */
-function Hero() {
+/* ── Master Page Component ──────────────────────────────────────── */
+export default function Home() {
   return (
-    <section id="hero" className="min-h-screen flex items-center justify-center pt-32 pb-16 w-full">
-      <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center w-full">
-        {/* Left Column */}
-        <div>
-          {/* Status Pill (ToolForge ATS style) */}
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-rose-200 bg-rose-50 px-4 py-1.5 shadow-2xs">
-            <span className="w-2 h-2 rounded-full bg-rose-600 animate-ping" />
-            <span className="text-xs font-mono font-bold tracking-wider text-rose-700 uppercase">
-              B.Tech CSE Student · 5th Semester · BBDU Lucknow
-            </span>
-          </div>
+    <div className="min-h-screen bg-white text-[#141C3A] font-sans selection:bg-[#EBD8FF] selection:text-[#5600C7]">
+      <Navbar />
 
-          {/* Headline */}
-          <h1 className="text-4xl font-extrabold leading-[1.1] tracking-tight text-slate-900 sm:text-5xl lg:text-6xl">
-            Computer Science Student &{" "}
-            <span className="text-rose-600 block sm:inline">
-              Full-Stack Developer
-            </span>
-          </h1>
+      {/* ── 1. HERO SECTION (Matt Farley Centered Style + Workbench) ── */}
+      <section className="pt-16 pb-20 px-6 text-center max-w-5xl mx-auto">
+        <h1 className="font-display font-black text-4xl sm:text-6xl lg:text-7xl text-[#141C3A] tracking-tight leading-[1.1] mb-5">
+          Computer Science Student & <br />
+          <span className="text-[#6E07F3]">Full-Stack Developer</span>
+        </h1>
 
-          {/* Subtitle */}
-          <p className="mt-5 max-w-lg text-base leading-relaxed text-slate-600 sm:text-lg">
-            5th-semester B.Tech CSE student (8.0 CGPA) at Babu Banarasi Das University. Passionate about solving DSA problems in C++, building client-side Web Worker utilities like ToolForge & PDFlex, and modern React full-stack tools.
-          </p>
-
-          {/* Action Buttons */}
-          <div className="mt-8 flex flex-wrap items-center gap-3">
-            <a
-              href="#projects"
-              className="inline-flex items-center gap-2 rounded-xl bg-rose-600 px-6 py-3.5 text-sm font-mono font-bold text-white shadow-sm shadow-rose-500/20 transition hover:bg-rose-700 cursor-pointer"
-            >
-              <Zap className="h-4 w-4" />
-              Explore Projects
-              <ArrowRight className="h-4 w-4" />
-            </a>
-            <a
-              href={resumeHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-6 py-3.5 text-sm font-mono font-bold text-slate-800 shadow-2xs transition hover:bg-slate-50"
-            >
-              <Download className="h-4 w-4" />
-              Download Resume
-            </a>
-          </div>
-
-          {/* Clean Focus Tags */}
-          <div className="mt-8 flex flex-wrap items-center gap-2 pt-5 border-t border-slate-200">
-            <span className="text-xs font-mono font-bold text-slate-500 mr-1">Focus:</span>
-            {["8.0 CGPA · BBDU", "C++ & DSA", "React & Next.js", "Python & Flask", "In-Browser Privacy"].map((item) => (
-              <span
-                key={item}
-                className="rounded-lg border border-slate-200 bg-white px-3 py-1 font-mono text-xs font-semibold text-slate-700 shadow-2xs"
-              >
-                {item}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {/* Right Column — Workbench */}
-        <CleanWorkbench />
-      </div>
-    </section>
-  );
-}
-
-/* ── Technical Focus & Credentials ──────────────────────────────── */
-function TechnicalFocus() {
-  return (
-    <section id="focus" className="py-20 w-full">
-      <div className="mb-12 max-w-3xl">
-        <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-rose-200 bg-rose-50 px-3 py-1">
-          <span className="text-xs font-mono font-bold uppercase tracking-wider text-rose-700">
-            Technical Focus
-          </span>
-        </div>
-        <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
-          What I&apos;m Learning and Building
-        </h2>
-        <p className="mt-3 text-base leading-relaxed text-slate-600">
-          I apply academic theory from my CS degree directly into production-grade web utilities.
+        <p className="text-lg sm:text-2xl text-[#5A6275] max-w-2xl mx-auto font-normal leading-relaxed mb-8">
+          I solve DSA problems in C++ and build clean, privacy-first web utilities.
         </p>
-      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {/* Card 1: DSA Coursework */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-7 shadow-xs md:col-span-2">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-rose-50 text-rose-600 border border-rose-200">
-                <GraduationCap className="h-5 w-5" />
-              </div>
+        {/* Friendly Student Avatar with Academic Pill */}
+        <div className="flex flex-col items-center justify-center gap-3 mb-4">
+          <div className="w-28 h-28 rounded-full bg-gradient-to-tr from-[#6E07F3] to-[#8B5CF6] p-1 shadow-xl">
+            <div className="w-full h-full rounded-full bg-white flex items-center justify-center text-5xl">
+              👨‍💻
+            </div>
+          </div>
+          <div className="inline-flex items-center gap-2 rounded-full border border-[#E6ECF8] bg-slate-50 px-4 py-1.5 shadow-2xs">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+            <span className="font-mono text-xs font-bold text-slate-700">
+              5th Sem B.Tech CSE · 8.0 CGPA · BBDU Lucknow
+            </span>
+          </div>
+        </div>
+
+        {/* Interactive Code Workbench Tweak */}
+        <CodeWorkbench />
+      </section>
+
+      {/* ── 2. INTRO SECTION (Matt Farley's Iconic Purple Band) ── */}
+      <section className="bg-[#6E07F3] text-white pt-28 pb-48 px-6 text-center">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="font-display font-extrabold text-3xl sm:text-4xl mb-6">
+            Hi, I’m Arnav. Nice to meet you.
+          </h2>
+          <p className="text-lg sm:text-xl text-purple-100 font-normal leading-relaxed">
+            I’m a 5th-semester B.Tech Computer Science Engineering student at Babu Banarasi Das University, Lucknow (8.0 CGPA). I’m passionate about building real, functional tools — from client-side Web Worker utilities like <span className="font-bold text-white underline decoration-white/40">ToolForge ATS</span> and <span className="font-bold text-white underline decoration-white/40">PDFlex</span> to full-stack React and Python web applications. I’m quietly confident, naturally curious, and actively seeking software engineering internships.
+          </p>
+        </div>
+      </section>
+
+      {/* ── 3. OVERLAPPING 3-COLUMN SKILLS BOX (Matt Farley Signature Box) ── */}
+      <section className="px-6 -mt-36 relative z-10 max-w-6xl mx-auto">
+        <div className="bg-white rounded-3xl border border-[#E6ECF8] shadow-2xl grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[#E6ECF8] text-center">
+          
+          {/* Column 1: C++ & DSA Problem Solving */}
+          <div className="p-8 sm:p-12 flex flex-col items-center">
+            <div className="w-16 h-16 rounded-2xl bg-[#5BE9B9]/20 text-emerald-800 flex items-center justify-center mb-6">
+              <Cpu className="w-8 h-8 text-[#059669]" />
+            </div>
+            <h3 className="font-display font-extrabold text-2xl text-[#141C3A] mb-3">
+              C++ & Problem Solving
+            </h3>
+            <p className="text-sm text-[#5A6275] leading-relaxed mb-8">
+              I love breaking down complex algorithmic logic, optimizing time complexity, and working with memory-safe data structures.
+            </p>
+
+            <h4 className="font-bold text-sm text-[#6E07F3] uppercase tracking-wider mb-2">
+              Topics I Practice:
+            </h4>
+            <p className="text-sm text-[#141C3A] mb-8 font-medium">
+              Trees, Graphs, Recursion, Dynamic Programming, AVL Trees, STL
+            </p>
+
+            <h4 className="font-bold text-sm text-[#6E07F3] uppercase tracking-wider mb-2">
+              Core Foundations:
+            </h4>
+            <ul className="text-sm text-[#5A6275] space-y-1.5 font-medium">
+              <li>Object-Oriented Programming (OOP)</li>
+              <li>Operating Systems (OS)</li>
+              <li>Database Management (DBMS)</li>
+              <li>Computer Networks (CN)</li>
+            </ul>
+          </div>
+
+          {/* Column 2: Frontend & Modern Web */}
+          <div className="p-8 sm:p-12 flex flex-col items-center">
+            <div className="w-16 h-16 rounded-2xl bg-purple-100 text-[#6E07F3] flex items-center justify-center mb-6">
+              <Layers className="w-8 h-8" />
+            </div>
+            <h3 className="font-display font-extrabold text-2xl text-[#141C3A] mb-3">
+              Frontend Engineering
+            </h3>
+            <p className="text-sm text-[#5A6275] leading-relaxed mb-8">
+              I enjoy building clean, responsive user interfaces from scratch that solve real problems without unnecessary bloat.
+            </p>
+
+            <h4 className="font-bold text-sm text-[#6E07F3] uppercase tracking-wider mb-2">
+              Languages & Frameworks:
+            </h4>
+            <p className="text-sm text-[#141C3A] mb-8 font-medium">
+              React 19, Next.js App Router, TypeScript, JavaScript, Tailwind CSS
+            </p>
+
+            <h4 className="font-bold text-sm text-[#6E07F3] uppercase tracking-wider mb-2">
+              Client-Side Power:
+            </h4>
+            <ul className="text-sm text-[#5A6275] space-y-1.5 font-medium">
+              <li>In-Browser Web Workers</li>
+              <li>PDF.js & pdf-lib Manipulation</li>
+              <li>Interactive Chart.js Visuals</li>
+              <li>HTML5 Canvas & Responsive Layouts</li>
+            </ul>
+          </div>
+
+          {/* Column 3: Backend & Systems Architecture */}
+          <div className="p-8 sm:p-12 flex flex-col items-center">
+            <div className="w-16 h-16 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center mb-6">
+              <ShieldCheck className="w-8 h-8 text-[#2563EB]" />
+            </div>
+            <h3 className="font-display font-extrabold text-2xl text-[#141C3A] mb-3">
+              Backend & Architecture
+            </h3>
+            <p className="text-sm text-[#5A6275] leading-relaxed mb-8">
+              Designing secure RESTful endpoints, relational schemas, and client-side zero-server privacy models.
+            </p>
+
+            <h4 className="font-bold text-sm text-[#6E07F3] uppercase tracking-wider mb-2">
+              Backend & APIs:
+            </h4>
+            <p className="text-sm text-[#141C3A] mb-8 font-medium">
+              Python (Flask), RESTful APIs, Node.js, OpenAI API
+            </p>
+
+            <h4 className="font-bold text-sm text-[#6E07F3] uppercase tracking-wider mb-2">
+              Databases & DevOps:
+            </h4>
+            <ul className="text-sm text-[#5A6275] space-y-1.5 font-medium">
+              <li>PostgreSQL & SQLite</li>
+              <li>Git & GitHub CI/CD</li>
+              <li>Vercel Deployment Workflows</li>
+              <li>100% In-Memory Local Privacy</li>
+            </ul>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ── 4. MY RECENT WORK (Matt Farley Projects Grid) ── */}
+      <section id="projects" className="py-24 px-6 max-w-6xl mx-auto text-center">
+        <h2 className="font-display font-black text-3xl sm:text-5xl text-[#141C3A] tracking-tight mb-4">
+          My Recent Work
+        </h2>
+        <p className="text-base sm:text-lg text-[#5A6275] max-w-xl mx-auto mb-16">
+          Here are a few technical projects I’ve built. Want to see code or live demos? Check below.
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {projectsList.map((project) => (
+            <div
+              key={project.id}
+              className="group relative rounded-2xl border border-[#E6ECF8] bg-white p-7 text-left shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between hover:-translate-y-1.5"
+            >
               <div>
-                <h3 className="text-lg font-bold text-slate-900">
-                  Data Structures & Algorithms
-                </h3>
-                <p className="text-xs font-mono text-slate-500">
-                  Babu Banarasi Das University, Lucknow
-                </p>
-              </div>
-            </div>
-            <span className="rounded-full bg-rose-50 border border-rose-200 px-3 py-1 font-mono text-xs font-bold text-rose-700">
-              8.0 CGPA
-            </span>
-          </div>
-
-          <p className="text-sm leading-relaxed text-slate-600 mb-5">
-            Practicing C++ problem solving in trees, graphs, recursion, and dynamic programming as part of core coursework and competitive programming practice.
-          </p>
-
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 border-t border-slate-100 pt-4 text-center">
-            <div className="rounded-xl bg-slate-50 p-3 border border-slate-100">
-              <div className="text-xs font-bold text-slate-900">Data Structures</div>
-              <div className="text-xs text-rose-600 font-mono font-bold mt-0.5">Trees, Graphs, DP</div>
-            </div>
-            <div className="rounded-xl bg-slate-50 p-3 border border-slate-100">
-              <div className="text-xs font-bold text-slate-900">Language</div>
-              <div className="text-xs text-rose-600 font-mono font-bold mt-0.5">C++ (STL)</div>
-            </div>
-            <div className="rounded-xl bg-slate-50 p-3 border border-slate-100">
-              <div className="text-xs font-bold text-slate-900">Paradigms</div>
-              <div className="text-xs text-rose-600 font-mono font-bold mt-0.5">OOP Concepts</div>
-            </div>
-            <div className="rounded-xl bg-slate-50 p-3 border border-slate-100">
-              <div className="text-xs font-bold text-slate-900">Coursework</div>
-              <div className="text-xs text-rose-600 font-mono font-bold mt-0.5">OS, DBMS, CN</div>
-            </div>
-          </div>
-        </div>
-
-        {/* Card 2: Privacy Architecture */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-7 shadow-xs">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-rose-50 text-rose-600 border border-rose-200 mb-4">
-            <ShieldCheck className="h-5 w-5" />
-          </div>
-          <h3 className="text-lg font-bold text-slate-900 mb-2">
-            Client-Side Architecture
-          </h3>
-          <p className="text-sm leading-relaxed text-slate-600 mb-4">
-            ToolForge and PDFlex handle heavy processing in-browser via Web Workers, ensuring user documents are never uploaded to a backend.
-          </p>
-          <div className="rounded-xl border border-rose-200 bg-rose-50/70 p-3 font-mono text-xs font-bold text-rose-800">
-            ⚡ Web Workers · 0KB Server Upload
-          </div>
-        </div>
-
-        {/* Card 3: AI Tooling */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-7 shadow-xs">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-rose-50 text-rose-600 border border-rose-200 mb-4">
-            <Cpu className="h-5 w-5" />
-          </div>
-          <h3 className="text-lg font-bold text-slate-900 mb-2">
-            AI & API Integrations
-          </h3>
-          <p className="text-sm leading-relaxed text-slate-600">
-            In MoodMate, I designed a Flask backend integrated with OpenAI API to provide empathetic emotional reflection on user journal entries.
-          </p>
-        </div>
-
-        {/* Card 4: Web Stack */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-7 shadow-xs md:col-span-2">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-rose-50 text-rose-600 border border-rose-200">
-              <Layers className="h-5 w-5" />
-            </div>
-            <div>
-              <h3 className="text-lg font-bold text-slate-900">
-                Web Development Stack
-              </h3>
-              <p className="text-xs font-mono text-slate-500">
-                React, Next.js App Router, TypeScript, Tailwind CSS, PostgreSQL
-              </p>
-            </div>
-          </div>
-          <p className="text-sm leading-relaxed text-slate-600 mb-4">
-            Building responsive, fast, and accessible web experiences using modern frontend architecture and clean design standards.
-          </p>
-          <div className="flex flex-wrap gap-2">
-            {["React 19", "Next.js App Router", "TypeScript", "Python (Flask)", "PostgreSQL", "Tailwind CSS", "Git & GitHub"].map((t) => (
-              <span
-                key={t}
-                className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-1 font-mono text-xs font-semibold text-slate-700"
-              >
-                {t}
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ── Selected Projects ──────────────────────────────────────────── */
-function ProjectsSection() {
-  return (
-    <section id="projects" className="py-20 w-full">
-      <div className="mb-12 max-w-3xl">
-        <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-rose-200 bg-rose-50 px-3 py-1">
-          <span className="text-xs font-mono font-bold uppercase tracking-wider text-rose-700">
-            Selected Projects
-          </span>
-        </div>
-        <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
-          Projects I&apos;ve Built
-        </h2>
-        <p className="mt-3 text-base leading-relaxed text-slate-600">
-          A collection of functional web applications, developer utilities, and AI hackathon submissions.
-        </p>
-      </div>
-
-      <div className="grid gap-6 md:grid-cols-2">
-        {selectedProjects.map((project) => (
-          <article
-            key={project.name}
-            className="flex min-h-[360px] flex-col justify-between rounded-2xl border border-slate-200 bg-white p-7 shadow-xs transition hover:border-rose-300 hover:shadow-md"
-          >
-            <div>
-              <div className="mb-4 flex items-start justify-between gap-3">
-                <span className="rounded-full border border-rose-200 bg-rose-50 px-3 py-1 font-mono text-xs font-bold text-rose-700">
-                  {project.badge}
-                </span>
-                {project.comingSoon ? (
-                  <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 font-mono text-xs text-slate-500">
-                    In Development
-                  </span>
-                ) : (
-                  <span className="flex items-center gap-1.5 font-mono text-xs font-bold text-rose-700">
-                    <span className="h-2 w-2 rounded-full bg-rose-600 animate-pulse" />
-                    Live Demo Available
-                  </span>
-                )}
-              </div>
-
-              <h3 className="text-2xl font-black tracking-tight text-slate-900">
-                {project.name}
-              </h3>
-              <p className="mt-1 text-xs font-mono font-bold text-rose-600">
-                {project.tagline}
-              </p>
-              <p className="mt-3 text-sm leading-relaxed text-slate-600">
-                {project.description}
-              </p>
-
-              {/* Highlights */}
-              <div className="mt-4 space-y-1.5">
-                {project.highlights.map((h) => (
-                  <div key={h} className="flex items-center gap-2 text-xs text-slate-700">
-                    <CheckCircle2 className="h-3.5 w-3.5 text-rose-600 shrink-0" />
-                    <span>{h}</span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Tech Pills */}
-              <div className="mt-5 flex flex-wrap gap-1.5">
-                {project.stack.map((tech) => (
+                <div className="flex items-center justify-between mb-4">
                   <span
-                    key={tech}
-                    className="rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1 font-mono text-xs text-slate-700"
+                    className="text-xs font-mono font-bold uppercase tracking-wider px-2.5 py-1 rounded-md"
+                    style={{ backgroundColor: `${project.color}15`, color: project.color }}
                   >
-                    {tech}
+                    {project.badge}
                   </span>
-                ))}
-              </div>
-            </div>
+                  {project.demo && (
+                    <span className="flex items-center gap-1.5 text-xs font-mono font-bold text-emerald-600">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                      Live Demo
+                    </span>
+                  )}
+                </div>
 
-            <div className="mt-7 flex flex-wrap items-center gap-3 border-t border-slate-100 pt-5">
-              {project.demo && (
+                <h3 className="font-display font-black text-2xl text-[#141C3A] mb-2 group-hover:text-[#6E07F3] transition-colors">
+                  {project.name}
+                </h3>
+                <p className="text-xs font-mono font-bold text-slate-500 mb-3">
+                  {project.tagline}
+                </p>
+                <p className="text-sm text-[#5A6275] leading-relaxed mb-6">
+                  {project.description}
+                </p>
+
+                <div className="flex flex-wrap gap-1.5 mb-6">
+                  {project.stack.map((t) => (
+                    <span
+                      key={t}
+                      className="px-2.5 py-1 rounded-md bg-slate-50 border border-slate-200 text-slate-700 font-mono text-xs font-semibold"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 pt-4 border-t border-[#E6ECF8]">
+                {project.demo && (
+                  <a
+                    href={project.demo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#6E07F3] text-white text-xs font-bold hover:bg-[#5600c7] transition-all shadow-xs"
+                  >
+                    Visit Website <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                )}
                 <a
-                  href={project.demo}
+                  href={project.source}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded-xl bg-rose-600 px-5 py-2 text-xs font-mono font-bold text-white shadow-xs transition hover:bg-rose-700"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-slate-200 text-slate-700 text-xs font-bold hover:bg-slate-50 transition-all"
                 >
-                  Live Demo
-                  <ExternalLink className="h-3.5 w-3.5" />
+                  <GithubIcon className="w-3.5 h-3.5" /> Source Code
                 </a>
-              )}
-              <a
-                href={project.source}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-5 py-2 text-xs font-mono font-bold text-slate-700 hover:bg-slate-50 transition"
-              >
-                <GithubIcon className="h-3.5 w-3.5" />
-                GitHub Repo
-              </a>
-            </div>
-          </article>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-/* ── Technical Stack ────────────────────────────────────────────── */
-function SkillsSection() {
-  const categories = [
-    {
-      title: "Core Programming & CS",
-      icon: Cpu,
-      skills: ["C++", "DSA (Trees & Graphs)", "OOP", "C Language", "Recursion & DP"],
-    },
-    {
-      title: "Frontend Engineering",
-      icon: Layers,
-      skills: ["React", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS", "Web Workers"],
-    },
-    {
-      title: "Backend & APIs",
-      icon: Code2,
-      skills: ["Python", "Flask", "RESTful APIs", "Node.js", "OpenAI API"],
-    },
-    {
-      title: "Databases & Tools",
-      icon: Database,
-      skills: ["PostgreSQL", "SQLite", "Git & GitHub", "Vercel", "SQL Querying"],
-    },
-  ];
-
-  return (
-    <section id="skills" className="py-20 w-full">
-      <div className="mb-12 max-w-3xl">
-        <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-rose-200 bg-rose-50 px-3 py-1">
-          <span className="text-xs font-mono font-bold uppercase tracking-wider text-rose-700">
-            Skills Matrix
-          </span>
-        </div>
-        <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
-          Tools I Use
-        </h2>
-        <p className="mt-3 text-base leading-relaxed text-slate-600">
-          Technologies and developer environments I use across academic work and software projects.
-        </p>
-      </div>
-
-      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-        {categories.map(({ title, icon: Icon, skills }) => (
-          <div
-            key={title}
-            className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs"
-          >
-            <div className="mb-4 flex items-center gap-2.5">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-rose-50 text-rose-600 border border-rose-200">
-                <Icon className="h-4 w-4" />
               </div>
-              <h3 className="text-sm font-bold text-slate-900">{title}</h3>
             </div>
-            <div className="flex flex-wrap gap-2">
-              {skills.map((skill) => (
-                <span
-                  key={skill}
-                  className="rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1 font-mono text-xs font-semibold text-slate-700"
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-/* ── Contact Section ────────────────────────────────────────────── */
-function ContactSection() {
-  const [copied, setCopied] = useState(false);
-
-  const handleCopy = async () => {
-    await navigator.clipboard.writeText(email);
-    setCopied(true);
-    window.setTimeout(() => setCopied(false), 1800);
-  };
-
-  return (
-    <section id="contact" className="py-20 w-full">
-      <div className="mb-10 max-w-3xl">
-        <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-rose-200 bg-rose-50 px-3 py-1">
-          <span className="text-xs font-mono font-bold uppercase tracking-wider text-rose-700">
-            Contact
-          </span>
+          ))}
         </div>
-        <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
-          Open to Software Engineering Internships
-        </h2>
-        <p className="mt-3 text-base leading-relaxed text-slate-600">
-          I am actively preparing for software engineering roles and internships. If you&apos;d like to discuss an opportunity, feel free to get in touch.
-        </p>
-      </div>
+      </section>
 
-      <div className="rounded-3xl border border-slate-200 bg-white p-8 sm:p-12 shadow-sm">
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+      {/* ── 5. BOTTOM CALLOUT BOX (Matt Farley's Call to Action) ── */}
+      <section className="px-6 pb-20 max-w-5xl mx-auto">
+        <div className="bg-[#141C3A] text-white rounded-3xl p-8 sm:p-14 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
           <div className="max-w-xl">
-            <h3 className="text-2xl font-black text-slate-900 sm:text-3xl">
-              Let&apos;s build something meaningful.
-            </h3>
-            <p className="mt-2 text-sm leading-relaxed text-slate-600">
-              You can check my latest code repositories on GitHub or download my verified resume.
+            <h2 className="font-display font-extrabold text-2xl sm:text-4xl text-white mb-2">
+              Interested in hiring me or collaborating?
+            </h2>
+            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
+              I&apos;m actively preparing for software engineering internships and technical roles. Let&apos;s queue up a time to chat. I&apos;ll buy the coffee.
             </p>
           </div>
 
-          <div className="flex flex-wrap gap-3">
-            {email && (
+          <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
+            {email ? (
               <a
-                href={`mailto:${email}`}
-                className="inline-flex items-center gap-2 rounded-xl bg-rose-600 px-6 py-3 text-sm font-mono font-bold text-white shadow-xs transition hover:bg-rose-700"
+                href={`mailto:${email}?subject=Software Engineering Opportunity`}
+                className="px-8 py-3.5 rounded-full bg-[#5BE9B9] hover:bg-[#48d8a7] text-[#141C3A] font-bold text-sm shadow-lg hover:scale-105 transition-all"
               >
-                <Mail className="h-4 w-4" />
-                Email Me
+                Let&apos;s do this
+              </a>
+            ) : (
+              <Link
+                href="/collaborate"
+                className="px-8 py-3.5 rounded-full bg-[#5BE9B9] hover:bg-[#48d8a7] text-[#141C3A] font-bold text-sm shadow-lg hover:scale-105 transition-all"
+              >
+                Let&apos;s do this
+              </Link>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 6. FOOTER (Matt Farley Iconic Purple/Navy Footer) ── */}
+      <footer className="bg-[#6E07F3] text-white py-16 px-6 text-center">
+        <div className="max-w-4xl mx-auto flex flex-col items-center gap-8">
+          <Link href="/" className="w-12 h-12 rounded-2xl bg-white text-[#6E07F3] flex items-center justify-center font-black text-xl shadow-lg hover:scale-105 transition-transform">
+            AS
+          </Link>
+
+          <p className="text-xl sm:text-2xl font-light text-purple-100 max-w-md">
+            Living, learning, & leveling up one day at a time.
+          </p>
+
+          <div className="flex items-center gap-4">
+            <a
+              href={githubProfile}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-12 h-12 rounded-full border-2 border-white/30 hover:border-white hover:bg-white/10 flex items-center justify-center text-white transition-all"
+              aria-label="GitHub Profile"
+            >
+              <GithubIcon className="w-5 h-5" />
+            </a>
+            {linkedinProfile && (
+              <a
+                href={linkedinProfile}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-12 h-12 rounded-full border-2 border-white/30 hover:border-white hover:bg-white/10 flex items-center justify-center text-white transition-all"
+                aria-label="LinkedIn Profile"
+              >
+                <LinkedinIcon className="w-5 h-5" />
               </a>
             )}
             {email && (
-              <button
-                type="button"
-                onClick={handleCopy}
-                className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-6 py-3 text-sm font-mono font-bold text-slate-800 transition hover:bg-slate-100 cursor-pointer"
+              <a
+                href={`mailto:${email}`}
+                className="w-12 h-12 rounded-full border-2 border-white/30 hover:border-white hover:bg-white/10 flex items-center justify-center text-white transition-all"
+                aria-label="Email Me"
               >
-                {copied ? (
-                  <CheckCircle2 className="h-4 w-4 text-rose-600" />
-                ) : (
-                  <Copy className="h-4 w-4" />
-                )}
-                {copied ? "Copied!" : "Copy Email"}
-              </button>
+                <Mail className="w-5 h-5" />
+              </a>
             )}
           </div>
-        </div>
 
-        <div className="mt-8 flex flex-wrap gap-3 border-t border-slate-100 pt-6">
-          <a
-            href={githubProfile}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-4 py-2 text-xs font-mono font-bold text-slate-700 hover:text-rose-600 hover:border-rose-300 transition"
-          >
-            <GithubIcon className="h-3.5 w-3.5" />
-            GitHub: Arnav20007
-          </a>
-          {linkedinProfile && (
-            <a
-              href={linkedinProfile}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-4 py-2 text-xs font-mono font-bold text-slate-700 hover:text-rose-600 hover:border-rose-300 transition"
-            >
-              <LinkedinIcon className="h-3.5 w-3.5" />
-              LinkedIn Profile
-            </a>
-          )}
-          <a
-            href={resumeHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-4 py-2 text-xs font-mono font-bold text-slate-700 hover:text-rose-600 hover:border-rose-300 transition"
-          >
-            <Download className="h-3.5 w-3.5" />
-            Resume PDF
-          </a>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ── Main Home Page Component ───────────────────────────────────── */
-export default function Home() {
-  return (
-    <div className="relative min-h-screen bg-[#faf8f9] text-[#0f172a] selection:bg-rose-100 selection:text-rose-950 font-sans overflow-x-hidden">
-      <AmbientBackground />
-      <Header />
-      <main className="relative z-10 max-w-[1440px] mx-auto px-6 md:px-16 w-full flex flex-col items-center">
-        <Hero />
-        <TechnicalFocus />
-        <ProjectsSection />
-        <SkillsSection />
-        <ContactSection />
-      </main>
-      <footer className="relative z-10 border-t border-slate-200 bg-white/80 py-8 backdrop-blur-md">
-        <div className="max-w-[1440px] mx-auto px-6 md:px-16 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-slate-500">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-rose-600" />
-            <span className="text-slate-900 font-bold">Arnav Singh</span>
-            <span>· B.Tech CSE (5th Sem) · BBDU Lucknow</span>
+          <div className="text-xs text-purple-200 pt-6 border-t border-purple-400/30 w-full flex flex-col sm:flex-row items-center justify-between gap-2">
+            <span>Handcrafted by Arnav Singh © 2026</span>
+            <span>B.Tech CSE · BBDU Lucknow (8.0 CGPA)</span>
           </div>
-          <span>ToolForge Rose Design System</span>
         </div>
       </footer>
     </div>

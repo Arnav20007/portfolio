@@ -1,32 +1,19 @@
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════════════════════════════
-   DESIGN TOKENS — ToolForge Rose Aesthetic (Clean & Authentic)
+   DESIGN TOKENS — Matt Farley Inspired System for Arnav Singh
 ═══════════════════════════════════════════════════════════════ */
 :root {
-  /* Core Rose Palette */
-  --rose: #e11d48;
-  --rose-light: #fb7185;
-  --rose-dark: #be123c;
-  --rose-50: #fff1f2;
-  --rose-100: #ffe4e6;
-  --rose-200: #fecdd3;
-  
-  /* Slate & Neutral Foundations */
-  --bg-primary: #faf8f9;
-  --bg-secondary: #fff1f2;
-  --bg-card: #ffffff;
-  --bg-card-hover: #ffffff;
-
-  /* Text Hierarchy */
-  --text-primary: #0f172a;
-  --text-secondary: #475569;
-  --text-muted: #64748b;
-
-  /* Borders & Shadows */
-  --border: #e2e8f0;
-  --border-rose: #fecdd3;
-  --border-hover: rgba(225, 29, 72, 0.4);
+  /* Matt Farley Iconic Signature Palette */
+  --primary: #6e07f3;
+  --primary-hover: #5600c7;
+  --primary-light: #f5f0ff;
+  --teal: #5be9b9;
+  --dark: #141c3a;
+  --body-text: #5a6275;
+  --border: #e6ecf8;
+  --bg-page: #ffffff;
+  --bg-alt: #fbfbfc;
 }
 
 @layer base {
@@ -37,60 +24,50 @@
 
 html {
   scroll-behavior: smooth;
-  background: #faf8f9;
+  background: #ffffff;
 }
 
 body {
-  background: #faf8f9;
-  color: #0f172a;
-  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  background: #ffffff;
+  color: #141c3a;
+  font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 html.light {
-  background: #faf8f9;
+  background: #ffffff;
 }
 
 html.light body {
-  background: #faf8f9;
-  color: #0f172a;
+  background: #ffffff;
+  color: #141c3a;
 }
 
 ::selection {
-  background: #ffe4e6;
-  color: #be123c;
+  background: #ebd8ff;
+  color: #5600c7;
 }
 
 ::-webkit-scrollbar {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #faf8f9;
+  background: #ffffff;
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #d4daf0;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #e11d48;
+  background: #6e07f3;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   TYPOGRAPHY
-═══════════════════════════════════════════════════════════════ */
 .font-display {
   font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .font-mono {
   font-family: 'JetBrains Mono', monospace;
-}
-
-.gradient-text-rose {
-  background: linear-gradient(135deg, #e11d48 0%, #be123c 60%, #0f172a 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 }

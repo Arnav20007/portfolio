@@ -201,7 +201,7 @@ export default function AIChatbot() {
         id="chatbot-toggle"
         onClick={() => setOpen((prev) => !prev)}
         aria-label={open ? "Close portfolio guide" : "Ask Arnav's portfolio guide"}
-        className="fixed bottom-5 right-5 z-[990] h-12 w-12 rounded-full flex items-center justify-center shadow-lg shadow-rose-600/20 transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer bg-rose-600 hover:bg-rose-700 text-white border border-rose-400/40"
+        className="fixed bottom-5 right-5 z-[990] h-12 w-12 rounded-full flex items-center justify-center shadow-lg shadow-purple-600/20 transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer bg-[#6E07F3] hover:bg-[#5600c7] text-white border border-purple-400/40"
       >
         {open ? (
           <X className="w-5 h-5" />
@@ -210,8 +210,8 @@ export default function AIChatbot() {
         )}
         {!open && (
           <span className="absolute -top-0.5 -right-0.5 flex h-3 w-3">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-300 opacity-75" />
-            <span className="relative inline-flex rounded-full h-3 w-3 bg-rose-400" />
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-300 opacity-75" />
+            <span className="relative inline-flex rounded-full h-3 w-3 bg-[#6E07F3]" />
           </span>
         )}
       </button>
@@ -219,30 +219,30 @@ export default function AIChatbot() {
       {/* Floating Chatbot Window */}
       {open && (
         <div
-          className="fixed bottom-20 right-5 z-[990] w-[390px] max-w-[calc(100vw-28px)] max-h-[580px] rounded-2xl overflow-hidden flex flex-col shadow-2xl bg-white border border-rose-200/90 animate-in fade-in slide-in-from-bottom-4 duration-200"
+          className="fixed bottom-20 right-5 z-[990] w-[390px] max-w-[calc(100vw-28px)] max-h-[580px] rounded-2xl overflow-hidden flex flex-col shadow-2xl bg-white border border-[#E6ECF8] animate-in fade-in slide-in-from-bottom-4 duration-200"
           style={{
-            boxShadow: "0 20px 60px rgba(225, 29, 72, 0.15), 0 4px 20px rgba(0, 0, 0, 0.08)",
+            boxShadow: "0 20px 60px rgba(110, 7, 243, 0.15), 0 4px 20px rgba(0, 0, 0, 0.08)",
           }}
         >
           {/* Chat Header */}
-          <div className="flex items-center justify-between px-4 py-3.5 border-b border-rose-100 bg-rose-50/70">
+          <div className="flex items-center justify-between px-4 py-3.5 border-b border-purple-100 bg-purple-50/70">
             <div className="flex items-center gap-2.5">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-rose-600 text-white shadow-sm">
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#6E07F3] text-white shadow-sm">
                 <Bot className="w-5 h-5" />
               </div>
               <div>
                 <p className="font-bold text-sm text-slate-900 leading-tight">
                   Ask Arnav&apos;s Portfolio
                 </p>
-                <p className="text-[10px] font-mono text-rose-700 flex items-center gap-1 mt-0.5 font-semibold">
-                  <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse" />
+                <p className="text-[10px] font-mono text-[#6E07F3] flex items-center gap-1 mt-0.5 font-semibold">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#6E07F3] animate-pulse" />
                   Portfolio guide · BBDU, Lucknow
                 </p>
               </div>
             </div>
             <button
               onClick={() => setOpen(false)}
-              className="w-7 h-7 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-rose-100/50 transition-colors cursor-pointer"
+              className="w-7 h-7 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-purple-100/50 transition-colors cursor-pointer"
               aria-label="Close chat"
             >
               <X className="w-4 h-4" />
@@ -255,9 +255,9 @@ export default function AIChatbot() {
               <button
                 key={label}
                 onClick={() => handleSend(query)}
-                className="text-[11px] font-bold py-1.5 px-2 rounded-lg transition-all text-rose-800 bg-white border border-rose-200/80 hover:bg-rose-50 hover:border-rose-400 flex items-center justify-center gap-1 shadow-2xs cursor-pointer"
+                className="text-[11px] font-bold py-1.5 px-2 rounded-lg transition-all text-[#6E07F3] bg-white border border-purple-200/80 hover:bg-purple-50 hover:border-[#6E07F3] flex items-center justify-center gap-1 shadow-2xs cursor-pointer"
               >
-                <Icon className="w-3 h-3 text-rose-600 shrink-0" />
+                <Icon className="w-3 h-3 text-[#6E07F3] shrink-0" />
                 <span>{label}</span>
               </button>
             ))}
@@ -274,7 +274,7 @@ export default function AIChatbot() {
                   <div
                     className={`px-3.5 py-2.5 rounded-2xl text-[13px] leading-relaxed whitespace-pre-line ${
                       message.from === "user"
-                        ? "bg-rose-600 text-white shadow-sm rounded-br-xs"
+                        ? "bg-[#6E07F3] text-white shadow-sm rounded-br-xs"
                         : "bg-white text-slate-800 border border-slate-200/90 shadow-2xs rounded-bl-xs"
                     }`}
                   >
@@ -288,10 +288,10 @@ export default function AIChatbot() {
                       target={message.action.isExternal ? "_blank" : undefined}
                       rel={message.action.isExternal ? "noopener noreferrer" : undefined}
                       onClick={() => handleActionClick(message.action!.href)}
-                      className="mt-1.5 inline-flex items-center gap-1.5 rounded-lg border border-rose-300 bg-rose-50 px-3 py-1 text-[11px] font-bold text-rose-800 hover:bg-rose-100 transition-colors shadow-2xs"
+                      className="mt-1.5 inline-flex items-center gap-1.5 rounded-lg border border-purple-300 bg-purple-50 px-3 py-1 text-[11px] font-bold text-[#6E07F3] hover:bg-purple-100 transition-colors shadow-2xs"
                     >
                       <span>{message.action.label}</span>
-                      <ExternalLink className="h-3 w-3 text-rose-600" />
+                      <ExternalLink className="h-3 w-3 text-[#6E07F3]" />
                     </a>
                   )}
                 </div>
@@ -301,9 +301,9 @@ export default function AIChatbot() {
             {typing && (
               <div className="flex justify-start">
                 <div className="px-3.5 py-2 rounded-xl text-xs text-slate-500 bg-white border border-slate-200 flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-bounce" />
-                  <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-bounce [animation-delay:0.2s]" />
-                  <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-bounce [animation-delay:0.4s]" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#6E07F3] animate-bounce" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#6E07F3] animate-bounce [animation-delay:0.2s]" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#6E07F3] animate-bounce [animation-delay:0.4s]" />
                 </div>
               </div>
             )}
@@ -319,13 +319,13 @@ export default function AIChatbot() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSend()}
-              className="flex-1 bg-slate-50 text-slate-900 placeholder-slate-400 text-xs px-3 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-rose-500 transition-colors"
+              className="flex-1 bg-slate-50 text-slate-900 placeholder-slate-400 text-xs px-3 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-[#6E07F3] transition-colors"
             />
             <button
               id="chatbot-send"
               onClick={() => handleSend()}
               aria-label="Send message"
-              className="w-9 h-9 rounded-xl bg-rose-600 hover:bg-rose-700 text-white flex items-center justify-center transition-transform active:scale-95 shadow-sm cursor-pointer"
+              className="w-9 h-9 rounded-xl bg-[#6E07F3] hover:bg-[#5600c7] text-white flex items-center justify-center transition-transform active:scale-95 shadow-sm cursor-pointer"
             >
               <Send className="w-3.5 h-3.5" />
             </button>

@@ -140,14 +140,14 @@ export default function MusicToggle() {
         <div className="fixed bottom-20 left-5 z-[910] w-80 rounded-2xl border border-slate-200 bg-white p-4 text-slate-900 shadow-xl backdrop-blur-xl animate-in fade-in slide-in-from-bottom-3 duration-200">
           <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-3">
             <div className="flex items-center gap-2">
-              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-rose-600 text-white shadow-xs font-bold">
+              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#6E07F3] text-white shadow-xs font-bold">
                 <Music className="h-4 w-4" />
               </div>
               <div>
                 <span className="font-mono text-xs font-bold uppercase tracking-wider text-slate-900 block">
                   Soundtrack Player
                 </span>
-                <span className="text-[10px] text-rose-600 font-semibold">
+                <span className="text-[10px] text-[#6E07F3] font-semibold">
                   Jack Sparrow · Fairytale · Lo-Fi
                 </span>
               </div>
@@ -173,8 +173,8 @@ export default function MusicToggle() {
                 </p>
               </div>
               <div className="flex items-center gap-1.5 shrink-0">
-                <span className={`h-2 w-2 rounded-full ${isPlaying ? "bg-rose-600 animate-pulse" : "bg-slate-300"}`} />
-                <span className="font-mono text-[9px] font-bold text-rose-600">
+                <span className={`h-2 w-2 rounded-full ${isPlaying ? "bg-[#6E07F3] animate-pulse" : "bg-slate-300"}`} />
+                <span className="font-mono text-[9px] font-bold text-[#6E07F3]">
                   {isPlaying ? "PLAYING" : "PAUSED"}
                 </span>
               </div>
@@ -191,7 +191,7 @@ export default function MusicToggle() {
               </button>
               <button
                 onClick={togglePlay}
-                className="flex h-9 w-9 items-center justify-center rounded-full bg-rose-600 text-white hover:bg-rose-700 transition-all cursor-pointer shadow-xs font-bold"
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-[#6E07F3] text-white hover:bg-[#5600c7] transition-all cursor-pointer shadow-xs font-bold"
                 aria-label={isPlaying ? "Pause" : "Play"}
               >
                 {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4 ml-0.5" />}
@@ -205,7 +205,7 @@ export default function MusicToggle() {
               </button>
               <button
                 onClick={() => setIsLooping(!isLooping)}
-                className={`p-1 transition-colors cursor-pointer ${isLooping ? "text-rose-600" : "text-slate-400"}`}
+                className={`p-1 transition-colors cursor-pointer ${isLooping ? "text-[#6E07F3]" : "text-slate-400"}`}
                 title={isLooping ? "Continuous Loop Enabled" : "Loop Disabled"}
               >
                 <Repeat className="h-3.5 w-3.5" />
@@ -224,17 +224,17 @@ export default function MusicToggle() {
                 onClick={() => playTrack(idx)}
                 className={`w-full flex items-center justify-between rounded-xl px-3 py-2 text-left text-xs transition-colors cursor-pointer ${
                   currentTrackIndex === idx
-                    ? "bg-rose-50 text-rose-700 font-bold border border-rose-200"
+                    ? "bg-purple-50 text-[#6E07F3] font-bold border border-purple-200"
                     : "text-slate-700 hover:bg-slate-50"
                 }`}
               >
                 <div className="truncate max-w-[190px]">
                   <span className="truncate block">{track.title}</span>
-                  <span className={`text-[10px] block ${currentTrackIndex === idx ? "text-rose-600 font-medium" : "text-slate-400"}`}>
+                  <span className={`text-[10px] block ${currentTrackIndex === idx ? "text-[#6E07F3] font-medium" : "text-slate-400"}`}>
                     {track.genre}
                   </span>
                 </div>
-                <span className={`font-mono text-[10px] ${currentTrackIndex === idx ? "text-rose-700 font-bold" : "text-slate-400"}`}>
+                <span className={`font-mono text-[10px] ${currentTrackIndex === idx ? "text-[#6E07F3] font-bold" : "text-slate-400"}`}>
                   0{idx + 1}
                 </span>
               </button>
@@ -260,7 +260,7 @@ export default function MusicToggle() {
                 setVolume(parseFloat(e.target.value));
                 setIsMuted(false);
               }}
-              className="h-1.5 flex-1 accent-rose-600 bg-slate-200 rounded-lg cursor-pointer"
+              className="h-1.5 flex-1 accent-[#6E07F3] bg-slate-200 rounded-lg cursor-pointer"
             />
             <span className="font-mono text-[10px] text-slate-400 w-7 text-right">
               {Math.round((isMuted ? 0 : volume) * 100)}%
@@ -278,7 +278,7 @@ export default function MusicToggle() {
           }
           setIsPanelOpen(!isPanelOpen);
         }}
-        className="fixed bottom-5 left-5 z-[900] flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-800 shadow-md transition-all hover:scale-105 hover:border-rose-400 active:scale-95 cursor-pointer"
+        className="fixed bottom-5 left-5 z-[900] flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-800 shadow-md transition-all hover:scale-105 hover:border-[#6E07F3] active:scale-95 cursor-pointer"
         aria-label="Music player"
         title={isPlaying ? "Playing: " + playlist[currentTrackIndex].title : "Click to play music"}
       >
@@ -290,8 +290,8 @@ export default function MusicToggle() {
           )}
           {isPlaying && (
             <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-rose-500" />
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#6E07F3]" />
             </span>
           )}
         </span>
