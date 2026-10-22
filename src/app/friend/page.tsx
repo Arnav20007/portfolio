@@ -186,14 +186,14 @@ export default function FriendPage() {
                 Solving problems I run into.
               </h3>
               <p className="font-sans text-lg text-[#5A6275] leading-relaxed mb-6 font-light">
-                ToolForge ATS started when friends were trying to check how their resumes matched specific job descriptions without paying for subscriptions or uploading resumes to random third-party servers.
+                ATSCheck started when friends were trying to check how their resumes matched specific job descriptions without paying for subscriptions or uploading resumes to random third-party servers.
               </p>
               <p className="font-sans text-base text-slate-500 leading-relaxed">
                 Running everything in the browser via JavaScript and Web Workers proved to be a practical and fast approach.
               </p>
             </motion.div>
 
-            {/* ToolForge ATS Card */}
+            {/* ATSCheck Card */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -206,7 +206,7 @@ export default function FriendPage() {
                   <div className="flex items-center gap-3 mb-4">
                     <Sparkles className="w-6 h-6 text-[#6E07F3] shrink-0" />
                     <h4 className="font-display text-2xl font-bold text-[#141C3A] tracking-tight">
-                      ToolForge ATS
+                      ATSCheck
                     </h4>
                   </div>
                   <p className="font-sans text-sm text-[#5A6275] leading-relaxed font-light mb-6">
@@ -216,7 +216,7 @@ export default function FriendPage() {
                 <div className="pt-4 border-t border-[#E6ECF8] flex items-center justify-between text-xs font-mono text-[#6E07F3] font-bold">
                   <span>RUNS IN BROWSER</span>
                   <a
-                    href="https://toolforge-ats.vercel.app"
+                    href="https://atscheck.tech/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:underline"

@@ -54,13 +54,13 @@ export const skills = [
 
 export const projects = [
   {
-    id: "toolforge",
-    name: "ToolForge ATS",
+    id: "atscheck",
+    name: "ATSCheck",
     description: "An in-browser resume keyword matcher and scanner that checks how well a resume aligns with job descriptions without uploading files to a server.",
-    longDescription: "I built ToolForge ATS to give students a private, free way to test their resume keywords against job requirements locally in the browser.",
+    longDescription: "I built ATSCheck to give students a private, free way to test their resume keywords against job requirements locally in the browser.",
     tech: ["React", "TypeScript", "Tailwind CSS", "PDF.js"],
     github: "https://github.com/Arnav20007/ats",
-    demo: "https://toolforge-ats.vercel.app",
+    demo: "https://atscheck.tech/",
     image: "/images/projects/toolforge.png",
     category: "Productivity",
     featured: true,

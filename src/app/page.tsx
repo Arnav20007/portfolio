@@ -52,14 +52,14 @@ interface SelectedProject {
 
 const projectsList: SelectedProject[] = [
   {
-    id: "toolforge",
-    name: "ToolForge ATS",
-    badge: "Web Project",
+    id: "atscheck",
+    name: "ATSCheck",
+    badge: "Web Utility",
     tagline: "Resume Keyword Matcher & Scanner",
     description:
       "Built this so friends could check how well their resumes match job descriptions without paying for subscriptions or uploading personal documents to third-party servers. Everything runs client-side in React.",
     stack: ["React", "TypeScript", "Tailwind CSS", "PDF.js"],
-    demo: "https://toolforge-ats.vercel.app",
+    demo: "https://atscheck.tech/",
     source: "https://github.com/Arnav20007/ats",
     color: "#6E07F3",
   },
@@ -168,14 +168,14 @@ function HeroIllustration() {
                 <div className="text-purple-300">B.Tech CSE · BBDU Lucknow</div>
               </div>
 
-              {/* Right: ToolForge ATS Project Card */}
+              {/* Right: ATSCheck Project Card */}
               <div className="p-4 bg-slate-900/60 flex flex-col justify-between">
                 <div>
                   <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-[#6E07F3]/20 text-[#C4B5FD] font-mono text-[10px] font-bold mb-2">
                     FEATURED PROJECT
                   </div>
                   <h4 className="font-display font-bold text-white text-sm mb-1">
-                    ToolForge ATS
+                    ATSCheck
                   </h4>
                   <p className="text-slate-400 text-[11px] leading-relaxed">
                     Resume keyword matcher that runs locally in your browser.
@@ -184,10 +184,10 @@ function HeroIllustration() {
 
                 <div className="pt-3 border-t border-slate-800/80 flex items-center justify-between">
                   <span className="text-[10px] font-mono text-emerald-400">
-                    ● Deployed on Vercel
+                    ● Live on atscheck.tech
                   </span>
                   <a
-                    href="https://toolforge-ats.vercel.app"
+                    href="https://atscheck.tech/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 text-[11px] font-bold text-[#A78BFA] hover:text-white transition-colors"
@@ -335,7 +335,7 @@ export default function Home() {
             Hi, I’m Arnav. Nice to meet you.
           </h2>
           <p className="text-base sm:text-lg text-purple-100 font-normal leading-relaxed">
-            I’m a 5th-semester Computer Science student at Babu Banarasi Das University, Lucknow (8.0 CGPA). I spend most of my time practicing problem-solving in C++ and building tools I actually use—like ToolForge ATS for resume keyword checking and PDFlex for client-side PDF handling. I’m actively looking for a software engineering internship where I can learn from experienced engineers and contribute real code.
+            I’m a 5th-semester Computer Science student at Babu Banarasi Das University, Lucknow (8.0 CGPA). I spend most of my time practicing problem-solving in C++ and building tools I actually use—like ATSCheck for resume keyword checking and PDFlex for client-side PDF handling. I’m actively looking for a software engineering internship where I can learn from experienced engineers and contribute real code.
           </p>
         </div>
       </section>
