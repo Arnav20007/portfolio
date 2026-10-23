@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   Play,
   Pause,
@@ -22,22 +22,22 @@ interface Track {
 
 const playlist: Track[] = [
   {
-    title: "He's a Pirate (Jack Sparrow Theme)",
-    artist: "Pirates of the Caribbean · Piano & Epic",
-    genre: "Epic / Theme",
-    url: "/music/hes-a-pirate.mp3",
+    title: "Khayaal",
+    artist: "Talwiinder · NDS & Sanjoy",
+    genre: "Punjabi Indie / Vibe",
+    url: "/music/talwiinder-khayaal.mp3",
   },
   {
     title: "Fairytale",
-    artist: "Alexander Rybak · Folk & Melody",
-    genre: "Folk / Melody",
+    artist: "Alexander Rybak · Folk & Violin",
+    genre: "Eurovision Folk",
     url: "/music/fairytale.mp3",
   },
   {
-    title: "Professional Deep Work",
-    artist: "Technical Focus & Ambient Flow",
-    genre: "Deep Work Focus",
-    url: "/music/professional-focus.mp3",
+    title: "He's a Pirate (Jack Sparrow Theme)",
+    artist: "Pirates of the Caribbean · Piano & Epic",
+    genre: "Epic / Movie Theme",
+    url: "/music/hes-a-pirate.mp3",
   },
   {
     title: "Chill Lo-Fi Coding & Study",
@@ -46,10 +46,10 @@ const playlist: Track[] = [
     url: "/music/lofi-study.mp3",
   },
   {
-    title: "Peaceful Piano Reverie",
-    artist: "Classical Solo Piano",
-    genre: "Classical Piano",
-    url: "/music/piano-sample.mp3",
+    title: "Professional Deep Work",
+    artist: "Technical Focus & Ambient Flow",
+    genre: "Deep Work Focus",
+    url: "/music/professional-focus.mp3",
   },
 ];
 
@@ -66,6 +66,13 @@ export default function MusicToggle() {
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
+  // Initialize audio src on mount without hardcoding in JSX
+  useEffect(() => {
+    if (audioRef.current && !audioRef.current.src) {
+      audioRef.current.src = playlist[0].url;
+    }
+  }, []);
+
   // Sync volume with audio element
   useEffect(() => {
     if (audioRef.current) {
@@ -73,22 +80,24 @@ export default function MusicToggle() {
     }
   }, [volume, isMuted]);
 
-  const playAudio = useCallback((index: number) => {
+  const playTrack = (index: number) => {
+    setCurrentTrackIndex(index);
     const audio = audioRef.current;
     if (!audio) return;
     const track = playlist[index];
     if (!track) return;
 
-    if (audio.getAttribute("src") !== track.url) {
-      audio.src = track.url;
-    }
+    audio.src = track.url;
+    audio.load();
     const promise = audio.play();
     if (promise !== undefined) {
-      promise.catch((err) => {
-        console.warn("Audio playback interrupted:", err);
-      });
+      promise
+        .then(() => setIsPlaying(true))
+        .catch((err) => {
+          console.warn("Audio playback interrupted:", err);
+        });
     }
-  }, []);
+  };
 
   const togglePlay = () => {
     const audio = audioRef.current;
@@ -96,26 +105,32 @@ export default function MusicToggle() {
 
     if (isPlaying) {
       audio.pause();
+      setIsPlaying(false);
     } else {
-      playAudio(currentTrackIndex);
+      const track = playlist[currentTrackIndex];
+      if (track && (!audio.src || !audio.src.endsWith(track.url))) {
+        audio.src = track.url;
+        audio.load();
+      }
+      const promise = audio.play();
+      if (promise !== undefined) {
+        promise
+          .then(() => setIsPlaying(true))
+          .catch((err) => {
+            console.warn("Audio playback interrupted:", err);
+          });
+      }
     }
-  };
-
-  const playTrack = (index: number) => {
-    setCurrentTrackIndex(index);
-    playAudio(index);
   };
 
   const nextTrack = () => {
     const nextIdx = (currentTrackIndex + 1) % playlist.length;
-    setCurrentTrackIndex(nextIdx);
-    playAudio(nextIdx);
+    playTrack(nextIdx);
   };
 
   const prevTrack = () => {
     const prevIdx = (currentTrackIndex - 1 + playlist.length) % playlist.length;
-    setCurrentTrackIndex(prevIdx);
-    playAudio(prevIdx);
+    playTrack(prevIdx);
   };
 
   const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -137,10 +152,9 @@ export default function MusicToggle() {
 
   return (
     <>
-      {/* Hidden Native Audio Element */}
+      {/* Hidden Native Audio Element (src managed imperatively to prevent React reconciliation conflicts) */}
       <audio
         ref={audioRef}
-        src={playlist[0].url}
         preload="metadata"
         playsInline
         onPlay={() => {
@@ -163,8 +177,7 @@ export default function MusicToggle() {
         onEnded={() => {
           if (isLooping) {
             const nextIdx = (currentTrackIndex + 1) % playlist.length;
-            setCurrentTrackIndex(nextIdx);
-            playAudio(nextIdx);
+            playTrack(nextIdx);
           } else {
             setIsPlaying(false);
           }
@@ -185,7 +198,7 @@ export default function MusicToggle() {
                   Soundtrack Player
                 </span>
                 <span className="text-[10px] text-[#6E07F3] font-semibold block">
-                  Jack Sparrow · Fairytale · Lo-Fi
+                  Talwiinder · Fairytale · Jack Sparrow
                 </span>
               </div>
             </div>
@@ -348,7 +361,7 @@ export default function MusicToggle() {
         id="music-toggle"
         onClick={() => {
           if (!isPlaying) {
-            playAudio(currentTrackIndex);
+            togglePlay();
             setIsPanelOpen(true);
           } else {
             setIsPanelOpen(!isPanelOpen);
