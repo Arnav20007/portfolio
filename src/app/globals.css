@@ -159,6 +159,23 @@ html[data-mode="dark"] .cal-page-base {
 /* ═══════════════════════════════════════════════════════════════
    ARCHED DOORS (therishithakor.com Mathematical Viewport Sizing)
 ═══════════════════════════════════════════════════════════════ */
+/* Venetian architectural plaster wall texture matching therishithakor.com */
+.doors__tex {
+  position: absolute;
+  inset: -10% -20%;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.038'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  mix-blend-mode: overlay;
+  z-index: 0;
+}
+
+html[data-mode="dark"] .doors__tex {
+  opacity: 0.6;
+  mix-blend-mode: soft-light;
+}
+
 .doors-row-container {
   position: relative;
   padding-bottom: 1.5rem;
@@ -693,37 +710,6 @@ html[data-mode="dark"] .casing {
 
 .pull-cord-fixed:hover .cord-bronze-pull {
   filter: brightness(1.06) drop-shadow(0 4px 5px rgba(25, 14, 8, .42));
-}
-
-.pull-cord-tooltip {
-  position: absolute;
-  top: calc(100% + 8px);
-  right: 50%;
-  transform: translateX(50%);
-  white-space: nowrap;
-  font-family: var(--font-jetbrains-mono, monospace);
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  padding: 3px 8px;
-  border-radius: 9999px;
-  background: rgba(26, 24, 24, 0.92);
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-html[data-mode="dark"] .pull-cord-tooltip {
-  background: rgba(240, 237, 230, 0.95);
-  color: #1a1818;
-}
-
-.pull-cord-fixed:hover .pull-cord-tooltip {
-  opacity: 1;
 }
 
 /* Warm editorial timeline treatment with a subtle clock-dial texture. */

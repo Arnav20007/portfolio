@@ -391,20 +391,74 @@ export default function HomePage() {
   const [isFlipping, setIsFlipping] = useState(false);
 
   useEffect(() => {
+    let flipTimeout: number | undefined;
     const timer = setInterval(() => {
       setIsFlipping(true);
-      setTimeout(() => {
+      flipTimeout = window.setTimeout(() => {
         setCalIndex((prev) => (prev + 1) % CAL_SKILLS.length);
         setIsFlipping(false);
-      }, 600);
+      }, 180);
     }, 2800);
-    return () => clearInterval(timer);
+    return () => {
+      clearInterval(timer);
+      if (flipTimeout) clearTimeout(flipTimeout);
+    };
   }, []);
 
   /* ── Active Door State ── */
   const [activeDoor, setActiveDoor] = useState(0);
   const [hoveredDoor, setHoveredDoor] = useState(-1);
   const [selectedDoor, setSelectedDoor] = useState(-1);
+
+  // Web Audio synthesizer for tactile wooden latch click when opening a door
+  const playDoorLatchSound = () => {
+    try {
+      const AudioCtx =
+        window.AudioContext ||
+        (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = new AudioCtx();
+
+      // Warm wooden acoustic thud
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      const filter = ctx.createBiquadFilter();
+
+      filter.type = "lowpass";
+      filter.frequency.setValueAtTime(340, ctx.currentTime);
+      filter.frequency.exponentialRampToValueAtTime(70, ctx.currentTime + 0.05);
+
+      osc.type = "triangle";
+      osc.frequency.setValueAtTime(150, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(50, ctx.currentTime + 0.055);
+
+      gain.gain.setValueAtTime(0.22, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.055);
+
+      osc.connect(filter);
+      filter.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.06);
+
+      // Delicate brass latch release click
+      const latch = ctx.createOscillator();
+      const latchGain = ctx.createGain();
+      latch.type = "sine";
+      latch.frequency.setValueAtTime(950, ctx.currentTime + 0.008);
+      latch.frequency.exponentialRampToValueAtTime(320, ctx.currentTime + 0.035);
+
+      latchGain.gain.setValueAtTime(0.06, ctx.currentTime + 0.008);
+      latchGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.035);
+
+      latch.connect(latchGain);
+      latchGain.connect(ctx.destination);
+      latch.start(ctx.currentTime + 0.008);
+      latch.stop(ctx.currentTime + 0.04);
+    } catch {
+      // Audio autoplay policy fallback
+    }
+  };
 
   /* ── Rolling Story Year State ── */
   const [activeStoryYear, setActiveStoryYear] = useState("2026");
@@ -467,7 +521,7 @@ export default function HomePage() {
               {/* Start a project / Contact Pill */}
               <a
                 href="mailto:arnavsinghas1221@gmail.com"
-                className="flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-[var(--btn-bg)] text-[13px] font-semibold hover:opacity-90 transition-opacity shadow-sm whitespace-nowrap shrink-0"
+                className="flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-[var(--btn-bg)] text-[var(--btn-fg)] text-[13px] font-semibold hover:opacity-90 transition-opacity shadow-sm whitespace-nowrap shrink-0"
               >
                 <span>Say Hello</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -513,8 +567,8 @@ export default function HomePage() {
 
                     {/* Flipping Page */}
                     <div
-                      className={`relative z-10 px-5 py-3 sm:px-7 sm:py-4 cal-page-base flex items-center justify-between gap-6 transition-all duration-500 ease-out ${
-                        isFlipping ? "-rotate-x-30 -translate-y-2 opacity-80" : "rotate-0 translate-y-0 opacity-100"
+                      className={`relative z-10 px-5 py-3 sm:px-7 sm:py-4 cal-page-base flex items-center justify-between gap-6 transition-transform duration-200 ease-out ${
+                        isFlipping ? "translate-y-0.5 scale-[0.995]" : "translate-y-0 scale-100"
                       }`}
                     >
                       {/* Spiral Punch Holes */}
@@ -685,7 +739,10 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════════════════════════
           3. PROJECTS: EXPLORE THE DOORS
       ═══════════════════════════════════════════════════════════════ */}
-      <section id="works" className="relative pt-16 pb-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto scroll-mt-24">
+      <section id="works" className="relative pt-16 pb-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto scroll-mt-24 overflow-hidden">
+        {/* Subtle Architectural Venetian Plaster Noise Texture matching therishithakor.com */}
+        <div className="doors__tex" aria-hidden="true" />
+
         {/* Section Heading */}
         <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8 relative z-10">
           <p className="mb-2 text-xs font-mono font-semibold uppercase tracking-[0.2em] text-[var(--accent)]">
@@ -716,15 +773,24 @@ export default function HomePage() {
                     type="button"
                     className={`doorway ${isOpen ? "open" : ""}`}
                     onClick={() => {
+                      if (activeDoor !== index || selectedDoor !== index) {
+                        playDoorLatchSound();
+                      }
                       setActiveDoor(index);
                       setSelectedDoor(index);
                     }}
                     onMouseEnter={() => {
+                      if (hoveredDoor !== index && activeDoor !== index) {
+                        playDoorLatchSound();
+                      }
                       setActiveDoor(index);
                       setHoveredDoor(index);
                     }}
                     onMouseLeave={() => setHoveredDoor(-1)}
                     onFocus={() => {
+                      if (hoveredDoor !== index && activeDoor !== index) {
+                        playDoorLatchSound();
+                      }
                       setActiveDoor(index);
                       setHoveredDoor(index);
                     }}
