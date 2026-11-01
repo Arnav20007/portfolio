@@ -157,21 +157,67 @@ html[data-mode="dark"] .cal-page-base {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   ARCHED DOORS (therishithakor.com Pixel-Perfect Match)
+   ARCHED DOORS (therishithakor.com Mathematical Viewport Sizing)
 ═══════════════════════════════════════════════════════════════ */
+.doors-row-container {
+  position: relative;
+  padding-bottom: 1.5rem;
+}
+
+/* Baseboard / Skirting board at base of the wall matching therishithakor.com */
+.doors-row-container::after {
+  content: "";
+  position: absolute;
+  left: -20vw;
+  right: -20vw;
+  bottom: 0;
+  height: 1.25rem;
+  z-index: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.55) 0,
+    rgba(255, 255, 255, 0.55) 1px,
+    rgba(0, 0, 0, 0.06) 2px,
+    transparent 4px,
+    transparent 7px,
+    rgba(0, 0, 0, 0.05) 8px,
+    rgba(255, 255, 255, 0.25) 9px,
+    transparent 11px,
+    rgba(0, 0, 0, 0.08) 100%
+  ), #DFD8CA;
+  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.07), 0 -0.4rem 0.8rem -0.3rem rgba(0, 0, 0, 0.14);
+}
+
+html[data-mode="dark"] .doors-row-container::after {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.06) 0,
+    rgba(255, 255, 255, 0.06) 1px,
+    rgba(0, 0, 0, 0.3) 2px,
+    transparent 4px,
+    transparent 7px,
+    rgba(0, 0, 0, 0.25) 8px,
+    transparent 11px,
+    rgba(0, 0, 0, 0.3) 100%
+  ), #1A1616;
+  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4), 0 -0.4rem 0.8rem -0.3rem rgba(0, 0, 0, 0.5);
+}
+
 .door-unit {
   position: relative;
   container-type: inline-size;
   width: 100%;
-  max-width: 15.5rem; /* ~248px matching therishithakor.com scale */
+  /* Strict mathematical viewport clamp: door height never exceeds remaining viewport */
+  max-width: min(13.5rem, calc((100svh - 22rem) / 2.25));
   margin-inline: auto;
+  z-index: 1;
 }
 
 .doorway {
   position: relative;
   display: block;
   width: 100%;
-  aspect-ratio: 1 / 2.18; /* Exact elegant door height-to-width ratio */
+  aspect-ratio: 1 / 2.25; /* Exact graceful door proportion */
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   border-radius: 50cqi 50cqi 0 0;
@@ -323,12 +369,12 @@ html[data-mode="dark"] .casing {
   left: 50%;
   top: 31%;
   translate: -50% -50%;
-  width: 62cqi;
-  padding: 2.2cqi 2cqi;
+  width: 64cqi;
+  padding: 1.8cqi 1.5cqi;
   border-radius: .9cqi;
   z-index: 2;
   text-align: center;
-  font-size: 3.8cqi;
+  font-size: 3.5cqi;
   font-weight: 800;
   line-height: 1.15;
   letter-spacing: .08em;
@@ -469,7 +515,7 @@ html[data-mode="dark"] .casing {
 .pull-cord-fixed {
   position: fixed;
   top: 0;
-  right: max(2rem, calc((100vw - 1024px) / 2 + 16px));
+  right: max(2.5rem, calc((100vw - 896px) / 2 + 40px));
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -478,7 +524,7 @@ html[data-mode="dark"] .casing {
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   transform-origin: top center;
-  filter: drop-shadow(10px 12px 16px rgba(0, 0, 0, 0.22));
+  filter: drop-shadow(6px 8px 12px rgba(0, 0, 0, 0.22));
   animation: cordGentleSway 7s ease-in-out infinite alternate;
 }
 
@@ -490,30 +536,30 @@ html[data-mode="dark"] .casing {
 
 .pull-cord-fixed:hover {
   animation: none;
-  transform: translateY(6px);
+  transform: translateY(4px);
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .pull-cord-fixed.pulling {
   animation: none;
-  transform: translateY(24px) scale(0.98);
+  transform: translateY(18px) scale(0.98);
   transition: transform 0.12s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .cord-ceiling-mount {
-  width: 14px;
+  width: 13px;
   height: 4px;
-  border-radius: 0 0 7px 7px;
+  border-radius: 0 0 6px 6px;
   background: radial-gradient(circle at 50% 100%, #ffe6a3 0%, #b8934c 60%, #5d4219 100%);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
 }
 
-/* Double Parallel Braided Strands matching screenshot */
+/* Double Parallel Braided Strands matching screenshot - short and ending high in the clear wall */
 .cord-double-track {
   display: flex;
   justify-content: space-between;
-  width: 8px;
-  height: clamp(105px, 14vh, 125px); /* Short cord ending well above door arch */
+  width: 7px;
+  height: clamp(65px, 8.5vh, 85px); /* Short cord ending comfortably above door arch */
 }
 
 .cord-strand {
@@ -531,36 +577,36 @@ html[data-mode="dark"] .casing {
 }
 
 .cord-brass-collar {
-  width: 11px;
-  height: 5px;
+  width: 10px;
+  height: 4px;
   border-radius: 2px;
   margin-top: -1px;
   background: radial-gradient(circle at 35% 30%, #fff2cf 0%, #c9a45b 50%, #6e4e1f 100%);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
 /* 3D Turned Walnut Wood Acorn Tassel */
 .cord-acorn-wooden {
   position: relative;
-  width: 22px;
-  height: 40px;
+  width: 20px;
+  height: 34px;
   margin-top: 1px;
-  border-radius: 11px 11px 18px 18px;
+  border-radius: 10px 10px 16px 16px;
   background: radial-gradient(ellipse at 34% 28%, #a06338 0%, #6d3d1e 45%, #3c1e0b 80%, #1f0d04 100%);
   box-shadow:
     inset 1.5px 1.5px 3px rgba(255, 235, 195, 0.6),
     inset -1.5px -1.5px 4px rgba(0, 0, 0, 0.7),
-    0 8px 18px -2px rgba(0, 0, 0, 0.35);
+    0 6px 14px -2px rgba(0, 0, 0, 0.35);
   transition: transform 0.2s ease;
 }
 
 .cord-acorn-sheen {
   position: absolute;
-  top: 5px;
-  left: 4px;
-  width: 5px;
-  height: 16px;
-  border-radius: 3px;
+  top: 4px;
+  left: 3.5px;
+  width: 4px;
+  height: 14px;
+  border-radius: 2px;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 100%);
   transform: rotate(-8deg);
   pointer-events: none;

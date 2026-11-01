@@ -23,83 +23,201 @@ const CAL_SKILLS = [
   { title: "System & API Builder", no: "05" },
 ];
 
-/* ── 4 DOORS DATA (therishithakor.com Arched Doors) ──────────── */
+/* ── 4 HONEST STUDENT BUILDER DOORS ──────────────────────────── */
+interface ProjectItem {
+  id: string;
+  name: string;
+  role: string;
+  tagline: string;
+  desc: string;
+  contribution: string[];
+  tech: string[];
+  demo?: string;
+  demoLabel?: string;
+  source?: string;
+  highlight?: string;
+}
+
 interface DoorData {
   id: string;
   plate: string;
+  plateLines: [string, string];
+  badge: string;
   title: string;
   tagline: string;
   color: string;
   accent: string;
-  bullets: string[];
-  demo?: string;
-  source?: string;
+  projects: ProjectItem[];
 }
 
 const DOORS: DoorData[] = [
   {
-    id: "web-dev",
-    plate: "WEB DEVELOPER",
-    title: "ATSCheck & PDFlex",
-    tagline: "Client-side privacy-first web utilities",
+    id: "browser-tools",
+    plate: "BROWSER TOOLS",
+    plateLines: ["BROWSER", "TOOLS"],
+    badge: "Door 01 · Browser Utilities",
+    title: "Client-Side Tools & Document Engines",
+    tagline: "Zero-server file manipulation & private local processing",
     color: "#1E2C48",
     accent: "#3E5785",
-    bullets: [
-      "ATSCheck: 100% in-browser resume score checker with zero server uploads (atscheck.tech)",
-      "PDFlex: Multi-threaded PDF merger, splitter and editor using client Web Workers",
-      "Zero server data latency, strict local data sovereignty and instant keyword matching",
-      "Engineered with Next.js, TypeScript, Tailwind CSS and client-side document engines",
+    projects: [
+      {
+        id: "atscheck",
+        name: "ATSCheck",
+        role: "Creator & Full-Stack Developer",
+        tagline: "100% In-browser resume keyword matcher & ATS scanner",
+        desc: "Built to solve a real student problem: evaluating resumes against job requirements without paying expensive subscriptions or uploading private PDFs to third-party servers.",
+        contribution: [
+          "Engineered 100% in-browser PDF text extraction using Web Workers and PDF.js",
+          "Local keyword frequency alignment & missing skills breakdown without server upload",
+          "Instant scoring algorithm with actionable ATS formatting recommendations",
+          "Live in production on custom domain: atscheck.tech",
+        ],
+        tech: ["Next.js", "TypeScript", "Tailwind CSS", "PDF.js", "Web Workers"],
+        demo: "https://atscheck.tech/",
+        demoLabel: "Open atscheck.tech ↗",
+        source: "https://github.com/Arnav20007/ats",
+        highlight: "100% Client-Side Privacy",
+      },
+      {
+        id: "pdflex",
+        name: "PDFlex",
+        role: "Creator & Frontend Architect",
+        tagline: "Browser-based multi-threaded PDF merger & splitter",
+        desc: "A privacy-first document utility that performs complex PDF operations (merging, splitting, page reordering) completely on the user's device.",
+        contribution: [
+          "Client-side PDF compilation using pdf-lib inside background Web Worker threads",
+          "Zero file upload latency with instantaneous local download generation",
+          "Intuitive drag-and-drop page organizer with real-time thumbnail previews",
+          "Fluid responsive UI built with React and Tailwind CSS",
+        ],
+        tech: ["React", "TypeScript", "PDF.js", "pdf-lib", "Web Workers"],
+        demo: "https://pd-flex.vercel.app",
+        demoLabel: "Open PDFlex ↗",
+        source: "https://github.com/Arnav20007/pdflex",
+        highlight: "Multi-threaded Web Workers",
+      },
     ],
-    demo: "https://atscheck.tech/",
-    source: "https://github.com/Arnav20007/ats",
   },
   {
-    id: "app-dev",
-    plate: "APP DEVELOPER",
-    title: "FinanceCalc",
-    tagline: "Interactive FinTech investment & loan visualizer",
+    id: "web-apps",
+    plate: "WEB APPS",
+    plateLines: ["WEB", "APPS"],
+    badge: "Door 02 · Web Applications",
+    title: "FinTech Tools & Interactive Systems",
+    tagline: "Financial modeling visualizers & modular database systems",
     color: "#412F3D",
     accent: "#7A4E6B",
-    bullets: [
-      "Interactive compounding engine for SIP, mutual fund, and wealth growth forecasting",
-      "Detailed loan amortization curves with monthly principal vs interest breakdown",
-      "Dynamic data charts built with Next.js, TypeScript, and Chart.js",
-      "Production deployment live at financecalc0.vercel.app with sub-second response times",
+    projects: [
+      {
+        id: "financecalc",
+        name: "FinanceCalc",
+        role: "Sole Developer & Designer",
+        tagline: "Compound returns, SIP wealth forecasting & EMI amortization",
+        desc: "An interactive FinTech application helping students and young professionals forecast mutual fund compounding returns and visualize loan repayment schedules.",
+        contribution: [
+          "Dynamic compounding engine with configurable monthly SIP step-ups",
+          "Month-by-month loan amortization curves splitting principal vs interest",
+          "Interactive visual charts built using Chart.js & reactive state hooks",
+          "Sub-second load speeds and responsive dark/light styling live on Vercel",
+        ],
+        tech: ["Next.js", "TypeScript", "Tailwind CSS", "Chart.js"],
+        demo: "https://financecalc0.vercel.app",
+        demoLabel: "Open FinanceCalc ↗",
+        source: "https://github.com/Arnav20007/financecalc",
+        highlight: "Interactive FinTech Analytics",
+      },
+      {
+        id: "ascend",
+        name: "ASCEND",
+        role: "Full-Stack Developer",
+        tagline: "Gamified task progression & XP leveling platform",
+        desc: "A productivity application that turns daily engineering to-dos into an engaging progression system with XP points and tier unlocks.",
+        contribution: [
+          "Full-stack CRUD architecture built with PostgreSQL and Prisma ORM",
+          "XP leveling algorithm with streak tracking and achievement triggers",
+          "Modular components with responsive dark & stone interface",
+          "Clean database schema with verified local state persistence",
+        ],
+        tech: ["Next.js", "TypeScript", "Prisma ORM", "PostgreSQL", "Tailwind CSS"],
+        source: "https://github.com/Arnav20007/ascend",
+        highlight: "Full-Stack PostgreSQL + Prisma",
+      },
     ],
-    demo: "https://financecalc0.vercel.app",
-    source: "https://github.com/Arnav20007/financecalc",
   },
   {
-    id: "uiux-design",
-    plate: "UI/UX DESIGNER",
-    title: "C++ Algorithmic Core & Terminal",
-    tagline: "Systems architecture & interactive command shell",
+    id: "ai-systems",
+    plate: "AI SYSTEMS",
+    plateLines: ["AI", "SYSTEMS"],
+    badge: "Door 03 · AI & Hackathons",
+    title: "AI Microservices & Hackathon Builds",
+    tagline: "Python Flask APIs & generative reflection prompts",
     color: "#667B68",
     accent: "#8FA391",
-    bullets: [
-      "Interactive in-browser CLI terminal replicating authentic Unix/Linux shell UX",
-      "Strict visual hierarchy, tactile typography, and spatial micro-interaction design",
-      "5th-semester CSE student at BBDU Lucknow (8.0 CGPA) with strong DSA foundation",
-      "Real-time command execution, dynamic flag parsing, and system status telemetry",
+    projects: [
+      {
+        id: "moodmate",
+        name: "MoodMate",
+        role: "Hackathon Backend & API Engineer",
+        tagline: "Mental wellness & structured journal reflection assistant",
+        desc: "Created during a university hackathon to provide a supportive reflective journal where users can write freely and receive empathetic, structured perspectives.",
+        contribution: [
+          "Engineered Python Flask REST API connecting Next.js frontend with OpenAI API",
+          "Prompt engineered multi-step psychological reflection and cognitive reframing",
+          "Secure API key management and decoupled client-server architecture",
+          "Designed clean interactive frontend with responsive mood categorization",
+        ],
+        tech: ["Next.js", "Python Flask", "OpenAI API", "REST APIs", "Tailwind CSS"],
+        source: "https://github.com/Arnav20007/moodmate",
+        highlight: "University Hackathon Build",
+      },
     ],
-    demo: "/terminal",
-    source: "https://github.com/Arnav20007",
   },
   {
-    id: "graphic-design",
-    plate: "GRAPHIC DESIGNER",
-    title: "ASCEND & MoodMate",
-    tagline: "Gamified progression systems & AI companions",
+    id: "algorithms",
+    plate: "C++ / DSA CORE",
+    plateLines: ["C++ / DSA", "CORE"],
+    badge: "Door 04 · Systems & DSA",
+    title: "C++ Algorithmic Core & In-Browser Shell",
+    tagline: "Data structures, problem solving & command-line interface",
     color: "#A86438",
     accent: "#CF8855",
-    bullets: [
-      "ASCEND: Gamified task progression workflow with XP levels and tier unlocks",
-      "MoodMate: AI-powered mental wellness & reflection journaling assistant",
-      "Python Flask REST microservices integrated with OpenAI reflection prompts",
-      "Clean architecture with verified local state persistence and responsive design",
+    projects: [
+      {
+        id: "terminal",
+        name: "Interactive Web CLI Terminal",
+        role: "Systems & Frontend Builder",
+        tagline: "In-browser Unix/Linux shell environment with dynamic command parsing",
+        desc: "A full-featured interactive terminal designed to let recruiters and engineers inspect my portfolio, skills, and background using real CLI commands.",
+        contribution: [
+          "Custom command parser supporting flags, history traversal (↑/↓), and auto-scroll",
+          "Replicates authentic terminal telemetry, exit codes, and help diagnostics",
+          "Integrated directly in Next.js with keyboard navigation and zero latency",
+          "Replaces static resume pages with an interactive tactile experience",
+        ],
+        tech: ["React", "TypeScript", "Terminal Shell UX", "JetBrains Mono"],
+        demo: "/terminal",
+        demoLabel: "Launch Interactive Terminal ↗",
+        source: "https://github.com/Arnav20007",
+        highlight: "In-Browser Shell UX",
+      },
+      {
+        id: "dsa-core",
+        name: "C++ DSA Repository & Coursework",
+        role: "Computer Science Undergraduate (8.0 CGPA)",
+        tagline: "Algorithmic problem-solving in C++ at BBDU Lucknow",
+        desc: "Rigorous daily practice covering core data structures, time/space complexity optimization, and classical computer science foundations.",
+        contribution: [
+          "Binary Trees, BSTs, Graph traversals (BFS/DFS), and Dijkstra's algorithm",
+          "Recursion, backtracking, and Dynamic Programming memoization patterns",
+          "Strong OOP foundation: Inheritance, Polymorphism, and Memory Management",
+          "Maintained 8.0 / 10 CGPA through 5 semesters of B.Tech CSE coursework",
+        ],
+        tech: ["C++", "STL", "Data Structures", "Algorithms", "OOP"],
+        source: "https://github.com/Arnav20007",
+        highlight: "Trees, Graphs & Dynamic Programming",
+      },
     ],
-    demo: "https://github.com/Arnav20007/ascend",
-    source: "https://github.com/Arnav20007/moodmate",
   },
 ];
 
@@ -390,7 +508,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Right Column: Interactive 3D Ability Card (Therishithakor Card Aesthetic) */}
+          {/* Right Column: Engineering Proof Dossier (Fact-based Student Profile) */}
           <div className="lg:col-span-4 flex justify-center lg:justify-end">
             <div className="ability-card w-full max-w-sm rounded-3xl p-6 sm:p-7 bg-[var(--surface)] border border-[var(--line)] shadow-xl relative overflow-hidden group">
               {/* Specular Glare & Foil sheen */}
@@ -403,45 +521,77 @@ export default function HomePage() {
               <div className="flex items-center justify-between border-b border-[var(--line)] pb-4 mb-5">
                 <div>
                   <span className="text-[10px] font-mono uppercase tracking-widest text-[var(--accent)] block font-bold">
-                    CAPABILITY DOSSIER
+                    ENGINEERING DOSSIER
                   </span>
                   <h3 className="text-xl font-bold font-display text-[var(--foreground)]">
                     Arnav Singh
                   </h3>
                 </div>
-                <div className="w-8 h-8 rounded-full bg-[var(--background)] border border-[var(--line)] flex items-center justify-center font-mono text-xs font-bold text-[var(--foreground)]">
-                  8.0
+                <div
+                  className="px-2.5 py-1 rounded-full bg-[var(--surface-2)] border border-[var(--line)] font-mono text-xs font-bold text-[var(--foreground)]"
+                  title="Cumulative Grade Point Average across 5 semesters"
+                >
+                  8.0 CGPA
                 </div>
               </div>
 
-              {/* Stats & Skills Meter */}
-              <div className="space-y-3.5 text-xs font-mono">
-                {[
-                  { name: "C++ & Data Structures", value: 85, detail: "Trees, Graphs, DP" },
-                  { name: "Browser Web Utilities", value: 88, detail: "Web Workers, PDF.js" },
-                  { name: "Full-Stack Web Dev", value: 82, detail: "React, Next.js, TS" },
-                  { name: "Backend & REST APIs", value: 78, detail: "Python, Flask, SQL" },
-                ].map((item) => (
-                  <div key={item.name} className="space-y-1">
-                    <div className="flex justify-between text-[var(--foreground)]">
-                      <span className="font-semibold">{item.name}</span>
-                      <span className="text-[var(--accent)] font-bold">{item.value} / 100</span>
-                    </div>
-                    <div className="w-full h-1.5 rounded-full bg-[var(--background)] overflow-hidden">
-                      <div
-                        className="h-full rounded-full bg-[var(--accent)] transition-all duration-1000"
-                        style={{ width: `${item.value}%` }}
-                      />
-                    </div>
-                    <p className="text-[10px] text-[var(--muted)] font-sans">{item.detail}</p>
+              {/* Concrete Verified Facts (No arbitrary self-ratings) */}
+              <div className="space-y-4 text-xs font-mono">
+                <div className="space-y-1">
+                  <div className="flex items-center justify-between text-[var(--foreground)]">
+                    <span className="font-bold">Academic Track</span>
+                    <span className="text-[var(--accent)] font-semibold">BBDU Lucknow</span>
                   </div>
-                ))}
+                  <p className="text-[11px] text-[var(--muted)] font-sans">
+                    5th-semester B.Tech CSE (OS, DBMS, Networks, OOP, Software Engineering)
+                  </p>
+                </div>
+
+                <div className="space-y-1">
+                  <div className="flex items-center justify-between text-[var(--foreground)]">
+                    <span className="font-bold">Live Production Utility</span>
+                    <a
+                      href="https://atscheck.tech/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[var(--accent)] font-bold hover:underline"
+                    >
+                      atscheck.tech ↗
+                    </a>
+                  </div>
+                  <p className="text-[11px] text-[var(--muted)] font-sans">
+                    100% in-browser resume keyword matcher powered by Web Workers
+                  </p>
+                </div>
+
+                <div className="space-y-1">
+                  <div className="flex items-center justify-between text-[var(--foreground)]">
+                    <span className="font-bold">Core Problem Solving</span>
+                    <span className="text-[var(--accent)] font-semibold">C++ &amp; STL</span>
+                  </div>
+                  <p className="text-[11px] text-[var(--muted)] font-sans">
+                    Binary trees, graphs, recursion, backtracking &amp; dynamic programming
+                  </p>
+                </div>
+
+                <div className="space-y-1">
+                  <div className="flex items-center justify-between text-[var(--foreground)]">
+                    <span className="font-bold">Web Architecture</span>
+                    <span className="text-[var(--accent)] font-semibold">Next.js &amp; TS</span>
+                  </div>
+                  <p className="text-[11px] text-[var(--muted)] font-sans">
+                    Client-side processing, REST APIs (Flask), PostgreSQL &amp; Prisma
+                  </p>
+                </div>
               </div>
 
               {/* Card Footer */}
               <div className="mt-6 pt-4 border-t border-[var(--line)] flex items-center justify-between text-[11px] font-mono text-[var(--muted)]">
-                <span>BBDU Lucknow · 5th Sem</span>
-                <span className="text-emerald-600 dark:text-emerald-400 font-bold">● VERIFIED</span>
+                <span>Lucknow, India (IST)</span>
+                <span className="text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  INTERNSHIP READY
+                </span>
               </div>
             </div>
           </div>
@@ -468,7 +618,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════════════════════════
           3. "MAGIC HAPPENS BEHIND THE DOORS" (therishithakor.com Arched 3D Doors)
       ═══════════════════════════════════════════════════════════════ */}
-      <section id="works" className="relative pt-28 pb-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto scroll-mt-12">
+      <section id="works" className="relative pt-24 pb-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto scroll-mt-24">
         {/* Section Heading */}
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14 relative z-10">
           <h2 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-[var(--foreground)] tracking-tight font-display">
@@ -476,105 +626,166 @@ export default function HomePage() {
           </h2>
         </div>
 
-        {/* Arched Doors Grid - Exactly 4 side-by-side matching therishithakor.com */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-7 max-w-5xl mx-auto mb-14 px-2 sm:px-4">
-          {DOORS.map((door, index) => {
-            const isOpen = activeDoor === index;
-            const words = door.plate.split(" ");
-            return (
-              <div
-                key={door.id}
-                className="door-unit"
-                style={{ "--door-color": door.color } as React.CSSProperties}
-              >
-                <button
-                  type="button"
-                  className={`doorway ${isOpen ? "open" : ""}`}
-                  onClick={() => setActiveDoor(index)}
-                  onMouseEnter={() => setActiveDoor(index)}
-                  aria-label={`Open ${door.plate} door`}
+        {/* Arched Doors Grid with Floor Baseboard - Exactly 4 side-by-side matching therishithakor.com */}
+        <div className="doors-row-container max-w-4xl mx-auto mb-14 px-2 sm:px-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-7 items-end">
+            {DOORS.map((door, index) => {
+              const isOpen = activeDoor === index;
+              return (
+                <div
+                  key={door.id}
+                  className="door-unit"
+                  style={{ "--door-color": door.color } as React.CSSProperties}
                 >
-                  <span className="casing" />
-                  <span className="opening">
-                    <span className="room" />
-                    <span className="door">
-                      <span className="door__flute" />
-                      <span className="plate">
-                        {words.map((w, wIdx) => (
-                          <span key={wIdx} className="block">
-                            {w}
-                          </span>
-                        ))}
+                  <button
+                    type="button"
+                    className={`doorway ${isOpen ? "open" : ""}`}
+                    onClick={() => setActiveDoor(index)}
+                    onMouseEnter={() => setActiveDoor(index)}
+                    aria-label={`Open ${door.plateLines.join(" ")} door`}
+                  >
+                    <span className="casing" />
+                    <span className="opening">
+                      <span className="room" />
+                      <span className="door">
+                        <span className="door__flute" />
+                        <span className="plate">
+                          {door.plateLines.map((line, lIdx) => (
+                            <span key={lIdx} className="block">
+                              {line}
+                            </span>
+                          ))}
+                        </span>
+                        <span className="handle">
+                          <span className="handle__lever" />
+                          <span className="handle__lock" />
+                        </span>
                       </span>
-                      <span className="handle">
-                        <span className="handle__lever" />
-                        <span className="handle__lock" />
-                      </span>
+                      <span className="sill" />
                     </span>
-                    <span className="sill" />
-                  </span>
-                </button>
-              </div>
-            );
-          })}
+                  </button>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
-        {/* ── Active Door Interactive Info Card (Rishi's dinfo) ── */}
-        <div className="rounded-3xl p-8 sm:p-10 bg-[var(--surface)] border border-[var(--line)] shadow-xl transition-all duration-300 max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            {/* Left Info: Title, Tagline, Bullets */}
-            <div className="lg:col-span-8 text-left space-y-4">
-              <div className="flex items-center gap-3">
+        {/* ── Active Door Interactive Project Gallery (Individual Project Cards) ── */}
+        <div className="max-w-5xl mx-auto space-y-6">
+          {/* Active Category Header Banner */}
+          <div className="p-6 sm:p-8 rounded-3xl bg-[var(--surface)] border border-[var(--line)] shadow-lg flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div>
+              <div className="flex items-center gap-3 mb-1.5">
+                <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: DOORS[activeDoor].color }} />
                 <span className="text-xs font-mono font-bold tracking-widest uppercase text-[var(--accent)]">
-                  {DOORS[activeDoor].plate}
-                </span>
-                <span className="text-xs font-mono text-[var(--muted)]">
-                  · Door 0{activeDoor + 1} of 04
+                  {DOORS[activeDoor].badge}
                 </span>
               </div>
-              <h3 className="text-2xl sm:text-4xl font-extrabold text-[var(--foreground)] font-display">
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-[var(--foreground)] font-display">
                 {DOORS[activeDoor].title}
               </h3>
-              <p className="text-xs sm:text-sm font-mono text-[var(--muted)]">
+              <p className="text-xs sm:text-sm text-[var(--muted)] font-mono mt-1">
                 {DOORS[activeDoor].tagline}
               </p>
-
-              <ul className="space-y-2.5 text-sm sm:text-base text-[var(--foreground)] pt-2 font-normal">
-                {DOORS[activeDoor].bullets.map((b, idx) => (
-                  <li key={idx} className="flex items-start gap-3">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-1" />
-                    <span>{b}</span>
-                  </li>
-                ))}
-              </ul>
             </div>
-
-            {/* Right Action Box: Live links */}
-            <div className="lg:col-span-4 flex flex-col gap-3 justify-center items-start lg:items-end">
-              {DOORS[activeDoor].demo && (
-                <a
-                  href={DOORS[activeDoor].demo}
-                  target={DOORS[activeDoor].demo?.startsWith("http") ? "_blank" : undefined}
-                  rel={DOORS[activeDoor].demo?.startsWith("http") ? "noopener noreferrer" : undefined}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[var(--btn-bg)] text-[var(--btn-fg)] font-bold text-sm hover:scale-102 transition-all shadow-md"
-                >
-                  <span>Open Live Application</span>
-                  <ExternalLink className="w-4 h-4" />
-                </a>
-              )}
-
-              {DOORS[activeDoor].source && (
-                <a
-                  href={DOORS[activeDoor].source}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[var(--surface-2)] border border-[var(--line)] text-[var(--foreground)] font-semibold text-sm hover:bg-[var(--surface)] transition-colors"
-                >
-                  <FolderGit2 className="w-4 h-4" />
-                  <span>View GitHub Repository</span>
-                </a>
-              )}
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-mono font-semibold px-3 py-1.5 rounded-full bg-[var(--surface-2)] text-[var(--muted)] border border-[var(--line)]">
+                {DOORS[activeDoor].projects.length} {DOORS[activeDoor].projects.length === 1 ? "Project" : "Projects"} in this category
+              </span>
             </div>
+          </div>
+
+          {/* Individual Project Cards Grid */}
+          <div className={`grid gap-6 ${DOORS[activeDoor].projects.length > 1 ? "grid-cols-1 md:grid-cols-2" : "grid-cols-1"}`}>
+            {DOORS[activeDoor].projects.map((proj) => (
+              <div
+                key={proj.id}
+                className="flex flex-col justify-between p-7 sm:p-8 rounded-3xl bg-[var(--surface)] border border-[var(--line)] hover:border-[var(--accent)] transition-all duration-300 shadow-md group"
+              >
+                <div className="space-y-4">
+                  {/* Card Header */}
+                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--line)] pb-4">
+                    <div>
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-[var(--accent)] font-bold block mb-1">
+                        {proj.role}
+                      </span>
+                      <h4 className="text-2xl font-extrabold text-[var(--foreground)] font-display">
+                        {proj.name}
+                      </h4>
+                    </div>
+                    {proj.highlight && (
+                      <span className="px-3 py-1 rounded-full bg-[var(--surface-2)] text-[var(--foreground)] font-mono text-xs font-semibold border border-[var(--line)]">
+                        {proj.highlight}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* One-Liner & Description */}
+                  <p className="text-xs font-mono font-semibold text-[var(--accent)]">
+                    {proj.tagline}
+                  </p>
+                  <p className="text-sm text-[var(--muted)] leading-relaxed">
+                    {proj.desc}
+                  </p>
+
+                  {/* My Actual Contributions & Architecture */}
+                  <div className="space-y-2 pt-2">
+                    <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[var(--foreground)] block">
+                      Architecture &amp; My Contribution:
+                    </span>
+                    <ul className="space-y-2 text-xs sm:text-sm text-[var(--foreground)]">
+                      {proj.contribution.map((item, idx) => (
+                        <li key={idx} className="flex items-start gap-2.5">
+                          <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Tech Stack Chips */}
+                  <div className="pt-2">
+                    <div className="flex flex-wrap gap-1.5">
+                      {proj.tech.map((t) => (
+                        <span
+                          key={t}
+                          className="px-2.5 py-1 rounded-md text-[11px] font-mono font-semibold bg-[var(--surface-2)] text-[var(--muted)] border border-[var(--line)]"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Card Action Buttons */}
+                <div className="mt-8 pt-5 border-t border-[var(--line)] flex flex-wrap items-center gap-3">
+                  {proj.demo && (
+                    <a
+                      href={proj.demo}
+                      target={proj.demo.startsWith("http") ? "_blank" : undefined}
+                      rel={proj.demo.startsWith("http") ? "noopener noreferrer" : undefined}
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[var(--btn-bg)] text-[var(--btn-fg)] font-bold text-xs hover:opacity-90 transition-all shadow-sm"
+                    >
+                      <span>{proj.demoLabel || "Open Live Demo"}</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  )}
+
+                  {proj.source && (
+                    <a
+                      href={proj.source}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-[var(--surface-2)] border border-[var(--line)] hover:border-[var(--accent)] text-[var(--foreground)] font-semibold text-xs transition-colors"
+                    >
+                      <FolderGit2 className="w-3.5 h-3.5" />
+                      <span>Source Code</span>
+                    </a>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
