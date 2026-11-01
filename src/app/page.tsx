@@ -36,6 +36,7 @@ interface ProjectItem {
   demoLabel?: string;
   source?: string;
   highlight?: string;
+  availability?: string;
 }
 
 interface DoorData {
@@ -170,6 +171,7 @@ const DOORS: DoorData[] = [
         tech: ["Next.js", "Python Flask", "OpenAI API", "REST APIs", "Tailwind CSS"],
         source: "https://github.com/Arnav20007/moodmate",
         highlight: "University Hackathon Build",
+        availability: "Demo coming soon",
       },
     ],
   },
@@ -350,12 +352,25 @@ export default function HomePage() {
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
-    const saved = localStorage.getItem("arnav-mode");
-    if (saved === "dark") {
-      document.documentElement.dataset.mode = "dark";
-      // Update state without synchronous re-render warning
-      requestAnimationFrame(() => setIsDark(true));
-    }
+    const syncMode = (mode: string | null) => {
+      const dark = mode === "dark";
+      document.documentElement.removeAttribute("data-mode");
+      if (dark) document.documentElement.dataset.mode = "dark";
+      setIsDark(dark);
+    };
+    syncMode(document.documentElement.dataset.mode || localStorage.getItem("arnav-mode"));
+    const handleModeChange = (event: Event) => {
+      syncMode((event as CustomEvent<string>).detail);
+    };
+    const handleStorage = (event: StorageEvent) => {
+      if (event.key === "arnav-mode") syncMode(event.newValue);
+    };
+    window.addEventListener("arnav-mode-change", handleModeChange);
+    window.addEventListener("storage", handleStorage);
+    return () => {
+      window.removeEventListener("arnav-mode-change", handleModeChange);
+      window.removeEventListener("storage", handleStorage);
+    };
   }, []);
 
   const toggleDarkMode = () => {
@@ -368,36 +383,8 @@ export default function HomePage() {
       document.documentElement.removeAttribute("data-mode");
       localStorage.setItem("arnav-mode", "light");
     }
+    window.dispatchEvent(new CustomEvent("arnav-mode-change", { detail: next ? "dark" : "light" }));
   };
-
-  /* ── Live Ticking Clock & Date (IST / Lucknow) ── */
-  const [timeStr, setTimeStr] = useState("");
-  const [dateStr, setDateStr] = useState("");
-
-  useEffect(() => {
-    const updateTime = () => {
-      const d = new Date();
-      setTimeStr(
-        d.toLocaleTimeString("en-US", {
-          timeZone: "Asia/Kolkata",
-          hour: "numeric",
-          minute: "2-digit",
-          hour12: true,
-        }).toLowerCase()
-      );
-      setDateStr(
-        d.toLocaleDateString("en-US", {
-          timeZone: "Asia/Kolkata",
-          day: "numeric",
-          month: "long",
-          year: "numeric",
-        })
-      );
-    };
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
-    return () => clearInterval(interval);
-  }, []);
 
   /* ── 3D Desk-Calendar Flip Loop ── */
   const [calIndex, setCalIndex] = useState(0);
@@ -416,6 +403,8 @@ export default function HomePage() {
 
   /* ── Active Door State ── */
   const [activeDoor, setActiveDoor] = useState(0);
+  const [hoveredDoor, setHoveredDoor] = useState(-1);
+  const [selectedDoor, setSelectedDoor] = useState(-1);
 
   /* ── Rolling Story Year State ── */
   const [activeStoryYear, setActiveStoryYear] = useState("2026");
@@ -427,12 +416,12 @@ export default function HomePage() {
           1. HEADER / NAVIGATION (Pill Bar with Live Clock & Mode Switch)
       ═══════════════════════════════════════════════════════════════ */}
       <header className="fixed top-0 inset-x-0 z-50 transition-all duration-300">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-2">
-          <div className="flex items-center justify-between gap-3 p-2 rounded-full bg-[var(--chip-bg)] backdrop-blur-xl border border-[var(--chip-line)] shadow-lg shadow-black/5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-3 pb-1">
+          <div className="flex items-center justify-between gap-2 p-1.5 rounded-full bg-[var(--chip-bg)] backdrop-blur-xl border border-[var(--chip-line)] shadow-lg shadow-black/5">
             {/* Left Brand Badge */}
             <Link
               href="#home"
-              className="flex items-center gap-2 px-4 py-2 rounded-full font-bold text-sm tracking-tight text-[var(--foreground)] hover:bg-[var(--surface)] transition-colors"
+              className="flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full font-bold text-sm tracking-tight text-[var(--foreground)] hover:bg-[var(--surface)] transition-colors whitespace-nowrap"
             >
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
               <span>Arnav Singh</span>
@@ -442,7 +431,7 @@ export default function HomePage() {
             </Link>
 
             {/* Navigation Links */}
-            <nav className="hidden md:flex items-center gap-1 text-xs font-medium">
+            <nav className="hidden md:flex items-center gap-0.5 text-[13px] font-medium">
               {[
                 { label: "Home", href: "#home" },
                 { label: "Works", href: "#works" },
@@ -454,36 +443,22 @@ export default function HomePage() {
                 <Link
                   key={item.label}
                   href={item.href}
-                  className="px-3.5 py-1.5 rounded-full text-[var(--foreground)] hover:bg-[var(--surface)] transition-colors"
+                  className={`px-2.5 lg:px-3 py-2 rounded-full text-[var(--foreground)] hover:bg-[var(--surface)] transition-colors whitespace-nowrap ${
+                    item.label === "Recruiter Dossier" || item.label === "Terminal" ? "hidden lg:inline-flex" : ""
+                  }`}
                 >
                   {item.label}
                 </Link>
               ))}
             </nav>
 
-            {/* Right Controls: Clock + Theme Switcher + CTA */}
+            {/* Right Controls: Theme Switcher + CTA */}
             <div className="flex items-center gap-2">
-              {/* Live Clock Chip matching therishithakor.com */}
-              <div
-                className="hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[var(--surface)] border border-[var(--line)] text-xs font-mono text-[var(--foreground)] shadow-xs"
-                title="Local time in Lucknow, India (IST)"
-              >
-                <span className="text-[10px] text-[var(--muted)] font-medium">
-                  Local time
-                </span>
-                <span className="font-bold text-[11px]">{timeStr || "9:00pm"}</span>
-                {dateStr && (
-                  <span className="hidden lg:inline text-[10px] text-[var(--muted)] border-l border-[var(--line)] pl-2">
-                    {dateStr}
-                  </span>
-                )}
-              </div>
-
               {/* Dark / Light Mode Switch */}
               <button
                 onClick={toggleDarkMode}
                 aria-label="Toggle theme mode"
-                className="flex items-center justify-center h-8 w-8 rounded-full bg-[var(--surface)] border border-[var(--line)] text-[var(--foreground)] hover:scale-105 active:scale-95 transition-all cursor-pointer"
+                className="flex items-center justify-center h-9 w-9 rounded-full bg-[var(--surface)] border border-[var(--line)] text-[var(--foreground)] hover:scale-105 active:scale-95 transition-all cursor-pointer shrink-0"
                 title={isDark ? "Switch to Warm Stone Mode" : "Switch to Charcoal Dark Mode"}
               >
                 {isDark ? <Sun className="w-4 h-4 text-amber-300" /> : <Moon className="w-4 h-4 text-slate-700" />}
@@ -492,7 +467,7 @@ export default function HomePage() {
               {/* Start a project / Contact Pill */}
               <a
                 href="mailto:arnavsinghas1221@gmail.com"
-                className="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[var(--btn-bg)] text-[var(--btn-fg)] text-xs font-semibold hover:opacity-90 transition-opacity shadow-sm"
+                className="flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-[var(--btn-bg)] text-[13px] font-semibold hover:opacity-90 transition-opacity shadow-sm whitespace-nowrap shrink-0"
               >
                 <span>Say Hello</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -725,27 +700,52 @@ export default function HomePage() {
         </div>
 
         {/* Arched Doors Grid with Floor Baseboard - Exactly 4 side-by-side matching therishithakor.com */}
-        <div className="doors-row-container max-w-4xl mx-auto mb-14 px-2 sm:px-4">
+        <div className="doors-row-container max-w-6xl mx-auto mb-14 px-2 sm:px-4">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-7 items-end">
             {DOORS.map((door, index) => {
-              const isOpen = activeDoor === index;
+              const isOpen = hoveredDoor >= 0 ? hoveredDoor === index : selectedDoor === index;
+              const emphasizedDoor = hoveredDoor >= 0 ? hoveredDoor : selectedDoor;
+              const isDimmed = emphasizedDoor >= 0 && emphasizedDoor !== index;
               return (
                 <div
                   key={door.id}
-                  className="door-unit"
+                  className={`door-unit${isOpen ? " is-active" : ""}${isDimmed ? " is-dimmed" : ""}`}
                   style={{ "--door-color": door.color } as React.CSSProperties}
                 >
                   <button
                     type="button"
                     className={`doorway ${isOpen ? "open" : ""}`}
-                    onClick={() => setActiveDoor(index)}
-                    onMouseEnter={() => setActiveDoor(index)}
+                    onClick={() => {
+                      setActiveDoor(index);
+                      setSelectedDoor(index);
+                    }}
+                    onMouseEnter={() => {
+                      setActiveDoor(index);
+                      setHoveredDoor(index);
+                    }}
+                    onMouseLeave={() => setHoveredDoor(-1)}
+                    onFocus={() => {
+                      setActiveDoor(index);
+                      setHoveredDoor(index);
+                    }}
+                    onBlur={() => setHoveredDoor(-1)}
                     aria-pressed={isOpen}
                     aria-label={`Open ${door.plateLines.join(" ")} door`}
                   >
                     <span className="casing" />
                     <span className="opening">
                       <span className="room" />
+                      <span className="room-content" aria-hidden="true">
+                        <span className="room-window-dots"><i /><i /><i /></span>
+                        <span className="room-label">{door.badge.replace(/^Door \d+ · /, "")}</span>
+                        <span className="room-project">{door.projects[0].name}</span>
+                        <span className="room-detail">
+                          {door.projects.length > 1
+                            ? `+ ${door.projects.length - 1} more project${door.projects.length > 2 ? "s" : ""}`
+                            : door.projects[0].tech.slice(0, 2).join(" · ")}
+                        </span>
+                        <span className="room-enter">OPEN SECTION <b>↗</b></span>
+                      </span>
                       <span className="door">
                         <span className="door__flute" />
                         <span className="plate">
@@ -816,6 +816,11 @@ export default function HomePage() {
                     {proj.highlight && (
                       <span className="px-3 py-1 rounded-full bg-[var(--surface-2)] text-[var(--foreground)] font-mono text-xs font-semibold border border-[var(--line)]">
                         {proj.highlight}
+                      </span>
+                    )}
+                    {proj.availability && (
+                      <span className="px-3 py-1 rounded-full bg-[var(--surface-2)] text-[var(--muted)] font-mono text-xs font-semibold border border-[var(--line)]">
+                        {proj.availability}
                       </span>
                     )}
                   </div>
@@ -893,7 +898,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════════════════════════
           4. "MY STORY: LET'S GO BACK IN TIME" (Rolling Timeline & Odometer)
       ═══════════════════════════════════════════════════════════════ */}
-      <section id="about" className="py-24 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto border-t border-[var(--line)]">
+      <section id="about" className="story-section py-24 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto border-t border-[var(--line)]">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           {/* Left Column: Sticky Story Title & Rolling Year Odometer */}
           <div className="lg:col-span-5 lg:sticky lg:top-28 space-y-4">
@@ -909,12 +914,12 @@ export default function HomePage() {
 
             {/* Rolling Year Odometer Display */}
             <div className="pt-6">
-              <div className="inline-flex items-baseline px-6 py-4 rounded-3xl bg-[var(--surface)] border border-[var(--line)] shadow-inner">
-                <span className="text-6xl sm:text-7xl font-extrabold tracking-tight text-[var(--foreground)] font-mono">
+              <div className="story-year-display">
+                <span className="story-year-value">
                   {activeStoryYear}
                 </span>
-                <span className="ml-3 text-xs font-mono font-bold text-[var(--accent)] uppercase tracking-wider">
-                  Timeline
+                <span className="story-year-caption">
+                  Timeline / {activeStoryYear}
                 </span>
               </div>
             </div>
@@ -926,7 +931,7 @@ export default function HomePage() {
               <div
                 key={idx}
                 onMouseEnter={() => setActiveStoryYear(ch.year)}
-                className="relative group p-6 sm:p-8 rounded-3xl bg-[var(--surface)] border border-[var(--line)] hover:border-[var(--accent)] transition-all duration-300 shadow-sm"
+                className="story-chapter relative group p-6 sm:p-8 rounded-3xl border border-[var(--line)] hover:border-[var(--accent)] transition-all duration-300 shadow-sm"
               >
                 {/* Timeline Dot Indicator */}
                 <div
