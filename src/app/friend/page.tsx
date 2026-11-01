@@ -35,17 +35,17 @@ export default function FriendPage() {
   };
 
   return (
-    <div className="relative min-h-screen bg-white text-[#141C3A] font-sans overflow-x-hidden selection:bg-[#EBD8FF] selection:text-[#5600C7]">
+    <div className="relative min-h-screen bg-[var(--background)] text-[var(--foreground)] font-sans overflow-x-hidden selection:bg-[#C4B0B0] selection:text-[#1A1818] transition-colors duration-300">
       {/* ── Top Floating Switcher Bar ── */}
       <header className="fixed top-6 inset-x-0 z-50 flex justify-center px-4">
-        <div className="flex items-center gap-2 p-1.5 rounded-full bg-white/95 border border-[#E6ECF8] backdrop-blur-2xl shadow-xl shadow-purple-500/5">
+        <div className="flex items-center gap-2 p-1.5 rounded-full bg-[var(--chip-bg)] border border-[var(--chip-line)] backdrop-blur-2xl shadow-xl shadow-black/5">
           <Link
             href="/"
-            className="px-4 py-2 rounded-full text-xs font-mono font-bold text-[#5A6275] hover:text-[#141C3A] hover:bg-slate-100 transition-colors"
+            className="px-4 py-2 rounded-full text-xs font-mono font-bold text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--surface)] transition-colors"
           >
             ← Home
           </Link>
-          <div className="h-4 w-px bg-[#E6ECF8]" />
+          <div className="h-4 w-px bg-[var(--line)]" />
           {[
             { id: "all", label: "World", icon: Compass },
             { id: "desk", label: "Desk", icon: Laptop },
@@ -64,8 +64,8 @@ export default function FriendPage() {
                 }}
                 className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-mono font-bold transition-all cursor-pointer ${
                   isActive
-                    ? "bg-[#6E07F3] text-white shadow-xs"
-                    : "text-[#5A6275] hover:text-[#141C3A] hover:bg-slate-50"
+                    ? "bg-[var(--btn-bg)] text-[var(--btn-fg)] shadow-xs"
+                    : "text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--surface)]"
                 }`}
               >
                 <Icon className="w-3.5 h-3.5" />
@@ -90,55 +90,55 @@ export default function FriendPage() {
               transition={{ duration: 0.8 }}
               className="text-left max-w-[540px] mx-auto md:mx-0 w-full"
             >
-              <span className="inline-block px-4 py-1.5 rounded-full border border-purple-200 bg-purple-50 text-[#6E07F3] font-mono text-xs font-bold uppercase tracking-[0.2em] mb-6">
+              <span className="inline-block px-4 py-1.5 rounded-full border border-[var(--line)] bg-[var(--surface)] text-[var(--accent)] font-mono text-xs font-bold uppercase tracking-[0.2em] mb-6">
                 ARNAV / BEHIND THE CODE
               </span>
 
-              <h1 className="font-display font-black text-5xl sm:text-6xl md:text-7xl leading-tight text-[#141C3A] mb-6 tracking-tight">
+              <h1 className="font-display font-black text-5xl sm:text-6xl md:text-7xl leading-tight text-[var(--foreground)] mb-6 tracking-tight">
                 Beyond the <br />
-                <span className="text-[#6E07F3]">resume lines.</span>
+                <span className="text-[var(--accent)]">resume lines.</span>
               </h1>
 
-              <p className="font-sans text-xl sm:text-2xl text-[#5A6275] leading-relaxed max-w-lg mb-8 font-light">
+              <p className="font-sans text-xl sm:text-2xl text-[var(--muted)] leading-relaxed max-w-lg mb-8 font-normal">
                 A bit more about what I build, how I spend my time, and what keeps me curious.
               </p>
 
-              <div className="flex items-center gap-3 font-mono text-xs text-[#6E07F3] font-bold">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#6E07F3] animate-pulse" />
+              <div className="flex items-center gap-3 font-mono text-xs text-[var(--foreground)] font-bold">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
                 <span>STUDENT &amp; BUILDER</span>
               </div>
             </motion.div>
 
-            {/* Right Column: Profile Panel White Box */}
+            {/* Right Column: Profile Panel Box */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.15 }}
               className="flex items-center justify-center w-full"
             >
-              <div className="relative w-full max-w-[420px] rounded-3xl p-8 bg-white border border-[#E6ECF8] hover:border-[#6E07F3]/40 transition-all duration-300 shadow-xl flex flex-col justify-center overflow-hidden group">
-                <div className="flex justify-between items-center z-10 pb-6 border-b border-[#E6ECF8]">
-                  <span className="font-mono text-xs text-[#6E07F3] uppercase tracking-widest font-bold">
+              <div className="relative w-full max-w-[420px] rounded-3xl p-8 bg-[var(--surface)] border border-[var(--line)] hover:border-[var(--accent)] transition-all duration-300 shadow-xl flex flex-col justify-center overflow-hidden group">
+                <div className="flex justify-between items-center z-10 pb-6 border-b border-[var(--line)]">
+                  <span className="font-mono text-xs text-[var(--foreground)] uppercase tracking-widest font-bold">
                     ARNAV SINGH
                   </span>
-                  <span className="font-mono text-xs text-[#5A6275]">B.Tech CSE</span>
+                  <span className="font-mono text-xs text-[var(--muted)]">B.Tech CSE</span>
                 </div>
 
                 <div className="my-auto text-center py-8 z-10">
-                  <div className="w-24 h-24 rounded-2xl mx-auto mb-5 bg-purple-50 border border-purple-200 flex items-center justify-center text-4xl shadow-xs">
+                  <div className="w-24 h-24 rounded-2xl mx-auto mb-5 bg-[var(--surface-2)] border border-[var(--line)] flex items-center justify-center text-4xl shadow-xs">
                     ⚡
                   </div>
-                  <h3 className="font-display text-2xl sm:text-3xl font-extrabold text-[#141C3A] mb-2">
+                  <h3 className="font-display text-2xl sm:text-3xl font-extrabold text-[var(--foreground)] mb-2">
                     Student &amp; Builder
                   </h3>
-                  <p className="font-mono text-xs text-[#5A6275] leading-relaxed max-w-[280px] mx-auto">
+                  <p className="font-mono text-xs text-[var(--muted)] leading-relaxed max-w-[280px] mx-auto">
                     Late-Night Coding • Chess Matches • Masala Chai Devotee
                   </p>
                 </div>
 
-                <div className="pt-5 border-t border-[#E6ECF8] flex items-center justify-between text-xs font-mono text-[#5A6275] z-10">
+                <div className="pt-5 border-t border-[var(--line)] flex items-center justify-between text-xs font-mono text-[var(--muted)] z-10">
                   <span>LOCATION: LUCKNOW</span>
-                  <span className="text-[#6E07F3] font-bold">STATUS: PRACTICING ⚡</span>
+                  <span className="text-[var(--accent)] font-bold">STATUS: PRACTICING ⚡</span>
                 </div>
               </div>
             </motion.div>
@@ -155,13 +155,13 @@ export default function FriendPage() {
             transition={{ duration: 0.8 }}
             className="px-4"
           >
-            <span className="font-mono text-xs font-bold text-[#6E07F3] uppercase tracking-[0.3em] block mb-6">
+            <span className="font-mono text-xs font-bold text-[var(--accent)] uppercase tracking-[0.3em] block mb-6">
               PERSONAL APPROACH
             </span>
 
-            <h2 className="font-display font-black text-4xl sm:text-5xl md:text-6xl leading-[1.2] text-[#141C3A] tracking-tight">
+            <h2 className="font-display font-black text-4xl sm:text-5xl md:text-6xl leading-[1.2] text-[var(--foreground)] tracking-tight">
               I learn best by building practical things <br />
-              <span className="text-[#6E07F3]">
+              <span className="text-[var(--accent)]">
                 and understanding why they work.
               </span>
             </h2>
@@ -179,17 +179,17 @@ export default function FriendPage() {
               transition={{ duration: 0.8 }}
               className="text-left max-w-[540px] px-2"
             >
-              <span className="font-mono text-xs font-bold text-[#6E07F3] uppercase tracking-[0.25em] block mb-4">
+              <span className="font-mono text-xs font-bold text-[var(--accent)] uppercase tracking-[0.25em] block mb-4">
                 01 / BUILDING WHAT&apos;S USEFUL
               </span>
-              <h3 className="font-display text-4xl sm:text-5xl font-extrabold text-[#141C3A] mb-6 leading-tight">
+              <h3 className="font-display text-4xl sm:text-5xl font-extrabold text-[var(--foreground)] mb-6 leading-tight">
                 Solving problems I run into.
               </h3>
-              <p className="font-sans text-lg text-[#5A6275] leading-relaxed mb-6 font-light">
-                ATSCheck started when friends were trying to check how their resumes matched specific job descriptions without paying for subscriptions or uploading resumes to random third-party servers.
+              <p className="font-sans text-lg text-[var(--muted)] leading-relaxed mb-6 font-normal">
+                ATSCheck started when friends were trying to check how their resumes matched specific job descriptions without paying for subscriptions or uploading resumes to third-party servers.
               </p>
-              <p className="font-sans text-base text-slate-500 leading-relaxed">
-                Running everything in the browser via JavaScript and Web Workers proved to be a practical and fast approach.
+              <p className="font-sans text-base text-[var(--muted)] leading-relaxed">
+                Running everything in the browser via JavaScript and Web Workers proved to be a fast, privacy-first approach.
               </p>
             </motion.div>
 
@@ -201,25 +201,25 @@ export default function FriendPage() {
               transition={{ duration: 0.8 }}
               className="flex justify-center"
             >
-              <div className="p-8 rounded-3xl bg-white border border-[#E6ECF8] hover:border-[#6E07F3]/40 transition-all duration-300 shadow-xl w-full max-w-[420px] flex flex-col justify-center text-left">
+              <div className="p-8 rounded-3xl bg-[var(--surface)] border border-[var(--line)] hover:border-[var(--accent)] transition-all duration-300 shadow-xl w-full max-w-[420px] flex flex-col justify-center text-left">
                 <div className="py-2">
                   <div className="flex items-center gap-3 mb-4">
-                    <Sparkles className="w-6 h-6 text-[#6E07F3] shrink-0" />
-                    <h4 className="font-display text-2xl font-bold text-[#141C3A] tracking-tight">
+                    <Sparkles className="w-6 h-6 text-[var(--accent)] shrink-0" />
+                    <h4 className="font-display text-2xl font-bold text-[var(--foreground)] tracking-tight">
                       ATSCheck
                     </h4>
                   </div>
-                  <p className="font-sans text-sm text-[#5A6275] leading-relaxed font-light mb-6">
-                    A web utility for scanning resume keywords against job requirements directly on the client machine.
+                  <p className="font-sans text-sm text-[var(--muted)] leading-relaxed font-normal mb-6">
+                    A web utility for scanning resume keywords against job requirements directly on the client machine with 100% data privacy.
                   </p>
                 </div>
-                <div className="pt-4 border-t border-[#E6ECF8] flex items-center justify-between text-xs font-mono text-[#6E07F3] font-bold">
+                <div className="pt-4 border-t border-[var(--line)] flex items-center justify-between text-xs font-mono text-[var(--foreground)] font-bold">
                   <span>RUNS IN BROWSER</span>
                   <a
                     href="https://atscheck.tech/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:underline"
+                    className="hover:text-[var(--accent)] transition-colors"
                   >
                     LIVE APP ↗
                   </a>
@@ -241,19 +241,19 @@ export default function FriendPage() {
               transition={{ duration: 0.8 }}
               className="order-2 md:order-1 flex justify-center"
             >
-              <div className="p-8 rounded-3xl bg-white border border-[#E6ECF8] hover:border-[#6E07F3]/40 transition-all duration-300 shadow-xl w-full max-w-[420px] flex flex-col justify-center text-left">
+              <div className="p-8 rounded-3xl bg-[var(--surface)] border border-[var(--line)] hover:border-[var(--accent)] transition-all duration-300 shadow-xl w-full max-w-[420px] flex flex-col justify-center text-left">
                 <div className="py-2">
                   <div className="flex items-center gap-3 mb-4">
                     <span className="text-2xl shrink-0">☕ ♟ 🎧</span>
-                    <h4 className="font-display text-2xl font-bold text-[#141C3A] tracking-tight">
+                    <h4 className="font-display text-2xl font-bold text-[var(--foreground)] tracking-tight">
                       Daily Routine
                     </h4>
                   </div>
-                  <p className="font-sans text-sm text-[#5A6275] leading-relaxed font-light mb-6">
+                  <p className="font-sans text-sm text-[var(--muted)] leading-relaxed font-normal mb-6">
                     Cups of chai, quick blitz chess games to clear the mind, and soundtrack loops while grinding C++ problems late in the evening.
                   </p>
                 </div>
-                <div className="pt-4 border-t border-[#E6ECF8] flex items-center justify-between text-xs font-mono text-[#6E07F3] font-bold">
+                <div className="pt-4 border-t border-[var(--line)] flex items-center justify-between text-xs font-mono text-[var(--muted)] font-bold">
                   <span>STUDENT LIFE</span>
                   <span>CONSISTENT HABITS ☕</span>
                 </div>
@@ -267,14 +267,14 @@ export default function FriendPage() {
               transition={{ duration: 0.8 }}
               className="order-1 md:order-2 text-left max-w-[540px] px-2"
             >
-              <span className="font-mono text-xs font-bold text-[#6E07F3] uppercase tracking-[0.25em] block mb-4">
+              <span className="font-mono text-xs font-bold text-[var(--accent)] uppercase tracking-[0.25em] block mb-4">
                 02 / DAILY RHYTHM
               </span>
-              <h3 className="font-display text-4xl sm:text-5xl font-extrabold text-[#141C3A] mb-6 leading-tight">
+              <h3 className="font-display text-4xl sm:text-5xl font-extrabold text-[var(--foreground)] mb-6 leading-tight">
                 Consistent habits that build momentum.
               </h3>
-              <p className="font-sans text-lg text-[#5A6275] leading-relaxed font-light">
-                Progress doesn&apos;t come from sporadic all-nighters. It comes from showing up every day, writing a few clean functions, and learning one new pattern at a time.
+              <p className="font-sans text-lg text-[var(--muted)] leading-relaxed font-normal">
+                Progress doesn&apos;t come from sporadic all-nighters. It comes from showing up every day, writing clean code, and learning one pattern at a time.
               </p>
             </motion.div>
 
@@ -290,11 +290,11 @@ export default function FriendPage() {
             transition={{ duration: 0.8 }}
             className="px-4"
           >
-            <span className="font-mono text-xs font-bold text-[#6E07F3] uppercase tracking-[0.3em] block mb-8">
+            <span className="font-mono text-xs font-bold text-[var(--accent)] uppercase tracking-[0.3em] block mb-8">
               WHAT DRIVES ME
             </span>
 
-            <div className="space-y-6 font-display font-black text-4xl sm:text-5xl md:text-6xl tracking-tight leading-none text-slate-300">
+            <div className="space-y-6 font-display font-black text-4xl sm:text-5xl md:text-6xl tracking-tight leading-none text-[var(--muted)]">
               {[
                 "Practice consistently.",
                 "Keep interfaces clean.",
@@ -304,7 +304,7 @@ export default function FriendPage() {
                 <motion.div
                   key={idx}
                   whileHover={{ scale: 1.02 }}
-                  className="hover:text-[#6E07F3] transition-colors cursor-pointer"
+                  className="hover:text-[var(--foreground)] transition-colors cursor-pointer"
                 >
                   {val}
                 </motion.div>
@@ -322,10 +322,10 @@ export default function FriendPage() {
             transition={{ duration: 0.8 }}
             className="px-4"
           >
-            <span className="font-mono text-xs font-bold text-[#6E07F3] uppercase tracking-[0.3em] block mb-4">
+            <span className="font-mono text-xs font-bold text-[var(--accent)] uppercase tracking-[0.3em] block mb-4">
               GOALS &amp; MILESTONES
             </span>
-            <h2 className="font-display text-4xl sm:text-5xl font-extrabold text-[#141C3A] mb-12">
+            <h2 className="font-display text-4xl sm:text-5xl font-extrabold text-[var(--foreground)] mb-12">
               Current Goals
             </h2>
 
@@ -337,26 +337,26 @@ export default function FriendPage() {
                   onClick={() => toggleBucket(idx)}
                   className={`p-6 sm:px-8 sm:py-6 rounded-2xl border transition-all duration-300 cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-4 ${
                     item.done
-                      ? "bg-purple-50/70 border-purple-200 shadow-2xs"
-                      : "bg-white border-[#E6ECF8] hover:border-[#6E07F3]/40 shadow-sm"
+                      ? "bg-[var(--surface-2)] border-[var(--line)] shadow-2xs"
+                      : "bg-[var(--surface)] border-[var(--line)] hover:border-[var(--accent)] shadow-sm"
                   }`}
                 >
                   <div className="flex items-center gap-4 flex-1 min-w-0">
                     {item.done ? (
-                      <CheckCircle2 className="w-6 h-6 text-[#6E07F3] shrink-0" />
+                      <CheckCircle2 className="w-6 h-6 text-emerald-600 dark:text-emerald-400 shrink-0" />
                     ) : (
-                      <Circle className="w-6 h-6 text-slate-400 shrink-0" />
+                      <Circle className="w-6 h-6 text-[var(--muted)] shrink-0" />
                     )}
                     <span
                       className={`font-sans text-base sm:text-lg font-medium leading-relaxed ${
-                        item.done ? "line-through text-slate-400" : "text-[#141C3A]"
+                        item.done ? "line-through text-[var(--muted)]" : "text-[var(--foreground)]"
                       }`}
                     >
                       {item.title}
                     </span>
                   </div>
                   {item.done && (
-                    <span className="font-mono text-xs font-bold text-[#6E07F3] uppercase tracking-wider shrink-0 self-start sm:self-center">
+                    <span className="font-mono text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider shrink-0 self-start sm:self-center">
                       ✓ ACHIEVED
                     </span>
                   )}
@@ -373,30 +373,30 @@ export default function FriendPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="p-8 sm:p-10 rounded-3xl bg-white border border-[#E6ECF8] hover:border-[#6E07F3]/40 transition-all duration-300 shadow-xl max-w-xl mx-auto text-left"
+            className="p-8 sm:p-10 rounded-3xl bg-[var(--surface)] border border-[var(--line)] hover:border-[var(--accent)] transition-all duration-300 shadow-xl max-w-xl mx-auto text-left"
           >
             <div className="flex items-center gap-5 mb-6">
-              <div className="w-16 h-16 rounded-2xl bg-purple-50 border border-purple-200 flex items-center justify-center text-3xl shadow-xs">
+              <div className="w-16 h-16 rounded-2xl bg-[var(--surface-2)] border border-[var(--line)] flex items-center justify-center text-3xl shadow-xs">
                 🎻
               </div>
               <div>
-                <h4 className="font-display font-bold text-2xl text-[#141C3A]">
+                <h4 className="font-display font-bold text-2xl text-[var(--foreground)]">
                   Fairytale &amp; Study Beats
                 </h4>
-                <p className="font-mono text-xs text-[#5A6275] mt-1">
-                  Alexander Rybak • Lo-Fi Coding • Acoustic Flow
+                <p className="font-mono text-xs text-[var(--muted)] mt-1">
+                  Alexander Rybak • Talwiinder • Lo-Fi Coding
                 </p>
               </div>
             </div>
 
-            <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden mb-4">
+            <div className="w-full bg-[var(--surface-2)] h-2 rounded-full overflow-hidden mb-4">
               <div
-                className="h-full bg-[#6E07F3] transition-all duration-300"
+                className="h-full bg-[var(--accent)] transition-all duration-300"
                 style={{ width: isPlaying ? "72%" : "30%" }}
               />
             </div>
 
-            <div className="flex justify-between text-xs font-mono text-[#5A6275] mb-8 px-1">
+            <div className="flex justify-between text-xs font-mono text-[var(--muted)] mb-8 px-1">
               <span>Fairytale (Active Loop)</span>
               <span>3:03</span>
             </div>
@@ -404,7 +404,7 @@ export default function FriendPage() {
             <div className="flex items-center justify-center">
               <button
                 onClick={() => setIsPlaying(!isPlaying)}
-                className="w-16 h-16 rounded-full bg-[#6E07F3] hover:bg-[#5600c7] text-white flex items-center justify-center shadow-lg shadow-purple-500/25 transition-transform hover:scale-105 cursor-pointer"
+                className="w-16 h-16 rounded-full bg-[var(--btn-bg)] text-[var(--btn-fg)] flex items-center justify-center shadow-lg transition-transform hover:scale-105 cursor-pointer"
               >
                 {isPlaying ? <Pause className="w-7 h-7" /> : <Play className="w-7 h-7 ml-1" />}
               </button>
@@ -421,20 +421,20 @@ export default function FriendPage() {
             transition={{ duration: 0.8 }}
             className="space-y-6 px-4"
           >
-            <Heart className="w-14 h-14 text-[#6E07F3] mx-auto animate-pulse" />
+            <Heart className="w-14 h-14 text-[var(--accent)] mx-auto animate-pulse" />
             
-            <h2 className="font-display font-black text-4xl sm:text-6xl text-[#141C3A] tracking-tight leading-tight">
+            <h2 className="font-display font-black text-4xl sm:text-6xl text-[var(--foreground)] tracking-tight leading-tight">
               Thanks for stopping by.
             </h2>
 
-            <p className="font-sans text-xl sm:text-2xl text-[#6E07F3] font-medium">
+            <p className="font-sans text-xl sm:text-2xl text-[var(--muted)] font-normal">
               Always open to connecting with fellow builders.
             </p>
 
             <div className="pt-8 flex justify-center">
               <Link
                 href="/"
-                className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[#6E07F3] text-white font-mono text-xs font-bold uppercase tracking-wider hover:bg-[#5600c7] transition-all shadow-md shadow-purple-500/20 hover:scale-105"
+                className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[var(--btn-bg)] text-[var(--btn-fg)] font-mono text-xs font-bold uppercase tracking-wider hover:opacity-90 transition-all shadow-md hover:scale-105"
               >
                 Back to Home <ArrowRight className="w-4 h-4" />
               </Link>

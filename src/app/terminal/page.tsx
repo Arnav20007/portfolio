@@ -12,9 +12,9 @@ interface Line {
 
 export default function TerminalPage() {
   const [history, setHistory] = useState<Line[]>([
-    { type: "system", text: "Arnav's portfolio terminal" },
-    { type: "system", text: "Welcome. Use a command below to explore the portfolio." },
-    { type: "system", text: 'Type "help" to see the available commands.' },
+    { type: "system", text: "Arnav Singh — Portfolio Interactive CLI Terminal" },
+    { type: "system", text: "Welcome. Use the commands below to navigate the portfolio." },
+    { type: "system", text: 'Type "help" to see all available commands.' },
     { type: "system", text: "─────────────────────────────────────────────────────────────" },
   ]);
   const [input, setInput] = useState("");
@@ -42,7 +42,7 @@ export default function TerminalPage() {
 
     if (cmd === "clear") {
       setHistory([
-        { type: "system", text: 'Terminal cleared. Type "help" to see the commands.' },
+        { type: "system", text: 'Terminal cleared. Type "help" to see commands.' },
       ]);
       return;
     }
@@ -60,8 +60,8 @@ export default function TerminalPage() {
     } else {
       setHistory((h) => [
         ...h,
-        { type: "output", text: `I don't know the command "${cmd}".` },
-        { type: "output", text: 'Type "help" to see the available commands.' },
+        { type: "output", text: `Command not recognized: "${cmd}".` },
+        { type: "output", text: 'Type "help" to see available commands.' },
       ]);
     }
   };
@@ -84,36 +84,36 @@ export default function TerminalPage() {
 
   return (
     <div
-      className="relative min-h-screen bg-white text-[#141C3A] font-mono flex flex-col items-center justify-center p-4 sm:p-8 selection:bg-[#EBD8FF] selection:text-[#5600C7]"
+      className="relative min-h-screen bg-[var(--background)] text-[var(--foreground)] font-mono flex flex-col items-center justify-center p-4 sm:p-8 selection:bg-[#C4B0B0] selection:text-[#1A1818] transition-colors duration-300"
       onClick={() => inputRef.current?.focus()}
     >
       {/* ── Top Back Button ── */}
       <header className="fixed top-6 left-6 z-50">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-[#E6ECF8] hover:border-[#6E07F3] text-xs font-mono font-bold text-[#141C3A] hover:text-[#6E07F3] shadow-md transition-all"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[var(--chip-bg)] border border-[var(--chip-line)] hover:border-[var(--accent)] text-xs font-mono font-bold text-[var(--foreground)] shadow-md transition-all backdrop-blur-xl"
         >
-          <ArrowLeft className="w-4 h-4 text-[#6E07F3]" />
+          <ArrowLeft className="w-4 h-4 text-[var(--accent)]" />
           <span>Back to portfolio</span>
         </Link>
       </header>
 
       {/* ── Main Terminal Window ── */}
-      <div className="relative z-10 w-full max-w-4xl rounded-3xl bg-slate-950 border border-slate-800 shadow-2xl overflow-hidden flex flex-col text-slate-100">
+      <div className="relative z-10 w-full max-w-4xl rounded-3xl bg-[#141212] border border-white/10 shadow-2xl overflow-hidden flex flex-col text-stone-200">
         
         {/* Title Bar */}
-        <div className="px-6 py-4 bg-slate-900 border-b border-slate-800 flex items-center justify-between">
+        <div className="px-6 py-4 bg-[#1C1919] border-b border-white/5 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="w-3.5 h-3.5 rounded-full bg-[#EF4444]" />
-            <div className="w-3.5 h-3.5 rounded-full bg-[#F59E0B]" />
-            <div className="w-3.5 h-3.5 rounded-full bg-[#10B981]" />
-            <span className="ml-3 text-xs font-mono font-bold text-slate-400">
-              arnav@portfolio:~ (zsh)
+            <div className="w-3 h-3 rounded-full bg-[#EF4444]" />
+            <div className="w-3 h-3 rounded-full bg-[#F59E0B]" />
+            <div className="w-3 h-3 rounded-full bg-[#10B981]" />
+            <span className="ml-3 text-xs font-mono font-bold text-stone-400">
+              arnav@bbdu-cse:~ (zsh)
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#6E07F3] animate-pulse" />
-            <span className="text-[10px] font-mono text-[#A78BFA] font-bold">READY</span>
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="text-[10px] font-mono text-emerald-400 font-bold">ONLINE</span>
           </div>
         </div>
 
@@ -124,20 +124,20 @@ export default function TerminalPage() {
               key={idx}
               className={`${
                 line.type === "prompt"
-                  ? "text-[#A78BFA] font-bold flex items-center gap-2"
+                  ? "text-amber-300 font-bold flex items-center gap-2"
                   : line.type === "system"
-                  ? "text-slate-400 font-medium"
-                  : "text-slate-200"
+                  ? "text-stone-400 font-medium"
+                  : "text-stone-300"
               }`}
             >
-              {line.type === "prompt" && <span className="text-[#6E07F3] font-black">›</span>}
+              {line.type === "prompt" && <span className="text-amber-400 font-black">›</span>}
               <span>{line.text}</span>
             </div>
           ))}
 
           {/* Prompt line */}
-          <div className="flex items-center gap-2 text-[#A78BFA] font-bold pt-1">
-            <span className="text-[#6E07F3] font-black">›</span>
+          <div className="flex items-center gap-2 text-amber-300 font-bold pt-1">
+            <span className="text-amber-400 font-black">›</span>
             <span>$</span>
             <input
               ref={inputRef}
@@ -145,7 +145,7 @@ export default function TerminalPage() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={onKey}
-              className="flex-1 bg-transparent outline-none text-white font-mono text-xs sm:text-sm caret-[#6E07F3]"
+              className="flex-1 bg-transparent outline-none text-white font-mono text-xs sm:text-sm caret-amber-400"
               autoFocus
             />
           </div>
@@ -153,22 +153,22 @@ export default function TerminalPage() {
         </div>
 
         {/* Quick Command Pills */}
-        <div className="px-6 py-4 bg-slate-900/90 border-t border-slate-800 flex flex-wrap items-center gap-2 text-xs">
-          <span className="text-[11px] font-mono text-slate-400 mr-1 flex items-center gap-1">
-            <Sparkles className="w-3 h-3 text-[#6E07F3]" /> Quick:
+        <div className="px-6 py-4 bg-[#181616] border-t border-white/5 flex flex-wrap items-center gap-2 text-xs">
+          <span className="text-[11px] font-mono text-stone-400 mr-1 flex items-center gap-1">
+            <Sparkles className="w-3 h-3 text-amber-400" /> Quick:
           </span>
           {quickCommands.map((c) => (
             <button
               key={c}
               onClick={() => executeCmd(c)}
-              className="px-3 py-1 rounded-full bg-slate-800 hover:bg-[#6E07F3] text-slate-300 hover:text-white font-mono text-xs transition-colors cursor-pointer"
+              className="px-3 py-1 rounded-full bg-white/5 hover:bg-white/15 text-stone-300 hover:text-white font-mono text-xs transition-colors cursor-pointer border border-white/5"
             >
               {c}
             </button>
           ))}
-          <div className="ml-auto hidden sm:flex items-center gap-1 text-[11px] font-mono text-slate-500">
+          <div className="ml-auto hidden sm:flex items-center gap-1 text-[11px] font-mono text-stone-500">
             <span>Press</span>
-            <span className="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">Enter</span>
+            <span className="px-1.5 py-0.5 rounded bg-white/10 text-stone-300 border border-white/10">Enter</span>
             <CornerDownLeft className="w-3 h-3" />
           </div>
         </div>

@@ -469,22 +469,6 @@ export default function HomePage() {
           3. "MAGIC HAPPENS BEHIND THE DOORS" (therishithakor.com Arched 3D Doors)
       ═══════════════════════════════════════════════════════════════ */}
       <section id="works" className="relative py-28 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto overflow-hidden">
-        {/* Ceiling Hanging Pull Cord (Top-Right) */}
-        <div
-          className="pull-cord group"
-          onClick={toggleDarkMode}
-          title={isDark ? "Pull cord to switch to Day mode" : "Pull cord to switch to Night mode"}
-          role="button"
-          tabIndex={0}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") toggleDarkMode();
-          }}
-          aria-label="Pull cord to toggle lighting"
-        >
-          <div className="cord-line" />
-          <div className="cord-acorn" />
-        </div>
-
         {/* Section Heading */}
         <div className="text-center max-w-3xl mx-auto mb-16 relative z-10">
           <h2 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-[var(--foreground)] tracking-tight font-display">
@@ -819,11 +803,6 @@ export default function HomePage() {
                   <a href="mailto:arnavsinghas1221@gmail.com" className="hover:text-[var(--foreground)] transition-colors">
                     arnavsinghas1221@gmail.com
                   </a>
-                </li>
-                <li>
-                  <span className="text-[10px] text-[var(--muted)] block pt-2">
-                    Minimalist stone & charcoal architecture inspired by therishithakor.com
-                  </span>
                 </li>
               </ul>
             </div>

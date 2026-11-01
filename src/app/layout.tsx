@@ -4,6 +4,7 @@ import "./globals.css";
 import KonamiEasterEgg from "@/components/global/KonamiEasterEgg";
 import AIChatbot from "@/components/global/AIChatbot";
 import MusicToggle from "@/components/global/MusicToggle";
+import LightPullRope from "@/components/global/LightPullRope";
 
 export const metadata: Metadata = {
   title: "Arnav Singh | CS Student, Full-Stack Developer & Builder",
@@ -34,6 +35,7 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans antialiased bg-[var(--background)] text-[var(--foreground)] selection:bg-[#C4B0B0] selection:text-[#1A1818] transition-colors duration-300">
+        <LightPullRope />
         <KonamiEasterEgg />
         {children}
         <AIChatbot />

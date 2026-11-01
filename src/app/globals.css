@@ -163,7 +163,7 @@ html[data-mode="dark"] .cal-page-base {
   position: relative;
   container-type: inline-size;
   width: 100%;
-  max-width: 20rem;
+  max-width: 17.5rem;
   margin-inline: auto;
 }
 
@@ -171,7 +171,7 @@ html[data-mode="dark"] .cal-page-base {
   position: relative;
   display: block;
   width: 100%;
-  aspect-ratio: 1 / 2.22;
+  aspect-ratio: 1 / 2.28;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   border-radius: 50cqi 50cqi 0 0;
@@ -196,13 +196,13 @@ html[data-mode="dark"] .cal-page-base {
   background:
     linear-gradient(90deg, rgba(0,0,0,.08), rgba(255,255,255,.24) 3cqi, transparent 6cqi, transparent calc(100% - 6cqi), rgba(0,0,0,.06) calc(100% - 3cqi), rgba(0,0,0,.14)),
     linear-gradient(180deg, rgba(255,255,255,.38), transparent 30%),
-    var(--casing, #F2EFEC);
+    var(--casing, #EFECE6);
   box-shadow:
-    inset 0 0 0 1.2cqi rgba(255,255,255,.34),
+    inset 0 0 0 1.2cqi rgba(255,255,255,.5),
     inset 0 0 0 1.6cqi rgba(0,0,0,.08),
-    inset 0 0 0 3.8cqi rgba(255,255,255,.14),
-    inset 0 0 0 4.4cqi rgba(0,0,0,.1),
-    0 0 0 1px rgba(0,0,0,.07),
+    inset 0 0 0 3.8cqi rgba(255,255,255,.2),
+    inset 0 0 0 4.4cqi rgba(0,0,0,.12),
+    0 0 0 1px rgba(0,0,0,.08),
     2cqi 3.5cqi 6cqi rgba(26,24,24,.18),
     -1cqi 1cqi 3cqi rgba(26,24,24,.08);
 }
@@ -462,36 +462,129 @@ html[data-mode="dark"] .casing {
   opacity: 1;
 }
 
-/* Ceiling Hanging Pull Cord */
-.pull-cord {
-  position: absolute;
+/* ═══════════════════════════════════════════════════════════════
+   CEILING HANGING LIGHT PULL ROPE (therishithakor.com Realistic)
+═══════════════════════════════════════════════════════════════ */
+.pull-cord-fixed {
+  position: fixed;
   top: 0;
-  right: 2.5rem;
+  right: clamp(1.2rem, 4.5vw, 4rem);
   display: flex;
   flex-direction: column;
   align-items: center;
-  z-index: 20;
+  z-index: 70;
   cursor: pointer;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transform-origin: top center;
+  animation: cordGentleSway 6s ease-in-out infinite alternate;
 }
 
-.pull-cord:hover {
-  transform: translateY(12px);
+@keyframes cordGentleSway {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(0.8deg); }
+  100% { transform: rotate(-0.8deg); }
 }
 
-.cord-line {
-  width: 2px;
-  height: 120px;
-  background: repeating-linear-gradient(180deg, #bfa892 0 4px, #8d7764 4px 8px);
-  box-shadow: 1px 0 2px rgba(0, 0, 0, 0.15);
+.pull-cord-fixed:hover {
+  animation: none;
+  transform: translateY(6px);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.cord-acorn {
-  width: 18px;
-  height: 32px;
-  border-radius: 9px 9px 16px 16px;
-  background: radial-gradient(circle at 35% 30%, #a46d48 0%, #683e24 70%, #3e2212 100%);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+.pull-cord-fixed.pulling {
+  animation: none;
+  transform: translateY(28px) scale(0.98);
+  transition: transform 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cord-ceiling-mount {
+  width: 14px;
+  height: 6px;
+  border-radius: 0 0 7px 7px;
+  background: radial-gradient(circle at 50% 100%, #ffe6a3 0%, #b8934c 60%, #5d4219 100%);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
+}
+
+.cord-line-braided {
+  width: 2.5px;
+  height: clamp(130px, 18vh, 190px);
+  background: repeating-linear-gradient(
+    180deg,
+    #e8d7c2 0px,
+    #d1b898 3px,
+    #9c7c59 5px,
+    #694e35 7px,
+    #d1b898 9px
+  );
+  box-shadow: 1px 0 3px rgba(0, 0, 0, 0.25);
+  transition: height 0.15s ease-out;
+}
+
+.cord-ring {
+  width: 10px;
+  height: 5px;
+  border-radius: 3px;
+  background: radial-gradient(circle at 35% 30%, #fff2cf 0%, #c9a45b 50%, #6e4e1f 100%);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.cord-acorn-wooden {
+  position: relative;
+  width: 22px;
+  height: 38px;
+  margin-top: 1px;
+  border-radius: 11px 11px 18px 18px;
+  background: radial-gradient(circle at 32% 28%, #b87e52 0%, #7d4e2d 55%, #3d2111 100%);
+  box-shadow:
+    0 10px 20px -3px rgba(0, 0, 0, 0.45),
+    0 4px 8px rgba(0, 0, 0, 0.25),
+    inset 0 1px 2px rgba(255, 255, 255, 0.4),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.6);
+  transition: transform 0.2s ease;
+}
+
+.cord-acorn-wooden::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 3px;
+  right: 3px;
+  height: 6px;
+  border-radius: 4px;
+  background: radial-gradient(ellipse at 50% 0%, #f6dc9c 0%, #aa803c 70%);
+  opacity: 0.85;
+}
+
+.pull-cord-tooltip {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 50%;
+  transform: translateX(50%);
+  white-space: nowrap;
+  font-family: var(--font-jetbrains-mono, monospace);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 4px 8px;
+  border-radius: 9999px;
+  background: rgba(26, 24, 24, 0.9);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+html[data-mode="dark"] .pull-cord-tooltip {
+  background: rgba(240, 237, 230, 0.95);
+  color: #1a1818;
+}
+
+.pull-cord-fixed:hover .pull-cord-tooltip {
+  opacity: 1;
 }
 
 /* ═══════════════════════════════════════════════════════════════
