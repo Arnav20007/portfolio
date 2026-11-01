@@ -224,34 +224,68 @@ const DOORS: DoorData[] = [
 ];
 
 /* ── STORY CHAPTERS FOR ROLLING TIMELINE ─────────────────────── */
-const STORY_CHAPTERS = [
+interface StoryChapter {
+  year: string;
+  period: string;
+  role: string;
+  org: string;
+  bullets: string[];
+}
+
+const STORY_CHAPTERS: StoryChapter[] = [
   {
     year: "2026",
-    period: "Current",
-    role: "Personal Projects & Internship Search",
-    desc: "Building and improving web projects while looking for a software engineering internship where I can learn and contribute.",
-    tags: ["C++", "Next.js", "ATSCheck", "Web Workers", "Internship"],
+    period: "Oct 2026 — Present",
+    role: "Independent Software Builder & Web Utilities",
+    org: "atscheck.tech & Client-Side Tools",
+    bullets: [
+      "Engineered ATSCheck on its dedicated domain (atscheck.tech) with client-side Web Workers, zero server uploads, and local privacy.",
+      "Architected PDFlex for multi-threaded in-browser PDF manipulation and memory-efficient page compilation.",
+      "Actively seeking software engineering internship opportunities to contribute production code.",
+    ],
   },
   {
     year: "2026",
-    period: "Current · 5th Semester",
+    period: "Jul 2026 — Sep 2026",
     role: "B.Tech Computer Science & Engineering",
-    desc: "I’m studying B.Tech CSE at Babu Banarasi Das University in Lucknow. My current CGPA is 8.0/10, and my coursework includes OS, DBMS, Computer Networks, and Software Engineering.",
-    tags: ["BBDU Lucknow", "8.0 CGPA", "Computer Science", "CSE Core"],
+    org: "Babu Banarasi Das University, Lucknow · 5th Semester",
+    bullets: [
+      "Maintained an 8.0 / 10 CGPA through 5 semesters of rigorous undergraduate computer science coursework.",
+      "Core curriculum: Operating Systems, Database Management Systems (DBMS), Computer Networks, and OOP.",
+      "Hands-on coursework in database indexing, relational schemas, and Unix environment diagnostics.",
+    ],
   },
   {
     year: "2025",
-    period: "Jan 2025 — Sep 2025",
-    role: "Full-Stack Projects & Hackathons",
-    desc: "Built MoodMate during a hackathon with Next.js and a Python Flask backend. Developed FinanceCalc for SIP and EMI forecasting with interactive Chart.js visualizations.",
-    tags: ["React", "Python Flask", "FinanceCalc", "PostgreSQL", "REST APIs"],
+    period: "Jan 2025 — Jun 2025",
+    role: "Full-Stack Engineer & Hackathons",
+    org: "FinanceCalc & University Hackathons",
+    bullets: [
+      "Built MoodMate backend during a university hackathon using Python Flask REST APIs and prompt engineering.",
+      "Engineered FinanceCalc for interactive compounding curves, SIP forecasting, and loan amortization with Chart.js.",
+      "Developed modular data layers with Next.js 14, PostgreSQL database, and Prisma ORM.",
+    ],
   },
   {
     year: "2024",
     period: "Jan 2024 — Dec 2024",
-    role: "C++ & Data Structures Practice",
-    desc: "Practised trees, graphs, recursion, and dynamic programming in C++ alongside university coursework.",
-    tags: ["C++", "DSA", "Algorithms", "OOP", "Problem Solving"],
+    role: "C++ Algorithmic Core & Problem Solving",
+    org: "Daily Problem Solving & Data Structures",
+    bullets: [
+      "Practiced algorithmic problem solving covering binary trees, graphs (BFS/DFS), and dynamic programming in C++.",
+      "Built strong command over memory pointers, time/space complexity optimization, and the C++ STL.",
+      "Developed in-browser Unix CLI shell (/terminal) to showcase command-line interaction and systems thinking.",
+    ],
+  },
+  {
+    year: "2022",
+    period: "Jul 2022 — Dec 2023",
+    role: "Engineering Coursework Inception",
+    org: "BBDU Lucknow, Uttar Pradesh",
+    bullets: [
+      "Began Bachelor of Technology degree in Computer Science and Engineering.",
+      "Started core programming foundations in C and C++, focusing on memory layout, functions, and structured problem solving.",
+    ],
   },
 ];
 
@@ -460,8 +494,8 @@ export default function HomePage() {
     }
   };
 
-  /* ── Rolling Story Year State ── */
-  const [activeStoryYear, setActiveStoryYear] = useState("2026");
+  /* ── Rolling Story Chapter Index State ── */
+  const [activeStoryIdx, setActiveStoryIdx] = useState(0);
 
   return (
     <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)] selection:bg-[#C4B0B0] selection:text-[#1A1818] font-sans antialiased transition-colors duration-400">
@@ -470,8 +504,8 @@ export default function HomePage() {
           1. HEADER / NAVIGATION (Pill Bar with Live Clock & Mode Switch)
       ═══════════════════════════════════════════════════════════════ */}
       <header className="fixed top-0 inset-x-0 z-50 transition-all duration-300">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-3 pb-1">
-          <div className="flex items-center justify-between gap-2 p-1.5 rounded-full bg-[var(--chip-bg)] backdrop-blur-xl border border-[var(--chip-line)] shadow-lg shadow-black/5">
+        <div className="max-w-7xl mx-auto px-4 pr-12 sm:px-6 sm:pr-6 lg:px-8 pt-3 pb-1">
+          <div className="flex items-center justify-between gap-2 p-1.5 rounded-2xl sm:rounded-full bg-[var(--chip-bg)] backdrop-blur-xl border border-[var(--chip-line)] shadow-lg shadow-black/5">
             {/* Left Brand Badge */}
             <Link
               href="#home"
@@ -512,7 +546,7 @@ export default function HomePage() {
               <button
                 onClick={toggleDarkMode}
                 aria-label="Toggle theme mode"
-                className="flex items-center justify-center h-9 w-9 rounded-full bg-[var(--surface)] border border-[var(--line)] text-[var(--foreground)] hover:scale-105 active:scale-95 transition-all cursor-pointer shrink-0"
+                className="flex items-center justify-center h-10 w-10 sm:h-9 sm:w-9 rounded-full bg-[var(--surface)] border border-[var(--line)] text-[var(--foreground)] hover:scale-105 active:scale-95 transition-all cursor-pointer shrink-0"
                 title={isDark ? "Switch to Warm Stone Mode" : "Switch to Charcoal Dark Mode"}
               >
                 {isDark ? <Sun className="w-4 h-4 text-amber-300" /> : <Moon className="w-4 h-4 text-slate-700" />}
@@ -521,13 +555,27 @@ export default function HomePage() {
               {/* Start a project / Contact Pill */}
               <a
                 href="mailto:arnavsinghas1221@gmail.com"
-                className="flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-[var(--btn-bg)] text-[var(--btn-fg)] text-[13px] font-semibold hover:opacity-90 transition-opacity shadow-sm whitespace-nowrap shrink-0"
+                aria-label="Say hello to Arnav"
+                className="flex items-center gap-1.5 px-2.5 sm:px-3.5 py-2 rounded-full bg-[var(--btn-bg)] text-[var(--btn-fg)] text-[13px] font-semibold hover:opacity-90 transition-opacity shadow-sm whitespace-nowrap shrink-0"
               >
-                <span>Say Hello</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Say Hello</span>
+                <Mail className="w-3.5 h-3.5 sm:hidden" />
+                <ArrowRight className="hidden sm:block w-3.5 h-3.5" />
               </a>
             </div>
           </div>
+          <nav aria-label="Mobile navigation" className="md:hidden mt-2 flex items-center justify-around gap-1 rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)]/95 px-1 py-1 backdrop-blur-xl shadow-sm">
+            {[
+              { label: "Home", href: "#home" },
+              { label: "Works", href: "#works" },
+              { label: "Story", href: "#about" },
+              { label: "Contact", href: "#contact" },
+            ].map((item) => (
+              <Link key={item.label} href={item.href} className="flex-1 rounded-full px-2 py-2 text-center text-xs font-medium text-[var(--foreground)] hover:bg-[var(--surface)] transition-colors">
+                {item.label}
+              </Link>
+            ))}
+          </nav>
         </div>
       </header>
 
@@ -559,15 +607,15 @@ export default function HomePage() {
               <span className="block text-[var(--muted)] font-normal mt-1">I am a</span>
               
               {/* 3D DESK-CALENDAR COMPONENT */}
-              <div className="mt-3 block">
-                <div className="cal-wrapper">
+              <div className="mt-3 block w-full max-w-[calc(100vw-2rem)]">
+                <div className="cal-wrapper max-w-full">
                   <div className="cal-body">
                     {/* Stand base */}
                     <div className="cal-stand" />
 
                     {/* Flipping Page */}
                     <div
-                      className={`relative z-10 px-5 py-3 sm:px-7 sm:py-4 cal-page-base flex items-center justify-between gap-6 transition-transform duration-200 ease-out ${
+                      className={`relative z-10 px-3 py-3 sm:px-7 sm:py-4 cal-page-base flex items-center justify-between gap-2 sm:gap-6 transition-transform duration-200 ease-out ${
                         isFlipping ? "translate-y-0.5 scale-[0.995]" : "translate-y-0 scale-100"
                       }`}
                     >
@@ -581,12 +629,12 @@ export default function HomePage() {
                       </div>
 
                       {/* Calendar Word */}
-                      <span className="pt-2 text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-[var(--ink)] font-display whitespace-nowrap">
+                      <span className="pt-2 text-xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-[var(--ink)] font-display whitespace-nowrap">
                         {CAL_SKILLS[calIndex].title}
                       </span>
 
                       {/* Calendar Index */}
-                      <span className="pt-2 text-xs sm:text-sm font-mono font-bold text-[var(--muted)]">
+                      <span className="pt-2 text-[10px] sm:text-sm font-mono font-bold text-[var(--muted)] whitespace-nowrap">
                         {CAL_SKILLS[calIndex].no} / 05
                       </span>
                     </div>
@@ -707,7 +755,7 @@ export default function HomePage() {
               </div>
 
               {/* Card Footer */}
-              <div className="mt-6 pt-4 border-t border-[var(--line)] flex items-center justify-between text-[11px] font-mono text-[var(--muted)]">
+              <div className="mt-6 pt-4 border-t border-[var(--line)] flex flex-col items-start gap-2 text-[11px] font-mono text-[var(--muted)] sm:flex-row sm:items-center sm:justify-between">
                 <span>Lucknow, India (IST)</span>
                 <span className="text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
@@ -962,81 +1010,142 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════════════
-          4. "MY STORY: LET'S GO BACK IN TIME" (Rolling Timeline & Odometer)
+          4. "MY STORY: LET'S GO BACK IN TIME" (therishithakor.com Match)
       ═══════════════════════════════════════════════════════════════ */}
-      <section id="about" className="story-section py-24 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto border-t border-[var(--line)]">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          {/* Left Column: Sticky Story Title & Rolling Year Odometer */}
-          <div className="lg:col-span-5 lg:sticky lg:top-28 space-y-4">
-            <p className="text-xs font-mono uppercase tracking-[0.25em] text-[var(--accent)] font-bold">
-              JOURNEY CHRONICLE
+      <section id="about" className="relative py-28 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto border-t border-[var(--line)] overflow-hidden">
+        {/* Soft Ambient Diffused Lighting Blooms matching therishithakor.com */}
+        <div className="story-ambient-glow" aria-hidden="true">
+          <div className="story-amb-blob story-amb-top" />
+          <div className="story-amb-blob story-amb-bottom" />
+        </div>
+
+        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+          {/* Left Column: Sticky Astronomical Dial, Giant Year & Progress Meter */}
+          <div className="lg:col-span-5 lg:sticky lg:top-32 space-y-4">
+            <p className="text-xs font-mono font-semibold uppercase tracking-[0.2em] text-[var(--accent)]">
+              · My story
             </p>
             <h2 className="text-4xl sm:text-5xl font-extrabold text-[var(--foreground)] tracking-tight font-display">
               Let’s go back in time.
             </h2>
-            <p className="text-sm sm:text-base text-[var(--muted)] font-normal leading-relaxed">
-              From starting engineering coursework at BBDU to building client-side tools and solving algorithms in C++.
-            </p>
 
-            {/* Rolling Year Odometer Display */}
-            <div className="pt-6">
-              <div className="story-year-display">
-                <span className="story-year-value">
-                  {activeStoryYear}
-                </span>
-                <span className="story-year-caption">
-                  Timeline / {activeStoryYear}
-                </span>
+            {/* Astronomical Dial with Concentric Circles & Radial Ticks */}
+            <div className="relative pt-6 pb-2">
+              <svg
+                className="absolute -left-12 -top-12 w-80 h-80 sm:w-96 sm:h-96 pointer-events-none opacity-25 dark:opacity-20 text-[var(--foreground)]"
+                viewBox="0 0 400 400"
+                fill="none"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <circle cx="200" cy="200" r="185" strokeWidth="1" strokeDasharray="3 6" />
+                <circle cx="200" cy="200" r="145" strokeWidth="0.8" strokeOpacity="0.4" />
+                <circle cx="200" cy="200" r="105" strokeWidth="0.8" strokeDasharray="2 4" />
+                {Array.from({ length: 36 }).map((_, i) => (
+                  <line
+                    key={i}
+                    x1="200"
+                    y1="15"
+                    x2="200"
+                    y2={i % 3 === 0 ? "35" : "25"}
+                    strokeWidth={i % 3 === 0 ? "1.5" : "0.75"}
+                    strokeOpacity={i % 3 === 0 ? "0.8" : "0.4"}
+                    transform={`rotate(${i * 10} 200 200)`}
+                  />
+                ))}
+              </svg>
+
+              {/* Massive Crisp Year Typography - Clean digits, zero eyeball icons */}
+              <div className="relative z-10 text-[clamp(5.5rem,11.5vw,10.5rem)] font-extrabold tracking-[-0.06em] leading-[0.92] text-[var(--foreground)] font-display select-none transition-all duration-300">
+                {STORY_CHAPTERS[activeStoryIdx].year}
+              </div>
+
+              {/* Active Period String */}
+              <p className="relative z-10 text-xs font-mono font-semibold uppercase tracking-[0.12em] text-[var(--accent)] mt-3">
+                {STORY_CHAPTERS[activeStoryIdx].period}
+              </p>
+
+              {/* Horizontal Progress Meter (01 / 05) with Rewind/Clock Icon */}
+              <div className="relative z-10 flex items-center gap-2.5 mt-5 text-xs font-mono font-semibold text-[var(--foreground)]">
+                <svg
+                  className="w-4 h-4 text-[var(--muted)] shrink-0"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M3 12a9 9 0 1 0 3-6.7" />
+                  <path d="M3 4v5h5" />
+                  <path d="M12 7v5l3 2" />
+                </svg>
+                <span className="font-bold">0{activeStoryIdx + 1}</span>
+                <span className="text-[var(--muted)]">/ 0{STORY_CHAPTERS.length}</span>
+                <div className="relative w-28 sm:w-36 h-[2px] rounded-full bg-[var(--line)] overflow-hidden ml-2">
+                  <div
+                    className="absolute inset-y-0 left-0 bg-[var(--foreground)] transition-all duration-300 ease-out"
+                    style={{ width: `${((activeStoryIdx + 1) / STORY_CHAPTERS.length) * 100}%` }}
+                  />
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Timeline Chapters */}
-          <div className="lg:col-span-7 space-y-8 relative pl-6 border-l-2 border-[var(--line)]">
-            {STORY_CHAPTERS.map((ch, idx) => (
-              <div
-                key={idx}
-                onMouseEnter={() => setActiveStoryYear(ch.year)}
-                className="story-chapter relative group p-6 sm:p-8 rounded-3xl border border-[var(--line)] hover:border-[var(--accent)] transition-all duration-300 shadow-sm"
-              >
-                {/* Timeline Dot Indicator */}
-                <div
-                  className={`absolute -left-[31px] top-8 w-3.5 h-3.5 rounded-full border-2 border-[var(--background)] transition-colors duration-300 ${
-                    activeStoryYear === ch.year ? "bg-[var(--accent)] scale-125" : "bg-[var(--line)]"
-                  }`}
-                />
+          {/* Right Column: Pure Editorial Typography on Background (NO BOXES/CARDS!) */}
+          <div className="lg:col-span-7 relative pl-8 sm:pl-12 border-l border-[var(--line)]">
+            <ol className="space-y-16 py-6 sm:py-8">
+              {STORY_CHAPTERS.map((ch, idx) => {
+                const isActive = activeStoryIdx === idx;
+                return (
+                  <li
+                    key={idx}
+                    onMouseEnter={() => setActiveStoryIdx(idx)}
+                    onClick={() => setActiveStoryIdx(idx)}
+                    className={`relative cursor-pointer transition-opacity duration-300 ${
+                      isActive ? "opacity-100" : "opacity-35 hover:opacity-70"
+                    }`}
+                  >
+                    {/* Active Sliding Indicator Dot on the Center Rail */}
+                    <div
+                      className={`absolute -left-[39px] sm:-left-[55px] top-1.5 w-3.5 h-3.5 rounded-full transition-all duration-300 ${
+                        isActive
+                          ? "bg-[var(--foreground)] scale-110 shadow-sm shadow-black/25 ring-4 ring-[var(--background)]"
+                          : "opacity-0"
+                      }`}
+                    />
 
-                {/* Period & Role */}
-                <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
-                  <span className="text-xs font-mono font-bold text-[var(--accent)]">
-                    {ch.period}
-                  </span>
-                  <span className="text-xs font-mono px-2.5 py-0.5 rounded-full bg-[var(--surface-2)] text-[var(--muted)]">
-                    {ch.year}
-                  </span>
-                </div>
+                    {/* Chapter Period */}
+                    <p className="text-[11px] font-mono font-semibold uppercase tracking-[0.12em] text-[var(--muted)] mb-1.5">
+                      {ch.period}
+                    </p>
 
-                <h3 className="text-xl sm:text-2xl font-bold text-[var(--foreground)] font-display mb-3">
-                  {ch.role}
-                </h3>
+                    {/* Chapter Role / Title */}
+                    <h3 className="text-2xl sm:text-3xl font-bold text-[var(--foreground)] tracking-tight font-display mb-1">
+                      {ch.role}
+                    </h3>
 
-                <p className="text-sm sm:text-base text-[var(--muted)] font-normal leading-relaxed mb-4">
-                  {ch.desc}
-                </p>
+                    {/* Chapter Organization / Context */}
+                    <p className="text-sm sm:text-base font-medium text-[var(--muted)] mb-3">
+                      {ch.org}
+                    </p>
 
-                {/* Tech Chips */}
-                <div className="flex flex-wrap gap-1.5 pt-2">
-                  {ch.tags.map((t) => (
-                    <span
-                      key={t}
-                      className="px-2.5 py-1 rounded-md text-[11px] font-mono bg-[var(--background)] text-[var(--foreground)] border border-[var(--line)]"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
+                    {/* Clean Bullet Points with Subtle Dashes */}
+                    <ul className="space-y-2 text-sm sm:text-base text-[var(--foreground)] leading-relaxed max-w-xl">
+                      {ch.bullets.map((b, bIdx) => (
+                        <li
+                          key={bIdx}
+                          className="relative pl-4 before:content-[''] before:absolute before:left-0 before:top-[0.65em] before:w-2.5 before:h-[1.5px] before:bg-[var(--muted)]"
+                        >
+                          {b}
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                );
+              })}
+            </ol>
           </div>
         </div>
       </section>

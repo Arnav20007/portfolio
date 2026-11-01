@@ -737,18 +737,12 @@ html[data-mode="dark"] .casing {
   display: flex;
   width: 100%;
   max-width: 34rem;
-  min-height: clamp(15rem, 34vw, 23rem);
-  padding: clamp(1.5rem, 4vw, 3rem);
+  min-height: clamp(17rem, 32vw, 22rem);
+  padding: 1rem 0;
   flex-direction: column;
   justify-content: center;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 2rem;
-  background:
-    linear-gradient(145deg, rgba(255, 255, 255, .5), rgba(255, 255, 255, .08)),
-    radial-gradient(circle at 48% 50%, rgba(220, 188, 159, .22), transparent 62%),
-    var(--surface);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .45), 0 18px 50px rgba(66, 48, 40, .07);
+  overflow: visible;
+  isolation: isolate;
 }
 
 .story-year-display::before {
@@ -756,14 +750,15 @@ html[data-mode="dark"] .casing {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: min(84vw, 29rem);
+  width: min(82vw, 26rem);
   aspect-ratio: 1;
   border-radius: 50%;
-  background: repeating-conic-gradient(from -2deg, rgba(107, 92, 92, .2) 0deg .35deg, transparent .35deg 8deg);
-  mask-image: radial-gradient(circle, transparent 0 50%, #000 50.5% 51.2%, transparent 51.8% 60%, #000 60.5% 61%, transparent 61.6% 70%, #000 70.5% 71%, transparent 71.6% 80%, #000 80.5% 81%, transparent 81.6%);
-  transform: translate(-50%, -50%);
-  opacity: .58;
+  background: repeating-conic-gradient(from -2deg, rgba(82, 70, 70, .3) 0deg .42deg, transparent .42deg 6deg);
+  mask-image: radial-gradient(circle, transparent 0 48%, #000 48.5% 49.2%, transparent 49.8% 59%, #000 59.5% 60.2%, transparent 60.8% 70%, #000 70.5% 71.2%, transparent 71.8% 80%, #000 80.5% 81.2%, transparent 81.8%);
+  transform: translate(-50%, -50%) rotate(0deg);
+  opacity: .48;
   pointer-events: none;
+  animation: story-clock-dial 180s linear infinite;
 }
 
 .story-year-display::after {
@@ -771,9 +766,9 @@ html[data-mode="dark"] .casing {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 62%;
+  width: min(76%, 25rem);
   aspect-ratio: 1;
-  border: 1px solid rgba(107, 92, 92, .13);
+  border: 1px solid rgba(82, 70, 70, .2);
   border-radius: 50%;
   transform: translate(-50%, -50%);
   pointer-events: none;
@@ -781,21 +776,19 @@ html[data-mode="dark"] .casing {
 
 .story-year-value {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   width: fit-content;
-  background: linear-gradient(120deg, var(--foreground) 12%, var(--accent) 66%, #b27f64 100%);
-  background-clip: text;
-  color: transparent;
-  font-family: var(--font-mono);
-  font-size: clamp(6.5rem, 16vw, 12rem);
+  color: var(--foreground);
+  font-family: var(--font);
+  font-size: clamp(6rem, 14vw, 10rem);
   font-weight: 900;
-  letter-spacing: -.105em;
+  letter-spacing: -.075em;
   line-height: .82;
 }
 
 .story-year-caption {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   margin-top: 1.25rem;
   color: var(--muted);
   font-family: var(--font-mono);
@@ -809,12 +802,12 @@ html[data-mode="dark"] .casing {
   background: linear-gradient(140deg, rgba(255, 255, 255, .42), rgba(255, 255, 255, .04) 70%), var(--surface);
 }
 
-html[data-mode="dark"] .story-year-display {
-  background:
-    linear-gradient(145deg, rgba(255, 255, 255, .055), rgba(255, 255, 255, .01)),
-    radial-gradient(circle at 48% 50%, rgba(168, 149, 149, .16), transparent 62%),
-    var(--surface);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .07), 0 18px 50px rgba(0, 0, 0, .16);
+html[data-mode="dark"] .story-year-display::before {
+  background: repeating-conic-gradient(from -2deg, rgba(220, 207, 207, .3) 0deg .42deg, transparent .42deg 6deg);
+}
+
+html[data-mode="dark"] .story-year-display::after {
+  border-color: rgba(220, 207, 207, .2);
 }
 
 html[data-mode="dark"] .story-section::before {
@@ -825,6 +818,16 @@ html[data-mode="dark"] .story-section::before {
 
 html[data-mode="dark"] .story-chapter {
   background: linear-gradient(140deg, rgba(255, 255, 255, .045), transparent 70%), var(--surface);
+}
+
+@keyframes story-clock-dial {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story-year-display::before {
+    animation: none;
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -843,4 +846,92 @@ html[data-mode="dark"] .story-chapter {
 .ability-card:hover {
   transform: translateY(-4px) rotateX(4deg) rotateY(-3deg);
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+@media (max-width: 640px) {
+  .pull-cord-fixed {
+    right: 4px;
+  }
+
+  .cord-rope-svg {
+    width: 42px;
+    height: clamp(190px, 27vh, 245px);
+  }
+
+  .door-unit.is-dimmed {
+    filter: blur(2px);
+    opacity: .3;
+  }
+
+  .room-content {
+    left: 50%;
+    width: 82%;
+    padding: 6cqi 5cqi;
+    transform: translate(-50%, -50%) scale(.92);
+  }
+
+  .doorway.open .room-content,
+  .doorway:hover .room-content {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .room-label,
+  .room-detail,
+  .room-enter {
+    font-size: clamp(7px, 6cqi, 10px);
+  }
+
+  .room-project {
+    font-size: clamp(12px, 10cqi, 16px);
+  }
+
+  .ability-card:hover {
+    transform: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MY STORY AMBIENT GLOW (therishithakor.com Match)
+═══════════════════════════════════════════════════════════════ */
+.story-ambient-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.story-amb-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(65px);
+  opacity: 0.16;
+}
+
+.story-amb-top {
+  top: -12%;
+  left: -15%;
+  width: 55vw;
+  height: 55vw;
+  background: radial-gradient(circle, #e27a3a 0%, transparent 70%);
+}
+
+.story-amb-bottom {
+  bottom: -12%;
+  right: -15%;
+  width: 50vw;
+  height: 50vw;
+  background: radial-gradient(circle, #ce8a96 0%, transparent 70%);
+}
+
+html[data-mode="dark"] .story-amb-blob {
+  opacity: 0.18;
+}
+
+html[data-mode="dark"] .story-amb-top {
+  background: radial-gradient(circle, #a4552c 0%, transparent 70%);
+}
+
+html[data-mode="dark"] .story-amb-bottom {
+  background: radial-gradient(circle, #5c84ca 0%, transparent 70%);
 }
