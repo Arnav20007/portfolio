@@ -27,12 +27,12 @@ export default function LightPullRope() {
       if (!AudioCtx) return;
       const ctx = new AudioCtx();
 
-      // Sharp transient pulse
+      // Sharp mechanical transient click
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
       osc.type = "triangle";
       osc.frequency.setValueAtTime(1600, ctx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(120, ctx.currentTime + 0.035);
+      osc.frequency.exponentialRampToValueAtTime(110, ctx.currentTime + 0.035);
 
       gain.gain.setValueAtTime(0.4, ctx.currentTime);
       gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.035);
@@ -63,14 +63,14 @@ export default function LightPullRope() {
 
     setTimeout(() => {
       setIsPulling(false);
-    }, 240);
+    }, 280);
   };
 
   return (
     <div
       className={`pull-cord-fixed group ${isPulling ? "pulling" : ""}`}
       onClick={handlePull}
-      title={isDark ? "Pull cord: Turn lights ON" : "Pull cord: Turn lights OFF"}
+      title={isDark ? "Pull cord to switch on Day lighting" : "Pull cord to switch off Night lighting"}
       role="button"
       tabIndex={0}
       onKeyDown={(e) => {
@@ -81,21 +81,26 @@ export default function LightPullRope() {
       }}
       aria-label="Pull ceiling cord to toggle lights"
     >
-      {/* Ceiling Brass Mount Plate */}
+      {/* Ceiling Mount Brass Rosette */}
       <div className="cord-ceiling-mount" />
 
-      {/* Braided Hanging Rope Line */}
-      <div className="cord-line-braided" />
+      {/* Double Parallel Braided Cords */}
+      <div className="cord-double-track">
+        <span className="cord-strand" />
+        <span className="cord-strand" />
+      </div>
 
-      {/* Brass Connector Ring */}
-      <div className="cord-ring" />
+      {/* Brass Connector Collar Ring */}
+      <div className="cord-brass-collar" />
 
-      {/* Turned Walnut Wood Acorn Tassel */}
-      <div className="cord-acorn-wooden" />
+      {/* 3D Turned Walnut Acorn Tassel */}
+      <div className="cord-acorn-wooden">
+        <span className="cord-acorn-sheen" />
+      </div>
 
-      {/* Hover Tooltip Pill */}
+      {/* Hover Tooltip */}
       <span className="pull-cord-tooltip">
-        {isDark ? "Turn Lights On" : "Turn Lights Off"}
+        {isDark ? "Lights On" : "Lights Off"}
       </span>
     </div>
   );

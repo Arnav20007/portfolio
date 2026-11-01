@@ -468,19 +468,16 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════════════════════════
           3. "MAGIC HAPPENS BEHIND THE DOORS" (therishithakor.com Arched 3D Doors)
       ═══════════════════════════════════════════════════════════════ */}
-      <section id="works" className="relative py-28 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto overflow-hidden">
+      <section id="works" className="relative pt-24 pb-20 px-4 sm:px-6 lg:px-8 max-w-[1500px] mx-auto">
         {/* Section Heading */}
-        <div className="text-center max-w-3xl mx-auto mb-16 relative z-10">
-          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-[var(--foreground)] tracking-tight font-display">
+        <div className="text-center max-w-4xl mx-auto mb-14 sm:mb-20 relative z-10">
+          <h2 className="text-4xl sm:text-6xl md:text-7xl font-extrabold text-[var(--foreground)] tracking-tight font-display">
             Magic happens behind the doors
           </h2>
-          <p className="mt-4 text-sm sm:text-base text-[var(--muted)] font-normal max-w-xl mx-auto">
-            My work, one door per skill. Hover or click to open each door and step inside.
-          </p>
         </div>
 
-        {/* Arched Doors Grid - Exactly 4 side-by-side matching therishithakor.com */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 max-w-6xl mx-auto mb-16 px-2 sm:px-4">
+        {/* Arched Doors Grid - Full-Width Grand Architecture matching therishithakor.com */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 max-w-[1420px] mx-auto mb-16 px-2 sm:px-4">
           {DOORS.map((door, index) => {
             const isOpen = activeDoor === index;
             const words = door.plate.split(" ");
@@ -523,7 +520,7 @@ export default function HomePage() {
         </div>
 
         {/* ── Active Door Interactive Info Card (Rishi's dinfo) ── */}
-        <div className="rounded-3xl p-8 sm:p-10 bg-[var(--surface)] border border-[var(--line)] shadow-xl transition-all duration-300 max-w-6xl mx-auto">
+        <div className="rounded-3xl p-8 sm:p-10 bg-[var(--surface)] border border-[var(--line)] shadow-xl transition-all duration-300 max-w-[1420px] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             {/* Left Info: Title, Tagline, Bullets */}
             <div className="lg:col-span-8 text-left space-y-4">

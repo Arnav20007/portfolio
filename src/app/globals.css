@@ -163,7 +163,7 @@ html[data-mode="dark"] .cal-page-base {
   position: relative;
   container-type: inline-size;
   width: 100%;
-  max-width: 17.5rem;
+  max-width: 21.5rem;
   margin-inline: auto;
 }
 
@@ -171,7 +171,7 @@ html[data-mode="dark"] .cal-page-base {
   position: relative;
   display: block;
   width: 100%;
-  aspect-ratio: 1 / 2.28;
+  aspect-ratio: 1 / 2.16;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   border-radius: 50cqi 50cqi 0 0;
@@ -463,12 +463,12 @@ html[data-mode="dark"] .casing {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   CEILING HANGING LIGHT PULL ROPE (therishithakor.com Realistic)
+   CEILING HANGING LIGHT PULL ROPE (therishithakor.com Accurate Double Cord)
 ═══════════════════════════════════════════════════════════════ */
 .pull-cord-fixed {
   position: fixed;
   top: 0;
-  right: clamp(1.2rem, 4.5vw, 4rem);
+  right: clamp(2rem, calc((100vw - 1380px) / 2 + 100px), 22rem);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -477,88 +477,97 @@ html[data-mode="dark"] .casing {
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   transform-origin: top center;
-  animation: cordGentleSway 6s ease-in-out infinite alternate;
+  filter: drop-shadow(14px 16px 20px rgba(0, 0, 0, 0.26));
+  animation: cordGentleSway 7s ease-in-out infinite alternate;
 }
 
 @keyframes cordGentleSway {
   0% { transform: rotate(0deg); }
-  50% { transform: rotate(0.8deg); }
-  100% { transform: rotate(-0.8deg); }
+  50% { transform: rotate(0.6deg); }
+  100% { transform: rotate(-0.6deg); }
 }
 
 .pull-cord-fixed:hover {
   animation: none;
-  transform: translateY(6px);
+  transform: translateY(8px);
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .pull-cord-fixed.pulling {
   animation: none;
-  transform: translateY(28px) scale(0.98);
+  transform: translateY(32px) scale(0.98);
   transition: transform 0.12s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .cord-ceiling-mount {
-  width: 14px;
-  height: 6px;
-  border-radius: 0 0 7px 7px;
+  width: 18px;
+  height: 5px;
+  border-radius: 0 0 9px 9px;
   background: radial-gradient(circle at 50% 100%, #ffe6a3 0%, #b8934c 60%, #5d4219 100%);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
 }
 
-.cord-line-braided {
+/* Double Parallel Braided Strands matching screenshot */
+.cord-double-track {
+  display: flex;
+  justify-content: space-between;
+  width: 10px;
+  height: clamp(170px, 22vh, 225px);
+}
+
+.cord-strand {
   width: 2.5px;
-  height: clamp(130px, 18vh, 190px);
+  height: 100%;
   background: repeating-linear-gradient(
     180deg,
-    #e8d7c2 0px,
-    #d1b898 3px,
-    #9c7c59 5px,
+    #e5d3be 0px,
+    #cbb295 3px,
+    #987b5d 5px,
     #694e35 7px,
-    #d1b898 9px
+    #cbb295 9px
   );
-  box-shadow: 1px 0 3px rgba(0, 0, 0, 0.25);
-  transition: height 0.15s ease-out;
+  box-shadow: 1px 0 2px rgba(0, 0, 0, 0.2);
 }
 
-.cord-ring {
-  width: 10px;
-  height: 5px;
+.cord-brass-collar {
+  width: 14px;
+  height: 6px;
   border-radius: 3px;
+  margin-top: -1px;
   background: radial-gradient(circle at 35% 30%, #fff2cf 0%, #c9a45b 50%, #6e4e1f 100%);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
+/* 3D Turned Walnut Wood Acorn Tassel */
 .cord-acorn-wooden {
   position: relative;
-  width: 22px;
-  height: 38px;
+  width: 28px;
+  height: 52px;
   margin-top: 1px;
-  border-radius: 11px 11px 18px 18px;
-  background: radial-gradient(circle at 32% 28%, #b87e52 0%, #7d4e2d 55%, #3d2111 100%);
+  border-radius: 14px 14px 24px 24px;
+  background: radial-gradient(ellipse at 34% 28%, #a06338 0%, #6d3d1e 45%, #3c1e0b 80%, #1f0d04 100%);
   box-shadow:
-    0 10px 20px -3px rgba(0, 0, 0, 0.45),
-    0 4px 8px rgba(0, 0, 0, 0.25),
-    inset 0 1px 2px rgba(255, 255, 255, 0.4),
-    inset 0 -2px 4px rgba(0, 0, 0, 0.6);
+    inset 2px 2px 4px rgba(255, 235, 195, 0.6),
+    inset -2px -2px 6px rgba(0, 0, 0, 0.7),
+    0 12px 24px -2px rgba(0, 0, 0, 0.45);
   transition: transform 0.2s ease;
 }
 
-.cord-acorn-wooden::after {
-  content: "";
+.cord-acorn-sheen {
   position: absolute;
-  top: 2px;
-  left: 3px;
-  right: 3px;
-  height: 6px;
-  border-radius: 4px;
-  background: radial-gradient(ellipse at 50% 0%, #f6dc9c 0%, #aa803c 70%);
-  opacity: 0.85;
+  top: 6px;
+  left: 5px;
+  width: 7px;
+  height: 22px;
+  border-radius: 5px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 100%);
+  transform: rotate(-8deg);
+  pointer-events: none;
 }
 
 .pull-cord-tooltip {
   position: absolute;
-  top: calc(100% + 8px);
+  top: calc(100% + 10px);
   right: 50%;
   transform: translateX(50%);
   white-space: nowrap;
@@ -567,15 +576,24 @@ html[data-mode="dark"] .casing {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  padding: 4px 8px;
+  padding: 4px 10px;
   border-radius: 9999px;
-  background: rgba(26, 24, 24, 0.9);
+  background: rgba(26, 24, 24, 0.92);
   color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+html[data-mode="dark"] .pull-cord-tooltip {
+  background: rgba(240, 237, 230, 0.95);
+  color: #1a1818;
+}
+
+.pull-cord-fixed:hover .pull-cord-tooltip {
+  opacity: 1;
 }
 
 html[data-mode="dark"] .pull-cord-tooltip {
