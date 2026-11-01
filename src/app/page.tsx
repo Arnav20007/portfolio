@@ -16,11 +16,11 @@ import { personal } from "@/lib/data";
 
 /* ── SKILLS TICKER LIST FOR 3D FLIP CALENDAR ────────────────── */
 const CAL_SKILLS = [
-  { title: "Software Engineer", no: "01" },
+  { title: "CSE Student", no: "01" },
   { title: "C++ & DSA Builder", no: "02" },
-  { title: "Full-Stack Developer", no: "03" },
-  { title: "Web Utility Builder", no: "04" },
-  { title: "System & API Builder", no: "05" },
+  { title: "Web Developer", no: "03" },
+  { title: "Project Builder", no: "04" },
+  { title: "API Developer", no: "05" },
 ];
 
 /* ── 4 HONEST STUDENT BUILDER DOORS ──────────────────────────── */
@@ -64,32 +64,32 @@ const DOORS: DoorData[] = [
       {
         id: "atscheck",
         name: "ATSCheck",
-        role: "Creator & Full-Stack Developer",
-        tagline: "100% In-browser resume keyword matcher & ATS scanner",
+        role: "Built independently",
+        tagline: "Resume keyword matching in the browser",
         desc: "Built to solve a real student problem: evaluating resumes against job requirements without paying expensive subscriptions or uploading private PDFs to third-party servers.",
         contribution: [
-          "Engineered 100% in-browser PDF text extraction using Web Workers and PDF.js",
-          "Local keyword frequency alignment & missing skills breakdown without server upload",
-          "Instant scoring algorithm with actionable ATS formatting recommendations",
-          "Live in production on custom domain: atscheck.tech",
+          "Extracts resume text in the browser with PDF.js and a Web Worker",
+          "Compares resume keywords with the job description locally",
+          "Shows matched and missing skills to help guide edits",
+          "Available at atscheck.tech",
         ],
         tech: ["Next.js", "TypeScript", "Tailwind CSS", "PDF.js", "Web Workers"],
         demo: "https://atscheck.tech/",
         demoLabel: "Open atscheck.tech ↗",
         source: "https://github.com/Arnav20007/ats",
-        highlight: "100% Client-Side Privacy",
+        highlight: "Local document processing",
       },
       {
         id: "pdflex",
         name: "PDFlex",
-        role: "Creator & Frontend Architect",
-        tagline: "Browser-based multi-threaded PDF merger & splitter",
-        desc: "A privacy-first document utility that performs complex PDF operations (merging, splitting, page reordering) completely on the user's device.",
+        role: "Built independently",
+        tagline: "Merge and split PDFs in the browser",
+        desc: "I built PDFlex to merge and split PDFs locally, without uploading files to a server.",
         contribution: [
-          "Client-side PDF compilation using pdf-lib inside background Web Worker threads",
-          "Zero file upload latency with instantaneous local download generation",
-          "Intuitive drag-and-drop page organizer with real-time thumbnail previews",
-          "Fluid responsive UI built with React and Tailwind CSS",
+          "PDF.js renders document pages for preview in the browser",
+          "pdf-lib handles PDF operations in a Web Worker",
+          "Processed documents stay on the user's device",
+          "Built the interface with React and Tailwind CSS",
         ],
         tech: ["React", "TypeScript", "PDF.js", "pdf-lib", "Web Workers"],
         demo: "https://pd-flex.vercel.app",
@@ -112,14 +112,14 @@ const DOORS: DoorData[] = [
       {
         id: "financecalc",
         name: "FinanceCalc",
-        role: "Sole Developer & Designer",
+        role: "Built independently",
         tagline: "Compound returns, SIP wealth forecasting & EMI amortization",
         desc: "An interactive FinTech application helping students and young professionals forecast mutual fund compounding returns and visualize loan repayment schedules.",
         contribution: [
-          "Dynamic compounding engine with configurable monthly SIP step-ups",
-          "Month-by-month loan amortization curves splitting principal vs interest",
-          "Interactive visual charts built using Chart.js & reactive state hooks",
-          "Sub-second load speeds and responsive dark/light styling live on Vercel",
+          "Calculates estimated SIP growth and monthly EMI payments",
+          "Shows repayment details and investment estimates with charts",
+          "Built the interface with Next.js, TypeScript, and Tailwind CSS",
+          "Available as a live web app",
         ],
         tech: ["Next.js", "TypeScript", "Tailwind CSS", "Chart.js"],
         demo: "https://financecalc0.vercel.app",
@@ -130,14 +130,14 @@ const DOORS: DoorData[] = [
       {
         id: "ascend",
         name: "ASCEND",
-        role: "Full-Stack Developer",
+        role: "Personal project",
         tagline: "Gamified task progression & XP leveling platform",
         desc: "A productivity application that turns daily engineering to-dos into an engaging progression system with XP points and tier unlocks.",
         contribution: [
           "Full-stack CRUD architecture built with PostgreSQL and Prisma ORM",
           "XP leveling algorithm with streak tracking and achievement triggers",
           "Modular components with responsive dark & stone interface",
-          "Clean database schema with verified local state persistence",
+          "Designed to make a regular task list feel more like a progression system",
         ],
         tech: ["Next.js", "TypeScript", "Prisma ORM", "PostgreSQL", "Tailwind CSS"],
         source: "https://github.com/Arnav20007/ascend",
@@ -158,14 +158,14 @@ const DOORS: DoorData[] = [
       {
         id: "moodmate",
         name: "MoodMate",
-        role: "Hackathon Backend & API Engineer",
+        role: "Hackathon project",
         tagline: "Mental wellness & structured journal reflection assistant",
         desc: "Created during a university hackathon to provide a supportive reflective journal where users can write freely and receive empathetic, structured perspectives.",
         contribution: [
           "Engineered Python Flask REST API connecting Next.js frontend with OpenAI API",
-          "Prompt engineered multi-step psychological reflection and cognitive reframing",
-          "Secure API key management and decoupled client-server architecture",
-          "Designed clean interactive frontend with responsive mood categorization",
+          "Connected the Next.js interface to a Flask API for journal reflections",
+          "Added prompts that help users reflect on their journal entries",
+          "Built during a university hackathon with a small team",
         ],
         tech: ["Next.js", "Python Flask", "OpenAI API", "REST APIs", "Tailwind CSS"],
         source: "https://github.com/Arnav20007/moodmate",
@@ -186,14 +186,14 @@ const DOORS: DoorData[] = [
       {
         id: "terminal",
         name: "Interactive Web CLI Terminal",
-        role: "Systems & Frontend Builder",
+        role: "Personal project",
         tagline: "In-browser Unix/Linux shell environment with dynamic command parsing",
-        desc: "A full-featured interactive terminal designed to let recruiters and engineers inspect my portfolio, skills, and background using real CLI commands.",
+        desc: "An interactive portfolio terminal where visitors can use a small set of commands to explore my projects, skills, and background.",
         contribution: [
-          "Custom command parser supporting flags, history traversal (↑/↓), and auto-scroll",
-          "Replicates authentic terminal telemetry, exit codes, and help diagnostics",
-          "Integrated directly in Next.js with keyboard navigation and zero latency",
-          "Replaces static resume pages with an interactive tactile experience",
+          "A small command set for browsing portfolio information",
+          "Supports command history with the up and down arrow keys",
+          "Built in Next.js with keyboard-friendly controls",
+          "Includes help text and clear terminal feedback",
         ],
         tech: ["React", "TypeScript", "Terminal Shell UX", "JetBrains Mono"],
         demo: "/terminal",
@@ -204,9 +204,9 @@ const DOORS: DoorData[] = [
       {
         id: "dsa-core",
         name: "C++ DSA Repository & Coursework",
-        role: "Computer Science Undergraduate (8.0 CGPA)",
+        role: "Coursework & practice",
         tagline: "Algorithmic problem-solving in C++ at BBDU Lucknow",
-        desc: "Rigorous daily practice covering core data structures, time/space complexity optimization, and classical computer science foundations.",
+        desc: "I use this repository to practise core data structures and algorithms in C++ as part of my coursework.",
         contribution: [
           "Binary Trees, BSTs, Graph traversals (BFS/DFS), and Dijkstra's algorithm",
           "Recursion, backtracking, and Dynamic Programming memoization patterns",
@@ -225,10 +225,17 @@ const DOORS: DoorData[] = [
 const STORY_CHAPTERS = [
   {
     year: "2026",
-    period: "Oct 2026 — Present",
-    role: "Software Engineering & Web Utility Builder",
-    desc: "Launched ATSCheck on its dedicated domain (atscheck.tech), optimized PDFlex with client-side Web Workers, and actively looking for a software engineering internship to contribute real code.",
+    period: "Current",
+    role: "Personal Projects & Internship Search",
+    desc: "Building and improving web projects while looking for a software engineering internship where I can learn and contribute.",
     tags: ["C++", "Next.js", "ATSCheck", "Web Workers", "Internship"],
+  },
+  {
+    year: "2026",
+    period: "Current · 5th Semester",
+    role: "B.Tech Computer Science & Engineering",
+    desc: "I’m studying B.Tech CSE at Babu Banarasi Das University in Lucknow. My current CGPA is 8.0/10, and my coursework includes OS, DBMS, Computer Networks, and Software Engineering.",
+    tags: ["BBDU Lucknow", "8.0 CGPA", "Computer Science", "CSE Core"],
   },
   {
     year: "2025",
@@ -241,17 +248,102 @@ const STORY_CHAPTERS = [
     year: "2024",
     period: "Jan 2024 — Dec 2024",
     role: "C++ & Data Structures Practice",
-    desc: "Focused intensely on foundational computer science and problem solving—practicing trees, graphs, recursion, and dynamic programming patterns in C++ alongside university academics.",
+    desc: "Practised trees, graphs, recursion, and dynamic programming in C++ alongside university coursework.",
     tags: ["C++", "DSA", "Algorithms", "OOP", "Problem Solving"],
   },
-  {
-    year: "2022",
-    period: "Jul 2022 — Jun 2026",
-    role: "B.Tech in Computer Science and Engineering",
-    desc: "Enrolled in B.Tech CSE at Babu Banarasi Das University (BBDU), Lucknow. Maintained an 8.0 CGPA while mastering core subjects: OS, DBMS, Computer Networks, and Software Engineering.",
-    tags: ["BBDU Lucknow", "8.0 CGPA", "Computer Science", "CSE Core"],
-  },
 ];
+
+function ProjectPreview({ project }: { project: ProjectItem }) {
+  const line = "h-1.5 rounded-full bg-[var(--line)]";
+  const chip = "rounded-md border border-[var(--line)] bg-[var(--surface-2)] px-2 py-1 text-[9px] font-mono text-[var(--muted)]";
+
+  let preview: React.ReactNode;
+
+  switch (project.id) {
+    case "atscheck":
+      preview = (
+        <div className="grid grid-cols-[1.1fr_0.9fr] gap-3">
+          <div className="rounded-lg border border-[var(--line)] bg-[var(--surface)] p-3">
+            <div className="mb-3 text-[10px] font-semibold text-[var(--foreground)]">Resume match</div>
+            <div className={`${line} w-full`} />
+            <div className={`${line} mt-2 w-4/5`} />
+            <div className={`${line} mt-2 w-3/5`} />
+          </div>
+          <div className="rounded-lg border border-[var(--line)] bg-[var(--surface)] p-3">
+            <div className="mb-2 text-[9px] font-mono text-[var(--muted)]">Matched skills</div>
+            <div className="flex flex-wrap gap-1"><span className={chip}>React</span><span className={chip}>SQL</span><span className={chip}>APIs</span></div>
+          </div>
+        </div>
+      );
+      break;
+    case "pdflex":
+      preview = (
+        <div className="rounded-lg border border-[var(--line)] bg-[var(--surface)] p-3">
+          <div className="mb-3 flex items-center justify-between gap-2">
+            <span className="text-[10px] font-semibold text-[var(--foreground)]">PDFlex</span>
+            <div className="flex gap-1"><span className={chip}>Merge</span><span className={chip}>Split</span></div>
+          </div>
+          <div className="flex gap-2">
+            {["Page 1", "Page 2", "Page 3"].map((page) => <div key={page} className="flex h-12 flex-1 items-end rounded border border-[var(--line)] bg-[var(--surface-2)] p-1.5 text-[8px] font-mono text-[var(--muted)]">{page}</div>)}
+          </div>
+        </div>
+      );
+      break;
+    case "financecalc":
+      preview = (
+        <div className="rounded-lg border border-[var(--line)] bg-[var(--surface)] p-3">
+          <div className="mb-2 flex items-center justify-between"><span className="text-[10px] font-semibold text-[var(--foreground)]">FinanceCalc</span><span className={chip}>SIP · EMI</span></div>
+          <svg viewBox="0 0 320 72" className="h-14 w-full" aria-hidden="true">
+            <path d="M0 60H320M0 38H320M0 16H320" stroke="currentColor" className="text-[var(--line)]" strokeWidth="1" />
+            <path d="M4 58C42 54 54 47 82 49S126 41 154 38 203 33 226 23 278 18 316 5" fill="none" stroke="currentColor" className="text-[var(--accent)]" strokeWidth="3" strokeLinecap="round" />
+          </svg>
+        </div>
+      );
+      break;
+    case "ascend":
+      preview = (
+        <div className="rounded-lg border border-[var(--line)] bg-[var(--surface)] p-3">
+          <div className="mb-3 flex items-center justify-between"><span className="text-[10px] font-semibold text-[var(--foreground)]">Today&apos;s tasks</span><span className={chip}>Progress</span></div>
+          <div className="space-y-2"><div className="flex items-center gap-2 text-[9px] text-[var(--muted)]"><span className="h-3 w-3 rounded border border-[var(--accent)]" />Plan the day</div><div className="flex items-center gap-2 text-[9px] text-[var(--muted)]"><span className="h-3 w-3 rounded border border-[var(--accent)] bg-[var(--accent)]" />Finish a task</div></div>
+        </div>
+      );
+      break;
+    case "moodmate":
+      preview = (
+        <div className="grid grid-cols-[1fr_1fr] gap-3">
+          <div className="rounded-lg border border-[var(--line)] bg-[var(--surface)] p-3"><div className="mb-2 text-[10px] font-semibold text-[var(--foreground)]">Daily journal</div><div className={`${line} w-full`} /><div className={`${line} mt-2 w-4/5`} /><div className="mt-3 flex gap-1"><span className="h-2 w-2 rounded-full bg-rose-300"/><span className="h-2 w-2 rounded-full bg-amber-300"/><span className="h-2 w-2 rounded-full bg-emerald-300"/></div></div>
+          <div className="rounded-lg border border-[var(--line)] bg-[var(--surface)] p-3"><div className="mb-2 text-[9px] font-mono text-[var(--muted)]">Reflection prompt</div><div className={`${line} w-full`} /><div className={`${line} mt-2 w-3/4`} /></div>
+        </div>
+      );
+      break;
+    case "terminal":
+      preview = (
+        <div className="rounded-lg border border-[var(--line)] bg-[#1d1b1a] p-3 font-mono text-[9px] text-stone-200">
+          <div className="mb-3 flex gap-1"><span className="h-2 w-2 rounded-full bg-rose-400"/><span className="h-2 w-2 rounded-full bg-amber-300"/><span className="h-2 w-2 rounded-full bg-emerald-400"/></div>
+          <div><span className="text-emerald-300">arnav@portfolio</span>:~$ help</div><div className="mt-1 text-stone-400">about&nbsp;&nbsp; projects&nbsp;&nbsp; skills&nbsp;&nbsp; contact</div>
+        </div>
+      );
+      break;
+    default:
+      preview = (
+        <div className="rounded-lg border border-[var(--line)] bg-[var(--surface)] p-3">
+          <div className="mb-3 text-[10px] font-semibold text-[var(--foreground)]">C++ practice</div>
+          <div className="grid grid-cols-3 gap-2 text-center text-[8px] font-mono text-[var(--muted)]"><span className="rounded border border-[var(--line)] p-2">Tree</span><span className="rounded border border-[var(--line)] p-2">Graph</span><span className="rounded border border-[var(--line)] p-2">DP</span></div>
+          <div className="mt-3 flex items-center justify-center gap-2 text-[8px] text-[var(--accent)]"><span className="rounded-full border border-[var(--line)] px-2 py-1">left</span><span>→</span><span className="rounded-full border border-[var(--line)] px-2 py-1">root</span><span>→</span><span className="rounded-full border border-[var(--line)] px-2 py-1">right</span></div>
+        </div>
+      );
+  }
+
+  return (
+    <div className="mb-5 rounded-2xl border border-[var(--line)] bg-[var(--surface-2)] p-3 sm:p-4" aria-label={`${project.name} illustrative interface preview`} role="img">
+      <div className="mb-2 flex items-center gap-1.5 text-[9px] font-mono uppercase tracking-wider text-[var(--muted)]">
+        <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: "var(--accent)" }} />
+        Interface sketch
+      </div>
+      {preview}
+    </div>
+  );
+}
 
 export default function HomePage() {
   /* ── Dark Mode State ── */
@@ -429,7 +521,7 @@ export default function HomePage() {
             {/* Eyebrow Chip */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[var(--surface)] border border-[var(--line)] text-xs font-mono font-bold tracking-wider text-[var(--accent)] uppercase mb-6">
               <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]" />
-              B.Tech CSE Student · Software Engineer
+              B.Tech CSE Student · Developer
             </div>
 
             {/* Giant Editorial Title with 3D Flip Calendar */}
@@ -560,7 +652,7 @@ export default function HomePage() {
                     </a>
                   </div>
                   <p className="text-[11px] text-[var(--muted)] font-sans">
-                    100% in-browser resume keyword matcher powered by Web Workers
+                    Resume keyword matcher that runs in the browser
                   </p>
                 </div>
 
@@ -590,7 +682,7 @@ export default function HomePage() {
                 <span>Lucknow, India (IST)</span>
                 <span className="text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                  INTERNSHIP READY
+                  OPEN TO INTERNSHIPS
                 </span>
               </div>
             </div>
@@ -601,11 +693,11 @@ export default function HomePage() {
         <div className="relative z-10 border-t border-[var(--line)] pt-5 mt-12 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-[var(--muted)]">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
-            <span className="text-[var(--foreground)] font-semibold">Available for internship opportunities</span>
+            <span className="text-[var(--foreground)] font-semibold">Open to internship opportunities</span>
           </div>
 
           <div className="text-center">
-            <span>BBDU Lucknow, India · Remote-first worldwide</span>
+            <span>Based in Lucknow, India</span>
           </div>
 
           <div className="flex items-center gap-1.5 text-[var(--foreground)]">
@@ -616,14 +708,20 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════════════
-          3. "MAGIC HAPPENS BEHIND THE DOORS" (therishithakor.com Arched 3D Doors)
+          3. PROJECTS: EXPLORE THE DOORS
       ═══════════════════════════════════════════════════════════════ */}
-      <section id="works" className="relative pt-24 pb-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto scroll-mt-24">
+      <section id="works" className="relative pt-16 pb-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto scroll-mt-24">
         {/* Section Heading */}
-        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14 relative z-10">
-          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-[var(--foreground)] tracking-tight font-display">
-            Magic happens behind the doors
+        <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8 relative z-10">
+          <p className="mb-2 text-xs font-mono font-semibold uppercase tracking-[0.2em] text-[var(--accent)]">
+            Projects · 4 categories
+          </p>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[var(--foreground)] tracking-tight font-display">
+            Choose a door to explore.
           </h2>
+          <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-[var(--muted)]">
+            Four areas of my work, from browser tools to C++ practice.
+          </p>
         </div>
 
         {/* Arched Doors Grid with Floor Baseboard - Exactly 4 side-by-side matching therishithakor.com */}
@@ -642,6 +740,7 @@ export default function HomePage() {
                     className={`doorway ${isOpen ? "open" : ""}`}
                     onClick={() => setActiveDoor(index)}
                     onMouseEnter={() => setActiveDoor(index)}
+                    aria-pressed={isOpen}
                     aria-label={`Open ${door.plateLines.join(" ")} door`}
                   >
                     <span className="casing" />
@@ -702,6 +801,7 @@ export default function HomePage() {
                 key={proj.id}
                 className="flex flex-col justify-between p-7 sm:p-8 rounded-3xl bg-[var(--surface)] border border-[var(--line)] hover:border-[var(--accent)] transition-all duration-300 shadow-md group"
               >
+                <ProjectPreview project={proj} />
                 <div className="space-y-4">
                   {/* Card Header */}
                   <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--line)] pb-4">

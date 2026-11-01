@@ -67,19 +67,13 @@ export default function LightPullRope() {
   };
 
   return (
-    <div
+    <button
+      type="button"
       className={`pull-cord-fixed group ${isPulling ? "pulling" : ""}`}
       onClick={handlePull}
       title={isDark ? "Pull cord to switch on Day lighting" : "Pull cord to switch off Night lighting"}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          handlePull();
-        }
-      }}
-      aria-label="Pull ceiling cord to toggle lights"
+      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+      aria-pressed={isDark}
     >
       {/* Ceiling Mount Brass Rosette */}
       <div className="cord-ceiling-mount" />
@@ -93,15 +87,15 @@ export default function LightPullRope() {
       {/* Brass Connector Collar Ring */}
       <div className="cord-brass-collar" />
 
-      {/* 3D Turned Walnut Acorn Tassel */}
-      <div className="cord-acorn-wooden">
-        <span className="cord-acorn-sheen" />
+      {/* Small brushed-brass bell pull */}
+      <div className="cord-bell">
+        <span className="cord-bell-highlight" />
       </div>
 
       {/* Hover Tooltip */}
       <span className="pull-cord-tooltip">
         {isDark ? "Lights On" : "Lights Off"}
       </span>
-    </div>
+    </button>
   );
 }

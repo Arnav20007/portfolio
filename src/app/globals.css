@@ -235,6 +235,11 @@ html[data-mode="dark"] .doors-row-container::after {
   transform: translateY(-4px);
 }
 
+.doorway:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 5px;
+}
+
 .casing {
   position: absolute;
   inset: 0;
@@ -521,11 +526,22 @@ html[data-mode="dark"] .casing {
   align-items: center;
   z-index: 60;
   cursor: pointer;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  line-height: 0;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   transform-origin: top center;
   filter: drop-shadow(6px 8px 12px rgba(0, 0, 0, 0.22));
   animation: cordGentleSway 7s ease-in-out infinite alternate;
+}
+
+.pull-cord-fixed:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 999px;
 }
 
 @keyframes cordGentleSway {
@@ -585,31 +601,58 @@ html[data-mode="dark"] .casing {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
-/* 3D Turned Walnut Wood Acorn Tassel */
-.cord-acorn-wooden {
+/* Compact brushed-brass bell pull */
+.cord-bell {
   position: relative;
-  width: 20px;
-  height: 34px;
-  margin-top: 1px;
-  border-radius: 10px 10px 16px 16px;
-  background: radial-gradient(ellipse at 34% 28%, #a06338 0%, #6d3d1e 45%, #3c1e0b 80%, #1f0d04 100%);
+  width: 21px;
+  height: 25px;
+  margin-top: 2px;
+  border-radius: 11px 11px 7px 7px;
+  background: linear-gradient(100deg, #775a2c 0%, #b9944c 20%, #f1d796 44%, #bc9853 68%, #765624 100%);
   box-shadow:
-    inset 1.5px 1.5px 3px rgba(255, 235, 195, 0.6),
-    inset -1.5px -1.5px 4px rgba(0, 0, 0, 0.7),
-    0 6px 14px -2px rgba(0, 0, 0, 0.35);
-  transition: transform 0.2s ease;
+    inset 1px 1px 2px rgba(255, 246, 214, 0.65),
+    inset -1px -2px 3px rgba(65, 43, 12, 0.5),
+    0 3px 6px rgba(0, 0, 0, 0.24);
+  transition: transform 0.2s ease, filter 0.2s ease;
 }
 
-.cord-acorn-sheen {
+.cord-bell::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  width: 8px;
+  height: 6px;
+  transform: translateX(-50%);
+  border-radius: 4px 4px 1px 1px;
+  background: linear-gradient(90deg, #8d6a31, #edcf86 50%, #8d6a31);
+}
+
+.cord-bell::after {
+  content: "";
+  position: absolute;
+  left: -3px;
+  right: -3px;
+  bottom: -2px;
+  height: 5px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #f1d796, #967038);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.22);
+}
+
+.cord-bell-highlight {
   position: absolute;
   top: 4px;
-  left: 3.5px;
-  width: 4px;
-  height: 14px;
+  left: 4px;
+  width: 3px;
+  height: 11px;
   border-radius: 2px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 100%);
-  transform: rotate(-8deg);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.7), transparent);
   pointer-events: none;
+}
+
+.pull-cord-fixed:hover .cord-bell {
+  filter: brightness(1.08);
 }
 
 .pull-cord-tooltip {
@@ -632,24 +675,6 @@ html[data-mode="dark"] .casing {
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-html[data-mode="dark"] .pull-cord-tooltip {
-  background: rgba(240, 237, 230, 0.95);
-  color: #1a1818;
-}
-
-.pull-cord-fixed:hover .pull-cord-tooltip {
-  opacity: 1;
-}
-
-html[data-mode="dark"] .pull-cord-tooltip {
-  background: rgba(240, 237, 230, 0.95);
-  color: #1a1818;
-}
-
-.pull-cord-fixed:hover .pull-cord-tooltip {
-  opacity: 1;
 }
 
 html[data-mode="dark"] .pull-cord-tooltip {
