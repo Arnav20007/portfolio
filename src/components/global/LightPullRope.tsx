@@ -7,8 +7,13 @@ export default function LightPullRope() {
   const ropeRef = useRef<SVGSVGElement>(null);
   const pullRef = useRef<SVGGElement>(null);
   const ropeMotion = useRef({
-    angle: 0,
+    angle: 0.02,
     angularVelocity: 0,
+    previousAngularVelocity: 0,
+    bellAngle: 0,
+    bellAngularVelocity: 0,
+    stretchY: 0,
+    stretchVelocity: 0,
     cursorX: 0,
     cursorTime: 0,
     cursorSpeedX: 0,
@@ -42,48 +47,74 @@ export default function LightPullRope() {
   useEffect(() => {
     const state = ropeMotion.current;
     const ropeLength = 307;
-    const maxAngle = 0.68;
+    const maxAngle = 0.52;
+    const maxBellAngle = 0.35;
+
     const animateRope = () => {
-      state.angularVelocity += -Math.sin(state.angle) * 0.008 + state.cursorSpeedX * 0.018;
-      state.angularVelocity *= 0.992;
+      const now = performance.now();
+
+      // 1. Natural ambient air draft (continuous subtle pendulum breathing when untouched)
+      const ambientDraft =
+        Math.sin(now * 0.0016) * 0.00014 + Math.sin(now * 0.0029) * 0.00007;
+
+      // 2. Main harmonic pendulum physics: restoring torque - (g/L)*sin(theta) + cursor impulse + ambient
+      const gravityTorque = -Math.sin(state.angle) * 0.0072;
+      state.angularVelocity += gravityTorque + state.cursorSpeedX * 0.012 + ambientDraft;
+      state.angularVelocity *= 0.9935; // realistic fluid damping in air
       state.angle += state.angularVelocity;
-      state.cursorSpeedX *= 0.76;
+      state.cursorSpeedX *= 0.78;
+
       if (state.angle > maxAngle || state.angle < -maxAngle) {
         state.angle = Math.max(-maxAngle, Math.min(maxAngle, state.angle));
-        state.angularVelocity *= -0.28;
+        state.angularVelocity *= -0.32;
       }
 
+      // 3. Compound double pendulum physics for the bell pull (clapper inertia & restoring spring)
+      const supportAcceleration = state.angularVelocity - state.previousAngularVelocity;
+      state.bellAngularVelocity +=
+        -Math.sin(state.bellAngle) * 0.016 - supportAcceleration * 4.2;
+      state.bellAngularVelocity *= 0.982;
+      state.bellAngle += state.bellAngularVelocity;
+      state.bellAngle = Math.max(-maxBellAngle, Math.min(maxBellAngle, state.bellAngle));
+      state.previousAngularVelocity = state.angularVelocity;
+
+      // 4. Elastic vertical spring physics (pull-down stretch and snap-back)
+      state.stretchVelocity += -state.stretchY * 0.18;
+      state.stretchVelocity *= 0.82;
+      state.stretchY += state.stretchVelocity;
+      if (Math.abs(state.stretchY) < 0.05 && Math.abs(state.stretchVelocity) < 0.05) {
+        state.stretchY = 0;
+        state.stretchVelocity = 0;
+      }
+
+      // 5. Compute dynamic SVG catenary curve & bell position
       const bounds = ropeRef.current?.getBoundingClientRect();
       const unitX = (bounds?.width || 54) / 54;
-      const endX = 27 + (ropeLength * Math.sin(state.angle)) / unitX;
-      const endY = ropeLength * Math.cos(state.angle);
+      const currentLen = ropeLength + state.stretchY;
+      const endX = 27 + (currentLen * Math.sin(state.angle)) / unitX;
+      const endY = currentLen * Math.cos(state.angle);
       const bend = endX - 27;
-      const path = `M 27 0 C ${27 + bend * 0.08} 98, ${27 + bend * 0.82} 226, ${endX} ${endY}`;
+
+      // Curved catenary bezier with natural sag
+      const path = `M 27 0 C ${27 + bend * 0.12} 96, ${27 + bend * 0.78} 222, ${endX} ${endY}`;
       ropeRef.current?.querySelectorAll<SVGPathElement>(".cord-rope-path").forEach((strand) => {
         strand.setAttribute("d", path);
       });
-      const bellAngle = (state.angle * 180) / Math.PI;
+
+      // Total bell tilt = rope end tangent angle + compound bell angle
+      const bellAngle = ((state.angle + state.bellAngle) * 180) / Math.PI;
       pullRef.current?.setAttribute(
         "transform",
         `translate(${endX - 27} ${endY}) rotate(${bellAngle} 27 0)`,
       );
 
-      const settled =
-        Math.abs(state.angle) < 0.001 &&
-        Math.abs(state.angularVelocity) < 0.001 &&
-        Math.abs(state.cursorSpeedX) < 0.001;
-      if (settled) {
-        state.angle = 0;
-        state.angularVelocity = 0;
-        state.frame = 0;
-        return;
-      }
+      // Keep running continuous ambient pendulum animation loop
       state.frame = window.requestAnimationFrame(animateRope);
     };
 
-    const scheduleRope = () => {
-      if (!state.frame) state.frame = window.requestAnimationFrame(animateRope);
-    };
+    // Start real physics animation loop immediately on mount
+    state.frame = window.requestAnimationFrame(animateRope);
+
     const resetRope = () => {
       state.cursorSpeedX = 0;
     };
@@ -98,6 +129,7 @@ export default function LightPullRope() {
       const speedX = state.cursorTime ? (event.clientX - state.cursorX) / elapsed : 0;
       state.cursorX = event.clientX;
       state.cursorTime = now;
+
       const anchorX = bounds.left + bounds.width / 2;
       const unitX = bounds.width / 54;
       const unitY = bounds.height / 400;
@@ -110,9 +142,9 @@ export default function LightPullRope() {
         Math.hypot(event.clientX - jointX, event.clientY - jointY),
         Math.hypot(event.clientX - cordX, event.clientY - cordY),
       );
-      const influence = Math.max(0, 1 - distance / 150);
-      state.cursorSpeedX = Math.max(-3, Math.min(3, speedX)) * influence;
-      if (influence > 0) scheduleRope();
+
+      const influence = Math.max(0, 1 - distance / 160);
+      state.cursorSpeedX = Math.max(-3.5, Math.min(3.5, speedX)) * influence;
     };
 
     const handlePointerOut = (event: PointerEvent) => {
@@ -122,6 +154,7 @@ export default function LightPullRope() {
     window.addEventListener("pointermove", followPointer, { passive: true });
     window.addEventListener("blur", resetRope);
     window.addEventListener("pointerout", handlePointerOut);
+
     return () => {
       window.removeEventListener("pointermove", followPointer);
       window.removeEventListener("blur", resetRope);
@@ -162,6 +195,16 @@ export default function LightPullRope() {
   const handlePull = () => {
     playSwitchSound();
 
+    const state = ropeMotion.current;
+    // Physical spring tug: pull downward by 16px
+    state.stretchY = 16;
+    state.stretchVelocity = 0;
+
+    // Realistic pendulum release impulse: kick in natural oscillation direction
+    const impulseDirection = state.angle >= 0 ? -1 : 1;
+    state.angularVelocity += impulseDirection * 0.036;
+    state.bellAngularVelocity += impulseDirection * 0.072;
+
     const nextMode = !isDark;
     setIsDark(nextMode);
 
@@ -173,7 +216,6 @@ export default function LightPullRope() {
       localStorage.setItem("arnav-mode", "light");
     }
     window.dispatchEvent(new CustomEvent("arnav-mode-change", { detail: nextMode ? "dark" : "light" }));
-
   };
 
   return (
