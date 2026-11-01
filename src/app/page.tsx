@@ -23,7 +23,7 @@ const CAL_SKILLS = [
   { title: "System & API Builder", no: "05" },
 ];
 
-/* ── 5 DOORS DATA (Rishi Thakor Inspired Doors Section) ─────── */
+/* ── 4 DOORS DATA (therishithakor.com Arched Doors) ──────────── */
 interface DoorData {
   id: string;
   plate: string;
@@ -38,81 +38,67 @@ interface DoorData {
 
 const DOORS: DoorData[] = [
   {
-    id: "web-utils",
-    plate: "Web Utilities",
+    id: "web-dev",
+    plate: "WEB DEVELOPER",
     title: "ATSCheck & PDFlex",
-    tagline: "Client-side privacy-first browser tools",
-    color: "#22304a",
-    accent: "#6B5C5C",
+    tagline: "Client-side privacy-first web utilities",
+    color: "#1E2C48",
+    accent: "#3E5785",
     bullets: [
-      "Runs 100% locally in browser without server upload",
-      "Web Workers for background PDF parsing and manipulation",
-      "No logins, no payment walls, instant keyword alignment",
-      "Live on https://atscheck.tech/ and PDFlex",
+      "ATSCheck: 100% in-browser resume score checker with zero server uploads (atscheck.tech)",
+      "PDFlex: Multi-threaded PDF merger, splitter and editor using client Web Workers",
+      "Zero server data latency, strict local data sovereignty and instant keyword matching",
+      "Engineered with Next.js, TypeScript, Tailwind CSS and client-side document engines",
     ],
     demo: "https://atscheck.tech/",
     source: "https://github.com/Arnav20007/ats",
   },
   {
-    id: "fintech",
-    plate: "FinTech Apps",
+    id: "app-dev",
+    plate: "APP DEVELOPER",
     title: "FinanceCalc",
-    tagline: "Compound returns & loan EMI analytics",
-    color: "#4a3540",
-    accent: "#8C5868",
+    tagline: "Interactive FinTech investment & loan visualizer",
+    color: "#412F3D",
+    accent: "#7A4E6B",
     bullets: [
-      "Visualized compounding returns for SIP and mutual funds",
-      "Interactive loan amortization & EMI payment curves",
-      "Built with Next.js, TypeScript, Tailwind CSS and Chart.js",
-      "Live on financecalc0.vercel.app",
+      "Interactive compounding engine for SIP, mutual fund, and wealth growth forecasting",
+      "Detailed loan amortization curves with monthly principal vs interest breakdown",
+      "Dynamic data charts built with Next.js, TypeScript, and Chart.js",
+      "Production deployment live at financecalc0.vercel.app with sub-second response times",
     ],
     demo: "https://financecalc0.vercel.app",
     source: "https://github.com/Arnav20007/financecalc",
   },
   {
-    id: "algorithms",
-    plate: "C++ / DSA Core",
-    title: "C++ Algorithmic Core",
-    tagline: "Data structures & problem solving",
-    color: "#35483a",
-    accent: "#56755E",
+    id: "uiux-design",
+    plate: "UI/UX DESIGNER",
+    title: "C++ Algorithmic Core & Terminal",
+    tagline: "Systems architecture & interactive command shell",
+    color: "#667B68",
+    accent: "#8FA391",
     bullets: [
-      "Trees, Graphs, Recursion and Dynamic Programming in C++",
-      "Continuous algorithmic practice and time complexity focus",
-      "Coursework at BBDU Lucknow with strong OOP foundation",
-      "Interactive CLI Terminal environment implemented in-browser",
+      "Interactive in-browser CLI terminal replicating authentic Unix/Linux shell UX",
+      "Strict visual hierarchy, tactile typography, and spatial micro-interaction design",
+      "5th-semester CSE student at BBDU Lucknow (8.0 CGPA) with strong DSA foundation",
+      "Real-time command execution, dynamic flag parsing, and system status telemetry",
     ],
     demo: "/terminal",
     source: "https://github.com/Arnav20007",
   },
   {
-    id: "fullstack",
-    plate: "Full-Stack Systems",
-    title: "ASCEND",
-    tagline: "Gamified task progression system",
-    color: "#264349",
-    accent: "#4A747D",
+    id: "graphic-design",
+    plate: "GRAPHIC DESIGNER",
+    title: "ASCEND & MoodMate",
+    tagline: "Gamified progression systems & AI companions",
+    color: "#A86438",
+    accent: "#CF8855",
     bullets: [
-      "Gamified to-do workflow with XP levels and tier unlocks",
-      "Next.js, TypeScript, PostgreSQL and Prisma ORM backend",
-      "Modular components with responsive dark & stone interface",
-      "Clean architecture with verified local state persistence",
+      "ASCEND: Gamified task progression workflow with XP levels and tier unlocks",
+      "MoodMate: AI-powered mental wellness & reflection journaling assistant",
+      "Python Flask REST microservices integrated with OpenAI reflection prompts",
+      "Clean architecture with verified local state persistence and responsive design",
     ],
-    source: "https://github.com/Arnav20007/ascend",
-  },
-  {
-    id: "ai-systems",
-    plate: "AI & Hackathons",
-    title: "MoodMate",
-    tagline: "AI journaling & reflection assistant",
-    color: "#5c3c31",
-    accent: "#945846",
-    bullets: [
-      "Hackathon project designed for mental wellness and reflection",
-      "Python Flask REST API connecting frontend with OpenAI API",
-      "Prompt engineered reflection analysis from daily journal notes",
-      "Clean separation of client and backend API endpoints",
-    ],
+    demo: "https://github.com/Arnav20007/ascend",
     source: "https://github.com/Arnav20007/moodmate",
   },
 ];
@@ -174,8 +160,10 @@ export default function HomePage() {
     }
   };
 
-  /* ── Live Ticking Clock (IST / Lucknow) ── */
+  /* ── Live Ticking Clock & Date (IST / Lucknow) ── */
   const [timeStr, setTimeStr] = useState("");
+  const [dateStr, setDateStr] = useState("");
+
   useEffect(() => {
     const updateTime = () => {
       const d = new Date();
@@ -186,6 +174,14 @@ export default function HomePage() {
           minute: "2-digit",
           hour12: true,
         }).toLowerCase()
+      );
+      setDateStr(
+        d.toLocaleDateString("en-US", {
+          timeZone: "Asia/Kolkata",
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        })
       );
     };
     updateTime();
@@ -257,15 +253,20 @@ export default function HomePage() {
 
             {/* Right Controls: Clock + Theme Switcher + CTA */}
             <div className="flex items-center gap-2">
-              {/* Live Clock Chip */}
+              {/* Live Clock Chip matching therishithakor.com */}
               <div
-                className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-[var(--surface)] border border-[var(--line)] text-xs font-mono text-[var(--foreground)]"
+                className="hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[var(--surface)] border border-[var(--line)] text-xs font-mono text-[var(--foreground)] shadow-xs"
                 title="Local time in Lucknow, India (IST)"
               >
-                <span className="text-[10px] text-[var(--muted)] uppercase font-semibold">
-                  Lucknow
+                <span className="text-[10px] text-[var(--muted)] font-medium">
+                  Local time
                 </span>
-                <span className="font-bold text-[11px]">{timeStr || "7:45pm"}</span>
+                <span className="font-bold text-[11px]">{timeStr || "9:00pm"}</span>
+                {dateStr && (
+                  <span className="hidden lg:inline text-[10px] text-[var(--muted)] border-l border-[var(--line)] pl-2">
+                    {dateStr}
+                  </span>
+                )}
               </div>
 
               {/* Dark / Light Mode Switch */}
@@ -366,7 +367,7 @@ export default function HomePage() {
                 href="#works"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[var(--btn-bg)] text-[var(--btn-fg)] font-semibold text-sm hover:scale-102 active:scale-98 transition-all shadow-md"
               >
-                <span>Explore Works (5 Doors)</span>
+                <span>Explore Works (4 Doors)</span>
                 <ArrowRight className="w-4 h-4" />
               </a>
 
@@ -465,92 +466,97 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════════════
-          3. "MY WORK, ONE DOOR PER SKILL" (The Iconic Rishi Doors Section)
+          3. "MAGIC HAPPENS BEHIND THE DOORS" (therishithakor.com Arched 3D Doors)
       ═══════════════════════════════════════════════════════════════ */}
-      <section id="works" className="py-24 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <p className="text-xs font-mono uppercase tracking-[0.25em] text-[var(--accent)] font-bold mb-3">
-            ARCHITECTURAL VAULT
-          </p>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-[var(--foreground)] tracking-tight font-display">
-            Magic happens behind the doors.
+      <section id="works" className="relative py-28 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto overflow-hidden">
+        {/* Ceiling Hanging Pull Cord (Top-Right) */}
+        <div
+          className="pull-cord group"
+          onClick={toggleDarkMode}
+          title={isDark ? "Pull cord to switch to Day mode" : "Pull cord to switch to Night mode"}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") toggleDarkMode();
+          }}
+          aria-label="Pull cord to toggle lighting"
+        >
+          <div className="cord-line" />
+          <div className="cord-acorn" />
+        </div>
+
+        {/* Section Heading */}
+        <div className="text-center max-w-3xl mx-auto mb-16 relative z-10">
+          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-[var(--foreground)] tracking-tight font-display">
+            Magic happens behind the doors
           </h2>
-          <p className="mt-4 text-sm sm:text-base text-[var(--muted)]">
-            My work, one door per skill. Hover or click to open each door and view the build.
+          <p className="mt-4 text-sm sm:text-base text-[var(--muted)] font-normal max-w-xl mx-auto">
+            My work, one door per skill. Hover or click to open each door and step inside.
           </p>
         </div>
 
-        {/* Doors Row Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-12">
+        {/* Arched Doors Grid - Exactly 4 side-by-side matching therishithakor.com */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 max-w-6xl mx-auto mb-16 px-2 sm:px-4">
           {DOORS.map((door, index) => {
-            const isActive = activeDoor === index;
+            const isOpen = activeDoor === index;
+            const words = door.plate.split(" ");
             return (
               <div
                 key={door.id}
-                onClick={() => setActiveDoor(index)}
-                onMouseEnter={() => setActiveDoor(index)}
-                className={`door-container cursor-pointer p-4 rounded-3xl border transition-all duration-500 flex flex-col items-center text-center ${
-                  isActive
-                    ? "bg-[var(--surface)] border-[var(--foreground)] shadow-xl active"
-                    : "bg-[var(--surface-2)]/60 border-[var(--line)] hover:border-[var(--accent)]"
-                }`}
+                className="door-unit"
+                style={{ "--door-color": door.color } as React.CSSProperties}
               >
-                {/* 3D Door Representation */}
-                <div className="relative w-full aspect-[9/16] max-h-[300px] rounded-2xl bg-stone-900 overflow-hidden shadow-inner flex items-center justify-center p-2 mb-4">
-                  {/* Room Light Spill Behind Door */}
-                  <div
-                    className="door-light-spill absolute inset-0 bg-gradient-to-tr from-amber-200/40 via-amber-100/20 to-transparent pointer-events-none"
-                    style={{ background: `radial-gradient(circle at 50% 50%, ${door.accent}40, #000 80%)` }}
-                  />
-
-                  {/* Swinging Door Leaf */}
-                  <div
-                    className="door-leaf absolute inset-1.5 rounded-xl border border-white/20 shadow-2xl flex flex-col justify-between p-3.5 text-white"
-                    style={{ backgroundColor: door.color }}
-                  >
-                    {/* Top Door Inset Panel */}
-                    <div className="w-full h-16 rounded-md border border-white/10 bg-black/20 p-2 flex items-center justify-center">
-                      <span className="text-[10px] font-mono tracking-widest uppercase text-amber-200 font-bold">
-                        {door.plate}
+                <button
+                  type="button"
+                  className={`doorway ${isOpen ? "open" : ""}`}
+                  onClick={() => setActiveDoor(index)}
+                  onMouseEnter={() => setActiveDoor(index)}
+                  aria-label={`Open ${door.plate} door`}
+                >
+                  <span className="casing" />
+                  <span className="opening">
+                    <span className="room" />
+                    <span className="door">
+                      <span className="door__flute" />
+                      <span className="plate">
+                        {words.map((w, wIdx) => (
+                          <span key={wIdx} className="block">
+                            {w}
+                          </span>
+                        ))}
                       </span>
-                    </div>
-
-                    {/* Brass Plate in Center */}
-                    <div className="mx-auto px-2.5 py-1 rounded bg-amber-400/90 text-stone-900 font-bold text-[9px] font-mono uppercase tracking-wider shadow-sm">
-                      ARNAV OS
-                    </div>
-
-                    {/* Bottom Lever & Lock */}
-                    <div className="flex items-center justify-between pt-2 border-t border-white/10">
-                      <span className="text-[9px] font-mono text-white/50">0{index + 1}</span>
-                      <div className="w-3.5 h-1.5 rounded-full bg-amber-300 shadow" />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Door Label */}
-                <h4 className="font-bold text-sm text-[var(--foreground)] font-display">
-                  {door.plate}
-                </h4>
-                <span className="text-[11px] font-mono text-[var(--muted)] mt-0.5">
-                  0{index + 1} / 05
-                </span>
+                      <span className="handle">
+                        <span className="handle__lever" />
+                        <span className="handle__lock" />
+                      </span>
+                    </span>
+                    <span className="sill" />
+                  </span>
+                </button>
               </div>
             );
           })}
         </div>
 
         {/* ── Active Door Interactive Info Card (Rishi's dinfo) ── */}
-        <div className="rounded-3xl p-8 sm:p-10 bg-[var(--surface)] border border-[var(--line)] shadow-xl transition-all duration-300">
+        <div className="rounded-3xl p-8 sm:p-10 bg-[var(--surface)] border border-[var(--line)] shadow-xl transition-all duration-300 max-w-6xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             {/* Left Info: Title, Tagline, Bullets */}
             <div className="lg:col-span-8 text-left space-y-4">
-              <span className="text-xs font-mono font-bold tracking-widest uppercase text-[var(--accent)]">
-                {DOORS[activeDoor].tagline}
-              </span>
+              <div className="flex items-center gap-3">
+                <span className="text-xs font-mono font-bold tracking-widest uppercase text-[var(--accent)]">
+                  {DOORS[activeDoor].plate}
+                </span>
+                <span className="text-xs font-mono text-[var(--muted)]">
+                  · Door 0{activeDoor + 1} of 04
+                </span>
+              </div>
               <h3 className="text-2xl sm:text-4xl font-extrabold text-[var(--foreground)] font-display">
                 {DOORS[activeDoor].title}
               </h3>
+              <p className="text-xs sm:text-sm font-mono text-[var(--muted)]">
+                {DOORS[activeDoor].tagline}
+              </p>
 
               <ul className="space-y-2.5 text-sm sm:text-base text-[var(--foreground)] pt-2 font-normal">
                 {DOORS[activeDoor].bullets.map((b, idx) => (
@@ -567,8 +573,8 @@ export default function HomePage() {
               {DOORS[activeDoor].demo && (
                 <a
                   href={DOORS[activeDoor].demo}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  target={DOORS[activeDoor].demo?.startsWith("http") ? "_blank" : undefined}
+                  rel={DOORS[activeDoor].demo?.startsWith("http") ? "noopener noreferrer" : undefined}
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[var(--btn-bg)] text-[var(--btn-fg)] font-bold text-sm hover:scale-102 transition-all shadow-md"
                 >
                   <span>Open Live Application</span>
