@@ -24,7 +24,7 @@ interface Message {
   };
 }
 
-/* ── Verified Profile Facts (No Hallucinations) ─────────────────── */
+/* ── Verified Profile Facts ─────────────────────────────────────── */
 const verifiedProfile = {
   name: personal.name || "Arnav Singh",
   degree: "B.Tech Computer Science & Engineering (5th Semester)",
@@ -56,17 +56,14 @@ function prefersHinglish(input: string) {
     "bata",
     "batao",
     "hai",
-    "hu",
-    "main",
-    "mujhe",
-    "kar",
-    "hindi",
-    "hinglish",
-    "kaun",
+    "karo",
     "kaha",
-    "kab",
-    "dost",
-    "yaar",
+    "kon",
+    "kaun",
+    "kaisa",
+    "mujhe",
+    "tera",
+    "apna",
   ]);
 }
 
@@ -74,22 +71,22 @@ function generateReply(rawInput: string): Message {
   const query = rawInput.toLowerCase().trim();
   const hinglish = prefersHinglish(query);
 
-  const reply = (english: string, hindi: string, action?: Message["action"]): Message => ({
+  const reply = (en: string, hi: string, action?: Message["action"]): Message => ({
     from: "bot",
-    text: hinglish ? hindi : english,
+    text: hinglish ? hi : en,
     action,
   });
 
   // 1. Projects Query
   if (includesAny(query, ["project", "work", "atscheck", "toolforge", "ats", "pdflex", "financecalc", "moodmate", "ascend", "built", "demos"])) {
     return reply(
-      `Arnav has built several technical projects:\n\n• ATSCheck (atscheck.tech): An in-browser resume keyword matcher and scanner.\n• PDFlex: Client-side PDF merger and splitter using Web Workers.\n• FinanceCalc: SIP and EMI calculators with compound charts.\n• MoodMate: A hackathon journaling app with Flask and API reflections.\n• ASCEND: A gamified task manager with XP progression.\n\nYou can view all demos and GitHub source links in the Projects section.`,
-      `Arnav ke technical projects ye rahe:\n\n• ATSCheck (atscheck.tech): Browser mein resume keyword matcher tool.\n• PDFlex: Web Workers se client-side PDF merge aur split tool.\n• FinanceCalc: SIP aur EMI compound calculators with charts.\n• MoodMate: Flask backend wala hackathon journaling app.\n• ASCEND: XP progression wala task tracker.\n\nSaare live demos aur code links Projects section mein mil jayenge.`,
-      { label: "View Selected Projects", href: "#projects" }
+      `Arnav has built several technical projects:\n\n• ATSCheck (atscheck.tech): An in-browser resume keyword matcher and scanner.\n• PDFlex: Client-side PDF merger and splitter using Web Workers.\n• FinanceCalc: SIP and EMI calculators with compound charts.\n• MoodMate: A hackathon journaling app with Flask and API reflections.\n• ASCEND: A gamified task manager with XP progression.\n\nYou can view all demos and GitHub source links in the 5 Doors section.`,
+      `Arnav ke technical projects ye rahe:\n\n• ATSCheck (atscheck.tech): Browser mein resume keyword matcher tool.\n• PDFlex: Web Workers se client-side PDF merge aur split tool.\n• FinanceCalc: SIP aur EMI compound calculators with charts.\n• MoodMate: Flask backend wala hackathon journaling app.\n• ASCEND: XP progression wala task tracker.\n\nSaare live demos aur code links Architectural Vault (5 Doors) mein mil jayenge.`,
+      { label: "View 5 Doors Vault", href: "#works" }
     );
   }
 
-  // 2. Recruiter / Internship / 20-Second Summary Query
+  // 2. Recruiter / Internship
   if (includesAny(query, ["recruiter", "hire", "intern", "internship", "job", "summary", "20 sec", "pitch", "why hire"])) {
     return reply(
       `Arnav Singh is a fifth-semester B.Tech CSE student at BBDU, Lucknow, with an 8.0 CGPA. He practises DSA in C++ and has built web projects using React, Next.js, Python, and Flask. He is looking for a software engineering internship.`,
@@ -103,51 +100,33 @@ function generateReply(rawInput: string): Message {
     return reply(
       `Arnav mainly works with C++ and DSA for problem-solving. For web projects, he has used React, Next.js, TypeScript, Python, Flask, and SQL.`,
       `Arnav C++ aur DSA se problem-solving practice karta hai. Web projects mein usne React, Next.js, TypeScript, Python, Flask, aur SQL use kiya hai.`,
-      { label: "Explore Skills Matrix", href: "#skills" }
+      { label: "View Capability Dossier", href: "#home" }
     );
   }
 
   // 4. Resume Query
-  if (includesAny(query, ["resume", "cv", "pdf", "download resume", "bio"])) {
+  if (includesAny(query, ["resume", "cv", "pdf", "download resume"])) {
     return reply(
-      `You can download Arnav's resume here. It has more details about his education, skills, and projects.`,
-      `Arnav ka resume yahan se download kar sakte ho. Isme uski education, skills, aur projects ke baare mein aur details hain.`,
-      { label: "Download Resume PDF", href: verifiedProfile.resume, isExternal: true }
+      `You can view or download Arnav's resume directly. It covers his education at BBDU, technical skills in C++, and recent projects.`,
+      `Arnav ka resume yahan se download ya view kar sakte ho. Isme BBDU ki padhai, C++ skills, aur recent projects listed hain.`,
+      { label: "Open Resume (PDF)", href: verifiedProfile.resume, isExternal: true }
     );
   }
 
-  // 5. Contact & Collaboration Query
-  if (includesAny(query, ["contact", "email", "reach", "hire", "collaborate", "github", "linkedin", "message"])) {
+  // 5. Contact Query
+  if (includesAny(query, ["contact", "email", "reach", "hire", "phone", "message", "touch"])) {
     return reply(
-      `You can find Arnav on GitHub: ${verifiedProfile.github}. His email and LinkedIn details will be added here soon.`,
-      `Arnav ka GitHub yahan hai: ${verifiedProfile.github}. Email aur LinkedIn details yahan jald add hongi.`,
-      { label: "Go to Contact Section", href: "#contact" }
+      `You can email Arnav directly at ${verifiedProfile.email}. He is actively checking messages regarding internship roles and collaborative projects.`,
+      `Aap Arnav ko direct email bhej sakte ho: ${verifiedProfile.email}. Woh internships aur project collaboration ke liye available hai.`,
+      { label: "Send Email", href: `mailto:${verifiedProfile.email}`, isExternal: true }
     );
   }
 
-  // 6. Casual / Friend Query
-  if (includesAny(query, ["friend", "dost", "hobby", "fun", "personal", "chess", "gym", "chai", "who are you"])) {
-    return reply(
-      `Arnav is a CSE student at BBDU who enjoys chess, chai, going to the gym, and listening to music while he works on projects.`,
-      `Arnav BBDU mein CSE student hai. Use chess, chai, gym, aur projects par kaam karte waqt music sunna pasand hai.`,
-      { label: "Read Background", href: "#about" }
-    );
-  }
-
-  // 7. CGPA / College / Education Query
-  if (includesAny(query, ["cgpa", "college", "university", "bbdu", "semester", "sem", "education", "degree"])) {
-    return reply(
-      `Arnav is studying B.Tech CSE at ${verifiedProfile.college}. He is currently in his fifth semester and has a CGPA of ${verifiedProfile.cgpa}.`,
-      `Arnav ${verifiedProfile.college} mein B.Tech CSE kar raha hai. Woh abhi fifth semester mein hai aur uska CGPA ${verifiedProfile.cgpa} hai.`,
-      { label: "View Technical Focus", href: "#focus" }
-    );
-  }
-
-  // 8. Honest Guardrail (No Hallucinations)
+  // Default Fallback
   return reply(
-    `I can help you find details about Arnav's projects, skills, education, or resume. What would you like to know?`,
-    `Main Arnav ke projects, skills, education, aur resume ki details dhoondhne mein help kar sakta hoon. Kya dekhna chahoge?`,
-    { label: "View Selected Projects", href: "#projects" }
+    `I can help with information about Arnav's C++ practice, web projects like ATSCheck and PDFlex, his coursework at BBDU, or how to contact him for an internship.`,
+    `Aap mujhse Arnav ke C++ problem-solving, web projects (jaise ATSCheck aur PDFlex), BBDU coursework, ya internship contact ke baare mein pooch sakte ho.`,
+    { label: "View 5 Doors Vault", href: "#works" }
   );
 }
 
@@ -194,53 +173,44 @@ export default function AIChatbot() {
 
   return (
     <>
-      {/* Floating Chatbot Trigger Button (Emerald & Crisp) */}
+      {/* Floating Chatbot Trigger Button (Rishi Stone Minimalist) */}
       <button
         id="chatbot-toggle"
         onClick={() => setOpen((prev) => !prev)}
         aria-label={open ? "Close portfolio guide" : "Ask Arnav's portfolio guide"}
-        className="fixed bottom-5 right-5 z-[990] h-12 w-12 rounded-full flex items-center justify-center shadow-lg shadow-purple-600/20 transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer bg-[#6E07F3] hover:bg-[#5600c7] text-white border border-purple-400/40"
+        className="fixed bottom-5 right-5 z-[990] h-12 w-12 rounded-full flex items-center justify-center shadow-lg transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer bg-[var(--btn-bg)] hover:opacity-90 text-[var(--btn-fg)] border border-[var(--line)]"
       >
-        {open ? (
-          <X className="w-5 h-5" />
-        ) : (
-          <MessageCircle className="h-5 w-5" />
-        )}
+        {open ? <X className="w-5 h-5" /> : <MessageCircle className="h-5 w-5" />}
         {!open && (
           <span className="absolute -top-0.5 -right-0.5 flex h-3 w-3">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-300 opacity-75" />
-            <span className="relative inline-flex rounded-full h-3 w-3 bg-[#6E07F3]" />
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+            <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500" />
           </span>
         )}
       </button>
 
       {/* Floating Chatbot Window */}
       {open && (
-        <div
-          className="fixed bottom-20 right-5 z-[990] w-[390px] max-w-[calc(100vw-28px)] max-h-[580px] rounded-2xl overflow-hidden flex flex-col shadow-2xl bg-white border border-[#E6ECF8] animate-in fade-in slide-in-from-bottom-4 duration-200"
-          style={{
-            boxShadow: "0 20px 60px rgba(110, 7, 243, 0.15), 0 4px 20px rgba(0, 0, 0, 0.08)",
-          }}
-        >
+        <div className="fixed bottom-20 right-5 z-[990] w-[390px] max-w-[calc(100vw-28px)] max-h-[580px] rounded-3xl overflow-hidden flex flex-col shadow-2xl bg-[var(--surface)] border border-[var(--line)] animate-in fade-in slide-in-from-bottom-4 duration-200">
           {/* Chat Header */}
-          <div className="flex items-center justify-between px-4 py-3.5 border-b border-purple-100 bg-purple-50/70">
+          <div className="flex items-center justify-between px-4 py-3.5 border-b border-[var(--line)] bg-[var(--surface-2)]">
             <div className="flex items-center gap-2.5">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#6E07F3] text-white shadow-sm">
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--btn-bg)] text-[var(--btn-fg)] shadow-sm">
                 <Bot className="w-5 h-5" />
               </div>
               <div>
-                <p className="font-bold text-sm text-slate-900 leading-tight">
+                <p className="font-bold text-sm text-[var(--foreground)] leading-tight font-display">
                   Ask Arnav&apos;s Portfolio
                 </p>
-                <p className="text-[10px] font-mono text-[#6E07F3] flex items-center gap-1 mt-0.5 font-semibold">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#6E07F3] animate-pulse" />
+                <p className="text-[10px] font-mono text-[var(--accent)] flex items-center gap-1 mt-0.5 font-semibold">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                   Portfolio guide · BBDU, Lucknow
                 </p>
               </div>
             </div>
             <button
               onClick={() => setOpen(false)}
-              className="w-7 h-7 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-purple-100/50 transition-colors cursor-pointer"
+              className="w-7 h-7 rounded-lg flex items-center justify-center text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--surface)] transition-colors cursor-pointer"
               aria-label="Close chat"
             >
               <X className="w-4 h-4" />
@@ -248,21 +218,21 @@ export default function AIChatbot() {
           </div>
 
           {/* Quick Buttons Bar */}
-          <div className="grid grid-cols-4 gap-1.5 px-3 py-2 border-b border-slate-100 bg-slate-50/80">
+          <div className="grid grid-cols-4 gap-1.5 px-3 py-2 border-b border-[var(--line)] bg-[var(--surface)]">
             {quickButtons.map(({ label, query, icon: Icon }) => (
               <button
                 key={label}
                 onClick={() => handleSend(query)}
-                className="text-[11px] font-bold py-1.5 px-2 rounded-lg transition-all text-[#6E07F3] bg-white border border-purple-200/80 hover:bg-purple-50 hover:border-[#6E07F3] flex items-center justify-center gap-1 shadow-2xs cursor-pointer"
+                className="text-[11px] font-bold py-1.5 px-2 rounded-lg transition-all text-[var(--foreground)] bg-[var(--background)] border border-[var(--line)] hover:border-[var(--accent)] flex items-center justify-center gap-1 shadow-2xs cursor-pointer font-mono"
               >
-                <Icon className="w-3 h-3 text-[#6E07F3] shrink-0" />
+                <Icon className="w-3 h-3 text-[var(--accent)] shrink-0" />
                 <span>{label}</span>
               </button>
             ))}
           </div>
 
           {/* Messages Stream */}
-          <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3 font-sans text-sm bg-slate-50/30 max-h-[380px]">
+          <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3 font-sans text-sm bg-[var(--background)] max-h-[380px]">
             {messages.map((message, index) => (
               <div
                 key={`${message.from}-${index}`}
@@ -272,8 +242,8 @@ export default function AIChatbot() {
                   <div
                     className={`px-3.5 py-2.5 rounded-2xl text-[13px] leading-relaxed whitespace-pre-line ${
                       message.from === "user"
-                        ? "bg-[#6E07F3] text-white shadow-sm rounded-br-xs"
-                        : "bg-white text-slate-800 border border-slate-200/90 shadow-2xs rounded-bl-xs"
+                        ? "bg-[var(--btn-bg)] text-[var(--btn-fg)] shadow-sm rounded-br-xs"
+                        : "bg-[var(--surface)] text-[var(--foreground)] border border-[var(--line)] shadow-2xs rounded-bl-xs"
                     }`}
                   >
                     {message.text}
@@ -286,10 +256,10 @@ export default function AIChatbot() {
                       target={message.action.isExternal ? "_blank" : undefined}
                       rel={message.action.isExternal ? "noopener noreferrer" : undefined}
                       onClick={() => handleActionClick(message.action!.href)}
-                      className="mt-1.5 inline-flex items-center gap-1.5 rounded-lg border border-purple-300 bg-purple-50 px-3 py-1 text-[11px] font-bold text-[#6E07F3] hover:bg-purple-100 transition-colors shadow-2xs"
+                      className="mt-1.5 inline-flex items-center gap-1.5 rounded-lg border border-[var(--line)] bg-[var(--surface)] px-3 py-1 text-[11px] font-bold text-[var(--foreground)] hover:border-[var(--accent)] transition-colors shadow-2xs font-mono"
                     >
                       <span>{message.action.label}</span>
-                      <ExternalLink className="h-3 w-3 text-[#6E07F3]" />
+                      <ExternalLink className="h-3 w-3 text-[var(--accent)]" />
                     </a>
                   )}
                 </div>
@@ -298,10 +268,10 @@ export default function AIChatbot() {
 
             {typing && (
               <div className="flex justify-start">
-                <div className="px-3.5 py-2 rounded-xl text-xs text-slate-500 bg-white border border-slate-200 flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#6E07F3] animate-bounce" />
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#6E07F3] animate-bounce [animation-delay:0.2s]" />
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#6E07F3] animate-bounce [animation-delay:0.4s]" />
+                <div className="px-3.5 py-2 rounded-xl text-xs text-[var(--muted)] bg-[var(--surface)] border border-[var(--line)] flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] animate-bounce" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] animate-bounce [animation-delay:0.2s]" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] animate-bounce [animation-delay:0.4s]" />
                 </div>
               </div>
             )}
@@ -309,7 +279,7 @@ export default function AIChatbot() {
           </div>
 
           {/* Input Box */}
-          <div className="p-3 border-t border-slate-100 bg-white flex items-center gap-2">
+          <div className="p-3 border-t border-[var(--line)] bg-[var(--surface)] flex items-center gap-2">
             <input
               id="chatbot-input"
               type="text"
@@ -317,13 +287,13 @@ export default function AIChatbot() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSend()}
-              className="flex-1 bg-slate-50 text-slate-900 placeholder-slate-400 text-xs px-3 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-[#6E07F3] transition-colors"
+              className="flex-1 bg-[var(--background)] text-[var(--foreground)] placeholder-[var(--muted)] text-xs px-3 py-2.5 rounded-xl border border-[var(--line)] focus:outline-none focus:border-[var(--accent)] transition-colors"
             />
             <button
               id="chatbot-send"
               onClick={() => handleSend()}
               aria-label="Send message"
-              className="w-9 h-9 rounded-xl bg-[#6E07F3] hover:bg-[#5600c7] text-white flex items-center justify-center transition-transform active:scale-95 shadow-sm cursor-pointer"
+              className="w-9 h-9 rounded-xl bg-[var(--btn-bg)] hover:opacity-90 text-[var(--btn-fg)] flex items-center justify-center transition-transform active:scale-95 shadow-sm cursor-pointer"
             >
               <Send className="w-3.5 h-3.5" />
             </button>

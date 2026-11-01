@@ -66,14 +66,12 @@ export default function MusicToggle() {
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  // Initialize audio src on mount without hardcoding in JSX
   useEffect(() => {
     if (audioRef.current && !audioRef.current.src) {
       audioRef.current.src = playlist[0].url;
     }
   }, []);
 
-  // Sync volume with audio element
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.volume = isMuted ? 0 : volume;
@@ -152,7 +150,6 @@ export default function MusicToggle() {
 
   return (
     <>
-      {/* Hidden Native Audio Element (src managed imperatively to prevent React reconciliation conflicts) */}
       <audio
         ref={audioRef}
         preload="metadata"
@@ -186,25 +183,25 @@ export default function MusicToggle() {
 
       {/* Floating Playlist Drawer Popup */}
       {isPanelOpen && (
-        <div className="fixed bottom-20 left-5 z-[910] w-84 rounded-2xl border border-[#E6ECF8] bg-white p-4 text-[#141C3A] shadow-2xl backdrop-blur-xl animate-in fade-in slide-in-from-bottom-3 duration-200">
+        <div className="fixed bottom-20 left-5 z-[910] w-84 rounded-3xl border border-[var(--line)] bg-[var(--surface)] p-4 text-[var(--foreground)] shadow-2xl backdrop-blur-2xl animate-in fade-in slide-in-from-bottom-3 duration-200">
           {/* Header */}
-          <div className="flex items-center justify-between border-b border-[#E6ECF8] pb-3 mb-3">
+          <div className="flex items-center justify-between border-b border-[var(--line)] pb-3 mb-3">
             <div className="flex items-center gap-2.5">
-              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#6E07F3] text-white shadow-sm font-bold">
+              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[var(--btn-bg)] text-[var(--btn-fg)] shadow-sm font-bold">
                 <Music className="h-4 w-4" />
               </div>
               <div>
-                <span className="font-display text-xs font-bold uppercase tracking-wider text-[#141C3A] block">
+                <span className="font-display text-xs font-bold uppercase tracking-wider text-[var(--foreground)] block">
                   Soundtrack Player
                 </span>
-                <span className="text-[10px] text-[#6E07F3] font-semibold block">
+                <span className="text-[10px] text-[var(--accent)] font-mono font-semibold block">
                   Talwiinder · Fairytale · Jack Sparrow
                 </span>
               </div>
             </div>
             <button
               onClick={() => setIsPanelOpen(false)}
-              className="rounded-lg p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-700 transition-colors cursor-pointer"
+              className="rounded-lg p-1 text-[var(--muted)] hover:bg-[var(--surface-2)] hover:text-[var(--foreground)] transition-colors cursor-pointer"
               aria-label="Close soundtrack player"
             >
               <X className="h-4 w-4" />
@@ -212,23 +209,23 @@ export default function MusicToggle() {
           </div>
 
           {/* Current track info & waveform */}
-          <div className="mb-3 rounded-xl border border-[#E6ECF8] bg-[#F7F9FC] p-3">
+          <div className="mb-3 rounded-2xl border border-[var(--line)] bg-[var(--background)] p-3">
             <div className="flex items-center justify-between mb-2">
               <div className="truncate max-w-[190px]">
-                <p className="text-xs font-bold text-[#141C3A] truncate">
+                <p className="text-xs font-bold text-[var(--foreground)] truncate">
                   {currentTrack.title}
                 </p>
-                <p className="text-[11px] text-[#5A6275] truncate">
+                <p className="text-[11px] text-[var(--muted)] truncate">
                   {currentTrack.artist}
                 </p>
               </div>
               <div className="flex items-center gap-1.5 shrink-0">
                 <span
                   className={`h-2.5 w-2.5 rounded-full ${
-                    isPlaying ? "bg-[#6E07F3] animate-pulse" : "bg-slate-300"
+                    isPlaying ? "bg-emerald-500 animate-pulse" : "bg-stone-400"
                   }`}
                 />
-                <span className="font-mono text-[9px] font-bold text-[#6E07F3]">
+                <span className="font-mono text-[9px] font-bold text-[var(--accent)]">
                   {isLoading ? "LOADING..." : isPlaying ? "PLAYING" : "PAUSED"}
                 </span>
               </div>
@@ -242,19 +239,19 @@ export default function MusicToggle() {
                 max={duration || 100}
                 value={currentTime}
                 onChange={handleSeek}
-                className="w-full h-1.5 accent-[#6E07F3] bg-slate-200 rounded-lg cursor-pointer"
+                className="w-full h-1.5 accent-[var(--accent)] bg-[var(--line)] rounded-lg cursor-pointer"
               />
-              <div className="flex justify-between text-[10px] font-mono text-[#5A6275]">
+              <div className="flex justify-between text-[10px] font-mono text-[var(--muted)]">
                 <span>{formatTime(currentTime)}</span>
                 <span>{formatTime(duration)}</span>
               </div>
             </div>
 
             {/* Playback Controls */}
-            <div className="flex items-center justify-center gap-4 mt-3 pt-2.5 border-t border-slate-200/60">
+            <div className="flex items-center justify-center gap-4 mt-3 pt-2.5 border-t border-[var(--line)]">
               <button
                 onClick={prevTrack}
-                className="text-slate-500 hover:text-[#6E07F3] transition-colors cursor-pointer p-1"
+                className="text-[var(--muted)] hover:text-[var(--foreground)] transition-colors cursor-pointer p-1"
                 aria-label="Previous track"
                 title="Previous track"
               >
@@ -262,7 +259,7 @@ export default function MusicToggle() {
               </button>
               <button
                 onClick={togglePlay}
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-[#6E07F3] text-white hover:bg-[#5600c7] hover:scale-105 active:scale-95 transition-all cursor-pointer shadow-md shadow-purple-500/20 font-bold"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--btn-bg)] text-[var(--btn-fg)] hover:scale-105 active:scale-95 transition-all cursor-pointer shadow-md font-bold"
                 aria-label={isPlaying ? "Pause" : "Play"}
                 title={isPlaying ? "Pause music" : "Play music"}
               >
@@ -270,7 +267,7 @@ export default function MusicToggle() {
               </button>
               <button
                 onClick={nextTrack}
-                className="text-slate-500 hover:text-[#6E07F3] transition-colors cursor-pointer p-1"
+                className="text-[var(--muted)] hover:text-[var(--foreground)] transition-colors cursor-pointer p-1"
                 aria-label="Next track"
                 title="Next track"
               >
@@ -279,7 +276,7 @@ export default function MusicToggle() {
               <button
                 onClick={() => setIsLooping(!isLooping)}
                 className={`p-1.5 rounded-md transition-colors cursor-pointer ${
-                  isLooping ? "text-[#6E07F3] bg-purple-50" : "text-slate-400 hover:text-slate-600"
+                  isLooping ? "text-[var(--accent)] bg-[var(--surface-2)]" : "text-[var(--muted)] hover:text-[var(--foreground)]"
                 }`}
                 title={isLooping ? "Continuous Loop Active" : "Loop Inactive"}
               >
@@ -290,8 +287,8 @@ export default function MusicToggle() {
 
           {/* Track List */}
           <div className="space-y-1 mb-3 max-h-[165px] overflow-y-auto pr-0.5">
-            <span className="font-mono text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
-              Select Soundtrack Track (Continuous Loop)
+            <span className="font-mono text-[10px] font-bold text-[var(--muted)] uppercase tracking-wider block mb-1">
+              Select Track (Continuous Loop)
             </span>
             {playlist.map((track, idx) => (
               <button
@@ -299,25 +296,17 @@ export default function MusicToggle() {
                 onClick={() => playTrack(idx)}
                 className={`w-full flex items-center justify-between rounded-xl px-3 py-2 text-left text-xs transition-colors cursor-pointer ${
                   currentTrackIndex === idx
-                    ? "bg-[#6E07F3]/10 text-[#6E07F3] font-bold border border-[#6E07F3]/25"
-                    : "text-slate-700 hover:bg-slate-50 border border-transparent"
+                    ? "bg-[var(--surface-2)] text-[var(--foreground)] font-bold border border-[var(--line)]"
+                    : "text-[var(--muted)] hover:text-[var(--foreground)] hover:bg-[var(--surface-2)]/50 border border-transparent"
                 }`}
               >
                 <div className="truncate max-w-[190px]">
                   <span className="truncate block font-semibold">{track.title}</span>
-                  <span
-                    className={`text-[10px] block ${
-                      currentTrackIndex === idx ? "text-[#6E07F3]" : "text-slate-400"
-                    }`}
-                  >
+                  <span className="text-[10px] block text-[var(--muted)]">
                     {track.genre}
                   </span>
                 </div>
-                <span
-                  className={`font-mono text-[10px] ${
-                    currentTrackIndex === idx ? "text-[#6E07F3] font-bold" : "text-slate-400"
-                  }`}
-                >
+                <span className="font-mono text-[10px] font-bold text-[var(--accent)]">
                   0{idx + 1}
                 </span>
               </button>
@@ -325,10 +314,10 @@ export default function MusicToggle() {
           </div>
 
           {/* Volume Control */}
-          <div className="flex items-center gap-2 pt-2.5 border-t border-[#E6ECF8] text-slate-500">
+          <div className="flex items-center gap-2 pt-2.5 border-t border-[var(--line)] text-[var(--muted)]">
             <button
               onClick={() => setIsMuted(!isMuted)}
-              className="hover:text-[#6E07F3] transition-colors cursor-pointer"
+              className="hover:text-[var(--foreground)] transition-colors cursor-pointer"
               aria-label={isMuted ? "Unmute" : "Mute"}
             >
               {isMuted || volume === 0 ? (
@@ -347,9 +336,9 @@ export default function MusicToggle() {
                 setVolume(parseFloat(e.target.value));
                 setIsMuted(false);
               }}
-              className="h-1.5 flex-1 accent-[#6E07F3] bg-slate-200 rounded-lg cursor-pointer"
+              className="h-1.5 flex-1 accent-[var(--accent)] bg-[var(--line)] rounded-lg cursor-pointer"
             />
-            <span className="font-mono text-[10px] text-slate-400 w-8 text-right">
+            <span className="font-mono text-[10px] text-[var(--muted)] w-8 text-right">
               {Math.round((isMuted ? 0 : volume) * 100)}%
             </span>
           </div>
@@ -367,24 +356,24 @@ export default function MusicToggle() {
             setIsPanelOpen(!isPanelOpen);
           }
         }}
-        className="fixed bottom-5 left-5 z-[900] flex h-12 w-12 items-center justify-center rounded-full border-2 border-[#E6ECF8] bg-white text-[#141C3A] shadow-lg transition-all hover:scale-105 hover:border-[#6E07F3] active:scale-95 cursor-pointer group"
+        className="fixed bottom-5 left-5 z-[900] flex h-12 w-12 items-center justify-center rounded-full border border-[var(--line)] bg-[var(--surface)] text-[var(--foreground)] shadow-lg transition-all hover:scale-105 active:scale-95 cursor-pointer group"
         aria-label="Soundtrack Music Player"
         title={isPlaying ? "Playing: " + currentTrack.title + " (Click to toggle)" : "Click to play soundtrack"}
       >
         <span className="relative flex items-center justify-center">
           {isPlaying ? (
             <span className="flex items-end gap-0.5 h-4 w-4 justify-center pb-0.5">
-              <span className="w-1 bg-[#6E07F3] rounded-full animate-bounce [animation-delay:0ms] h-3" />
-              <span className="w-1 bg-[#6E07F3] rounded-full animate-bounce [animation-delay:150ms] h-4" />
-              <span className="w-1 bg-[#6E07F3] rounded-full animate-bounce [animation-delay:300ms] h-2.5" />
+              <span className="w-1 bg-[var(--accent)] rounded-full animate-bounce [animation-delay:0ms] h-3" />
+              <span className="w-1 bg-[var(--accent)] rounded-full animate-bounce [animation-delay:150ms] h-4" />
+              <span className="w-1 bg-[var(--accent)] rounded-full animate-bounce [animation-delay:300ms] h-2.5" />
             </span>
           ) : (
             <span className="text-lg opacity-80 group-hover:opacity-100 transition-opacity">🎧</span>
           )}
           {isPlaying && (
             <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#6E07F3]" />
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
             </span>
           )}
         </span>

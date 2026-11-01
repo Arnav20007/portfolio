@@ -1,19 +1,66 @@
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════════════════════════════
-   DESIGN TOKENS — Matt Farley Inspired System for Arnav Singh
+   DESIGN SYSTEM — Inspired by therishithakor.com
+   Warm Stone & Charcoal Editorial Aesthetic for Arnav Singh
 ═══════════════════════════════════════════════════════════════ */
 :root {
-  /* Matt Farley Iconic Signature Palette */
-  --primary: #6e07f3;
-  --primary-hover: #5600c7;
-  --primary-light: #f5f0ff;
-  --teal: #5be9b9;
-  --dark: #141c3a;
-  --body-text: #5a6275;
-  --border: #e6ecf8;
-  --bg-page: #ffffff;
-  --bg-alt: #fbfbfc;
+  --background: #E8E4E0;
+  --foreground: #1A1818;
+  --ink: #1A1818;
+  --muted: #857878;
+  --subtle: #B5A8A8;
+  --line: #D5CDCA;
+  --surface: #DED8D4;
+  --surface-2: #D3CBC8;
+  --accent: #6B5C5C;
+  --accent-from: #C4B0B0;
+  --accent-to: #6B5C5C;
+  --hero-from: #EEEAE6;
+  --hero-mid: #E8E4E0;
+  --hero-to: #D8CDCA;
+  --radius-pill: 9999px;
+  --radius-card: 2rem;
+  --radius-card-sm: 1.25rem;
+  --radius-control: 0.875rem;
+  --font: 'Onest', 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+  
+  --chip-bg: rgba(242, 238, 235, 0.65);
+  --chip-bg-h: rgba(242, 238, 235, 0.95);
+  --chip-line: rgba(196, 176, 176, 0.45);
+  --btn-bg: #1A1818;
+  --btn-fg: #E8E4E0;
+  --panel: #F0ECE9;
+  --scrim: rgba(26, 24, 24, 0.35);
+  --fg-rgb: 26, 24, 24;
+  color-scheme: light;
+}
+
+html[data-mode="dark"] {
+  --background: #1A1818;
+  --foreground: #E8E4E0;
+  --ink: #E8E4E0;
+  --muted: #A39696;
+  --subtle: #7A6F6F;
+  --line: rgba(196, 176, 176, 0.16);
+  --surface: #252121;
+  --surface-2: #302A2A;
+  --accent: #A89595;
+  --accent-from: #7A6868;
+  --accent-to: #C4B0B0;
+  --hero-from: #211E1E;
+  --hero-mid: #1A1818;
+  --hero-to: #141212;
+  --chip-bg: rgba(196, 176, 176, 0.08);
+  --chip-bg-h: rgba(196, 176, 176, 0.16);
+  --chip-line: rgba(196, 176, 176, 0.16);
+  --btn-bg: #E8E4E0;
+  --btn-fg: #1A1818;
+  --panel: #221F1F;
+  --scrim: rgba(0, 0, 0, 0.65);
+  --fg-rgb: 232, 228, 224;
+  color-scheme: dark;
 }
 
 @layer base {
@@ -24,50 +71,132 @@
 
 html {
   scroll-behavior: smooth;
-  background: #ffffff;
+  background: var(--background);
+  transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 body {
-  background: #ffffff;
-  color: #141c3a;
-  font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-html.light {
-  background: #ffffff;
-}
-
-html.light body {
-  background: #ffffff;
-  color: #141c3a;
+  overflow-x: clip;
 }
 
 ::selection {
-  background: #ebd8ff;
-  color: #5600c7;
+  background: #C4B0B0;
+  color: #1A1818;
 }
 
 ::-webkit-scrollbar {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #ffffff;
+  background: var(--background);
 }
 ::-webkit-scrollbar-thumb {
-  background: #d4daf0;
+  background: var(--line);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #6e07f3;
+  background: var(--accent);
 }
 
 .font-display {
-  font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif;
+  font-family: var(--font);
 }
 
 .font-mono {
-  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: var(--font-mono);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   3D DESK FLIP CALENDAR (Inspired by therishithakor.com)
+═══════════════════════════════════════════════════════════════ */
+.cal-wrapper {
+  perspective: 1000px;
+  perspective-origin: 30% 0;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.cal-body {
+  position: relative;
+  display: inline-block;
+  transform: rotateX(10deg) rotateY(-8deg);
+  transform-style: preserve-3d;
+  transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cal-stand {
+  position: absolute;
+  left: 0.2em;
+  right: -0.14em;
+  top: 0.28em;
+  bottom: -0.4em;
+  border-radius: 0.4em;
+  background: linear-gradient(165deg, #3a3a3a 0%, #1a1a1a 45%, #080808 100%);
+  box-shadow: 0 0.4em 0.8em rgba(0, 0, 0, 0.35), inset 0 0.05em 0.08em rgba(255, 255, 255, 0.15);
+}
+
+.cal-page-base {
+  background: linear-gradient(180deg, #FDFCF9 0%, #F1EFEA 100%);
+  border-radius: 0.3em;
+  box-shadow: 0 0.04em 0 #d8d4cb, 0 0.08em 0 #f6f4ef, 0 0.12em 0 #c8c3b8, 0 0.4em 0.8em rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+html[data-mode="dark"] .cal-page-base {
+  background: linear-gradient(180deg, #2A2626 0%, #201D1D 100%);
+  box-shadow: 0 0.04em 0 #1c1919, 0 0.08em 0 #2e2929, 0 0.12em 0 #181515, 0 0.4em 0.8em rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   DOORS SYSTEM (3D PERSPECTIVE VAULT)
+═══════════════════════════════════════════════════════════════ */
+.door-container {
+  perspective: 900px;
+}
+
+.door-leaf {
+  transform-origin: left center;
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.65s ease;
+  transform-style: preserve-3d;
+}
+
+.door-container:hover .door-leaf,
+.door-container.active .door-leaf {
+  transform: rotateY(-68deg);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.door-light-spill {
+  opacity: 0;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.door-container:hover .door-light-spill,
+.door-container.active .door-light-spill {
+  opacity: 1;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   3D HOLOGRAPHIC ABILITY CARD
+═══════════════════════════════════════════════════════════════ */
+.ability-card {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+
+.ability-card-inner {
+  transform-style: preserve-3d;
+}
+
+.ability-card:hover {
+  transform: translateY(-4px) rotateX(4deg) rotateY(-3deg);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }

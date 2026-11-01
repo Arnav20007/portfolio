@@ -1,609 +1,832 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
+  ArrowRight,
   ExternalLink,
+  Download,
   Mail,
-  Layers,
-  Cpu,
-  BookOpen,
-  Check,
+  Sun,
+  Moon,
+  CheckCircle2,
+  FolderGit2,
 } from "lucide-react";
 import { personal } from "@/lib/data";
 
-const resumeHref = personal.resume || "/resume.pdf";
-const email = personal.email;
-const githubProfile = `https://github.com/${personal.github || "Arnav20007"}`;
-const linkedinProfile = personal.linkedin ? `https://linkedin.com/in/${personal.linkedin}` : "";
+/* ── SKILLS TICKER LIST FOR 3D FLIP CALENDAR ────────────────── */
+const CAL_SKILLS = [
+  { title: "Software Engineer", no: "01" },
+  { title: "C++ & DSA Builder", no: "02" },
+  { title: "Full-Stack Developer", no: "03" },
+  { title: "Web Utility Builder", no: "04" },
+  { title: "System & API Builder", no: "05" },
+];
 
-/* ── SVG Brand Icons ────────────────────────────────────────────── */
-function GithubIcon({ className = "h-5 w-5" }: { className?: string }) {
-  return (
-    <svg className={className} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-      <path
-        fillRule="evenodd"
-        d="M12 2C6.48 2 2 6.58 2 12.26c0 4.52 2.87 8.35 6.84 9.7.5.1.68-.22.68-.49v-1.74c-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.63.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.36-2.22-.26-4.55-1.14-4.55-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.28 2.75 1.05A9.35 9.35 0 0 1 12 6.99c.85 0 1.7.12 2.5.35 1.91-1.33 2.75-1.05 2.75-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9v2.77c0 .27.18.59.69.49A10.15 10.15 0 0 0 22 12.26C22 6.58 17.52 2 12 2Z"
-        clipRule="evenodd"
-      />
-    </svg>
-  );
-}
-
-function LinkedinIcon({ className = "h-5 w-5" }: { className?: string }) {
-  return (
-    <svg className={className} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5ZM.32 8.05h4.35V23H.32V8.05ZM7.34 8.05h4.17v2.04h.06c.58-1.1 2-2.26 4.13-2.26 4.42 0 5.24 2.91 5.24 6.69V23h-4.35v-7.52c0-1.79-.03-4.1-2.5-4.1-2.5 0-2.88 1.95-2.88 3.97V23H7.34V8.05Z" />
-    </svg>
-  );
-}
-
-/* ── Selected Projects Data (Explained in Arnav's real student voice) ── */
-interface SelectedProject {
+/* ── 5 DOORS DATA (Rishi Thakor Inspired Doors Section) ─────── */
+interface DoorData {
   id: string;
-  name: string;
-  badge: string;
+  plate: string;
+  title: string;
   tagline: string;
-  description: string;
-  stack: string[];
-  demo?: string;
-  source: string;
   color: string;
+  accent: string;
+  bullets: string[];
+  demo?: string;
+  source?: string;
 }
 
-const projectsList: SelectedProject[] = [
+const DOORS: DoorData[] = [
   {
-    id: "atscheck",
-    name: "ATSCheck",
-    badge: "Web Utility",
-    tagline: "Resume Keyword Matcher & Scanner",
-    description:
-      "Built this so friends could check how well their resumes match job descriptions without paying for subscriptions or uploading personal documents to third-party servers. Everything runs client-side in React.",
-    stack: ["React", "TypeScript", "Tailwind CSS", "PDF.js"],
+    id: "web-utils",
+    plate: "Web Utilities",
+    title: "ATSCheck & PDFlex",
+    tagline: "Client-side privacy-first browser tools",
+    color: "#22304a",
+    accent: "#6B5C5C",
+    bullets: [
+      "Runs 100% locally in browser without server upload",
+      "Web Workers for background PDF parsing and manipulation",
+      "No logins, no payment walls, instant keyword alignment",
+      "Live on https://atscheck.tech/ and PDFlex",
+    ],
     demo: "https://atscheck.tech/",
     source: "https://github.com/Arnav20007/ats",
-    color: "#6E07F3",
   },
   {
-    id: "pdflex",
-    name: "PDFlex",
-    badge: "Browser Utility",
-    tagline: "Client-Side PDF Merge & Split",
-    description:
-      "I wanted a simple way to merge and split PDFs without uploading them. PDFlex handles that work directly in the browser using PDF.js, pdf-lib, and Web Workers.",
-    stack: ["React", "Web Workers", "pdf-lib", "PDF.js"],
-    demo: "https://pd-flex.vercel.app",
-    source: "https://github.com/Arnav20007/pdflex",
-    color: "#2563EB",
-  },
-  {
-    id: "financecalc",
-    name: "FinanceCalc",
-    badge: "Web App",
-    tagline: "SIP & Loan EMI Calculator",
-    description:
-      "Built to bring common money calculations together. Uses Chart.js and Next.js to visualize SIP compounding returns and loan EMI payments clearly.",
-    stack: ["Next.js", "TypeScript", "Tailwind CSS", "Chart.js"],
+    id: "fintech",
+    plate: "FinTech Apps",
+    title: "FinanceCalc",
+    tagline: "Compound returns & loan EMI analytics",
+    color: "#4a3540",
+    accent: "#8C5868",
+    bullets: [
+      "Visualized compounding returns for SIP and mutual funds",
+      "Interactive loan amortization & EMI payment curves",
+      "Built with Next.js, TypeScript, Tailwind CSS and Chart.js",
+      "Live on financecalc0.vercel.app",
+    ],
     demo: "https://financecalc0.vercel.app",
     source: "https://github.com/Arnav20007/financecalc",
-    color: "#059669",
   },
   {
-    id: "moodmate",
-    name: "MoodMate",
-    badge: "Hackathon Project",
-    tagline: "Journaling App with API Reflections",
-    description:
-      "A hackathon project exploring Python and Flask. Users can jot down daily journal entries and get brief reflective prompts via an API.",
-    stack: ["Next.js", "Python", "Flask", "OpenAI API"],
-    source: "https://github.com/Arnav20007/moodmate",
-    color: "#E11D48",
+    id: "algorithms",
+    plate: "C++ / DSA Core",
+    title: "C++ Algorithmic Core",
+    tagline: "Data structures & problem solving",
+    color: "#35483a",
+    accent: "#56755E",
+    bullets: [
+      "Trees, Graphs, Recursion and Dynamic Programming in C++",
+      "Continuous algorithmic practice and time complexity focus",
+      "Coursework at BBDU Lucknow with strong OOP foundation",
+      "Interactive CLI Terminal environment implemented in-browser",
+    ],
+    demo: "/terminal",
+    source: "https://github.com/Arnav20007",
   },
   {
-    id: "ascend",
-    name: "ASCEND",
-    badge: "Side Project",
-    tagline: "Task Tracker with XP Progression",
-    description:
-      "A habit and task tracker that adds small RPG-style XP and levels to daily developer routines to make daily progress more motivating.",
-    stack: ["Next.js", "TypeScript", "Prisma", "PostgreSQL"],
+    id: "fullstack",
+    plate: "Full-Stack Systems",
+    title: "ASCEND",
+    tagline: "Gamified task progression system",
+    color: "#264349",
+    accent: "#4A747D",
+    bullets: [
+      "Gamified to-do workflow with XP levels and tier unlocks",
+      "Next.js, TypeScript, PostgreSQL and Prisma ORM backend",
+      "Modular components with responsive dark & stone interface",
+      "Clean architecture with verified local state persistence",
+    ],
     source: "https://github.com/Arnav20007/ascend",
-    color: "#D97706",
   },
   {
-    id: "dsa",
-    name: "C++ DSA Practice",
-    badge: "Problem Solving",
-    tagline: "Data Structures & Algorithms Repository",
-    description:
-      "I practise C++ by working through trees, graphs, and DP problems.",
-    stack: ["C++17", "STL", "Algorithms", "Data Structures"],
-    source: "https://github.com/Arnav20007/cpp-practice",
-    color: "#4F46E5",
+    id: "ai-systems",
+    plate: "AI & Hackathons",
+    title: "MoodMate",
+    tagline: "AI journaling & reflection assistant",
+    color: "#5c3c31",
+    accent: "#945846",
+    bullets: [
+      "Hackathon project designed for mental wellness and reflection",
+      "Python Flask REST API connecting frontend with OpenAI API",
+      "Prompt engineered reflection analysis from daily journal notes",
+      "Clean separation of client and backend API endpoints",
+    ],
+    source: "https://github.com/Arnav20007/moodmate",
   },
 ];
 
-/* ── Hero Desk Illustration ─────────────────────────────────────── */
-function HeroIllustration() {
+/* ── STORY CHAPTERS FOR ROLLING TIMELINE ─────────────────────── */
+const STORY_CHAPTERS = [
+  {
+    year: "2026",
+    period: "Oct 2026 — Present",
+    role: "Software Engineering & Web Utility Builder",
+    desc: "Launched ATSCheck on its dedicated domain (atscheck.tech), optimized PDFlex with client-side Web Workers, and actively looking for a software engineering internship to contribute real code.",
+    tags: ["C++", "Next.js", "ATSCheck", "Web Workers", "Internship"],
+  },
+  {
+    year: "2025",
+    period: "Jan 2025 — Sep 2025",
+    role: "Full-Stack Projects & Hackathons",
+    desc: "Built MoodMate during a hackathon with Next.js and a Python Flask backend. Developed FinanceCalc for SIP and EMI forecasting with interactive Chart.js visualizations.",
+    tags: ["React", "Python Flask", "FinanceCalc", "PostgreSQL", "REST APIs"],
+  },
+  {
+    year: "2024",
+    period: "Jan 2024 — Dec 2024",
+    role: "C++ & Data Structures Practice",
+    desc: "Focused intensely on foundational computer science and problem solving—practicing trees, graphs, recursion, and dynamic programming patterns in C++ alongside university academics.",
+    tags: ["C++", "DSA", "Algorithms", "OOP", "Problem Solving"],
+  },
+  {
+    year: "2022",
+    period: "Jul 2022 — Jun 2026",
+    role: "B.Tech in Computer Science and Engineering",
+    desc: "Enrolled in B.Tech CSE at Babu Banarasi Das University (BBDU), Lucknow. Maintained an 8.0 CGPA while mastering core subjects: OS, DBMS, Computer Networks, and Software Engineering.",
+    tags: ["BBDU Lucknow", "8.0 CGPA", "Computer Science", "CSE Core"],
+  },
+];
+
+export default function HomePage() {
+  /* ── Dark Mode State ── */
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("arnav-mode");
+    if (saved === "dark") {
+      document.documentElement.dataset.mode = "dark";
+      // Update state without synchronous re-render warning
+      requestAnimationFrame(() => setIsDark(true));
+    }
+  }, []);
+
+  const toggleDarkMode = () => {
+    const next = !isDark;
+    setIsDark(next);
+    if (next) {
+      document.documentElement.dataset.mode = "dark";
+      localStorage.setItem("arnav-mode", "dark");
+    } else {
+      document.documentElement.removeAttribute("data-mode");
+      localStorage.setItem("arnav-mode", "light");
+    }
+  };
+
+  /* ── Live Ticking Clock (IST / Lucknow) ── */
+  const [timeStr, setTimeStr] = useState("");
+  useEffect(() => {
+    const updateTime = () => {
+      const d = new Date();
+      setTimeStr(
+        d.toLocaleTimeString("en-US", {
+          timeZone: "Asia/Kolkata",
+          hour: "numeric",
+          minute: "2-digit",
+          hour12: true,
+        }).toLowerCase()
+      );
+    };
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  /* ── 3D Desk-Calendar Flip Loop ── */
+  const [calIndex, setCalIndex] = useState(0);
+  const [isFlipping, setIsFlipping] = useState(false);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIsFlipping(true);
+      setTimeout(() => {
+        setCalIndex((prev) => (prev + 1) % CAL_SKILLS.length);
+        setIsFlipping(false);
+      }, 600);
+    }, 2800);
+    return () => clearInterval(timer);
+  }, []);
+
+  /* ── Active Door State ── */
+  const [activeDoor, setActiveDoor] = useState(0);
+
+  /* ── Rolling Story Year State ── */
+  const [activeStoryYear, setActiveStoryYear] = useState("2026");
+
   return (
-    <div className="w-full max-w-4xl mx-auto mt-10 mb-0 select-none">
-      <div className="relative rounded-3xl border border-[#E6ECF8] bg-gradient-to-b from-[#F9FAFC] to-white p-6 sm:p-10 shadow-xl overflow-hidden">
-        {/* Subtle grid background */}
+    <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)] selection:bg-[#C4B0B0] selection:text-[#1A1818] font-sans antialiased transition-colors duration-400">
+      
+      {/* ═══════════════════════════════════════════════════════════════
+          1. HEADER / NAVIGATION (Pill Bar with Live Clock & Mode Switch)
+      ═══════════════════════════════════════════════════════════════ */}
+      <header className="fixed top-0 inset-x-0 z-50 transition-all duration-300">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-2">
+          <div className="flex items-center justify-between gap-3 p-2 rounded-full bg-[var(--chip-bg)] backdrop-blur-xl border border-[var(--chip-line)] shadow-lg shadow-black/5">
+            {/* Left Brand Badge */}
+            <Link
+              href="#home"
+              className="flex items-center gap-2 px-4 py-2 rounded-full font-bold text-sm tracking-tight text-[var(--foreground)] hover:bg-[var(--surface)] transition-colors"
+            >
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span>Arnav Singh</span>
+              <span className="hidden sm:inline-block text-xs font-mono text-[var(--muted)] font-normal">
+                · BBDU CSE
+              </span>
+            </Link>
+
+            {/* Navigation Links */}
+            <nav className="hidden md:flex items-center gap-1 text-xs font-medium">
+              {[
+                { label: "Home", href: "#home" },
+                { label: "Works", href: "#works" },
+                { label: "My Story", href: "#about" },
+                { label: "Recruiter Dossier", href: "/recruiter" },
+                { label: "Terminal", href: "/terminal" },
+                { label: "Contact", href: "#contact" },
+              ].map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="px-3.5 py-1.5 rounded-full text-[var(--foreground)] hover:bg-[var(--surface)] transition-colors"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+
+            {/* Right Controls: Clock + Theme Switcher + CTA */}
+            <div className="flex items-center gap-2">
+              {/* Live Clock Chip */}
+              <div
+                className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-[var(--surface)] border border-[var(--line)] text-xs font-mono text-[var(--foreground)]"
+                title="Local time in Lucknow, India (IST)"
+              >
+                <span className="text-[10px] text-[var(--muted)] uppercase font-semibold">
+                  Lucknow
+                </span>
+                <span className="font-bold text-[11px]">{timeStr || "7:45pm"}</span>
+              </div>
+
+              {/* Dark / Light Mode Switch */}
+              <button
+                onClick={toggleDarkMode}
+                aria-label="Toggle theme mode"
+                className="flex items-center justify-center h-8 w-8 rounded-full bg-[var(--surface)] border border-[var(--line)] text-[var(--foreground)] hover:scale-105 active:scale-95 transition-all cursor-pointer"
+                title={isDark ? "Switch to Warm Stone Mode" : "Switch to Charcoal Dark Mode"}
+              >
+                {isDark ? <Sun className="w-4 h-4 text-amber-300" /> : <Moon className="w-4 h-4 text-slate-700" />}
+              </button>
+
+              {/* Start a project / Contact Pill */}
+              <a
+                href="mailto:arnavsinghas1221@gmail.com"
+                className="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[var(--btn-bg)] text-[var(--btn-fg)] text-xs font-semibold hover:opacity-90 transition-opacity shadow-sm"
+              >
+                <span>Say Hello</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* ═══════════════════════════════════════════════════════════════
+          2. HERO SECTION (Massive Editorial Headline + 3D Flip Calendar)
+      ═══════════════════════════════════════════════════════════════ */}
+      <section
+        id="home"
+        className="relative min-h-[92vh] flex flex-col justify-between pt-32 pb-10 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto overflow-hidden"
+      >
+        {/* Subtle Vignette Gradient in Background */}
         <div
-          className="absolute inset-0 opacity-[0.35] pointer-events-none"
-          style={{
-            backgroundImage: "radial-gradient(#CBD5E1 1px, transparent 1px)",
-            backgroundSize: "24px 24px",
-          }}
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 opacity-40 [background:radial-gradient(ellipse_80%_60%_at_50%_0%,rgba(196,176,176,0.35),transparent_70%)]"
         />
 
-        {/* Clean Monitor Mockup */}
-        <div className="relative z-10 max-w-2xl mx-auto">
-          <div className="rounded-2xl border-2 border-slate-800 bg-slate-900 shadow-2xl overflow-hidden">
-            {/* Window header */}
-            <div className="flex items-center justify-between px-4 py-2.5 bg-slate-950 border-b border-slate-800">
-              <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#FF5F56]" />
-                <span className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E]" />
-                <span className="w-2.5 h-2.5 rounded-full bg-[#27C93F]" />
-                <span className="ml-2 font-mono text-[11px] text-slate-400">
-                  arnav-singh · ~/projects
-                </span>
-              </div>
-              <span className="font-mono text-[10px] text-purple-300 font-semibold">
-                VS Code + Browser
-              </span>
+        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center my-auto">
+          {/* Left Column: Greeting, Big Typography, Flip Calendar */}
+          <div className="lg:col-span-8 flex flex-col items-start text-left">
+            {/* Eyebrow Chip */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[var(--surface)] border border-[var(--line)] text-xs font-mono font-bold tracking-wider text-[var(--accent)] uppercase mb-6">
+              <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]" />
+              B.Tech CSE Student · Software Engineer
             </div>
 
-            {/* Split Screen: Code Editor & Web Tool */}
-            <div className="grid grid-cols-1 md:grid-cols-2 text-left bg-slate-950 min-h-[200px]">
-              {/* Left: Clean C++ snippet */}
-              <div className="p-4 border-r border-slate-800/80 font-mono text-[11px] leading-relaxed text-slate-300">
-                <div className="text-slate-500 mb-2">{"// TreeNode.cpp · Practice"}</div>
-                <div><span className="text-blue-400">struct</span> <span className="text-yellow-300">TreeNode</span> &#123;</div>
-                <div className="pl-3 text-slate-400">int val;</div>
-                <div className="pl-3 text-slate-400">TreeNode *left, *right;</div>
-                <div className="pl-3 text-slate-400">TreeNode(int x) : val(x), left(nullptr), right(nullptr) &#123;&#125;</div>
-                <div>&#125;;</div>
-                <div className="mt-3 text-slate-500">{"// Status"}</div>
-                <div className="text-purple-300">B.Tech CSE · BBDU Lucknow</div>
-              </div>
+            {/* Giant Editorial Title with 3D Flip Calendar */}
+            <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-[var(--foreground)] leading-[1.08] font-display">
+              <span className="block">Hi, I’m Arnav.</span>
+              <span className="block text-[var(--muted)] font-normal mt-1">I am a</span>
+              
+              {/* 3D DESK-CALENDAR COMPONENT */}
+              <div className="mt-3 block">
+                <div className="cal-wrapper">
+                  <div className="cal-body">
+                    {/* Stand base */}
+                    <div className="cal-stand" />
 
-              {/* Right: ATSCheck Project Card */}
-              <div className="p-4 bg-slate-900/60 flex flex-col justify-between">
-                <div>
-                  <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-[#6E07F3]/20 text-[#C4B5FD] font-mono text-[10px] font-bold mb-2">
-                    FEATURED PROJECT
+                    {/* Flipping Page */}
+                    <div
+                      className={`relative z-10 px-5 py-3 sm:px-7 sm:py-4 cal-page-base flex items-center justify-between gap-6 transition-all duration-500 ease-out ${
+                        isFlipping ? "-rotate-x-30 -translate-y-2 opacity-80" : "rotate-0 translate-y-0 opacity-100"
+                      }`}
+                    >
+                      {/* Spiral Punch Holes */}
+                      <div className="absolute top-1.5 inset-x-4 flex justify-between pointer-events-none">
+                        <span className="w-2 h-2 rounded-full bg-stone-700/80 shadow-inner" />
+                        <span className="w-2 h-2 rounded-full bg-stone-700/80 shadow-inner" />
+                        <span className="w-2 h-2 rounded-full bg-stone-700/80 shadow-inner" />
+                        <span className="w-2 h-2 rounded-full bg-stone-700/80 shadow-inner" />
+                        <span className="w-2 h-2 rounded-full bg-stone-700/80 shadow-inner" />
+                      </div>
+
+                      {/* Calendar Word */}
+                      <span className="pt-2 text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-[var(--ink)] font-display whitespace-nowrap">
+                        {CAL_SKILLS[calIndex].title}
+                      </span>
+
+                      {/* Calendar Index */}
+                      <span className="pt-2 text-xs sm:text-sm font-mono font-bold text-[var(--muted)]">
+                        {CAL_SKILLS[calIndex].no} / 05
+                      </span>
+                    </div>
                   </div>
-                  <h4 className="font-display font-bold text-white text-sm mb-1">
-                    ATSCheck
-                  </h4>
-                  <p className="text-slate-400 text-[11px] leading-relaxed">
-                    Resume keyword matcher that runs locally in your browser.
-                  </p>
                 </div>
+              </div>
+            </h1>
 
-                <div className="pt-3 border-t border-slate-800/80 flex items-center justify-between">
-                  <span className="text-[10px] font-mono text-emerald-400">
-                    ● Live on atscheck.tech
+            {/* Subtitle */}
+            <p className="mt-8 text-base sm:text-lg text-[var(--muted)] max-w-xl font-normal leading-relaxed">
+              5th-semester Computer Science student at Babu Banarasi Das University, Lucknow (8.0 CGPA). I practice C++ DSA and build privacy-first client-side web tools.
+            </p>
+
+            {/* Action Buttons */}
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <a
+                href="#works"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[var(--btn-bg)] text-[var(--btn-fg)] font-semibold text-sm hover:scale-102 active:scale-98 transition-all shadow-md"
+              >
+                <span>Explore Works (5 Doors)</span>
+                <ArrowRight className="w-4 h-4" />
+              </a>
+
+              <a
+                href="#about"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[var(--surface)] border border-[var(--line)] text-[var(--foreground)] font-semibold text-sm hover:bg-[var(--surface-2)] transition-colors"
+              >
+                <span>My Story</span>
+              </a>
+
+              <a
+                href={personal.resume || "/resume.pdf"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-full border border-[var(--line)] text-[var(--muted)] hover:text-[var(--foreground)] hover:border-[var(--accent)] font-mono text-xs font-semibold transition-colors"
+              >
+                <Download className="w-3.5 h-3.5" />
+                <span>Resume (PDF)</span>
+              </a>
+            </div>
+          </div>
+
+          {/* Right Column: Interactive 3D Ability Card (Therishithakor Card Aesthetic) */}
+          <div className="lg:col-span-4 flex justify-center lg:justify-end">
+            <div className="ability-card w-full max-w-sm rounded-3xl p-6 sm:p-7 bg-[var(--surface)] border border-[var(--line)] shadow-xl relative overflow-hidden group">
+              {/* Specular Glare & Foil sheen */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute -inset-full bg-gradient-to-tr from-transparent via-white/10 to-transparent group-hover:translate-x-full duration-1000 transition-transform ease-out"
+              />
+
+              {/* Card Header */}
+              <div className="flex items-center justify-between border-b border-[var(--line)] pb-4 mb-5">
+                <div>
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-[var(--accent)] block font-bold">
+                    CAPABILITY DOSSIER
                   </span>
-                  <a
-                    href="https://atscheck.tech/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-[11px] font-bold text-[#A78BFA] hover:text-white transition-colors"
-                  >
-                    Open Tool <ExternalLink className="w-3 h-3" />
-                  </a>
+                  <h3 className="text-xl font-bold font-display text-[var(--foreground)]">
+                    Arnav Singh
+                  </h3>
                 </div>
+                <div className="w-8 h-8 rounded-full bg-[var(--background)] border border-[var(--line)] flex items-center justify-center font-mono text-xs font-bold text-[var(--foreground)]">
+                  8.0
+                </div>
+              </div>
+
+              {/* Stats & Skills Meter */}
+              <div className="space-y-3.5 text-xs font-mono">
+                {[
+                  { name: "C++ & Data Structures", value: 85, detail: "Trees, Graphs, DP" },
+                  { name: "Browser Web Utilities", value: 88, detail: "Web Workers, PDF.js" },
+                  { name: "Full-Stack Web Dev", value: 82, detail: "React, Next.js, TS" },
+                  { name: "Backend & REST APIs", value: 78, detail: "Python, Flask, SQL" },
+                ].map((item) => (
+                  <div key={item.name} className="space-y-1">
+                    <div className="flex justify-between text-[var(--foreground)]">
+                      <span className="font-semibold">{item.name}</span>
+                      <span className="text-[var(--accent)] font-bold">{item.value} / 100</span>
+                    </div>
+                    <div className="w-full h-1.5 rounded-full bg-[var(--background)] overflow-hidden">
+                      <div
+                        className="h-full rounded-full bg-[var(--accent)] transition-all duration-1000"
+                        style={{ width: `${item.value}%` }}
+                      />
+                    </div>
+                    <p className="text-[10px] text-[var(--muted)] font-sans">{item.detail}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Card Footer */}
+              <div className="mt-6 pt-4 border-t border-[var(--line)] flex items-center justify-between text-[11px] font-mono text-[var(--muted)]">
+                <span>BBDU Lucknow · 5th Sem</span>
+                <span className="text-emerald-600 dark:text-emerald-400 font-bold">● VERIFIED</span>
               </div>
             </div>
           </div>
-
-          {/* Stand */}
-          <div className="w-16 h-3 bg-slate-400 mx-auto rounded-b-md shadow-sm" />
-          <div className="w-32 h-1.5 bg-slate-300 mx-auto rounded-full shadow-md" />
-
-          {/* Simple badges */}
-          <div className="flex flex-wrap items-center justify-center gap-2 mt-6">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-[#E6ECF8] text-xs font-mono font-medium text-[#141C3A] shadow-xs">
-              <Check className="w-3.5 h-3.5 text-[#6E07F3]" /> C++ (Trees, Graphs, DP)
-            </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-[#E6ECF8] text-xs font-mono font-medium text-[#141C3A] shadow-xs">
-              <Check className="w-3.5 h-3.5 text-[#6E07F3]" /> React &amp; Next.js
-            </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-[#E6ECF8] text-xs font-mono font-medium text-[#141C3A] shadow-xs">
-              <Check className="w-3.5 h-3.5 text-[#6E07F3]" /> Looking for Internships
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ── Main Navbar ────────────────────────────────────────────────── */
-function Navbar() {
-  return (
-    <nav className="w-full max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
-      <Link href="/" className="flex items-center gap-2.5 group">
-        <span className="w-10 h-10 rounded-xl bg-[#6E07F3] text-white flex items-center justify-center font-black text-sm shadow-md shadow-purple-500/20 group-hover:scale-105 transition-transform">
-          AS
-        </span>
-        <span className="font-display font-extrabold text-xl text-[#141C3A] tracking-tight">
-          Arnav Singh
-        </span>
-      </Link>
-
-      <div className="flex items-center gap-3 sm:gap-6">
-        <Link
-          href="#projects"
-          className="text-sm font-semibold text-[#5A6275] hover:text-[#6E07F3] transition-colors hidden sm:inline-block"
-        >
-          Projects
-        </Link>
-        <Link
-          href="/recruiter"
-          className="text-sm font-semibold text-[#5A6275] hover:text-[#6E07F3] transition-colors hidden md:inline-block"
-        >
-          Recruiter View
-        </Link>
-        <Link
-          href="/friend"
-          className="text-sm font-semibold text-[#5A6275] hover:text-[#6E07F3] transition-colors hidden md:inline-block"
-        >
-          Personal
-        </Link>
-
-        <a
-          href={resumeHref}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="px-5 py-2.5 rounded-full border-2 border-[#6E07F3] text-[#6E07F3] font-bold text-sm hover:bg-[#6E07F3] hover:text-white transition-all shadow-xs"
-        >
-          Download Resume
-        </a>
-      </div>
-    </nav>
-  );
-}
-
-/* ── Master Page Component ──────────────────────────────────────── */
-export default function Home() {
-  return (
-    <div className="min-h-screen bg-white text-[#141C3A] font-sans selection:bg-[#EBD8FF] selection:text-[#5600C7]">
-      <Navbar />
-
-      {/* ── 1. HERO SECTION (Simple, Personal & Grounded) ── */}
-      <section className="pt-16 pb-20 px-6 text-center max-w-4xl mx-auto">
-        <h1 className="font-display font-black text-4xl sm:text-6xl lg:text-7xl text-[#141C3A] tracking-tight leading-[1.15] mb-6">
-          I’m Arnav, a CSE student who likes <span className="text-[#6E07F3]">building useful things.</span>
-        </h1>
-
-        <p className="text-lg sm:text-2xl text-[#5A6275] max-w-2xl mx-auto font-normal leading-relaxed mb-8">
-          5th-semester B.Tech student at BBDU, Lucknow. I practise DSA in C++ and build web projects with React, Next.js, and Python.
-        </p>
-
-        {/* Action Buttons right in Hero */}
-        <div className="flex flex-wrap items-center justify-center gap-3.5 mb-10">
-          <a
-            href="#projects"
-            className="px-7 py-3 rounded-full bg-[#6E07F3] text-white font-bold text-sm hover:bg-[#5600c7] transition-all shadow-md shadow-purple-500/20"
-          >
-            View Projects
-          </a>
-          <a
-            href={resumeHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-7 py-3 rounded-full border-2 border-[#E6ECF8] bg-white text-[#141C3A] font-bold text-sm hover:border-[#6E07F3] hover:text-[#6E07F3] transition-all"
-          >
-            Download Resume
-          </a>
-          {email && (
-            <a
-              href={`mailto:${email}`}
-              className="px-7 py-3 rounded-full bg-slate-100 text-[#141C3A] font-bold text-sm hover:bg-slate-200 transition-all"
-            >
-              Contact Me
-            </a>
-          )}
         </div>
 
-        {/* Friendly Student Avatar with Academic Pill */}
-        <div className="flex flex-col items-center justify-center gap-3 mb-4">
-          <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-[#6E07F3] to-[#8B5CF6] p-1 shadow-lg">
-            <div className="w-full h-full rounded-full bg-white flex items-center justify-center text-4xl">
-              👨‍💻
-            </div>
-          </div>
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#E6ECF8] bg-slate-50 px-4 py-1.5 shadow-2xs">
+        {/* ── Hairline Status Bar (Rishi's hero__bar) ── */}
+        <div className="relative z-10 border-t border-[var(--line)] pt-5 mt-12 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-[var(--muted)]">
+          <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
-            <span className="font-mono text-xs font-bold text-slate-700">
-              5th Sem B.Tech CSE · 8.0 CGPA · BBDU Lucknow
-            </span>
+            <span className="text-[var(--foreground)] font-semibold">Available for internship opportunities</span>
+          </div>
+
+          <div className="text-center">
+            <span>BBDU Lucknow, India · Remote-first worldwide</span>
+          </div>
+
+          <div className="flex items-center gap-1.5 text-[var(--foreground)]">
+            <span>Scroll to explore</span>
+            <span>↓</span>
           </div>
         </div>
-
-        {/* Clean Hero Desk Illustration */}
-        <HeroIllustration />
       </section>
 
-      {/* ── 2. INTRO SECTION (Honest student story) ── */}
-      <section className="bg-[#6E07F3] text-white pt-24 pb-44 px-6 text-center">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="font-display font-extrabold text-3xl sm:text-4xl mb-5">
-            Hi, I’m Arnav. Nice to meet you.
+      {/* ═══════════════════════════════════════════════════════════════
+          3. "MY WORK, ONE DOOR PER SKILL" (The Iconic Rishi Doors Section)
+      ═══════════════════════════════════════════════════════════════ */}
+      <section id="works" className="py-24 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <p className="text-xs font-mono uppercase tracking-[0.25em] text-[var(--accent)] font-bold mb-3">
+            ARCHITECTURAL VAULT
+          </p>
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-[var(--foreground)] tracking-tight font-display">
+            Magic happens behind the doors.
           </h2>
-          <p className="text-base sm:text-lg text-purple-100 font-normal leading-relaxed">
-            I’m a 5th-semester Computer Science student at Babu Banarasi Das University, Lucknow (8.0 CGPA). I spend most of my time practicing problem-solving in C++ and building tools I actually use—like ATSCheck for resume keyword checking and PDFlex for client-side PDF handling. I’m actively looking for a software engineering internship where I can learn from experienced engineers and contribute real code.
+          <p className="mt-4 text-sm sm:text-base text-[var(--muted)]">
+            My work, one door per skill. Hover or click to open each door and view the build.
           </p>
         </div>
-      </section>
 
-      {/* ── 3. OVERLAPPING 3-COLUMN SKILLS BOX (Honest Categories: No Percent Bars!) ── */}
-      <section className="px-6 -mt-32 relative z-10 max-w-6xl mx-auto">
-        <div className="bg-white rounded-3xl border border-[#E6ECF8] shadow-2xl grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[#E6ECF8] text-center">
-          
-          {/* Column 1: Comfortable with */}
-          <div className="p-8 sm:p-10 flex flex-col items-center">
-            <div className="w-14 h-14 rounded-2xl bg-purple-50 text-[#6E07F3] flex items-center justify-center mb-5">
-              <Cpu className="w-7 h-7" />
-            </div>
-            <h3 className="font-display font-extrabold text-xl text-[#141C3A] mb-2">
-              Comfortable With
-            </h3>
-            <p className="text-sm text-[#5A6275] leading-relaxed mb-6">
-              I practise C++ by working through trees, graphs, and DP problems.
-            </p>
+        {/* Doors Row Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-12">
+          {DOORS.map((door, index) => {
+            const isActive = activeDoor === index;
+            return (
+              <div
+                key={door.id}
+                onClick={() => setActiveDoor(index)}
+                onMouseEnter={() => setActiveDoor(index)}
+                className={`door-container cursor-pointer p-4 rounded-3xl border transition-all duration-500 flex flex-col items-center text-center ${
+                  isActive
+                    ? "bg-[var(--surface)] border-[var(--foreground)] shadow-xl active"
+                    : "bg-[var(--surface-2)]/60 border-[var(--line)] hover:border-[var(--accent)]"
+                }`}
+              >
+                {/* 3D Door Representation */}
+                <div className="relative w-full aspect-[9/16] max-h-[300px] rounded-2xl bg-stone-900 overflow-hidden shadow-inner flex items-center justify-center p-2 mb-4">
+                  {/* Room Light Spill Behind Door */}
+                  <div
+                    className="door-light-spill absolute inset-0 bg-gradient-to-tr from-amber-200/40 via-amber-100/20 to-transparent pointer-events-none"
+                    style={{ background: `radial-gradient(circle at 50% 50%, ${door.accent}40, #000 80%)` }}
+                  />
 
-            <h4 className="font-bold text-xs text-[#6E07F3] uppercase tracking-wider mb-3">
-              Languages &amp; Core:
-            </h4>
-            <div className="flex flex-wrap justify-center gap-1.5 mb-6">
-              {["C++", "DSA", "React", "JavaScript", "HTML & CSS", "Git"].map((t) => (
-                <span key={t} className="px-2.5 py-1 rounded-md bg-purple-50 text-[#6E07F3] font-mono text-xs font-semibold border border-purple-100">
-                  {t}
+                  {/* Swinging Door Leaf */}
+                  <div
+                    className="door-leaf absolute inset-1.5 rounded-xl border border-white/20 shadow-2xl flex flex-col justify-between p-3.5 text-white"
+                    style={{ backgroundColor: door.color }}
+                  >
+                    {/* Top Door Inset Panel */}
+                    <div className="w-full h-16 rounded-md border border-white/10 bg-black/20 p-2 flex items-center justify-center">
+                      <span className="text-[10px] font-mono tracking-widest uppercase text-amber-200 font-bold">
+                        {door.plate}
+                      </span>
+                    </div>
+
+                    {/* Brass Plate in Center */}
+                    <div className="mx-auto px-2.5 py-1 rounded bg-amber-400/90 text-stone-900 font-bold text-[9px] font-mono uppercase tracking-wider shadow-sm">
+                      ARNAV OS
+                    </div>
+
+                    {/* Bottom Lever & Lock */}
+                    <div className="flex items-center justify-between pt-2 border-t border-white/10">
+                      <span className="text-[9px] font-mono text-white/50">0{index + 1}</span>
+                      <div className="w-3.5 h-1.5 rounded-full bg-amber-300 shadow" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Door Label */}
+                <h4 className="font-bold text-sm text-[var(--foreground)] font-display">
+                  {door.plate}
+                </h4>
+                <span className="text-[11px] font-mono text-[var(--muted)] mt-0.5">
+                  0{index + 1} / 05
                 </span>
-              ))}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* ── Active Door Interactive Info Card (Rishi's dinfo) ── */}
+        <div className="rounded-3xl p-8 sm:p-10 bg-[var(--surface)] border border-[var(--line)] shadow-xl transition-all duration-300">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            {/* Left Info: Title, Tagline, Bullets */}
+            <div className="lg:col-span-8 text-left space-y-4">
+              <span className="text-xs font-mono font-bold tracking-widest uppercase text-[var(--accent)]">
+                {DOORS[activeDoor].tagline}
+              </span>
+              <h3 className="text-2xl sm:text-4xl font-extrabold text-[var(--foreground)] font-display">
+                {DOORS[activeDoor].title}
+              </h3>
+
+              <ul className="space-y-2.5 text-sm sm:text-base text-[var(--foreground)] pt-2 font-normal">
+                {DOORS[activeDoor].bullets.map((b, idx) => (
+                  <li key={idx} className="flex items-start gap-3">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-1" />
+                    <span>{b}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
 
-            <h4 className="font-bold text-xs text-[#6E07F3] uppercase tracking-wider mb-2">
-              Foundations:
-            </h4>
-            <ul className="text-sm text-[#5A6275] space-y-1 font-medium">
-              <li>Object-Oriented Programming (OOP)</li>
-              <li>Data Structures &amp; Algorithms</li>
-              <li>Operating Systems concepts</li>
-            </ul>
+            {/* Right Action Box: Live links */}
+            <div className="lg:col-span-4 flex flex-col gap-3 justify-center items-start lg:items-end">
+              {DOORS[activeDoor].demo && (
+                <a
+                  href={DOORS[activeDoor].demo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[var(--btn-bg)] text-[var(--btn-fg)] font-bold text-sm hover:scale-102 transition-all shadow-md"
+                >
+                  <span>Open Live Application</span>
+                  <ExternalLink className="w-4 h-4" />
+                </a>
+              )}
+
+              {DOORS[activeDoor].source && (
+                <a
+                  href={DOORS[activeDoor].source}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[var(--surface-2)] border border-[var(--line)] text-[var(--foreground)] font-semibold text-sm hover:bg-[var(--surface)] transition-colors"
+                >
+                  <FolderGit2 className="w-4 h-4" />
+                  <span>View GitHub Repository</span>
+                </a>
+              )}
+            </div>
           </div>
-
-          {/* Column 2: Used in projects */}
-          <div className="p-8 sm:p-10 flex flex-col items-center">
-            <div className="w-14 h-14 rounded-2xl bg-purple-50 text-[#6E07F3] flex items-center justify-center mb-5">
-              <Layers className="w-7 h-7" />
-            </div>
-            <h3 className="font-display font-extrabold text-xl text-[#141C3A] mb-2">
-              Used In Projects
-            </h3>
-            <p className="text-sm text-[#5A6275] leading-relaxed mb-6">
-              Tools I’ve used in my projects.
-            </p>
-
-            <h4 className="font-bold text-xs text-[#6E07F3] uppercase tracking-wider mb-3">
-              Frameworks &amp; Tools:
-            </h4>
-            <div className="flex flex-wrap justify-center gap-1.5 mb-6">
-              {["Next.js", "TypeScript", "Python (Flask)", "Tailwind CSS", "PDF.js", "Web Workers", "Chart.js"].map((t) => (
-                <span key={t} className="px-2.5 py-1 rounded-md bg-slate-50 text-slate-800 font-mono text-xs font-semibold border border-slate-200">
-                  {t}
-                </span>
-              ))}
-            </div>
-
-            <h4 className="font-bold text-xs text-[#6E07F3] uppercase tracking-wider mb-2">
-              Databases &amp; Deploy:
-            </h4>
-            <ul className="text-sm text-[#5A6275] space-y-1 font-medium">
-              <li>PostgreSQL &amp; SQLite</li>
-              <li>Prisma ORM</li>
-              <li>Vercel deployments</li>
-            </ul>
-          </div>
-
-          {/* Column 3: Currently learning */}
-          <div className="p-8 sm:p-10 flex flex-col items-center">
-            <div className="w-14 h-14 rounded-2xl bg-purple-50 text-[#6E07F3] flex items-center justify-center mb-5">
-              <BookOpen className="w-7 h-7" />
-            </div>
-            <h3 className="font-display font-extrabold text-xl text-[#141C3A] mb-2">
-              Currently Learning
-            </h3>
-            <p className="text-sm text-[#5A6275] leading-relaxed mb-6">
-              Topics and skills I am actively studying and practicing right now.
-            </p>
-
-            <h4 className="font-bold text-xs text-[#6E07F3] uppercase tracking-wider mb-3">
-              DSA Focus:
-            </h4>
-            <div className="flex flex-wrap justify-center gap-1.5 mb-6">
-              {["Graph Algorithms", "Dynamic Programming", "Tree Traversals", "Binary Search"].map((t) => (
-                <span key={t} className="px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-800 font-mono text-xs font-semibold border border-emerald-100">
-                  {t}
-                </span>
-              ))}
-            </div>
-
-            <h4 className="font-bold text-xs text-[#6E07F3] uppercase tracking-wider mb-2">
-              Systems &amp; Architecture:
-            </h4>
-            <ul className="text-sm text-[#5A6275] space-y-1 font-medium">
-              <li>System design basics</li>
-              <li>DBMS indexing &amp; normalization</li>
-              <li>Clean REST API patterns</li>
-            </ul>
-          </div>
-
         </div>
       </section>
 
-      {/* ── 4. MY RECENT WORK ── */}
-      <section id="projects" className="py-24 px-6 max-w-6xl mx-auto text-center">
-        <h2 className="font-display font-black text-3xl sm:text-5xl text-[#141C3A] tracking-tight mb-3">
-          Projects I&apos;ve Built
-        </h2>
-        <p className="text-base text-[#5A6275] max-w-xl mx-auto mb-14">
-          A few tools and apps I’ve put together to learn new concepts and solve everyday problems.
-        </p>
+      {/* ═══════════════════════════════════════════════════════════════
+          4. "MY STORY: LET'S GO BACK IN TIME" (Rolling Timeline & Odometer)
+      ═══════════════════════════════════════════════════════════════ */}
+      <section id="about" className="py-24 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto border-t border-[var(--line)]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          {/* Left Column: Sticky Story Title & Rolling Year Odometer */}
+          <div className="lg:col-span-5 lg:sticky lg:top-28 space-y-4">
+            <p className="text-xs font-mono uppercase tracking-[0.25em] text-[var(--accent)] font-bold">
+              JOURNEY CHRONICLE
+            </p>
+            <h2 className="text-4xl sm:text-5xl font-extrabold text-[var(--foreground)] tracking-tight font-display">
+              Let’s go back in time.
+            </h2>
+            <p className="text-sm sm:text-base text-[var(--muted)] font-normal leading-relaxed">
+              From starting engineering coursework at BBDU to building client-side tools and solving algorithms in C++.
+            </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projectsList.map((project) => (
-            <div
-              key={project.id}
-              className="group relative rounded-2xl border border-[#E6ECF8] bg-white p-7 text-left shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between hover:-translate-y-1"
-            >
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <span
-                    className="text-xs font-mono font-bold uppercase tracking-wider px-2.5 py-1 rounded-md"
-                    style={{ backgroundColor: `${project.color}15`, color: project.color }}
-                  >
-                    {project.badge}
+            {/* Rolling Year Odometer Display */}
+            <div className="pt-6">
+              <div className="inline-flex items-baseline px-6 py-4 rounded-3xl bg-[var(--surface)] border border-[var(--line)] shadow-inner">
+                <span className="text-6xl sm:text-7xl font-extrabold tracking-tight text-[var(--foreground)] font-mono">
+                  {activeStoryYear}
+                </span>
+                <span className="ml-3 text-xs font-mono font-bold text-[var(--accent)] uppercase tracking-wider">
+                  Timeline
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: Timeline Chapters */}
+          <div className="lg:col-span-7 space-y-8 relative pl-6 border-l-2 border-[var(--line)]">
+            {STORY_CHAPTERS.map((ch, idx) => (
+              <div
+                key={idx}
+                onMouseEnter={() => setActiveStoryYear(ch.year)}
+                className="relative group p-6 sm:p-8 rounded-3xl bg-[var(--surface)] border border-[var(--line)] hover:border-[var(--accent)] transition-all duration-300 shadow-sm"
+              >
+                {/* Timeline Dot Indicator */}
+                <div
+                  className={`absolute -left-[31px] top-8 w-3.5 h-3.5 rounded-full border-2 border-[var(--background)] transition-colors duration-300 ${
+                    activeStoryYear === ch.year ? "bg-[var(--accent)] scale-125" : "bg-[var(--line)]"
+                  }`}
+                />
+
+                {/* Period & Role */}
+                <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                  <span className="text-xs font-mono font-bold text-[var(--accent)]">
+                    {ch.period}
                   </span>
-                  {project.demo && (
-                    <span className="flex items-center gap-1.5 text-xs font-mono font-semibold text-emerald-600">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                      Live Demo
-                    </span>
-                  )}
+                  <span className="text-xs font-mono px-2.5 py-0.5 rounded-full bg-[var(--surface-2)] text-[var(--muted)]">
+                    {ch.year}
+                  </span>
                 </div>
 
-                <h3 className="font-display font-black text-2xl text-[#141C3A] mb-1 group-hover:text-[#6E07F3] transition-colors">
-                  {project.name}
+                <h3 className="text-xl sm:text-2xl font-bold text-[var(--foreground)] font-display mb-3">
+                  {ch.role}
                 </h3>
-                <p className="text-xs font-mono font-semibold text-slate-500 mb-3">
-                  {project.tagline}
-                </p>
-                <p className="text-sm text-[#5A6275] leading-relaxed mb-6">
-                  {project.description}
+
+                <p className="text-sm sm:text-base text-[var(--muted)] font-normal leading-relaxed mb-4">
+                  {ch.desc}
                 </p>
 
-                <div className="flex flex-wrap gap-1.5 mb-6">
-                  {project.stack.map((t) => (
+                {/* Tech Chips */}
+                <div className="flex flex-wrap gap-1.5 pt-2">
+                  {ch.tags.map((t) => (
                     <span
                       key={t}
-                      className="px-2.5 py-1 rounded-md bg-slate-50 border border-slate-200 text-slate-700 font-mono text-xs font-medium"
+                      className="px-2.5 py-1 rounded-md text-[11px] font-mono bg-[var(--background)] text-[var(--foreground)] border border-[var(--line)]"
                     >
                       {t}
                     </span>
                   ))}
                 </div>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-              <div className="flex items-center gap-3 pt-4 border-t border-[#E6ECF8]">
-                {project.demo && (
-                  <a
-                    href={project.demo}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#6E07F3] text-white text-xs font-bold hover:bg-[#5600c7] transition-all shadow-xs"
-                  >
-                    Visit App <ExternalLink className="w-3.5 h-3.5" />
-                  </a>
-                )}
-                <a
-                  href={project.source}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-slate-200 text-slate-700 text-xs font-bold hover:bg-slate-50 transition-all"
-                >
-                  <GithubIcon className="w-3.5 h-3.5" /> Source
-                </a>
-              </div>
+      {/* ═══════════════════════════════════════════════════════════════
+          5. FOOTER / CONTACT SECTION (Rishi's "Got a project? Let's build it")
+      ═══════════════════════════════════════════════════════════════ */}
+      <footer id="contact" className="py-24 px-4 sm:px-6 lg:px-12 bg-[var(--surface)] border-t border-[var(--line)]">
+        <div className="max-w-7xl mx-auto space-y-16">
+          {/* Main CTA Block */}
+          <div className="max-w-3xl space-y-6 text-left">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--background)] border border-[var(--line)] text-xs font-mono text-[var(--accent)] font-semibold">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              Available for software engineering internships & projects
             </div>
-          ))}
-        </div>
-      </section>
 
-      {/* ── 5. GOAL-ALIGNED CALLOUT BOX (Looking for Internship) ── */}
-      <section className="px-6 pb-20 max-w-5xl mx-auto">
-        <div className="bg-[#141C3A] text-white rounded-3xl p-8 sm:p-12 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
-          <div className="max-w-xl">
-            <span className="inline-block px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 font-mono text-xs font-bold uppercase tracking-wider mb-3">
-              ● AVAILABLE FOR INTERNSHIPS
-            </span>
-            <h2 className="font-display font-extrabold text-2xl sm:text-3xl text-white mb-2">
-              Looking for a software engineering internship.
+            <h2 className="text-4xl sm:text-6xl font-extrabold text-[var(--foreground)] tracking-tight font-display leading-[1.08]">
+              Got an opportunity? <br />
+              <span className="text-[var(--accent)]">Let’s build it together.</span>
             </h2>
-            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-              If you have an opening or want to discuss my projects and problem-solving, I’d love to connect.
+
+            <p className="text-base sm:text-lg text-[var(--muted)] font-normal max-w-xl leading-relaxed">
+              I’m taking on internship roles and open to collaborative technical projects. Tell me about the engineering challenges you’re solving.
             </p>
-          </div>
 
-          <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
-            <a
-              href={`mailto:${email}?subject=Software Engineering Internship`}
-              className="px-8 py-3.5 rounded-full bg-[#5BE9B9] hover:bg-[#48d8a7] text-[#141C3A] font-bold text-sm shadow-lg hover:scale-105 transition-all"
-            >
-              Contact Me
-            </a>
-            <a
-              href={resumeHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-8 py-3.5 rounded-full border border-slate-700 bg-white/5 hover:bg-white/10 text-white font-bold text-sm transition-all"
-            >
-              Download Resume
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* ── 6. FOOTER ── */}
-      <footer className="bg-[#6E07F3] text-white py-16 px-6 text-center">
-        <div className="max-w-4xl mx-auto flex flex-col items-center gap-6">
-          <Link href="/" className="w-12 h-12 rounded-2xl bg-white text-[#6E07F3] flex items-center justify-center font-black text-xl shadow-lg hover:scale-105 transition-transform">
-            AS
-          </Link>
-
-          <p className="text-lg sm:text-xl font-light text-purple-100 max-w-md">
-            Learning, building, and practicing every day.
-          </p>
-
-          <div className="flex items-center gap-4">
-            <a
-              href={githubProfile}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-11 h-11 rounded-full border-2 border-white/30 hover:border-white hover:bg-white/10 flex items-center justify-center text-white transition-all"
-              aria-label="GitHub Profile"
-            >
-              <GithubIcon className="w-5 h-5" />
-            </a>
-            {linkedinProfile && (
+            <div className="flex flex-wrap items-center gap-4 pt-4">
               <a
-                href={linkedinProfile}
+                href="mailto:arnavsinghas1221@gmail.com"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[var(--btn-bg)] text-[var(--btn-fg)] font-bold text-sm hover:scale-102 active:scale-98 transition-all shadow-md"
+              >
+                <Mail className="w-4 h-4" />
+                <span>Email arnavsinghas1221@gmail.com</span>
+              </a>
+
+              <a
+                href={personal.resume || "/resume.pdf"}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-11 h-11 rounded-full border-2 border-white/30 hover:border-white hover:bg-white/10 flex items-center justify-center text-white transition-all"
-                aria-label="LinkedIn Profile"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[var(--background)] border border-[var(--line)] text-[var(--foreground)] font-semibold text-sm hover:bg-[var(--surface-2)] transition-colors"
               >
-                <LinkedinIcon className="w-5 h-5" />
+                <Download className="w-4 h-4" />
+                <span>Download Resume (PDF)</span>
               </a>
-            )}
-            {email && (
-              <a
-                href={`mailto:${email}`}
-                className="w-11 h-11 rounded-full border-2 border-white/30 hover:border-white hover:bg-white/10 flex items-center justify-center text-white transition-all"
-                aria-label="Email Me"
-              >
-                <Mail className="w-5 h-5" />
-              </a>
-            )}
+            </div>
           </div>
 
-          <div className="text-xs text-purple-200 pt-6 border-t border-purple-400/30 w-full flex flex-col sm:flex-row items-center justify-between gap-2">
-            <span>Arnav Singh © 2026</span>
-            <span>B.Tech CSE · BBDU Lucknow (8.0 CGPA)</span>
+          {/* 3-Column Footer Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 pt-12 border-t border-[var(--line)] text-xs font-mono">
+            {/* Column 1: Projects */}
+            <div className="space-y-3">
+              <h4 className="font-bold text-[var(--foreground)] uppercase tracking-wider text-[11px]">
+                Built Projects
+              </h4>
+              <ul className="space-y-2 text-[var(--muted)]">
+                <li>
+                  <a href="https://atscheck.tech/" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--foreground)] transition-colors">
+                    ATSCheck (atscheck.tech) ↗
+                  </a>
+                </li>
+                <li>
+                  <a href="https://pd-flex.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--foreground)] transition-colors">
+                    PDFlex Web Utility ↗
+                  </a>
+                </li>
+                <li>
+                  <a href="https://financecalc0.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--foreground)] transition-colors">
+                    FinanceCalc ↗
+                  </a>
+                </li>
+                <li>
+                  <a href="https://github.com/Arnav20007/moodmate" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--foreground)] transition-colors">
+                    MoodMate (Hackathon AI) ↗
+                  </a>
+                </li>
+                <li>
+                  <a href="https://github.com/Arnav20007/ascend" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--foreground)] transition-colors">
+                    ASCEND Task Gamification ↗
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Column 2: Navigation */}
+            <div className="space-y-3">
+              <h4 className="font-bold text-[var(--foreground)] uppercase tracking-wider text-[11px]">
+                Navigate
+              </h4>
+              <ul className="space-y-2 text-[var(--muted)]">
+                <li>
+                  <Link href="#home" className="hover:text-[var(--foreground)] transition-colors">
+                    Home & Greeting
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#works" className="hover:text-[var(--foreground)] transition-colors">
+                    Architectural Vault (5 Doors)
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#about" className="hover:text-[var(--foreground)] transition-colors">
+                    My Story & Journey
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/recruiter" className="hover:text-[var(--foreground)] transition-colors">
+                    Recruiter Dossier View
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/terminal" className="hover:text-[var(--foreground)] transition-colors">
+                    Interactive CLI Terminal
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Column 3: Status */}
+            <div className="space-y-3">
+              <h4 className="font-bold text-[var(--foreground)] uppercase tracking-wider text-[11px]">
+                Status & Credentials
+              </h4>
+              <ul className="space-y-2 text-[var(--muted)]">
+                <li>BBDU Lucknow, CSE 5th Semester</li>
+                <li>8.0 / 10 CGPA Coursework</li>
+                <li>Looking for Software Engineering Internships</li>
+                <li>Local Time: Lucknow (IST)</li>
+                <li>Email replies within hours</li>
+              </ul>
+            </div>
+
+            {/* Column 4: Social / Code */}
+            <div className="space-y-3">
+              <h4 className="font-bold text-[var(--foreground)] uppercase tracking-wider text-[11px]">
+                Connect & Code
+              </h4>
+              <ul className="space-y-2 text-[var(--muted)]">
+                <li>
+                  <a href="https://github.com/Arnav20007" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--foreground)] transition-colors">
+                    GitHub Profile ↗
+                  </a>
+                </li>
+                <li>
+                  <a href="mailto:arnavsinghas1221@gmail.com" className="hover:text-[var(--foreground)] transition-colors">
+                    arnavsinghas1221@gmail.com
+                  </a>
+                </li>
+                <li>
+                  <span className="text-[10px] text-[var(--muted)] block pt-2">
+                    Minimalist stone & charcoal architecture inspired by therishithakor.com
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Bottom Hairline */}
+          <div className="pt-8 border-t border-[var(--line)] flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] font-mono text-[var(--muted)]">
+            <p>© {new Date().getFullYear()} Arnav Singh. All rights reserved.</p>
+            <p>Built with Next.js, TypeScript & Tailwind CSS</p>
           </div>
         </div>
       </footer>
