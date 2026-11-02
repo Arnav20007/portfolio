@@ -35,7 +35,7 @@ export default function FriendPage() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[var(--background)] text-[var(--foreground)] font-sans overflow-x-hidden selection:bg-[#C4B0B0] selection:text-[#1A1818] transition-colors duration-300">
+    <div className="relative min-h-screen bg-transparent text-[var(--foreground)] font-sans overflow-x-hidden selection:bg-[#C4B0B0] selection:text-[#1A1818] transition-colors duration-300">
       {/* ── Top Floating Switcher Bar ── */}
       <header className="fixed top-6 inset-x-0 z-50 flex justify-center px-4">
         <div className="flex items-center gap-2 p-1.5 rounded-full bg-[var(--chip-bg)] border border-[var(--chip-line)] backdrop-blur-2xl shadow-xl shadow-black/5">

@@ -54,7 +54,7 @@ export default function RecruiterPage() {
   };
 
   return (
-    <main className="relative min-h-screen bg-[var(--background)] text-[var(--foreground)] font-sans selection:bg-[#C4B0B0] selection:text-[#1A1818] overflow-x-hidden transition-colors duration-300">
+    <main className="relative min-h-screen bg-transparent text-[var(--foreground)] font-sans selection:bg-[#C4B0B0] selection:text-[#1A1818] overflow-x-hidden transition-colors duration-300">
       {/* ── Header Navigation Pill ── */}
       <header className="sticky top-0 z-50 border-b border-[var(--line)] bg-[var(--chip-bg)] backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-4 md:px-8">

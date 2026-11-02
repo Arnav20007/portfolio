@@ -5,21 +5,21 @@
    Warm Stone & Charcoal Editorial Aesthetic for Arnav Singh
 ═══════════════════════════════════════════════════════════════ */
 :root {
-  --background: #E8E4E0;
+  --background: #F4F1EE;
   --foreground: #1A1818;
   --ink: #1A1818;
-  --muted: #857878;
-  --subtle: #B5A8A8;
-  --line: #D5CDCA;
-  --surface: #DED8D4;
-  --surface-2: #D3CBC8;
+  --muted: #827977;
+  --subtle: #B1A6A2;
+  --line: #DED7D2;
+  --surface: #ECE7E3;
+  --surface-2: #E5DFDA;
   --accent: #6B5C5C;
   --accent-from: #C4B0B0;
   --accent-to: #6B5C5C;
-  --hero-from: #EEEAE6;
-  --hero-mid: #E8E4E0;
-  --hero-to: #D8CDCA;
-  --casing: #F2EFEC;
+  --hero-from: #FAF7F4;
+  --hero-mid: #F4F1EE;
+  --hero-to: #EAE4E0;
+  --casing: #F7F4F0;
   --radius-pill: 9999px;
   --radius-card: 2rem;
   --radius-card-sm: 1.25rem;
@@ -27,12 +27,12 @@
   --font: 'Onest', 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
   
-  --chip-bg: rgba(242, 238, 235, 0.65);
-  --chip-bg-h: rgba(242, 238, 235, 0.95);
-  --chip-line: rgba(196, 176, 176, 0.45);
+  --chip-bg: rgba(250, 247, 244, 0.78);
+  --chip-bg-h: rgba(250, 247, 244, 0.96);
+  --chip-line: rgba(170, 150, 140, 0.28);
   --btn-bg: #1A1818;
   --btn-fg: #E8E4E0;
-  --panel: #F0ECE9;
+  --panel: #F8F5F2;
   --scrim: rgba(26, 24, 24, 0.35);
   --fg-rgb: 26, 24, 24;
   color-scheme: light;
@@ -78,13 +78,23 @@ html {
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
+  background-image:
+    radial-gradient(ellipse at 2% 24%, rgba(226, 151, 111, .22), transparent 34%),
+    radial-gradient(ellipse at 98% 76%, rgba(153, 174, 207, .16), transparent 35%);
+  background-attachment: fixed;
   color: var(--foreground);
   font-family: var(--font);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: clip;
+}
+
+html[data-mode="dark"] body {
+  background-image:
+    radial-gradient(ellipse at 2% 24%, rgba(164, 85, 44, .09), transparent 34%),
+    radial-gradient(ellipse at 98% 76%, rgba(92, 132, 202, .08), transparent 35%);
 }
 
 ::selection {
@@ -178,18 +188,35 @@ html[data-mode="dark"] .doors__tex {
 
 .doors-row-container {
   position: relative;
-  padding-bottom: 1.5rem;
+  padding-bottom: clamp(5rem, 9vh, 6rem);
+}
+
+.doors-row-container::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  z-index: 0;
+  width: 100vw;
+  height: clamp(3.75rem, 7vh, 5rem);
+  transform: translateX(-50%);
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(45deg, rgba(90, 74, 74, .035) 0 1px, transparent 1px 10px),
+    repeating-linear-gradient(-45deg, rgba(90, 74, 74, .025) 0 1px, transparent 1px 10px),
+    linear-gradient(180deg, rgba(255, 255, 255, .48), rgba(255, 255, 255, .08));
 }
 
 /* Baseboard / Skirting board at base of the wall matching therishithakor.com */
 .doors-row-container::after {
   content: "";
   position: absolute;
-  left: -20vw;
-  right: -20vw;
-  bottom: 0;
+  left: 50%;
+  bottom: clamp(3.75rem, 7vh, 5rem);
+  width: 100vw;
   height: 1.25rem;
-  z-index: 0;
+  z-index: 2;
+  transform: translateX(-50%);
   background: linear-gradient(
     180deg,
     rgba(255, 255, 255, 0.55) 0,
@@ -218,6 +245,13 @@ html[data-mode="dark"] .doors-row-container::after {
     rgba(0, 0, 0, 0.3) 100%
   ), #1A1616;
   box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4), 0 -0.4rem 0.8rem -0.3rem rgba(0, 0, 0, 0.5);
+}
+
+html[data-mode="dark"] .doors-row-container::before {
+  background:
+    repeating-linear-gradient(45deg, rgba(220, 207, 207, .035) 0 1px, transparent 1px 10px),
+    repeating-linear-gradient(-45deg, rgba(220, 207, 207, .025) 0 1px, transparent 1px 10px),
+    linear-gradient(180deg, rgba(255, 255, 255, .04), rgba(0, 0, 0, .08));
 }
 
 .door-unit {
@@ -696,10 +730,10 @@ html[data-mode="dark"] .casing {
   pointer-events: none;
 }
 
-.cord-rope-shadow { stroke: rgba(43, 28, 12, .6); stroke-width: 3.4; }
-.cord-rope-base { stroke: url(#cord-fiber-base); stroke-width: 2.8; }
-.cord-rope-weave { stroke: url(#cord-fiber-weave); stroke-width: 1.8; }
-.cord-rope-glint { stroke: rgba(255, 244, 216, .68); stroke-width: .45; }
+.cord-rope-shadow { stroke: rgba(43, 28, 12, .58); stroke-width: 5; }
+.cord-rope-base { stroke: url(#cord-fiber-base); stroke-width: 4; }
+.cord-rope-weave { stroke: url(#cord-fiber-weave); stroke-width: 2.5; }
+.cord-rope-glint { stroke: rgba(255, 244, 216, .72); stroke-width: .65; }
 
 /* Understated antique-bronze drop pull. */
 .cord-bronze-pull {
@@ -737,12 +771,63 @@ html[data-mode="dark"] .casing {
   display: flex;
   width: 100%;
   max-width: 34rem;
-  min-height: clamp(17rem, 32vw, 22rem);
-  padding: 1rem 0;
+  min-height: clamp(14rem, 27vw, 19rem);
+  padding: .5rem 0;
   flex-direction: column;
   justify-content: center;
   overflow: visible;
   isolation: isolate;
+}
+
+.story-moving-dot {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: -7px;
+  width: 14px;
+  height: 14px;
+  border: 3px solid var(--background);
+  border-radius: 50%;
+  background: #16834a;
+  box-shadow: 0 0 0 3px rgba(22, 131, 74, .16);
+  pointer-events: none;
+  transition: top .62s cubic-bezier(.22, 1, .36, 1);
+}
+
+html[data-mode="dark"] .story-moving-dot {
+  background: #50c878;
+  box-shadow: 0 0 0 3px rgba(80, 200, 120, .18);
+}
+
+.story-clock-wrap {
+  display: flex;
+  min-height: clamp(18rem, 28vw, 23rem);
+  flex-direction: column;
+  justify-content: center;
+  padding-block: .75rem;
+}
+
+.story-clock-dial {
+  position: absolute;
+  top: 50%;
+  left: clamp(9rem, 36%, 15rem);
+  width: min(88%, 25rem);
+  height: auto;
+  opacity: .4;
+  transform: translate(-50%, -50%);
+  transform-origin: center;
+  animation: story-dial-turn 48s linear infinite;
+}
+
+.story-year-hero {
+  width: fit-content;
+  font-size: clamp(6.5rem, 10vw, 9rem);
+  letter-spacing: -.065em;
+  line-height: .9;
+}
+
+.story-period {
+  margin-top: 1rem;
 }
 
 .story-year-display::before {
@@ -753,12 +838,14 @@ html[data-mode="dark"] .casing {
   width: min(82vw, 26rem);
   aspect-ratio: 1;
   border-radius: 50%;
-  background: repeating-conic-gradient(from -2deg, rgba(82, 70, 70, .3) 0deg .42deg, transparent .42deg 6deg);
+  background:
+    radial-gradient(circle at 50% 9.5%, var(--accent) 0 3px, transparent 3.5px),
+    repeating-conic-gradient(from -2deg, rgba(82, 70, 70, .3) 0deg .42deg, transparent .42deg 6deg);
   mask-image: radial-gradient(circle, transparent 0 48%, #000 48.5% 49.2%, transparent 49.8% 59%, #000 59.5% 60.2%, transparent 60.8% 70%, #000 70.5% 71.2%, transparent 71.8% 80%, #000 80.5% 81.2%, transparent 81.8%);
   transform: translate(-50%, -50%) rotate(0deg);
   opacity: .48;
   pointer-events: none;
-  animation: story-clock-dial 180s linear infinite;
+  animation: story-clock-dial 28s linear infinite;
 }
 
 .story-year-display::after {
@@ -803,7 +890,9 @@ html[data-mode="dark"] .casing {
 }
 
 html[data-mode="dark"] .story-year-display::before {
-  background: repeating-conic-gradient(from -2deg, rgba(220, 207, 207, .3) 0deg .42deg, transparent .42deg 6deg);
+  background:
+    radial-gradient(circle at 50% 9.5%, var(--accent) 0 3px, transparent 3.5px),
+    repeating-conic-gradient(from -2deg, rgba(220, 207, 207, .3) 0deg .42deg, transparent .42deg 6deg);
 }
 
 html[data-mode="dark"] .story-year-display::after {
@@ -824,8 +913,13 @@ html[data-mode="dark"] .story-chapter {
   to { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
+@keyframes story-dial-turn {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .story-year-display::before {
+  .story-year-display::before,
+  .story-clock-dial {
     animation: none;
   }
 }
@@ -895,10 +989,17 @@ html[data-mode="dark"] .story-chapter {
 ═══════════════════════════════════════════════════════════════ */
 .story-ambient-glow {
   position: absolute;
-  inset: 0;
+  inset-block: -7rem 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
   pointer-events: none;
   overflow: hidden;
   z-index: 0;
+  mask-image: linear-gradient(to bottom, transparent 0, #000 7rem, #000 100%);
+  background:
+    radial-gradient(ellipse at 8% 22%, rgba(226, 122, 58, .13), transparent 38%),
+    radial-gradient(ellipse at 92% 78%, rgba(206, 138, 150, .12), transparent 40%);
 }
 
 .story-amb-blob {
@@ -926,6 +1027,12 @@ html[data-mode="dark"] .story-chapter {
 
 html[data-mode="dark"] .story-amb-blob {
   opacity: 0.18;
+}
+
+html[data-mode="dark"] .story-ambient-glow {
+  background:
+    radial-gradient(ellipse at 8% 22%, rgba(164, 85, 44, .11), transparent 38%),
+    radial-gradient(ellipse at 92% 78%, rgba(92, 132, 202, .1), transparent 40%);
 }
 
 html[data-mode="dark"] .story-amb-top {

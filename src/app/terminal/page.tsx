@@ -84,7 +84,7 @@ export default function TerminalPage() {
 
   return (
     <div
-      className="relative min-h-screen bg-[var(--background)] text-[var(--foreground)] font-mono flex flex-col items-center justify-center p-4 sm:p-8 selection:bg-[#C4B0B0] selection:text-[#1A1818] transition-colors duration-300"
+      className="relative min-h-screen bg-transparent text-[var(--foreground)] font-mono flex flex-col items-center justify-center p-4 sm:p-8 selection:bg-[#C4B0B0] selection:text-[#1A1818] transition-colors duration-300"
       onClick={() => inputRef.current?.focus()}
     >
       {/* ── Top Back Button ── */}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -384,6 +384,7 @@ function ProjectPreview({ project }: { project: ProjectItem }) {
 export default function HomePage() {
   /* ── Dark Mode State ── */
   const [isDark, setIsDark] = useState(false);
+  const [localTime, setLocalTime] = useState("");
 
   useEffect(() => {
     const syncMode = (mode: string | null) => {
@@ -496,20 +497,86 @@ export default function HomePage() {
 
   /* ── Rolling Story Chapter Index State ── */
   const [activeStoryIdx, setActiveStoryIdx] = useState(0);
+  const [activeStoryDotY, setActiveStoryDotY] = useState(0);
+  const storyTimelineRef = useRef<HTMLDivElement>(null);
+  const storyChapterRefs = useRef<Array<HTMLLIElement | null>>([]);
+
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      const time = new Intl.DateTimeFormat("en-IN", {
+        timeZone: "Asia/Kolkata",
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true,
+      }).format(now);
+      const date = new Intl.DateTimeFormat("en-IN", {
+        timeZone: "Asia/Kolkata",
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      }).format(now);
+      setLocalTime(`${time} · ${date}`);
+    };
+
+    updateTime();
+    const timer = window.setInterval(updateTime, 30_000);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    const timeline = storyTimelineRef.current;
+    if (!timeline) return;
+
+    const chapters = Array.from(timeline.querySelectorAll<HTMLElement>("[data-story-index]"));
+    const observer = new IntersectionObserver((entries) => {
+      const visibleChapters = entries.filter((entry) => entry.isIntersecting);
+      if (!visibleChapters.length) return;
+
+      const focusLine = window.innerHeight * 0.42;
+      const currentChapter = visibleChapters.reduce((closest, entry) =>
+        Math.abs(entry.boundingClientRect.top - focusLine) < Math.abs(closest.boundingClientRect.top - focusLine)
+          ? entry
+          : closest,
+      );
+
+      setActiveStoryIdx(Number((currentChapter.target as HTMLElement).dataset.storyIndex));
+    }, { rootMargin: "-30% 0px -45% 0px", threshold: 0 });
+
+    chapters.forEach((chapter) => observer.observe(chapter));
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const timeline = storyTimelineRef.current;
+    const chapter = storyChapterRefs.current[activeStoryIdx];
+    if (!timeline || !chapter) return;
+
+    const updateDotPosition = () => {
+      setActiveStoryDotY(
+        chapter.getBoundingClientRect().top - timeline.getBoundingClientRect().top + timeline.scrollTop + 6,
+      );
+    };
+
+    updateDotPosition();
+    window.addEventListener("resize", updateDotPosition);
+    return () => window.removeEventListener("resize", updateDotPosition);
+  }, [activeStoryIdx]);
 
   return (
-    <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)] selection:bg-[#C4B0B0] selection:text-[#1A1818] font-sans antialiased transition-colors duration-400">
+    <div className="min-h-screen bg-transparent text-[var(--foreground)] selection:bg-[#C4B0B0] selection:text-[#1A1818] font-sans antialiased transition-colors duration-400">
       
       {/* ═══════════════════════════════════════════════════════════════
-          1. HEADER / NAVIGATION (Pill Bar with Live Clock & Mode Switch)
+          1. HEADER / NAVIGATION
       ═══════════════════════════════════════════════════════════════ */}
       <header className="fixed top-0 inset-x-0 z-50 transition-all duration-300">
-        <div className="max-w-7xl mx-auto px-4 pr-12 sm:px-6 sm:pr-6 lg:px-8 pt-3 pb-1">
-          <div className="flex items-center justify-between gap-2 p-1.5 rounded-2xl sm:rounded-full bg-[var(--chip-bg)] backdrop-blur-xl border border-[var(--chip-line)] shadow-lg shadow-black/5">
+        <div className="w-full border-b border-[var(--line)] bg-[var(--background)]/90 backdrop-blur-xl">
+          <div className="max-w-7xl mx-auto px-4 pr-12 sm:px-6 sm:pr-6 lg:px-8">
+          <div className="flex min-h-[68px] items-center justify-between gap-3 py-2">
             {/* Left Brand Badge */}
             <Link
               href="#home"
-              className="flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full font-bold text-sm tracking-tight text-[var(--foreground)] hover:bg-[var(--surface)] transition-colors whitespace-nowrap"
+              className="flex items-center gap-2 font-bold text-sm tracking-tight text-[var(--foreground)] whitespace-nowrap"
             >
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
               <span>Arnav Singh</span>
@@ -519,7 +586,7 @@ export default function HomePage() {
             </Link>
 
             {/* Navigation Links */}
-            <nav className="hidden md:flex items-center gap-0.5 text-[13px] font-medium">
+            <nav className="hidden md:flex items-center gap-1 text-[13px] font-medium">
               {[
                 { label: "Home", href: "#home" },
                 { label: "Works", href: "#works" },
@@ -531,7 +598,7 @@ export default function HomePage() {
                 <Link
                   key={item.label}
                   href={item.href}
-                  className={`px-2.5 lg:px-3 py-2 rounded-full text-[var(--foreground)] hover:bg-[var(--surface)] transition-colors whitespace-nowrap ${
+                  className={`px-2.5 lg:px-3 py-2 text-[var(--foreground)]/85 hover:text-[var(--foreground)] transition-colors whitespace-nowrap ${
                     item.label === "Recruiter Dossier" || item.label === "Terminal" ? "hidden lg:inline-flex" : ""
                   }`}
                 >
@@ -542,11 +609,16 @@ export default function HomePage() {
 
             {/* Right Controls: Theme Switcher + CTA */}
             <div className="flex items-center gap-2">
+              <div className="hidden xl:flex items-center gap-2 rounded-full border border-[var(--line)] px-3 py-2 text-[11px] text-[var(--muted)] whitespace-nowrap">
+                <span>Lucknow · IST</span>
+                <span aria-hidden="true">·</span>
+                <time>{localTime || "India Standard Time"}</time>
+              </div>
               {/* Dark / Light Mode Switch */}
               <button
                 onClick={toggleDarkMode}
                 aria-label="Toggle theme mode"
-                className="flex items-center justify-center h-10 w-10 sm:h-9 sm:w-9 rounded-full bg-[var(--surface)] border border-[var(--line)] text-[var(--foreground)] hover:scale-105 active:scale-95 transition-all cursor-pointer shrink-0"
+                className="flex items-center justify-center h-10 w-10 sm:h-9 sm:w-9 rounded-full text-[var(--foreground)] hover:bg-[var(--surface)] active:scale-95 transition-all cursor-pointer shrink-0"
                 title={isDark ? "Switch to Warm Stone Mode" : "Switch to Charcoal Dark Mode"}
               >
                 {isDark ? <Sun className="w-4 h-4 text-amber-300" /> : <Moon className="w-4 h-4 text-slate-700" />}
@@ -556,7 +628,7 @@ export default function HomePage() {
               <a
                 href="mailto:arnavsinghas1221@gmail.com"
                 aria-label="Say hello to Arnav"
-                className="flex items-center gap-1.5 px-2.5 sm:px-3.5 py-2 rounded-full bg-[var(--btn-bg)] text-[var(--btn-fg)] text-[13px] font-semibold hover:opacity-90 transition-opacity shadow-sm whitespace-nowrap shrink-0"
+                className="flex items-center gap-1.5 px-3 sm:px-3.5 py-2 rounded-full bg-[var(--btn-bg)] text-[var(--btn-fg)] text-[13px] font-semibold hover:opacity-90 transition-opacity whitespace-nowrap shrink-0"
               >
                 <span className="hidden sm:inline">Say Hello</span>
                 <Mail className="w-3.5 h-3.5 sm:hidden" />
@@ -564,18 +636,19 @@ export default function HomePage() {
               </a>
             </div>
           </div>
-          <nav aria-label="Mobile navigation" className="md:hidden mt-2 flex items-center justify-around gap-1 rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)]/95 px-1 py-1 backdrop-blur-xl shadow-sm">
+          <nav aria-label="Mobile navigation" className="md:hidden flex items-center justify-around gap-1 border-t border-[var(--line)] px-1 py-1">
             {[
               { label: "Home", href: "#home" },
               { label: "Works", href: "#works" },
               { label: "Story", href: "#about" },
               { label: "Contact", href: "#contact" },
             ].map((item) => (
-              <Link key={item.label} href={item.href} className="flex-1 rounded-full px-2 py-2 text-center text-xs font-medium text-[var(--foreground)] hover:bg-[var(--surface)] transition-colors">
+              <Link key={item.label} href={item.href} className="flex-1 px-2 py-2 text-center text-xs font-medium text-[var(--foreground)] hover:text-[var(--accent)] transition-colors">
                 {item.label}
               </Link>
             ))}
           </nav>
+          </div>
         </div>
       </header>
 
@@ -787,7 +860,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════════════════════════
           3. PROJECTS: EXPLORE THE DOORS
       ═══════════════════════════════════════════════════════════════ */}
-      <section id="works" className="relative pt-16 pb-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto scroll-mt-24 overflow-hidden">
+      <section id="works" className="relative pt-16 pb-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto scroll-mt-24">
         {/* Subtle Architectural Venetian Plaster Noise Texture matching therishithakor.com */}
         <div className="doors__tex" aria-hidden="true" />
 
@@ -817,8 +890,10 @@ export default function HomePage() {
                   className={`door-unit${isOpen ? " is-active" : ""}${isDimmed ? " is-dimmed" : ""}`}
                   style={{ "--door-color": door.color } as React.CSSProperties}
                 >
-                  <button
-                    type="button"
+                  <a
+                    href={door.projects[0].demo || "#project-gallery"}
+                    target={door.projects[0].demo?.startsWith("http") ? "_blank" : undefined}
+                    rel={door.projects[0].demo?.startsWith("http") ? "noopener noreferrer" : undefined}
                     className={`doorway ${isOpen ? "open" : ""}`}
                     onClick={() => {
                       if (activeDoor !== index || selectedDoor !== index) {
@@ -843,8 +918,9 @@ export default function HomePage() {
                       setHoveredDoor(index);
                     }}
                     onBlur={() => setHoveredDoor(-1)}
-                    aria-pressed={isOpen}
-                    aria-label={`Open ${door.plateLines.join(" ")} door`}
+                    aria-label={door.projects[0].demo
+                      ? `Open ${door.projects[0].name} live app`
+                      : `View ${door.title} project details`}
                   >
                     <span className="casing" />
                     <span className="opening">
@@ -858,7 +934,10 @@ export default function HomePage() {
                             ? `+ ${door.projects.length - 1} more project${door.projects.length > 2 ? "s" : ""}`
                             : door.projects[0].tech.slice(0, 2).join(" · ")}
                         </span>
-                        <span className="room-enter">OPEN SECTION <b>↗</b></span>
+                        <span className="room-enter">
+                          {door.projects[0].demo ? `LAUNCH ${door.projects[0].name}` : "VIEW PROJECT DETAILS"}
+                          <b>{door.projects[0].demo ? "↗" : "↓"}</b>
+                        </span>
                       </span>
                       <span className="door">
                         <span className="door__flute" />
@@ -876,7 +955,7 @@ export default function HomePage() {
                       </span>
                       <span className="sill" />
                     </span>
-                  </button>
+                  </a>
                 </div>
               );
             })}
@@ -884,7 +963,7 @@ export default function HomePage() {
         </div>
 
         {/* ── Active Door Interactive Project Gallery (Individual Project Cards) ── */}
-        <div className="max-w-5xl mx-auto space-y-6">
+          <div id="project-gallery" className="max-w-5xl mx-auto space-y-6 scroll-mt-28">
           {/* Active Category Header Banner */}
           <div className="p-6 sm:p-8 rounded-3xl bg-[var(--surface)] border border-[var(--line)] shadow-lg flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
@@ -1012,27 +1091,27 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════════════════════════
           4. "MY STORY: LET'S GO BACK IN TIME" (therishithakor.com Match)
       ═══════════════════════════════════════════════════════════════ */}
-      <section id="about" className="relative py-28 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto border-t border-[var(--line)] overflow-hidden">
+      <section id="about" className="relative py-12 lg:py-16 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto scroll-mt-24">
         {/* Soft Ambient Diffused Lighting Blooms matching therishithakor.com */}
         <div className="story-ambient-glow" aria-hidden="true">
           <div className="story-amb-blob story-amb-top" />
           <div className="story-amb-blob story-amb-bottom" />
         </div>
 
-        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-12 items-start">
           {/* Left Column: Sticky Astronomical Dial, Giant Year & Progress Meter */}
-          <div className="lg:col-span-5 lg:sticky lg:top-32 space-y-4">
+          <div className="lg:col-span-6 lg:sticky lg:top-32 space-y-4">
             <p className="text-xs font-mono font-semibold uppercase tracking-[0.2em] text-[var(--accent)]">
               · My story
             </p>
-            <h2 className="text-4xl sm:text-5xl font-extrabold text-[var(--foreground)] tracking-tight font-display">
+            <h2 className="text-4xl sm:text-5xl lg:text-[2.65rem] font-extrabold text-[var(--foreground)] tracking-tight font-display lg:whitespace-nowrap">
               Let’s go back in time.
             </h2>
 
             {/* Astronomical Dial with Concentric Circles & Radial Ticks */}
-            <div className="relative pt-6 pb-2">
+            <div className="story-clock-wrap relative">
               <svg
-                className="absolute -left-12 -top-12 w-80 h-80 sm:w-96 sm:h-96 pointer-events-none opacity-25 dark:opacity-20 text-[var(--foreground)]"
+                className="story-clock-dial pointer-events-none text-[var(--foreground)]"
                 viewBox="0 0 400 400"
                 fill="none"
                 stroke="currentColor"
@@ -1053,15 +1132,16 @@ export default function HomePage() {
                     transform={`rotate(${i * 10} 200 200)`}
                   />
                 ))}
+                <circle cx="200" cy="15" r="3.5" fill="var(--accent)" stroke="none" />
               </svg>
 
               {/* Massive Crisp Year Typography - Clean digits, zero eyeball icons */}
-              <div className="relative z-10 text-[clamp(5.5rem,11.5vw,10.5rem)] font-extrabold tracking-[-0.06em] leading-[0.92] text-[var(--foreground)] font-display select-none transition-all duration-300">
+              <div className="story-year-hero relative z-10 font-extrabold text-[var(--foreground)] font-display select-none transition-all duration-300">
                 {STORY_CHAPTERS[activeStoryIdx].year}
               </div>
 
               {/* Active Period String */}
-              <p className="relative z-10 text-xs font-mono font-semibold uppercase tracking-[0.12em] text-[var(--accent)] mt-3">
+              <p className="story-period relative z-10 text-xs font-mono font-semibold uppercase tracking-[0.12em] text-[var(--accent)]">
                 {STORY_CHAPTERS[activeStoryIdx].period}
               </p>
 
@@ -1094,28 +1174,29 @@ export default function HomePage() {
           </div>
 
           {/* Right Column: Pure Editorial Typography on Background (NO BOXES/CARDS!) */}
-          <div className="lg:col-span-7 relative pl-8 sm:pl-12 border-l border-[var(--line)]">
+          <div
+            ref={storyTimelineRef}
+            className="lg:col-span-6 relative pl-8 sm:pl-12 border-l border-[var(--line)]"
+          >
+            <div
+              className="story-moving-dot"
+              style={{ top: `${activeStoryDotY}px` }}
+              aria-hidden="true"
+            />
             <ol className="space-y-16 py-6 sm:py-8">
               {STORY_CHAPTERS.map((ch, idx) => {
                 const isActive = activeStoryIdx === idx;
                 return (
                   <li
                     key={idx}
+                    ref={(element) => { storyChapterRefs.current[idx] = element; }}
+                    data-story-index={idx}
                     onMouseEnter={() => setActiveStoryIdx(idx)}
                     onClick={() => setActiveStoryIdx(idx)}
                     className={`relative cursor-pointer transition-opacity duration-300 ${
                       isActive ? "opacity-100" : "opacity-35 hover:opacity-70"
                     }`}
                   >
-                    {/* Active Sliding Indicator Dot on the Center Rail */}
-                    <div
-                      className={`absolute -left-[39px] sm:-left-[55px] top-1.5 w-3.5 h-3.5 rounded-full transition-all duration-300 ${
-                        isActive
-                          ? "bg-[var(--foreground)] scale-110 shadow-sm shadow-black/25 ring-4 ring-[var(--background)]"
-                          : "opacity-0"
-                      }`}
-                    />
-
                     {/* Chapter Period */}
                     <p className="text-[11px] font-mono font-semibold uppercase tracking-[0.12em] text-[var(--muted)] mb-1.5">
                       {ch.period}
